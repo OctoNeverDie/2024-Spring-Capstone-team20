@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
+using TMPro;
 
 public class STT : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class STT : MonoBehaviour
     private AudioClip _recording = null;
     private int _recordingLengthSec = 15;
     private int _recordingHZ = 22050;
-
+    public TMP_InputField myInputField;
 
     private void Start()
     {
@@ -89,6 +90,7 @@ public class STT : MonoBehaviour
             VoiceRecognize voiceRecognize = JsonUtility.FromJson<VoiceRecognize>(message);
 
             Debug.Log("Voice Server responded: " + voiceRecognize.text);
+            myInputField.text += voiceRecognize.text;
             // Voice Server responded: 인식결과
         }
     }
