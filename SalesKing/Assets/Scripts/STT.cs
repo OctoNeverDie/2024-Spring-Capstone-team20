@@ -5,6 +5,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 using TMPro;
+using OpenAI_API;
 
 public class STT : MonoBehaviour
 {
@@ -66,11 +67,12 @@ public class STT : MonoBehaviour
         UnityWebRequest request = UnityWebRequest.Post(url, form);
 
         // 요청 헤더 설정
-        /************************************************************************************************************************/
-        /************************************************************************************************************************/
-        /***************************** 졸프 카톡방 게시글 확인!!! 테스트 시 코드 3줄 넣어주기 (KEY) *********************************/
-        /************************************************************************************************************************/
-        /************************************************************************************************************************/
+        var MY_CLIENT_ID = Environment.GetEnvironmentVariable("X_NCP_APIGW_API_KEY_ID", EnvironmentVariableTarget.User);
+        var MY_CLIENT_SECRET = Environment.GetEnvironmentVariable("X_NCP_APIGW_API_KEY", EnvironmentVariableTarget.User);
+
+        request.SetRequestHeader("X-NCP-APIGW-API-KEY-ID", MY_CLIENT_ID);
+        request.SetRequestHeader("X-NCP-APIGW-API-KEY", MY_CLIENT_SECRET);
+        request.SetRequestHeader("Content-Type", "application/octet-stream");
 
         // 바디에 처리과정을 거친 Audio Clip data를 실어줌
         request.uploadHandler = new UploadHandlerRaw(data);
