@@ -41254,6 +41254,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textField: {fileID: 2118939041}
   inputField: {fileID: 1193537433}
+  AIAnswerField: {fileID: 1723093395}
   okButton: {fileID: 1614989941}
 --- !u!4 &1125964430
 Transform:
