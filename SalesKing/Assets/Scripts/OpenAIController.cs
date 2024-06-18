@@ -91,8 +91,34 @@ public class OpenAIController : MonoBehaviour
         ChatMessage output = new ChatMessage();
         output.Content=responseMessage.Content;
         textField.text = string.Format("You: {0}\n\nCustomer: {1}", userMessage.Content, output.Content);
-        AIAnswerField.text= string.Format("{0}", output.Content);
-        //Debug.Log(string.Format(output.Content));
+
+        // Initialize updatedContent with the full response content
+        string updatedContent = output.Content;
+
+        // Find the index of the `@reaction:` marker
+        string reactionMarker = "@reaction:";
+        int reactionIndex = output.Content.IndexOf(reactionMarker);
+
+        if (reactionIndex != -1 && reactionIndex + reactionMarker.Length < output.Content.Length)
+        {
+            // If `@reaction:` marker is found, get the substring after it
+            updatedContent = output.Content.Substring(reactionIndex + reactionMarker.Length).Trim();
+        }
+        else
+        {
+            // If `@reaction:` marker is not found, find the index of the `}` character
+            int closingBraceIndex = output.Content.IndexOf('}');
+            if (closingBraceIndex != -1 && closingBraceIndex + 1 < output.Content.Length)
+            {
+                // If `}` character is found, get the substring after it
+                updatedContent = output.Content.Substring(closingBraceIndex + 1).Trim();
+            }
+        }
+
+        // Remove any trailing `}` character from updatedContent
+        updatedContent = updatedContent.TrimEnd('}').Trim();
+
+        AIAnswerField.text = updatedContent;
 
         // Re-enable the OK button
         okButton.enabled = true;
