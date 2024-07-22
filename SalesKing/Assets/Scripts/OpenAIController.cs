@@ -1,4 +1,4 @@
-using OpenAI_API;
+/*using OpenAI_API;
 using OpenAI_API.Chat;
 using OpenAI_API.Models;
 using System;
@@ -124,3 +124,4 @@ public class OpenAIController : MonoBehaviour
         okButton.enabled = true;
     }
 }
+*/
