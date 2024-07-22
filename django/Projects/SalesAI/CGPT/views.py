@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-import openai
+from openai import OpenAI
 import os
 
-from openai import OpenAI
+
 
 client = OpenAI(
     api_key = os.environ.get('OPENAI_API_KEY'),
