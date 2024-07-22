@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from rest_framework.decorators import api_view
 from openai import OpenAI
 import os
 
@@ -10,7 +9,6 @@ client = OpenAI(
     api_key = os.environ.get('OPENAI_API_KEY'),
 )
 
-@api_view(['GET'])
 def get_completion(prompt):
     print("user"+prompt)
     query = client.chat.completions.create(
