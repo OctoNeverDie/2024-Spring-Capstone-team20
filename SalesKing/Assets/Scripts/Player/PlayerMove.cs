@@ -12,29 +12,35 @@ public class PlayerMove : MonoBehaviour
 
     private float mouseX;
 
+    Player _player;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        _player = GetComponent<Player>();
         mov = Vector3.zero;
         gravity = 10f;
     }
 
     void Update()
     {
-        mouseX += Input.GetAxis("Mouse X") * mouseSpeed;
-        this.transform.localEulerAngles = new Vector3(0, mouseX, 0);
-
-        if (controller.isGrounded)
+        if (!_player.isPlayerLocked)
         {
-            mov = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            mov = controller.transform.TransformDirection(mov);
-        }
-        else
-        {
-            mov.y -= gravity * Time.deltaTime;
-        }
+            mouseX += Input.GetAxis("Mouse X") * mouseSpeed;
+            this.transform.localEulerAngles = new Vector3(0, mouseX, 0);
 
-        controller.Move(mov * Time.deltaTime * speed);
+            if (controller.isGrounded)
+            {
+                mov = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+                mov = controller.transform.TransformDirection(mov);
+            }
+            else
+            {
+                mov.y -= gravity * Time.deltaTime;
+            }
+
+            controller.Move(mov * Time.deltaTime * speed);
+        }
 
     }
 }
