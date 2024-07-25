@@ -4,44 +4,52 @@ using UnityEngine;
 
 public class NPCSpawner : MonoBehaviour
 {
-    [SerializeField] GameObject NPC;
-    [SerializeField] int NPC_count;
-    GameObject locationGroup;
+    [SerializeField] GameObject NPCPrefab;
+    [SerializeField] int NPCCount;
+    [SerializeField] int TalkableNPCCount;
     List<Transform> spawnPoints = new List<Transform>();
     List<GameObject> NPCGroup = new List<GameObject>();
 
     void Start()
     {
-        findSpawnPoints();
-        
-        for(int i=0; i<NPC_count; i++)
+        FindSpawnPoints();
+
+        for (int i = 0; i < NPCCount; i++)
         {
-            spawnNPC();
+            SpawnNPC(i);
         }
     }
 
-    private void findSpawnPoints()
+    private void FindSpawnPoints()
     {
-        locationGroup = transform.gameObject;
-        int n = locationGroup.transform.childCount;
-        for(int i=0; i < n; i++)
+        foreach (Transform child in transform)
         {
-            // 맵에 있는 위치들 불러오기
-            spawnPoints.Add(locationGroup.transform.GetChild(i).transform);
+            spawnPoints.Add(child);
         }
     }
 
-    private void spawnNPC()
+    private void SpawnNPC(int i)
     {
-        // 랜덤한 생성 포인트
-        int pos1 = Random.Range(0, spawnPoints.Count);
-        // 랜덤한 목적지 포인트
-        int pos2 = Random.Range(0, spawnPoints.Count);
-
-        GameObject newNPC = Instantiate(NPC, spawnPoints[pos1].position, spawnPoints[pos1].rotation);
+        int spawnIndex = Random.Range(0, spawnPoints.Count);
+        GameObject newNPC = Instantiate(NPCPrefab, spawnPoints[spawnIndex].position, spawnPoints[spawnIndex].rotation);
         NPCGroup.Add(newNPC);
-        newNPC.GetComponent<NPC>().destination = spawnPoints[pos2];
+
+        NPC npcScript = newNPC.GetComponent<NPC>();
+        npcScript.destination = GetRandomSpawnPoint();
+
+        if (i < TalkableNPCCount)
+        {
+            npcScript.currentTalkable = NPC.Talkable.Able;
+        }
+        else
+        {
+            npcScript.currentTalkable = NPC.Talkable.Not;
+        }
     }
 
-
+    public Transform GetRandomSpawnPoint()
+    {
+        int index = Random.Range(0, spawnPoints.Count);
+        return spawnPoints[index];
+    }
 }

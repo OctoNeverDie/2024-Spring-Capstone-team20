@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
 
 public class NPCCollision : MonoBehaviour
@@ -8,9 +9,16 @@ public class NPCCollision : MonoBehaviour
     bool isLookAt = false;
     Transform playerTransform;
     public float rotationSpeed = 5.0f; // 서서히 회전하기 위한 속도
+    private NPC npc;
+
+    void Start()
+    {
+        npc = GetComponent<NPC>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && npc.currentTalkable == NPC.Talkable.Able)
         {
             //transform.LookAt(other.transform);
             playerTransform = other.transform;
