@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from openai import OpenAI
+import json
 import os
 
 
@@ -28,9 +29,21 @@ def get_completion(prompt):
 
 
 def query_view(request):
-    if request.method == 'POST':
-        prompt = request.POST.get('prompt')
-        prompt = str(prompt)
-        response = get_completion(prompt)
-        return JsonResponse({'response': response})
+    if request.method == 'GET':
+        try:
+            data = json.loads(request.body)
+            prompt = data.get('request')
+            if prompt:
+                prompt = str(prompt)
+                response = get_completion(prompt)
+                return JsonResponse({'reply': response})
+        except json.JSONDecodeError:
+            print("에러났다!")
+            return JsonResponse({'error': 'Invalid JSON.'}, status=400)
+    #    if request.method == 'POST':
+    #    prompt = request.POST.get('prompt')
+    #    prompt = str(prompt)
+    #    response = get_completion(prompt)
+    #    return JsonResponse({'response': response})
+    
     return render(request, 'index.html')
