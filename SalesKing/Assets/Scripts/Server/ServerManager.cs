@@ -63,6 +63,6 @@ public class ServerManager : ServerBase
         onFailed += failTest;
         onNetworkFailed += networkTest;
 
-        return StartCoroutine(SendRequest(url, SendType.GET, jobj, onSucceed, onFailed, onNetworkFailed));
+        return StartCoroutine(SendRequest(url, SendType.POST, jobj, onSucceed, onFailed, onNetworkFailed));
     }
 }

@@ -3,19 +3,25 @@ from django.http import JsonResponse
 from openai import OpenAI
 import json
 import os
+from django.views.decorators.csrf import csrf_exempt
 
 
+client = OpenAI(api_key = os.environ.get('OPENAI_API_KEY'),)
 
-client = OpenAI(
-    api_key = os.environ.get('OPENAI_API_KEY'),
-)
+# 파일에서 시스템 메시지 읽기
+def read_system_message(file_path):
+    with open(file_path, 'r', encoding='utf-8') as file:
+        return file.read()
 
 def get_completion(prompt):
     print("user"+prompt)
+
+    system_message_content = read_system_message('CGPT/system_message.txt')
+
     query = client.chat.completions.create(
         model="gpt-4o-mini",
         messages = [
-            {"role": "system", "content":"너는 내 파이썬 선생님이야. 모든 말 이후에 python 히히! 라고 말을 붙여야해. 예시 : 그렇습니다. python 히히!"},
+            {"role": "system", "content":system_message_content},
             {"role": "user", "content": prompt}
         ],
         max_tokens=1024,
@@ -27,23 +33,50 @@ def get_completion(prompt):
     print("AI"+response)
     return response
 
+def update_history(prompt, request):
+    # 세션에 'chat_history' 키가 없으면 빈 리스트로 초기화
+    if 'chat_history' not in request.session:
+        request.session['chat_history'] = []
 
+    # 세션에서 대화 히스토리 가져오기
+    chat_history = request.session['chat_history']
+
+    # 현재 사용자의 입력을 대화 히스토리에 추가
+    chat_history.append({"role": "user", "content": prompt})
+
+    # 대화 히스토리를 세션에 다시 저장
+    request.session['chat_history'] = chat_history
+
+    return chat_history
+
+
+@csrf_exempt
 def query_view(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
         try:
             data = json.loads(request.body)
             prompt = data.get('request')
-            if prompt:
-                prompt = str(prompt)
-                response = get_completion(prompt)
+
+            if prompt.lower() == "clear":
+                if 'chat_history' in request.session and request.session['chat_history']:
+                    request.session['chat_history'] = []
+                    return JsonResponse({'reply': 'Chat history cleared.'})
+                else:
+                    return JsonResponse({'reply': 'No chat history to clear.'})
+
+            messages = update_history(prompt, request)
+
+            if isinstance(messages, list):
+                str_messages = str(messages)
+                response = get_completion(str_messages)
+
+                # GPT 모델의 응답을 대화 히스토리에 추가
+                # 업데이트된 대화 히스토리를 세션에 저장
+                request.session['chat_history'].append({"role": "assistant", "content": response})
                 return JsonResponse({'reply': response})
+
         except json.JSONDecodeError:
             print("에러났다!")
             return JsonResponse({'error': 'Invalid JSON.'}, status=400)
-    #    if request.method == 'POST':
-    #    prompt = request.POST.get('prompt')
-    #    prompt = str(prompt)
-    #    response = get_completion(prompt)
-    #    return JsonResponse({'response': response})
-    
+
     return render(request, 'index.html')
