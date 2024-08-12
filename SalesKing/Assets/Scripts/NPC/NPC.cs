@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-    public enum State { Stand, Walk }
-    public enum Talkable { Able, Not }
-    public State currentState;
-    public Talkable currentTalkable;
+    
+    public NPCDefine.State currentState;
+    public NPCDefine.Talkable currentTalkable;
     public Transform destination;
     public float minStandTime = 10f;
     public float maxStandTime = 30f;
@@ -30,12 +29,12 @@ public class NPC : MonoBehaviour
     {
         if (Random.Range(0, 2) == 0)
         {
-            currentState = State.Stand;
+            currentState = NPCDefine.State.Stand;
             StartCoroutine(StandCoroutine());
         }
         else
         {
-            currentState = State.Walk;
+            currentState = NPCDefine.State.Walk;
             AssignRandomDestination();
         }
     }

@@ -68,11 +68,11 @@ public class NPCSpawner : MonoBehaviour
 
         if (i < TalkableNPCCount)
         {
-            npcScript.currentTalkable = NPC.Talkable.Able;
+            npcScript.currentTalkable = NPCDefine.Talkable.Able;
         }
         else
         {
-            npcScript.currentTalkable = NPC.Talkable.Not;
+            npcScript.currentTalkable = NPCDefine.Talkable.Not;
         }
     }
 
