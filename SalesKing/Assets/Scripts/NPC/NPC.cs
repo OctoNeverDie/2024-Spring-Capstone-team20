@@ -18,10 +18,13 @@ public class NPC : MonoBehaviour
 
     void Start()
     {
-        npcMove = GetComponent<NPCMove>();
+        npcMove = transform.GetComponent<NPCMove>();
         myCanvas = transform.Find("Canvas").gameObject;
+        AssignRandomLooks();
         AssignRandomState();
     }
+
+    #region NPC 동작 관련
 
     void AssignRandomState()
     {
@@ -57,9 +60,24 @@ public class NPC : MonoBehaviour
         AssignRandomState();
     }
 
+    #endregion
+
     void ShowCurTalkable()
     {
         myCanvas.SetActive(true);
+    }
+
+    void AssignRandomLooks()
+    {
+        NPCLooks looks = transform.GetComponent<NPCLooks>();
+
+        foreach (NPCDefine.MeshType category in System.Enum.GetValues(typeof(NPCDefine.MeshType)))
+        {
+            int options = Managers.NPC.Mesh.NPCMeshDictionary[category].Count;
+            looks.AssignCustomMesh(category, Random.Range(0, options));
+        }
+
+        looks.ApplyCustomedMesh();
     }
 
 }
