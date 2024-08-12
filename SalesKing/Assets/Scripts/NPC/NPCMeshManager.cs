@@ -4,211 +4,68 @@ using UnityEngine;
 
 public class NPCMeshManager : MonoBehaviour
 {
-    // 일상적인 애들
-    [SerializeField]
-    public Mesh[] backpackMeshes;
-
-    [SerializeField]
-    public Mesh[] bodyMeshes;
-
-    [SerializeField]
-    public Mesh[] eyebrowMeshes;
-
-    [SerializeField]
-    public Mesh[] fullbodyMeshes;
-
-    [SerializeField]
-    public Mesh[] glassesMeshes;
-
-    [SerializeField]
-    public Mesh[] gloveMeshes;
-
-    [SerializeField]
-    public Mesh[] hairMeshes;
-
-    [SerializeField]
-    public Mesh[] hatMeshes;
-
-    [SerializeField]
-    public Mesh[] mustacheMeshes;
-
-    [SerializeField]
-    public Mesh[] outerwearMeshes;
-
-    [SerializeField]
-    public Mesh[] pantsMeshes;
-
-    [SerializeField]
-    public Mesh[] shoeMeshes;
-
-    // 이상한 애들
-    [SerializeField]
-    public Mesh[] special_backpackMeshes;
-
-    [SerializeField]
-    public Mesh[] special_bodyMeshes;
-
-    [SerializeField]
-    public Mesh[] special_eyebrowMeshes;
-
-    [SerializeField]
-    public Mesh[] special_fullbodyMeshes;
-
-    [SerializeField]
-    public Mesh[] special_glassesMeshes;
-
-    [SerializeField]
-    public Mesh[] special_gloveMeshes;
-
-    [SerializeField]
-    public Mesh[] special_hairMeshes;
-
-    [SerializeField]
-    public Mesh[] special_hatMeshes;
-
-    [SerializeField]
-    public Mesh[] special_mustacheMeshes;
-
-    [SerializeField]
-    public Mesh[] special_outerwearMeshes;
-
-    [SerializeField]
-    public Mesh[] special_pantsMeshes;
-
-    [SerializeField]
-    public Mesh[] special_shoeMeshes;
-
-
-    public Mesh loadBackpackMesh(bool isSpecial, int index)
+    public enum MeshCategory
     {
-        if (isSpecial)
-        {
-            int rand = Random.Range(0, 2);
-            if(rand == 0) return backpackMeshes[index];
-            else return special_backpackMeshes[index];
-        }
-        else return backpackMeshes[index];
+        Backpack,
+        Body, 
+        Eyebrow,
+        Fullbody,
+        Glasses,
+        Glove, 
+        Hair, 
+        Hat, 
+        Mustache, 
+        Outerwear, 
+        Pants, 
+        Shoe
     }
 
-    public Mesh loadBodyMesh(bool isSpecial, int index)
+    // Resources 폴더 내의 기본 경로 설정
+    private static readonly string basePath = "NPC/Meshes";
+
+    // Mesh를 카테고리 Enum과 매핑할 Dictionary
+    private Dictionary<MeshCategory, List<Mesh>> meshesByCategory = new Dictionary<MeshCategory, List<Mesh>>();
+
+    // 모든 Mesh를 로드하고 Dictionary를 구성합니다.
+    private void Start()
     {
-        if (isSpecial)
-        {
-            int rand = Random.Range(0, 2);
-            if (rand == 0) return bodyMeshes[index];
-            else return special_bodyMeshes[index];
-        }
-        else return bodyMeshes[index];
+        LoadMeshes();
     }
 
-    public Mesh loadEyebrowMesh(bool isSpecial, int index)
+    // Resources 폴더 내의 모든 Mesh를 로드하고 Dictionary에 저장합니다.
+    private void LoadMeshes()
     {
-        if (isSpecial)
+        // 모든 카테고리 폴더를 검색합니다.
+        foreach (MeshCategory category in System.Enum.GetValues(typeof(MeshCategory)))
         {
-            int rand = Random.Range(0, 2);
-            if (rand == 0) return eyebrowMeshes[index];
-            else return special_eyebrowMeshes[index];
+            string folderPath = $"{basePath}/{category.ToString()}";
+            Mesh[] meshes = Resources.LoadAll<Mesh>(folderPath);
+
+            if (meshes.Length > 0)
+            {
+                if (!meshesByCategory.ContainsKey(category))
+                {
+                    meshesByCategory[category] = new List<Mesh>();
+                }
+
+                meshesByCategory[category].AddRange(meshes);
+                Debug.Log($"Loaded {meshes.Length} meshes for category '{category}'.");
+            }
         }
-        else return eyebrowMeshes[index];
     }
 
-    public Mesh loadFullbodyMesh(bool isSpecial, int index)
+    // 특정 카테고리의 모든 Mesh를 반환합니다.
+    public List<Mesh> GetMeshesByCategory(MeshCategory category)
     {
-        if (isSpecial)
+        if (meshesByCategory.TryGetValue(category, out List<Mesh> meshes))
         {
-            int rand = Random.Range(0, 2);
-            if (rand == 0) return fullbodyMeshes[index];
-            else return special_fullbodyMeshes[index];
+            return meshes;
         }
-        else return fullbodyMeshes[index];
-    }
-
-    public Mesh loadGlassesMesh(bool isSpecial, int index)
-    {
-        if (isSpecial)
+        else
         {
-            int rand = Random.Range(0, 2);
-            if (rand == 0) return glassesMeshes[index];
-            else return special_glassesMeshes[index];
+            Debug.LogWarning($"No meshes found for category '{category}'.");
+            return new List<Mesh>();
         }
-        else return glassesMeshes[index];
-    }
-
-    public Mesh loadGloveMesh(bool isSpecial, int index)
-    {
-        if (isSpecial)
-        {
-            int rand = Random.Range(0, 2);
-            if (rand == 0) return gloveMeshes[index];
-            else return special_gloveMeshes[index];
-        }
-        else return gloveMeshes[index];
-    }
-
-    public Mesh loadHairMesh(bool isSpecial, int index)
-    {
-        if (isSpecial)
-        {
-            int rand = Random.Range(0, 2);
-            if (rand == 0) return hairMeshes[index];
-            else return special_hairMeshes[index];
-        }
-        else return hairMeshes[index];
-    }
-
-    public Mesh loadHatMesh(bool isSpecial, int index)
-    {
-        if (isSpecial)
-        {
-            int rand = Random.Range(0, 2);
-            if (rand == 0) return hatMeshes[index];
-            else return special_hatMeshes[index];
-        }
-        else return hatMeshes[index];
-    }
-
-    public Mesh loadMustacheMesh(bool isSpecial, int index)
-    {
-        if (isSpecial)
-        {
-            int rand = Random.Range(0, 2);
-            if (rand == 0) return mustacheMeshes[index];
-            else return special_mustacheMeshes[index];
-        }
-        else return mustacheMeshes[index];
-    }
-
-    public Mesh loadOuterwearMesh(bool isSpecial, int index)
-    {
-        if (isSpecial)
-        {
-            int rand = Random.Range(0, 2);
-            if (rand == 0) return outerwearMeshes[index];
-            else return special_outerwearMeshes[index];
-        }
-        else return outerwearMeshes[index];
-    }
-
-    public Mesh loadPantsMesh(bool isSpecial, int index)
-    {
-        if (isSpecial)
-        {
-            int rand = Random.Range(0, 2);
-            if (rand == 0) return pantsMeshes[index];
-            else return special_pantsMeshes[index];
-        }
-        else return pantsMeshes[index];
-    }
-
-    public Mesh loadShoeMesh(bool isSpecial, int index)
-    {
-        if (isSpecial)
-        {
-            int rand = Random.Range(0, 2);
-            if (rand == 0) return shoeMeshes[index];
-            else return special_shoeMeshes[index];
-        }
-        else return shoeMeshes[index];
     }
 
 }

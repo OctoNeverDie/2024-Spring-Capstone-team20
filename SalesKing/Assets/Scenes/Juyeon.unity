@@ -12885,6 +12885,7 @@ GameObject:
   m_Component:
   - component: {fileID: 366535694}
   - component: {fileID: 366535695}
+  - component: {fileID: 366535696}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -12929,6 +12930,18 @@ MonoBehaviour:
   NPCPrefab: {fileID: 1330039496260108138, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
   NPCCount: 20
   TalkableNPCCount: 5
+--- !u!114 &366535696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366535693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 864695409312c654a98c192ebcb0fcda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &370364431
 PrefabInstance:
   m_ObjectHideFlags: 0
