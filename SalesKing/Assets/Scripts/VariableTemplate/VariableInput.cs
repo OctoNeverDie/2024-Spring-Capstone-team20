@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class ChattingTest : MonoBehaviour
+public class VaribleInput : MonoBehaviour
 {
     [Header("The value we got from the input field")]
     [SerializeField] private GameObject inputField;
@@ -12,9 +12,17 @@ public class ChattingTest : MonoBehaviour
     [SerializeField] private string outputText;
 
     private string _userInput="";
+    private TemplateSend _sendTemplate;
+
+    private void Awake()
+    {
+        _sendTemplate = new TemplateSend();
+    }
     public void OnClick()
     {
         _userInput = inputField.GetComponent<TMP_InputField>().text;
-        ServerManager.Instance.GetGPTReply(_userInput);
+        VariableList.S_UserAnswer = _userInput;
+
+        _sendTemplate.SendToGPT();
     }
 }
