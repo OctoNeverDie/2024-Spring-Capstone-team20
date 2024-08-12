@@ -76,8 +76,6 @@ public class NPC : MonoBehaviour
             int options = Managers.NPC.Mesh.NPCMeshDictionary[category].Count;
             looks.AssignCustomMesh(category, Random.Range(0, options));
         }
-
-        looks.ApplyCustomedMesh();
     }
 
 }

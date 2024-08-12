@@ -6,13 +6,16 @@ using UnityEngine;
 
 public class NPCLooks : MonoBehaviour
 {
-    public Dictionary<NPCDefine.MeshType, int> customedMesh = new Dictionary<NPCDefine.MeshType, int>(); // 새롭게 적용할 메쉬
+    //public Dictionary<NPCDefine.MeshType, Mesh> customedMesh = new Dictionary<NPCDefine.MeshType, Mesh>(); // 새롭게 적용할 메쉬
+    public Dictionary<NPCDefine.MeshType, GameObject> thisMesh = new Dictionary<NPCDefine.MeshType, GameObject>(); // 새롭게 적용할 메쉬
 
-    void Start()
+    void Awake()
     {
-        SetCustomedMeshDefault();
+        //SetCustomedMeshDefault();
+        SetNPCBody();
     }
 
+    /*
     private void SetCustomedMeshDefault()
     {
         foreach (NPCDefine.MeshType category in System.Enum.GetValues(typeof(NPCDefine.MeshType)))
@@ -20,39 +23,42 @@ public class NPCLooks : MonoBehaviour
             // Dictionary에 키가 없으면 Add, 있으면 값을 설정
             if (customedMesh.ContainsKey(category))
             {
-                customedMesh[category] = 0; // 키가 있을 때 값을 설정
+                // customedMesh[category] = Managers.NPC.Mesh.NPCMeshDictionary[category][0]; // 키가 있을 때 값을 설정
+                customedMesh[category] = null;
             }
             else
             {
-                customedMesh.Add(category, 0); // 키가 없을 때 추가
+                customedMesh.Add(category, null); // 키가 없을 때 추가
             }
         }
     }
+    */
 
-    public void AssignCustomMesh(NPCDefine.MeshType type, int index)
-    {
-        customedMesh[type] = index;
-        //ApplyCustomedMesh();
-    }
-
-    public void ApplyCustomedMesh()
+    private void SetNPCBody()
     {
         foreach (NPCDefine.MeshType category in System.Enum.GetValues(typeof(NPCDefine.MeshType)))
         {
             for (int i = 0; i < transform.childCount; i++)
             {
                 GameObject GO = transform.GetChild(i).gameObject;
-                SkinnedMeshRenderer MR = GO.GetComponent<SkinnedMeshRenderer>();
-
-                // 해당 카테고리의 게임 오브젝트에 대해서
-                if(category.ToString() == GO.name)
+                if (category.ToString() == GO.name)
                 {
-                    MR.sharedMesh = Managers.NPC.Mesh.NPCMeshDictionary[category][customedMesh[category]];
+                    thisMesh.Add(category, GO);
                 }
             }
         }
-            
     }
 
-
+    public void AssignCustomMesh(NPCDefine.MeshType type, int index)
+    {
+        SkinnedMeshRenderer meshRenderer = thisMesh[type].GetComponent<SkinnedMeshRenderer>();
+        if(index == -1)
+        {
+            meshRenderer.sharedMesh = null;
+        }
+        else
+        {
+            meshRenderer.sharedMesh = Managers.NPC.Mesh.NPCMeshDictionary[type][index];
+        }
+    }
 }
