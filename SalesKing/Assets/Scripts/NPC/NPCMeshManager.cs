@@ -6,7 +6,7 @@ public class NPCMeshManager : MonoBehaviour
 {
 
     // Resources 폴더 내의 기본 경로 설정
-    private static readonly string basePath = "NPC/Meshes";
+    private static readonly string basePath = "Meshes/NPC";
 
     // Mesh를 카테고리 Enum과 매핑할 Dictionary
     public Dictionary<NPCDefine.MeshType, List<Mesh>> NPCMeshDictionary = new Dictionary<NPCDefine.MeshType, List<Mesh>>();
