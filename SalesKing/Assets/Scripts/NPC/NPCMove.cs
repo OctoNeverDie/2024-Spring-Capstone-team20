@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Bson;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,11 @@ public class NPCMove : MonoBehaviour
     private NavMeshAgent agent;
     private NPC npc;
 
+    public Transform curDestination;
+
+    public float minStandTime = 10f;
+    public float maxStandTime = 30f;
+
     void Start()
     {
         npc = GetComponent<NPC>();
@@ -20,21 +26,32 @@ public class NPCMove : MonoBehaviour
 
     void Update()
     {
-        if (npc.destination != null)
+        if (curDestination != null)
         {
-            agent.SetDestination(npc.destination.position);
+            agent.SetDestination(curDestination.position);
 
-            if (Vector3.Distance(transform.position, npc.destination.position) < 1f)
+            if (Vector3.Distance(transform.position, curDestination.position) < 1f)
             {
-                npc.destination = null;
-                npc.OnDestinationReached();
+                curDestination = null;
+                OnDestinationReached();
             }
         }
     }
 
-    public void SetDestination(Transform destination)
+    public void ChooseNextDestination()
     {
-        npc.destination = destination;
-        agent.SetDestination(destination.position);
+        curDestination = Managers.NPC.Move.GetRandomSpawnPoint();
+    }
+
+    public void OnDestinationReached()
+    {
+        npc.AssignRandomState();
+    }
+
+    public IEnumerator StandForAwhile()
+    {
+        float standTime = Random.Range(minStandTime, maxStandTime);
+        yield return new WaitForSeconds(standTime);
+        npc.AssignRandomState();
     }
 }

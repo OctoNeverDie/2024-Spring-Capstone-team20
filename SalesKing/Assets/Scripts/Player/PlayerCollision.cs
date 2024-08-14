@@ -6,21 +6,22 @@ public class PlayerCollision : MonoBehaviour
 {
     [SerializeField]
     GameObject ConvoPanel;
-    Player _player;
+    Player player;
 
     void Start()
     {
-        _player = GetComponent<Player>();
+        player = GetComponent<Player>();
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("NPC"))
         {
-            NPC thisNPC = GetComponent<NPC>();
+            NPC thisNPC = other.GetComponent<NPC>();
             if (thisNPC.currentTalkable == NPCDefine.Talkable.Able)
             {
+                Debug.Log("collide with npc");
                 ConvoPanel.SetActive(true);
-                _player.isPlayerLocked = true;
+                player.isPlayerLocked = true;
             }
         }
     }

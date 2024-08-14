@@ -9,8 +9,6 @@ public class NPC : MonoBehaviour
     public NPCDefine.Talkable currentTalkable;
 
     public Transform destination;
-    public float minStandTime = 10f;
-    public float maxStandTime = 30f;
 
     private GameObject myCanvas;
     private NPCMove npcMove;
@@ -23,47 +21,19 @@ public class NPC : MonoBehaviour
         AssignRandomState();
     }
 
-    #region NPC 동작 관련
-
-    void AssignRandomState()
+    public void AssignRandomState()
     {
-        if (Random.Range(0, 2) == 0)
+        int rand = Random.Range(0, 2);
+        if (rand == 0)
         {
             currentState = NPCDefine.State.Stand;
-            StartCoroutine(StandCoroutine());
+            StartCoroutine(npcMove.StandForAwhile());
         }
         else
         {
             currentState = NPCDefine.State.Walk;
-            AssignRandomDestination();
+            npcMove.ChooseNextDestination();
         }
-    }
-
-    IEnumerator StandCoroutine()
-    {
-        float standTime = Random.Range(minStandTime, maxStandTime);
-        yield return new WaitForSeconds(standTime);
-        AssignRandomState();
-    }
-
-    void AssignRandomDestination()
-    {
-        
-        NPCSpawner spawner = FindObjectOfType<NPCSpawner>();
-        destination = spawner.GetRandomSpawnPoint();
-        npcMove.SetDestination(destination);
-    }
-
-    public void OnDestinationReached()
-    {
-        AssignRandomState();
-    }
-
-    #endregion
-
-    void ShowCurTalkable()
-    {
-        myCanvas.SetActive(true);
     }
 
     void AssignRandomLooks()
@@ -84,8 +54,6 @@ public class NPC : MonoBehaviour
         {
             GO.SetActive(true);
         }
-        
-
     }
 
 }
