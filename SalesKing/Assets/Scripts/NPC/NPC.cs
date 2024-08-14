@@ -7,12 +7,12 @@ public class NPC : MonoBehaviour
     
     public NPCDefine.State currentState;
     public NPCDefine.Talkable currentTalkable;
+
     public Transform destination;
     public float minStandTime = 10f;
     public float maxStandTime = 30f;
 
-    GameObject myCanvas;
-
+    private GameObject myCanvas;
     private NPCMove npcMove;
 
     void Start()
@@ -75,6 +75,17 @@ public class NPC : MonoBehaviour
             int options = Managers.NPC.Mesh.NPCMeshDictionary[category].Count;
             looks.AssignCustomMesh(category, Random.Range(0, options));
         }
+    }
+
+    public void SetTalkable()
+    {
+        GameObject GO = transform.Find("Canvas").gameObject;
+        if(currentTalkable == NPCDefine.Talkable.Able)
+        {
+            GO.SetActive(true);
+        }
+        
+
     }
 
 }

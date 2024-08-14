@@ -6,33 +6,12 @@ using UnityEngine;
 
 public class NPCLooks : MonoBehaviour
 {
-    //public Dictionary<NPCDefine.MeshType, Mesh> customedMesh = new Dictionary<NPCDefine.MeshType, Mesh>(); // 새롭게 적용할 메쉬
     public Dictionary<NPCDefine.MeshType, GameObject> thisMesh = new Dictionary<NPCDefine.MeshType, GameObject>(); // 새롭게 적용할 메쉬
 
     void Awake()
     {
-        //SetCustomedMeshDefault();
         SetNPCBody();
     }
-
-    /*
-    private void SetCustomedMeshDefault()
-    {
-        foreach (NPCDefine.MeshType category in System.Enum.GetValues(typeof(NPCDefine.MeshType)))
-        {
-            // Dictionary에 키가 없으면 Add, 있으면 값을 설정
-            if (customedMesh.ContainsKey(category))
-            {
-                // customedMesh[category] = Managers.NPC.Mesh.NPCMeshDictionary[category][0]; // 키가 있을 때 값을 설정
-                customedMesh[category] = null;
-            }
-            else
-            {
-                customedMesh.Add(category, null); // 키가 없을 때 추가
-            }
-        }
-    }
-    */
 
     private void SetNPCBody()
     {

@@ -16,9 +16,12 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.CompareTag("NPC"))
         {
-            ConvoPanel.SetActive(true);
-            _player.isPlayerLocked = true;
-
+            NPC thisNPC = GetComponent<NPC>();
+            if (thisNPC.currentTalkable == NPCDefine.Talkable.Able)
+            {
+                ConvoPanel.SetActive(true);
+                _player.isPlayerLocked = true;
+            }
         }
     }
 }
