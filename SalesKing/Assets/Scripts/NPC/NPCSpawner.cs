@@ -8,8 +8,10 @@ public class NPCSpawner : MonoBehaviour
     [SerializeField] GameObject NPCPrefab;
     [SerializeField] int NPCCount = 20;
     [SerializeField] int TalkableNPCCount = 5;
+
     List<Transform> spawnPoints = new List<Transform>();
-    List<GameObject> NPCGroup = new List<GameObject>();
+
+    
 
     void Start()
     {
@@ -61,18 +63,21 @@ public class NPCSpawner : MonoBehaviour
     {
         int spawnIndex = Random.Range(0, spawnPoints.Count);
         GameObject newNPC = Instantiate(NPCPrefab, spawnPoints[spawnIndex].position, spawnPoints[spawnIndex].rotation);
-        NPCGroup.Add(newNPC);
+        newNPC.transform.parent = Managers.NPC.NPCHolder.transform;
+        Managers.NPC.NPCGroup.Add(newNPC);
 
         NPC npcScript = newNPC.GetComponent<NPC>();
         npcScript.destination = GetRandomSpawnPoint();
 
         if (i < TalkableNPCCount)
         {
-            npcScript.currentTalkable = NPC.Talkable.Able;
+            npcScript.currentTalkable = NPCDefine.Talkable.Able;
+            npcScript.SetTalkable();
         }
         else
         {
-            npcScript.currentTalkable = NPC.Talkable.Not;
+            npcScript.currentTalkable = NPCDefine.Talkable.Not;
+            npcScript.SetTalkable();
         }
     }
 

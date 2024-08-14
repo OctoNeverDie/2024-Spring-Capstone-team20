@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-    public enum State { Stand, Walk }
-    public enum Talkable { Able, Not }
-    public State currentState;
-    public Talkable currentTalkable;
+    
+    public NPCDefine.State currentState;
+    public NPCDefine.Talkable currentTalkable;
+
     public Transform destination;
     public float minStandTime = 10f;
     public float maxStandTime = 30f;
 
-    GameObject myCanvas;
-
+    private GameObject myCanvas;
     private NPCMove npcMove;
 
     void Start()
@@ -30,12 +29,12 @@ public class NPC : MonoBehaviour
     {
         if (Random.Range(0, 2) == 0)
         {
-            currentState = State.Stand;
+            currentState = NPCDefine.State.Stand;
             StartCoroutine(StandCoroutine());
         }
         else
         {
-            currentState = State.Walk;
+            currentState = NPCDefine.State.Walk;
             AssignRandomDestination();
         }
     }
@@ -76,8 +75,17 @@ public class NPC : MonoBehaviour
             int options = Managers.NPC.Mesh.NPCMeshDictionary[category].Count;
             looks.AssignCustomMesh(category, Random.Range(0, options));
         }
+    }
 
-        looks.ApplyCustomedMesh();
+    public void SetTalkable()
+    {
+        GameObject GO = transform.Find("Canvas").gameObject;
+        if(currentTalkable == NPCDefine.Talkable.Able)
+        {
+            GO.SetActive(true);
+        }
+        
+
     }
 
 }

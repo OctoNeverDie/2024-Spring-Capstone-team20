@@ -18,7 +18,7 @@ public class NPCCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && npc.currentTalkable == NPC.Talkable.Able)
+        if (other.CompareTag("Player") && npc.currentTalkable == NPCDefine.Talkable.Able)
         {
             //transform.LookAt(other.transform);
             playerTransform = other.transform;

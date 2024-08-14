@@ -19,4 +19,8 @@ public class NPCDefine : MonoBehaviour
         Pants,
         Shoe
     }
+
+    public enum State { Stand, Walk }
+    public enum Talkable { Able, Not }
+    public enum Outfit { Normal, Abnormal}
 }
