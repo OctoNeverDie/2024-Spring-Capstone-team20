@@ -6,9 +6,12 @@ using static UnityEngine.GraphicsBuffer;
 
 public class NPCCollision : MonoBehaviour
 {
+    // 플레이어를 바라보는가? 
+    // 플레이어를 바라보게 하기 위한 변수들
     bool isLookAt = false;
     Transform playerTransform;
     public float rotationSpeed = 5.0f; // 서서히 회전하기 위한 속도
+    
     private NPC npc;
 
     void Start()

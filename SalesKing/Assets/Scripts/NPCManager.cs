@@ -8,6 +8,8 @@ public class NPCManager : MonoBehaviour
 {
     public NPCMeshManager Mesh;
     public NPCSpawner Spawner;
+    public NPCAnimationManager Anim;
+    public NPCMovementManager Move;
 
     public List<GameObject> NPCGroup = new List<GameObject>();
     public GameObject NPCHolder;
@@ -22,6 +24,8 @@ public class NPCManager : MonoBehaviour
     {
         Mesh = transform.AddComponent<NPCMeshManager>();
         Spawner = transform.AddComponent<NPCSpawner>();
+        Anim = transform.AddComponent<NPCAnimationManager>();
+        Move = transform.AddComponent<NPCMovementManager>();
     }
 
 }
