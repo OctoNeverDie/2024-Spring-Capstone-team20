@@ -23,4 +23,11 @@ public class NPCDefine : MonoBehaviour
     public enum State { Stand, Walk }
     public enum Talkable { Able, Not }
     public enum Outfit { Normal, Abnormal}
+
+    public enum AnimType
+    {
+        Idle,
+        Positive, 
+        Negative
+    }
 }
