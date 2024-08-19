@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-    
-    public NPCDefine.State currentState;
+    public NPCDefine.MoveState currentState;
     public NPCDefine.Talkable currentTalkable;
+    public NPCDefine.LookState currentLook;
 
     public Transform destination;
 
@@ -28,7 +28,7 @@ public class NPC : MonoBehaviour
         int rand = Random.Range(0, 2);
         if (rand == 0)
         {
-            currentState = NPCDefine.State.Stand;
+            currentState = NPCDefine.MoveState.Stand;
             StartCoroutine(npcMove.StandForAwhile());
 
             int randAnimIndex = Random.Range(0, Managers.NPC.Anim.NPCAnimDictionary[NPCDefine.AnimType.Standing].Count);
@@ -36,7 +36,7 @@ public class NPC : MonoBehaviour
         }
         else
         {
-            currentState = NPCDefine.State.Walk;
+            currentState = NPCDefine.MoveState.Walk;
             npcMove.ChooseNextDestination();
 
             int randAnimIndex = Random.Range(0, Managers.NPC.Anim.NPCAnimDictionary[NPCDefine.AnimType.Moving].Count);
@@ -50,8 +50,7 @@ public class NPC : MonoBehaviour
 
         foreach (NPCDefine.MeshType category in System.Enum.GetValues(typeof(NPCDefine.MeshType)))
         {
-            int options = Managers.NPC.Mesh.NPCMeshDictionary[category].Count;
-            looks.AssignCustomMesh(category, Random.Range(0, options));
+            looks.AssignCustomMesh(category, currentLook);
         }
     }
 
@@ -63,5 +62,7 @@ public class NPC : MonoBehaviour
             GO.SetActive(true);
         }
     }
+
+
 
 }

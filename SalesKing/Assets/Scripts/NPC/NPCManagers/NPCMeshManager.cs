@@ -9,7 +9,11 @@ public class NPCMeshManager : MonoBehaviour
     private static readonly string basePath = "Meshes/NPC";
 
     // Mesh를 카테고리 Enum과 매핑할 Dictionary
+
+    // 모든 걸 합친
     public Dictionary<NPCDefine.MeshType, List<Mesh>> NPCMeshDictionary = new Dictionary<NPCDefine.MeshType, List<Mesh>>();
+    // 정상인것만 저장하는
+    public Dictionary<NPCDefine.MeshType, List<Mesh>> NPCMeshDictionary_norm = new Dictionary<NPCDefine.MeshType, List<Mesh>>();
 
     // 모든 Mesh를 로드하고 Dictionary를 구성합니다.
     private void Awake()
@@ -34,22 +38,33 @@ public class NPCMeshManager : MonoBehaviour
                 }
 
                 NPCMeshDictionary[category].AddRange(meshes);
-                //Debug.Log($"Loaded {meshes.Length} meshes for category '{category}'.");
+                Debug.Log($"Loaded {meshes.Length} meshes for category '{category}'.");
             }
         }
-    }
 
-    // 특정 카테고리의 모든 Mesh를 반환합니다.
-    public List<Mesh> GetMeshesByCategory(NPCDefine.MeshType category)
-    {
-        if (NPCMeshDictionary.TryGetValue(category, out List<Mesh> meshes))
+        foreach (NPCDefine.MeshType category in System.Enum.GetValues(typeof(NPCDefine.MeshType)))
         {
-            return meshes;
-        }
-        else
-        {
-            Debug.LogWarning($"No meshes found for category '{category}'.");
-            return new List<Mesh>();
+            string folderPath = $"{basePath}/{category.ToString()}/Normal";
+            Mesh[] meshes = Resources.LoadAll<Mesh>(folderPath);
+
+            if (meshes.Length > 0)
+            {
+                if (!NPCMeshDictionary_norm.ContainsKey(category))
+                {
+                    NPCMeshDictionary_norm[category] = new List<Mesh>();
+                }
+
+                NPCMeshDictionary_norm[category].AddRange(meshes);
+                Debug.Log($"Loaded {meshes.Length} Normal meshes for category '{category}'.");
+            }
+            else
+            {
+                if (!NPCMeshDictionary_norm.ContainsKey(category))
+                {
+                    NPCMeshDictionary_norm[category] = new List<Mesh>();
+                }
+                Debug.Log($"Loaded zero Normal meshes for category '{category}'.");
+            }
         }
     }
 
