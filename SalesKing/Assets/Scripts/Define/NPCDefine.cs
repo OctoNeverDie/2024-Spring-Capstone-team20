@@ -22,7 +22,7 @@ public class NPCDefine : MonoBehaviour
 
     public enum MoveState { Stand, Walk }
     public enum Talkable { Able, Not }
-    public enum LookState { Normal, Abnormal}
+    public enum LookState { Normal, Abnormal }
 
     public enum AnimType
     {
