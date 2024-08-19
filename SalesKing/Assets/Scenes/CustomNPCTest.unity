@@ -223,6 +223,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6391415989292988949, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
+      propertyPath: m_Constraints
+      value: 84
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -340,7 +344,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fcf474d0a9043c4183587212c5f7f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: -203655887218126122, guid: 07b6584060e031640a9ad1223cf8b3ab, type: 3}
 --- !u!1 &1852176697
 GameObject:
   m_ObjectHideFlags: 0
