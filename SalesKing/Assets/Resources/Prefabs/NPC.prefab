@@ -447,7 +447,7 @@ PrefabInstance:
     - target: {fileID: 6614176358456528676, guid: a4c963d752962dc40961215c2187d532, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5719125696196914706, guid: 288305ef44fa5d44e9108aa9e64a4b24, type: 3}
     - target: {fileID: 6614176358456528676, guid: a4c963d752962dc40961215c2187d532, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -565,8 +565,6 @@ MonoBehaviour:
   currentState: 0
   currentTalkable: 0
   destination: {fileID: 0}
-  minStandTime: 10
-  maxStandTime: 30
 --- !u!114 &6513642154114260669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -581,6 +579,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   rotationSpeed: 5
+  curDestination: {fileID: 0}
+  minStandTime: 10
+  maxStandTime: 30
 --- !u!114 &-8493648010280318567
 MonoBehaviour:
   m_ObjectHideFlags: 0
