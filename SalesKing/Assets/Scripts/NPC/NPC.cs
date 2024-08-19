@@ -12,13 +12,11 @@ public class NPC : MonoBehaviour
 
     private GameObject myCanvas;
     private NPCMove npcMove;
-    private Animator animator;
 
     void Start()
     {
         npcMove = transform.GetComponent<NPCMove>();
         myCanvas = transform.Find("Canvas").gameObject;
-        animator = GetComponent<Animator>();
         AssignRandomLooks();
         AssignRandomState();
     }
@@ -30,17 +28,13 @@ public class NPC : MonoBehaviour
         {
             currentState = NPCDefine.MoveState.Stand;
             StartCoroutine(npcMove.StandForAwhile());
-
-            int randAnimIndex = Random.Range(0, Managers.NPC.Anim.NPCAnimDictionary[NPCDefine.AnimType.Standing].Count);
-            animator.Play(Managers.NPC.Anim.NPCAnimDictionary[NPCDefine.AnimType.Standing][randAnimIndex].name);
+            npcMove.PlayRandomNPCAnim(NPCDefine.AnimType.Standing);
         }
         else
         {
             currentState = NPCDefine.MoveState.Walk;
             npcMove.ChooseNextDestination();
-
-            int randAnimIndex = Random.Range(0, Managers.NPC.Anim.NPCAnimDictionary[NPCDefine.AnimType.Moving].Count);
-            animator.Play(Managers.NPC.Anim.NPCAnimDictionary[NPCDefine.AnimType.Moving][randAnimIndex].name);
+            npcMove.PlayRandomNPCAnim(NPCDefine.AnimType.Moving);
         }
     }
 

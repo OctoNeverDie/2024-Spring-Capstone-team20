@@ -17,10 +17,13 @@ public class NPCMove : MonoBehaviour
     public float minStandTime = 10f;
     public float maxStandTime = 30f;
 
+    private Animator animator;
+
     void Start()
     {
         npc = GetComponent<NPC>();
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
         agent.speed = speed;
     }
 
@@ -55,5 +58,11 @@ public class NPCMove : MonoBehaviour
         float standTime = Random.Range(minStandTime, maxStandTime);
         yield return new WaitForSeconds(standTime);
         npc.AssignRandomState();
+    }
+
+    public void PlayRandomNPCAnim(NPCDefine.AnimType type)
+    {
+        int randAnimIndex = Random.Range(0, Managers.NPC.Anim.NPCAnimDictionary[type].Count);
+        animator.Play(Managers.NPC.Anim.NPCAnimDictionary[type][randAnimIndex].name);
     }
 }
