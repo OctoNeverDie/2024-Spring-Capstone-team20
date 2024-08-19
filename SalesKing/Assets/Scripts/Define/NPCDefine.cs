@@ -27,7 +27,14 @@ public class NPCDefine : MonoBehaviour
     public enum AnimType
     {
         Idle,
-        Positive, 
-        Negative
+        SlightlyPositive, 
+        Positive,
+        VeryPositive,
+        SlightlyNegative,
+        Negative,
+        VeryNegative, 
+        Attack,
+        Moving,
+        Standing
     }
 }
