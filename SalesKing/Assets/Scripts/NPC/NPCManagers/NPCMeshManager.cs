@@ -34,7 +34,7 @@ public class NPCMeshManager : MonoBehaviour
                 }
 
                 NPCMeshDictionary[category].AddRange(meshes);
-                Debug.Log($"Loaded {meshes.Length} meshes for category '{category}'.");
+                //Debug.Log($"Loaded {meshes.Length} meshes for category '{category}'.");
             }
         }
     }
