@@ -5,7 +5,7 @@ using UnityEngine;
 public class NPCAnimationManager : MonoBehaviour
 {
     private static readonly string basePath = "Animations/NPC";
-    public Dictionary<NPCDefine.AnimType, List<Animation>> NPCAnimDictionary = new Dictionary<NPCDefine.AnimType, List<Animation>>();
+    public Dictionary<NPCDefine.AnimType, List<AnimationClip>> NPCAnimDictionary = new Dictionary<NPCDefine.AnimType, List<AnimationClip>>();
 
     private void Awake()
     {
@@ -19,13 +19,13 @@ public class NPCAnimationManager : MonoBehaviour
         foreach (NPCDefine.AnimType category in System.Enum.GetValues(typeof(NPCDefine.AnimType)))
         {
             string folderPath = $"{basePath}/{category.ToString()}";
-            Animation[] animations = Resources.LoadAll<Animation>(folderPath);
+            AnimationClip[] animations = Resources.LoadAll<AnimationClip>(folderPath);
 
             if (animations.Length > 0)
             {
                 if (!NPCAnimDictionary.ContainsKey(category))
                 {
-                    NPCAnimDictionary[category] = new List<Animation>();
+                    NPCAnimDictionary[category] = new List<AnimationClip>();
                 }
 
                 NPCAnimDictionary[category].AddRange(animations);
@@ -36,16 +36,16 @@ public class NPCAnimationManager : MonoBehaviour
     }
 
     
-    public List<Animation> GetAnimByCategory(NPCDefine.AnimType category)
+    public List<AnimationClip> GetAnimByCategory(NPCDefine.AnimType category)
     {
-        if (NPCAnimDictionary.TryGetValue(category, out List<Animation> animations))
+        if (NPCAnimDictionary.TryGetValue(category, out List<AnimationClip> animations))
         {
             return animations;
         }
         else
         {
             Debug.LogWarning($"No meshes found for category '{category}'.");
-            return new List<Animation>();
+            return new List<AnimationClip>();
         }
     }
     

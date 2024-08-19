@@ -29,14 +29,16 @@ public class NPCMovementManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("SpawnPoints 오브젝트를 찾을 수 없습니다.");
+            Debug.Log("SpawnPoints 오브젝트를 찾을 수 없습니다.");
         }
     }
 
     public Transform GetRandomSpawnPoint()
     {
         int index = Random.Range(0, spawnPoints.Count);
-        return spawnPoints[index];
+
+        if (spawnPoints != null) return spawnPoints[index];
+        else return null;
     }
 }
 

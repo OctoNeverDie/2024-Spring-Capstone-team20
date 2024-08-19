@@ -40,7 +40,9 @@ public class NPCMove : MonoBehaviour
 
     public void ChooseNextDestination()
     {
-        curDestination = Managers.NPC.Move.GetRandomSpawnPoint();
+        Transform thisTransform = Managers.NPC.Move.GetRandomSpawnPoint();
+        if (thisTransform != null) curDestination = thisTransform;
+        else curDestination = this.transform;
     }
 
     public void OnDestinationReached()
