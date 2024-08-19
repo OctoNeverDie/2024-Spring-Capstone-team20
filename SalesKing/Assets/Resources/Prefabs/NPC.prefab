@@ -444,6 +444,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 79bfa86c7b1441248b5f8289c862448b, type: 2}
+    - target: {fileID: 5866666021909216657, guid: a4c963d752962dc40961215c2187d532, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6614176358456528676, guid: a4c963d752962dc40961215c2187d532, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -564,6 +568,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   currentTalkable: 0
+  currentLook: 0
   destination: {fileID: 0}
 --- !u!114 &6513642154114260669
 MonoBehaviour:

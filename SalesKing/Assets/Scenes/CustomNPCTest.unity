@@ -223,6 +223,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5755252499613171626, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6391415989292988949, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: m_Constraints
       value: 84
