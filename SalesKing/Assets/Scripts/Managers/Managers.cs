@@ -20,6 +20,7 @@ public class Managers : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log("managers awake");
         Init();
 
         GameObject npcManager = new GameObject("@NPCManager");
@@ -58,7 +59,7 @@ public class Managers : MonoBehaviour
                 go.AddComponent<Managers>();
             }
 
-            DontDestroyOnLoad(go);
+            //DontDestroyOnLoad(go);
             s_instance = go.GetComponent<Managers>();
         }
     }

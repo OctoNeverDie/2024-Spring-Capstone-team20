@@ -11,20 +11,18 @@ public class PlayerMove : MonoBehaviour
     private Vector3 mov;
 
     private float mouseX;
-
-    Player _player;
+    public bool isMovementLocked;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        _player = GetComponent<Player>();
         mov = Vector3.zero;
         gravity = 10f;
     }
 
     void Update()
     {
-        if (!_player.isPlayerLocked)
+        if (!isMovementLocked)
         {
             mouseX += Input.GetAxis("Mouse X") * mouseSpeed;
             this.transform.localEulerAngles = new Vector3(0, mouseX, 0);

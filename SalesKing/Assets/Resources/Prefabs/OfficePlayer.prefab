@@ -223,7 +223,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3844852332045624101}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: FinishConvo
         m_Mode: 1
@@ -636,9 +636,9 @@ GameObject:
   - component: {fileID: 5932746571207741443}
   - component: {fileID: 8018272945198651052}
   - component: {fileID: 3085419439019479280}
-  - component: {fileID: 3844852332045624101}
+  - component: {fileID: 847009937720557603}
   m_Layer: 0
-  m_Name: Player
+  m_Name: OfficePlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -775,7 +775,7 @@ MonoBehaviour:
   speed: 5
   mouseSpeed: 8
   isMovementLocked: 0
---- !u!114 &3844852332045624101
+--- !u!114 &847009937720557603
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -784,10 +784,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6666575468221554912}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7f9780386fd95c4599ebb1656dbe075, type: 3}
+  m_Script: {fileID: 11500000, guid: d7a83d2f72187eb428b45847020296c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ConvoPanel: {fileID: 0}
 --- !u!1 &8997276693452484900
 GameObject:
   m_ObjectHideFlags: 0

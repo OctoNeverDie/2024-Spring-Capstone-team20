@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class OfficePlayerManager : MonoBehaviour
 {
     [SerializeField] GameObject PlayerPrefab;
     public GameObject MyPlayer;
@@ -14,7 +14,7 @@ public class PlayerManager : MonoBehaviour
 
     private void SpawnPlayer()
     {
-        PlayerPrefab = Resources.Load<GameObject>("Prefabs/Player");
+        PlayerPrefab = Resources.Load<GameObject>("Prefabs/OfficePlayer");
 
         if (PlayerPrefab != null)
         {

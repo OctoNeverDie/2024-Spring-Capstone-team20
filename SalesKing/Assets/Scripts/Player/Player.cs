@@ -4,15 +4,41 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public bool isPlayerLocked = false;
+    PlayerCameraRot cam;
+    PlayerMove move;
+
+    [SerializeField]
+    GameObject ConvoPanel;
+
+    void Awake()
+    {
+        cam = transform.GetComponentInChildren<PlayerCameraRot>();
+        move = GetComponent<PlayerMove>();
+    }
 
     void Start()
     {
-        isPlayerLocked = false;
+        cam.isCameraLocked = false;
+        move.isMovementLocked = false;
     }
 
     public void FinishConvo()
     {
-        isPlayerLocked = false;
+        cam.isCameraLocked = false;
+        move.isMovementLocked = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("NPC"))
+        {
+            NPC thisNPC = other.GetComponent<NPC>();
+            if (thisNPC.currentTalkable == NPCDefine.Talkable.Able)
+            {
+                Debug.Log("collide with npc");
+                ConvoPanel.SetActive(true);
+                cam.isCameraLocked = true;
+            }
+        }
     }
 }
