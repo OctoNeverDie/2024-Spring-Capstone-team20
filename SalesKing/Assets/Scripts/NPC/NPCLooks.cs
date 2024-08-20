@@ -7,12 +7,12 @@ using UnityEngine;
 public class NPCLooks : MonoBehaviour
 {
     public Dictionary<NPCDefine.MeshType, GameObject> thisMesh = new Dictionary<NPCDefine.MeshType, GameObject>(); // 새롭게 적용할 메쉬
-    NPC npc;
+    //NPC npc;
 
     void Awake()
     {
         SetNPCBody();
-        npc = GetComponent<NPC>();
+        //npc = GetComponent<NPC>();
     }
 
     private void SetNPCBody()
