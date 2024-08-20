@@ -12,9 +12,11 @@ public class Managers : MonoBehaviour
 
     NPCManager _npc;
     UIManager _ui;
+    PlayerManager _player;
 
     public static NPCManager NPC { get { return Instance._npc; } }
     public static UIManager UI { get { return Instance._ui; } }
+    public static PlayerManager Player { get { return Instance._player; } }
 
     void Awake()
     {
@@ -34,6 +36,14 @@ public class Managers : MonoBehaviour
         if (s_instance._ui == null)
         {
             s_instance._ui = uiManager.AddComponent<UIManager>();
+        }
+
+        GameObject playerManager = new GameObject("@PlayerManager");
+        playerManager.transform.parent = transform;
+
+        if (s_instance._player == null)
+        {
+            s_instance._player = playerManager.AddComponent<PlayerManager>();
         }
     }
 

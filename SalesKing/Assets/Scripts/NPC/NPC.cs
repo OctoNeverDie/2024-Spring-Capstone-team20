@@ -13,10 +13,14 @@ public class NPC : MonoBehaviour
     private GameObject myCanvas;
     private NPCMove npcMove;
 
-    void Start()
+    void Awake()
     {
         npcMove = transform.GetComponent<NPCMove>();
         myCanvas = transform.Find("Canvas").gameObject;
+    }
+
+    void Start()
+    {
         AssignRandomLooks();
         AssignRandomState();
     }

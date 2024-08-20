@@ -19,11 +19,15 @@ public class NPCMove : MonoBehaviour
 
     private Animator animator;
 
-    void Start()
+    void Awake()
     {
         npc = GetComponent<NPC>();
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+    }
+
+    void Start()
+    {
         agent.speed = speed;
     }
 

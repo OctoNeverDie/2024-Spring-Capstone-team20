@@ -14,7 +14,6 @@ public class NPCSpawner : MonoBehaviour
     void Awake()
     {
         LoadNPCPrefab();
-        
     }
 
     void Start()
@@ -35,7 +34,7 @@ public class NPCSpawner : MonoBehaviour
         }
         else
         {
-            //Debug.LogError("NPC Prefab을 로드할 수 없습니다. 경로를 확인하세요.");
+            Debug.LogError("NPC Prefab을 로드할 수 없습니다. 경로를 확인하세요.");
         }
     }
 
@@ -77,18 +76,6 @@ public class NPCSpawner : MonoBehaviour
             }
         }
 
-        /*
-        if (i < TalkableNPCCount)
-        {
-            npcScript.currentTalkable = NPCDefine.Talkable.Able;
-            npcScript.SetTalkable();
-        }
-        else
-        {
-            npcScript.currentTalkable = NPCDefine.Talkable.Not;
-            npcScript.SetTalkable();
-        }
-        */
     }
 
 

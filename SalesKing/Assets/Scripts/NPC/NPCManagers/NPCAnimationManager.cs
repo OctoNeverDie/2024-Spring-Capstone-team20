@@ -7,10 +7,9 @@ public class NPCAnimationManager : MonoBehaviour
     private static readonly string basePath = "Animations/NPC";
     public Dictionary<NPCDefine.AnimType, List<AnimationClip>> NPCAnimDictionary = new Dictionary<NPCDefine.AnimType, List<AnimationClip>>();
 
-    private void Awake()
+    void Awake()
     {
         LoadAnimations();
-        
     }
 
     private void LoadAnimations()
