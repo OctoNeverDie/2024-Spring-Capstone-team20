@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Define : MonoBehaviour
 {
+    public enum SceneMode
+    {
+        Start,
+        CityMap, 
+        OfficeMap
+    }
+
     public enum Emotion
     {
         Neutral,

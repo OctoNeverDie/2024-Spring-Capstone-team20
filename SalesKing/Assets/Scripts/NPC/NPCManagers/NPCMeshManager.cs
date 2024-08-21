@@ -32,7 +32,7 @@ public class NPCMeshManager : MonoBehaviour
                 }
 
                 NPCMeshDictionary[category].AddRange(meshes);
-                Debug.Log($"Loaded {meshes.Length} meshes for category '{category}'.");
+                //Debug.Log($"Loaded {meshes.Length} meshes for category '{category}'.");
             }
         }
 
@@ -50,7 +50,7 @@ public class NPCMeshManager : MonoBehaviour
                 }
 
                 NPCMeshDictionary_norm[category].AddRange(meshes);
-                Debug.Log($"Loaded {meshes.Length} Normal meshes for category '{category}'.");
+                //Debug.Log($"Loaded {meshes.Length} Normal meshes for category '{category}'.");
             }
             else
             {
@@ -58,7 +58,7 @@ public class NPCMeshManager : MonoBehaviour
                 {
                     NPCMeshDictionary_norm[category] = new List<Mesh>();
                 }
-                Debug.Log($"Loaded zero Normal meshes for category '{category}'.");
+                //Debug.Log($"Loaded zero Normal meshes for category '{category}'.");
             }
         }
     }
