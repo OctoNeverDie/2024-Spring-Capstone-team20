@@ -16,15 +16,9 @@ public class SceneModeManager : MonoBehaviour
 
         switch (scene.name)
         {
-            case "Start":
-                Awake_StartScene();
-                break;
-            case "CityMap":
-                Awake_CityScene();
-                break;
-            case "OfficeMap":
-                Awake_OfficeScene();
-                break;
+            case "Start": Awake_StartScene(); break;
+            case "CityMap": Awake_CityScene(); break;
+            case "OfficeMap": Awake_OfficeScene(); break;
             default: break;
         }
     }
@@ -44,5 +38,10 @@ public class SceneModeManager : MonoBehaviour
         Managers.Instance.AddPlayerManager();
         Managers.Instance.AddNPCManager();
         Managers.Instance.AddUIManager();
+    }
+
+    public void LoadSceneByName(string name)
+    {
+        SceneManager.LoadScene(name);
     }
 }
