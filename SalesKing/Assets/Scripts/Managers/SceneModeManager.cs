@@ -13,7 +13,7 @@ public class SceneModeManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("Scene Loaded: " + scene.name);
-
+        Managers.Instance.ClearChildManagers();
         switch (scene.name)
         {
             case "Start": Awake_StartScene(); break;

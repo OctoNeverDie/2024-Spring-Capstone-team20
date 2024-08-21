@@ -100,5 +100,15 @@ public class Managers : MonoBehaviour
             instance._ui = uiManager.AddComponent<UIManager>();
         }
     }
-    
+
+    public void ClearChildManagers()
+    {
+        // 자식 오브젝트의 수만큼 반복
+        foreach (Transform child in transform)
+        {
+            // 각 자식 오브젝트를 파괴
+            Destroy(child.gameObject);
+        }
+    }
+
 }
