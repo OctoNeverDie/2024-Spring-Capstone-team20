@@ -7,14 +7,13 @@ public class NPCAnimationManager : MonoBehaviour
     private static readonly string basePath = "Animations/NPC";
     public Dictionary<NPCDefine.AnimType, List<AnimationClip>> NPCAnimDictionary = new Dictionary<NPCDefine.AnimType, List<AnimationClip>>();
 
-    void Awake()
+    private void Awake()
     {
         LoadAnimations();
     }
 
     private void LoadAnimations()
     {
-        
         foreach (NPCDefine.AnimType category in System.Enum.GetValues(typeof(NPCDefine.AnimType)))
         {
             string folderPath = $"{basePath}/{category.ToString()}";
@@ -32,20 +31,6 @@ public class NPCAnimationManager : MonoBehaviour
             }
         }
         
-    }
-
-    
-    public List<AnimationClip> GetAnimByCategory(NPCDefine.AnimType category)
-    {
-        if (NPCAnimDictionary.TryGetValue(category, out List<AnimationClip> animations))
-        {
-            return animations;
-        }
-        else
-        {
-            Debug.LogWarning($"No meshes found for category '{category}'.");
-            return new List<AnimationClip>();
-        }
     }
     
 }
