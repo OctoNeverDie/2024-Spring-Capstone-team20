@@ -7,13 +7,13 @@ public class NPCSpawner : MonoBehaviour
 {
     [SerializeField] GameObject NPCPrefab;
     [SerializeField] int NPCCount = 20;
-    [SerializeField] int TalkableNPCCount = 5;
+    //[SerializeField] int TalkableNPCCount = 5;
+    [SerializeField] int WeirdNPCCount = 3;
 
 
     void Awake()
     {
         LoadNPCPrefab();
-        
     }
 
     void Start()
@@ -30,7 +30,7 @@ public class NPCSpawner : MonoBehaviour
 
         if (NPCPrefab != null)
         {
-            Debug.Log("NPC Prefab 로드 성공!");
+            //Debug.Log("NPC Prefab 로드 성공!");
         }
         else
         {
@@ -50,16 +50,32 @@ public class NPCSpawner : MonoBehaviour
         NPC npcScript = newNPC.GetComponent<NPC>();
         npcScript.destination = Managers.NPC.Move.GetRandomSpawnPoint();
 
-        if (i < TalkableNPCCount)
+        // 일단 말 못거는 npc들만 생성
+        npcScript.currentTalkable = NPCDefine.Talkable.Not;
+        npcScript.SetTalkable();
+
+        if(WeirdNPCCount > 0)
         {
-            npcScript.currentTalkable = NPCDefine.Talkable.Able;
-            npcScript.SetTalkable();
+            int isWeird = Random.Range(0, 2);
+            if (isWeird == 0)
+            {
+                npcScript.currentLook = NPCDefine.LookState.Abnormal;
+                WeirdNPCCount--;
+            }
+            else
+            {
+                if(WeirdNPCCount >= (NPCCount - i))
+                {
+                    npcScript.currentLook = NPCDefine.LookState.Abnormal;
+                    WeirdNPCCount--;
+                }
+                else
+                {
+                    npcScript.currentLook = NPCDefine.LookState.Normal;
+                }
+            }
         }
-        else
-        {
-            npcScript.currentTalkable = NPCDefine.Talkable.Not;
-            npcScript.SetTalkable();
-        }
+
     }
 
 

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -11,6 +10,11 @@ public class NPCLooks : MonoBehaviour
     void Awake()
     {
         SetNPCBody();
+    }
+
+    void Start()
+    {
+        
     }
 
     private void SetNPCBody()
@@ -28,16 +32,47 @@ public class NPCLooks : MonoBehaviour
         }
     }
 
-    public void AssignCustomMesh(NPCDefine.MeshType type, int index)
+    public void AssignCustomMesh(NPCDefine.MeshType type, NPCDefine.LookState look)
     {
-        SkinnedMeshRenderer meshRenderer = thisMesh[type].GetComponent<SkinnedMeshRenderer>();
-        if(index == -1)
+        if (look == NPCDefine.LookState.Normal)
         {
-            meshRenderer.sharedMesh = null;
+            int options = Managers.NPC.Mesh.NPCMeshDictionary_norm[type].Count;
+            int index = Random.Range(0, options);
+            if (options <= 0) index = -1;
+
+            // normal이라면... 가방, 장갑, 등등등... 없애기
+            if(type == NPCDefine.MeshType.Backpack) index = -1;
+            if(type == NPCDefine.MeshType.Glove) index = -1;
+            if(type == NPCDefine.MeshType.Hat) index = -1;
+            if(type == NPCDefine.MeshType.FullBody) index = -1;
+            if(type == NPCDefine.MeshType.Mustache) index = -1;
+            if(type == NPCDefine.MeshType.Glasses) index = -1;
+
+            SkinnedMeshRenderer meshRenderer = thisMesh[type].GetComponent<SkinnedMeshRenderer>();
+            if (index == -1)
+            {
+                meshRenderer.sharedMesh = null;
+            }
+            else
+            {
+                meshRenderer.sharedMesh = Managers.NPC.Mesh.NPCMeshDictionary_norm[type][index];
+            }
         }
         else
         {
-            meshRenderer.sharedMesh = Managers.NPC.Mesh.NPCMeshDictionary[type][index];
+            int options = Managers.NPC.Mesh.NPCMeshDictionary[type].Count;
+            int index = Random.Range(0, options);
+
+            SkinnedMeshRenderer meshRenderer = thisMesh[type].GetComponent<SkinnedMeshRenderer>();
+            if (index == -1)
+            {
+                meshRenderer.sharedMesh = null;
+            }
+            else
+            {
+                meshRenderer.sharedMesh = Managers.NPC.Mesh.NPCMeshDictionary[type][index];
+            }
         }
+        
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class NPCAnimationManager : MonoBehaviour
 {
     private static readonly string basePath = "Animations/NPC";
-    public Dictionary<NPCDefine.AnimType, List<Animation>> NPCMeshDictionary = new Dictionary<NPCDefine.AnimType, List<Animation>>();
+    public Dictionary<NPCDefine.AnimType, List<AnimationClip>> NPCAnimDictionary = new Dictionary<NPCDefine.AnimType, List<AnimationClip>>();
 
     private void Awake()
     {
@@ -14,38 +14,23 @@ public class NPCAnimationManager : MonoBehaviour
 
     private void LoadAnimations()
     {
-        /*
-        foreach (NPCDefine.MeshType category in System.Enum.GetValues(typeof(NPCDefine.MeshType)))
+        foreach (NPCDefine.AnimType category in System.Enum.GetValues(typeof(NPCDefine.AnimType)))
         {
             string folderPath = $"{basePath}/{category.ToString()}";
-            Mesh[] meshes = Resources.LoadAll<Mesh>(folderPath);
+            AnimationClip[] animations = Resources.LoadAll<AnimationClip>(folderPath);
 
-            if (meshes.Length > 0)
+            if (animations.Length > 0)
             {
-                if (!NPCMeshDictionary.ContainsKey(category))
+                if (!NPCAnimDictionary.ContainsKey(category))
                 {
-                    NPCMeshDictionary[category] = new List<Mesh>();
+                    NPCAnimDictionary[category] = new List<AnimationClip>();
                 }
 
-                NPCMeshDictionary[category].AddRange(meshes);
-                Debug.Log($"Loaded {meshes.Length} meshes for category '{category}'.");
+                NPCAnimDictionary[category].AddRange(animations);
+                //Debug.Log($"Loaded {animations.Length} animations for category '{category}'.");
             }
         }
-        */
+        
     }
-
-    /*
-    public List<Mesh> GetMeshesByCategory(NPCDefine.MeshType category)
-    {
-        if (NPCMeshDictionary.TryGetValue(category, out List<Mesh> meshes))
-        {
-            return meshes;
-        }
-        else
-        {
-            Debug.LogWarning($"No meshes found for category '{category}'.");
-            return new List<Mesh>();
-        }
-    }
-    */
+    
 }

@@ -20,14 +20,21 @@ public class NPCDefine : MonoBehaviour
         Shoe
     }
 
-    public enum State { Stand, Walk }
+    public enum MoveState { Stand, Walk }
     public enum Talkable { Able, Not }
-    public enum Outfit { Normal, Abnormal}
+    public enum LookState { Normal, Abnormal }
 
     public enum AnimType
     {
         Idle,
-        Positive, 
-        Negative
+        SlightlyPositive, 
+        Positive,
+        VeryPositive,
+        SlightlyNegative,
+        Negative,
+        VeryNegative, 
+        Attack,
+        Moving,
+        Standing
     }
 }
