@@ -36,11 +36,13 @@ public class Managers : MonoBehaviour
     NPCManager _npc;
     UIManager _ui;
     PlayerManager _player;
+    TurnManager _turn;
 
     public static SceneModeManager Scene { get { return Instance._scene; } }
     public static NPCManager NPC { get { return Instance._npc; } }
     public static UIManager UI { get { return Instance._ui; } }
     public static PlayerManager Player { get { return Instance._player; } }
+    public static TurnManager Turn { get { return Instance._turn; } }
 
     void Awake()
     {
@@ -98,6 +100,17 @@ public class Managers : MonoBehaviour
         if (instance._ui == null)
         {
             instance._ui = uiManager.AddComponent<UIManager>();
+        }
+    }
+
+    public void AddConvoManager()
+    {
+        GameObject turnManager = new GameObject("@TurnManager");
+        turnManager.transform.parent = transform;
+
+        if (instance._turn == null)
+        {
+            instance._turn = turnManager.AddComponent<TurnManager>();
         }
     }
 
