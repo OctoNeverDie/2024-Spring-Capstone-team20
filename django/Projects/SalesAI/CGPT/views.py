@@ -5,7 +5,6 @@ import json
 import os
 from django.views.decorators.csrf import csrf_exempt
 
-
 client = OpenAI(api_key = os.environ.get('OPENAI_API_KEY'),)
 
 # 파일에서 시스템 메시지 읽기
@@ -13,8 +12,8 @@ def read_system_message(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         return file.read()
 
-def get_completion(prompt):
-    print("user"+prompt)
+def get_completion(input):
+    print("user"+input)
 
     system_message_content = read_system_message('CGPT/system_message.txt')
 
@@ -22,7 +21,7 @@ def get_completion(prompt):
         model="gpt-4o-mini",
         messages = [
             {"role": "system", "content":system_message_content},
-            {"role": "user", "content": prompt}
+            {"role": "user", "content": input}
         ],
         max_tokens=1024,
         n=1,
@@ -57,7 +56,7 @@ def query_view(request):
             data = json.loads(request.body)
             prompt = data.get('request')
 
-            if prompt.lower() == "clear":
+            if prompt and prompt.split()[-1].lower() == "clear":
                 if 'chat_history' in request.session and request.session['chat_history']:
                     request.session['chat_history'] = []
                     return JsonResponse({'reply': 'Chat history cleared.'})

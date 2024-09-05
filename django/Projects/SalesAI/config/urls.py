@@ -19,5 +19,5 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('CGPT/', include('CGPT.urls')),
-    path('', include('CGPT.urls')),
+    #path('', include('CGPT.urls')),
 ]
