@@ -6,6 +6,11 @@ public class TemplateSend
 {
     private string _userSend = "";
 
+    public void Init()
+    {
+        ChatInit();
+    }
+
     public void SendToGPT()
     { 
         _userSend = MakeAnswer();
@@ -13,9 +18,24 @@ public class TemplateSend
         ServerManager.Instance.GetGPTReply(_userSend);
     }
 
-    private string MakeAnswer()
+    public void EndGPT()
     {
-        string userSend = $"@relationship : {VariableList.S_Relationship} / input @expecedtPrice : {VariableList.S_ExpectedPrice}, @affordablePrice: {VariableList.S_AffordablePrice}, @vender input: {VariableList.S_UserAnswer}";
-        return userSend;
+        Clear();
+    }
+
+    private string MakeAnswer()
+    { 
+        return $"@relationship : {VariableList.S_Relationship} / input @expecedtPrice : {VariableList.S_ExpectedPrice}, @vender input: {VariableList.S_UserAnswer}";
+    }
+
+    private string Clear()
+    {
+        return "clear";
+    }
+    private string ChatInit()
+    {
+        //TODO : item : too expensive, expensive, affordable
+        //TODO : npc : 
+        return "";
     }
 }

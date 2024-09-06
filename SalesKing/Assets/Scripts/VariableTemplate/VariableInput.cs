@@ -18,6 +18,12 @@ public class VaribleInput : MonoBehaviour
     {
         _sendTemplate = new TemplateSend();
     }
+
+    private void Start()
+    {
+        _sendTemplate.Init(); //just once, before conversation
+    }
+
     public void OnClick()
     {
         _userInput = inputField.GetComponent<TMP_InputField>().text;
