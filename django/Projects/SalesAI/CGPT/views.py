@@ -52,6 +52,7 @@ def update_history(prompt, request):
 @csrf_exempt
 def query_view(request):
     if request.method == 'POST':
+        print("Received POST data:", request.body)  # 수신된 데이터 출력
         try:
             data = json.loads(request.body)
             prompt = data.get('request')
@@ -68,7 +69,7 @@ def query_view(request):
             if isinstance(messages, list):
                 str_messages = str(messages)
                 response = get_completion(str_messages)
-
+                print("뭐야"+response)
                 # GPT 모델의 응답을 대화 히스토리에 추가
                 # 업데이트된 대화 히스토리를 세션에 저장
                 request.session['chat_history'].append({"role": "assistant", "content": response})
