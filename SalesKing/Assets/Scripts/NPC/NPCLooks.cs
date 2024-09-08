@@ -20,7 +20,7 @@ public class NPCLooks : MonoBehaviour
     private void SetNPCBody()
     {
         GameObject meshTransform = transform.Find("Mesh").gameObject;
-        Debug.Log(meshTransform.ToString());
+        //Debug.Log(meshTransform.ToString());
         foreach (NPCDefine.MeshType category in System.Enum.GetValues(typeof(NPCDefine.MeshType)))
         {
             for (int i = 0; i < meshTransform.transform.childCount; i++)

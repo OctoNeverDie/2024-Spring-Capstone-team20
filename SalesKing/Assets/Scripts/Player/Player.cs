@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
         move.isMovementLocked = false;
     }
 
+
     public void FinishConvo()
     {
         cam.isCameraLocked = false;
@@ -38,7 +39,16 @@ public class Player : MonoBehaviour
                 Debug.Log("collide with npc");
                 ConvoPanel.SetActive(true);
                 cam.isCameraLocked = true;
+                move.isMovementLocked = true;
+                Managers.Turn.StopAndRestartTime(true);
+                thisNPC.UnbotheredByTime();
             }
         }
+    }
+
+    public void BackToWalking()
+    {
+        move.isMovementLocked = false;
+        cam.isCameraLocked = false;
     }
 }

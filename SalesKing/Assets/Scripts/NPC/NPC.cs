@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
 
-
 public class NPC : MonoBehaviour
 {
     public NPCDefine.MoveState currentState;
@@ -49,13 +48,28 @@ public class NPC : MonoBehaviour
     {
         if (isLookAt)
         {
+            /*
             Vector3 direction = playerTransform.position - transform.position;
             direction.y = 0; 
 
             Quaternion targetRotation = Quaternion.LookRotation(direction);
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.fixedUnscaledDeltaTime);
             if (transform.position == playerTransform.position)
+            {
+                isLookAt = false;
+            }
+            */
+            Vector3 direction = playerTransform.position - transform.position;
+            direction.y = 0; // 수평 방향으로만 회전하도록 Y축 잠금
+
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+            // Slerp를 사용하여 자연스럽게 회전
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.fixedUnscaledDeltaTime);
+
+            // 일정 거리 이내로 가까워지면 isLookAt을 false로 설정
+            if (Vector3.Distance(transform.position, playerTransform.position) < 0.1f) // 0.1f는 거리 임계값
             {
                 isLookAt = false;
             }
@@ -64,7 +78,7 @@ public class NPC : MonoBehaviour
 
     void Update()
     {
-        if (curDestination != null)
+        if (currentState != NPCDefine.MoveState.Talk && curDestination != null)
         {
             agent.SetDestination(curDestination.position);
 
@@ -82,6 +96,10 @@ public class NPC : MonoBehaviour
         {
             playerTransform = other.transform;
             isLookAt = true;
+            curDestination = null;
+            Debug.Log("npc stopped to look at you");
+            currentState = NPCDefine.MoveState.Talk;
+            agent.isStopped = true;
         }
     }
 
@@ -121,7 +139,6 @@ public class NPC : MonoBehaviour
         }
     }
 
-
     public void PlayRandomNPCAnim(NPCDefine.AnimType type)
     {
         int randAnimIndex = Random.Range(0, Managers.NPC.Anim.NPCAnimDictionary[type].Count);
@@ -140,5 +157,16 @@ public class NPC : MonoBehaviour
         float standTime = Random.Range(minStandTime, maxStandTime);
         yield return new WaitForSeconds(standTime);
         AssignRandomState();
+    }
+
+    public void UnbotheredByTime()
+    {
+        animator.updateMode = AnimatorUpdateMode.UnscaledTime;
+
+    }
+
+    public void AffectedByTime()
+    {
+        animator.updateMode = AnimatorUpdateMode.Normal;
     }
 }

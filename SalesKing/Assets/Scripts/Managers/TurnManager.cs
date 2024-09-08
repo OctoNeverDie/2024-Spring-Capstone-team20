@@ -12,6 +12,22 @@ public class TurnManager : MonoBehaviour
         
     }
 
+
+    private void Update()
+    {
+        // test
+        if (Input.anyKeyDown)
+        {
+            ConvoFinished();
+        }
+    }
+
+    public void ConvoFinished()
+    {
+        StopAndRestartTime(false);
+        Managers.Player.MyPlayer.GetComponent<Player>().BackToWalking();
+    }
+
     public void StopAndRestartTime(bool isStop)
     {
         if(isStop) Time.timeScale = 0f;
