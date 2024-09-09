@@ -2,20 +2,18 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ILoader<Key, Value>
-{ 
-    Dictionary<Key, Value> MakeDict();
-}
+public interface ILoader<DataFormat>
+{ List<DataFormat> GetItems(); }
 
 public class DataManager
 {
-    public Dictionary<int, ItemInfo> ItemDict { get; private set; } = new Dictionary<int, ItemInfo>();
+    public List<ItemInfo> itemList = new List<ItemInfo>();
     public void Init()
     {
-        ItemDict = LoadJson<ItemData, int, ItemInfo>("ItemData").MakeDict();
+        LoadJson<ItemData, ItemInfo>("ItemData").Init();
     }
 
-    Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
+    Loader LoadJson<Loader, DataFormat>(string path) where Loader : ILoader<DataFormat>
     {
         TextAsset textAsset = Resources.Load<TextAsset>($"Data/{path}");
         return JsonUtility.FromJson<Loader>(textAsset.text);

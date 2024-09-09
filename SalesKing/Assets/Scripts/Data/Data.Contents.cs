@@ -1,47 +1,34 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using System.IO;
 
 #region Item
-
-[Serializable]
-public class ItemInfo
-{
-    public int ObjID;
-    public string ObjName;
-    public string ObjInfo;
-    public int defaultPrice;
-    public int expensive;
-    public int tooExpensive;
-}
-
-[Serializable]
-public class ItemData : ILoader<int, ItemInfo>
+public class ItemData : ScriptableObjectManager<ItemInfo>, ILoader<ItemInfo>
 {
     public List<ItemInfo> items = new List<ItemInfo>();
+    public List<ItemInfo> GetItems()
+    => items;
 
-    public Dictionary<int, ItemInfo> MakeDict()
+    public void Init(){ MakeSOs();}
+    protected override void MakeSOs()
     {
-        Dictionary<int, ItemInfo> dict = new Dictionary<int, ItemInfo>();
+        base.MakeDirectory("items");
 
-        foreach (ItemInfo Item in items)
+        foreach (var item in items)
         {
-            dict.Add(Item.ObjID, Item);
-            Debug.Log($"Key: {Item.ObjID}, ObjName: {Item.ObjName}, ObjInfo: {Item.ObjInfo}, " );
+            MakeSOInstance(item);
         }
-        
-        LogDictionary( dict );
-        return dict;
     }
-    private void LogDictionary(Dictionary<int, ItemInfo> dict)
+    protected override void MakeSOInstance(ItemInfo item)
     {
-        foreach (KeyValuePair<int, ItemInfo> Item in dict)
-        {
-            string logMessage = $"Key: {Item.Key}, Value: {{ ObjID: {Item.Value.ObjID}, ObjName: {Item.Value.ObjName}, ObjInfo: {Item.Value.ObjInfo}, " +
-                                $"defaultPrice: {Item.Value.defaultPrice}, expensive: {Item.Value.expensive}, tooExpensive: {Item.Value.tooExpensive} }}";
+        ItemSO itemSO = ScriptableObject.CreateInstance<ItemSO>();
+        itemSO.Initialize(item);
 
-            Debug.Log(logMessage);
-        }
+#if UNITY_EDITOR
+        UnityEditor.AssetDatabase.CreateAsset(itemSO, $"{base.basePath}Items/{itemSO.itemInfo.ObjName}.asset");
+        UnityEditor.AssetDatabase.SaveAssets();
+#endif
     }
 }
 #endregion

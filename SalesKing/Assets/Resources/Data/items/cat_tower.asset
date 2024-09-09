@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904969fe8d00e664b86a0857c87cf1e5, type: 3}
+  m_Name: cat_tower
+  m_EditorClassIdentifier: 
+  itemInfo:
+    ObjID: 5
+    ObjName: cat_tower
+    ObjInfo: "3\uB2E8\uC73C\uB85C \uB41C \uCEA3\uD0C0\uC6CC. \uD551\uD06C\uC0C9 \uD3EC\uC778\uD2B8
+      \uC0C9\uAE54\uC774 \uC778\uC0C1\uC801\uC774\uB2E4."
+    defaultPrice: 72
+    expensive: 100
+    tooExpensive: 150
+  Obj3D: {fileID: 0}
+  Obj2D: {fileID: 0}
