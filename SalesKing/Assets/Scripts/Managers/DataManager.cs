@@ -11,6 +11,7 @@ public class DataManager
     public void Init()
     {
         LoadJson<ItemData, ItemInfo>("ItemData").Init();
+        LoadJson<NpcData, NpcInfo>("NpcData").Init();
     }
 
     Loader LoadJson<Loader, DataFormat>(string path) where Loader : ILoader<DataFormat>

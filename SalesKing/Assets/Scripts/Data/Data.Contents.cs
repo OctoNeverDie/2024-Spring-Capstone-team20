@@ -10,7 +10,6 @@ public class ItemData : ScriptableObjectManager<ItemInfo>, ILoader<ItemInfo>
     public List<ItemInfo> GetItems()
     => items;
 
-    public void Init(){ MakeSOs();}
     protected override void MakeSOs()
     {
         base.MakeDirectory("items");
@@ -27,6 +26,35 @@ public class ItemData : ScriptableObjectManager<ItemInfo>, ILoader<ItemInfo>
 
 #if UNITY_EDITOR
         UnityEditor.AssetDatabase.CreateAsset(itemSO, $"{base.basePath}Items/{itemSO.itemInfo.ObjName}.asset");
+        UnityEditor.AssetDatabase.SaveAssets();
+#endif
+    }
+}
+#endregion
+
+#region NPC
+public class NpcData : ScriptableObjectManager<NpcInfo>, ILoader<NpcInfo>
+{
+    public List<NpcInfo> npcs = new List<NpcInfo>();
+    public List<NpcInfo> GetItems()
+    => npcs;
+
+    protected override void MakeSOs()
+    {
+        base.MakeDirectory("npcs");
+
+        foreach (var npc in npcs)
+        {
+            MakeSOInstance(npc);
+        }
+    }
+    protected override void MakeSOInstance(NpcInfo npc)
+    {
+        NpcSO npcSO = ScriptableObject.CreateInstance<NpcSO>();
+        npcSO.Initialize(npc);
+
+#if UNITY_EDITOR
+        UnityEditor.AssetDatabase.CreateAsset(npcSO, $"{base.basePath}Npcs/{npcSO.npcInfo.NpcName}.asset");
         UnityEditor.AssetDatabase.SaveAssets();
 #endif
     }
