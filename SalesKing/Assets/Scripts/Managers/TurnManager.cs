@@ -16,7 +16,7 @@ public class TurnManager : MonoBehaviour
     private void Update()
     {
         // test
-        if (Input.anyKeyDown)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             ConvoFinished();
         }
