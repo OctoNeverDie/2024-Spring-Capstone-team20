@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d007cd6881e4b4792e09a7d1486d5d, type: 3}
+  m_Name: Tom
+  m_EditorClassIdentifier: 
+  npcInfo:
+    NpcID: 2
+    NpcName: Tom
+    NpcSex: male
+    NpcAge: 32
+    NpcPersonality: Timid and often anxious, tends to overthink and struggles to
+      open up to others. Sensitive to rejection or criticism, frequently doubts the
+      sincerity of others. Prone to low self-esteem and negative thoughts about oneself,
+      constantly seeking validation from others. At the same time, fears hurting
+      others, so has difficulty expressing emotions openly.
+    NpcProplemType: relationProb
+    NpcProblemInfo: "\uC560\uC778\uC774\uB791 \uC2F8\uC6E0\uC5B4. \uC560\uC778\uC774
+      \uB108\uBB34 \uBC14\uBE60\uC11C \uB098\uD55C\uD14C \uAD00\uC2EC\uC744 \uB108\uBB34
+      \uC801\uAC8C \uC918. \uB0A0 \uC0AC\uB791\uD558\uB294\uC9C0\uB3C4 \uBAA8\uB974\uACA0\uC5B4."

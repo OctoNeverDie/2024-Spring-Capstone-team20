@@ -21,7 +21,13 @@ public class VaribleInput : MonoBehaviour
 
     private void Start()
     {
-        _sendTemplate.Init(); //just once, before conversation
+        //just once, before conversation
+        //item information
+        string itemInfo = "@ObjID =2, @ObjName = Cup, @ObjectInfo = blah, @defaultPrice =10, @expensvie = 100, @tooExpensive =200";
+        //npc information
+        string npcInfo = "@NpcID = 1, @NpcSex = female, @NpcAge = 17, @NpcPersonality = Bad, @NpcProplemType = relate, @NpcProblemInfo = blah";
+        
+        _sendTemplate.Init(itemInfo, npcInfo);
     }
 
     public void OnClick()
@@ -29,6 +35,6 @@ public class VaribleInput : MonoBehaviour
         _userInput = inputField.GetComponent<TMP_InputField>().text;
         VariableList.S_UserAnswer = _userInput;
 
-        _sendTemplate.SendToGPT();
+        _sendTemplate.ChatwithGPT();
     }
 }
