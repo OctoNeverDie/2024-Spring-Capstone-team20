@@ -1,4 +1,5 @@
 using Cinemachine;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     GameObject ConvoPanel;
     [SerializeField]
-    public CinemachineVirtualCamera Camera;
+    public CinemachineVirtualCamera Camera1;
+    public CinemachineVirtualCamera Camera2;
+    public GameObject PlayerBody;
 
     void Awake()
     {
@@ -45,7 +48,9 @@ public class Player : MonoBehaviour
                 move.isMovementLocked = true;
                 Managers.Turn.StopAndRestartTime(true);
                 thisNPC.UnbotheredByTime();
-                Managers.Cam.SwitchToDialogueCam(transform, other.transform);
+                Managers.Cam.SwitchToDialogueCam();
+                transform.DOLookAt(other.transform.position, 1f, AxisConstraint.None, null).SetUpdate(true);
+                PlayerBody.SetActive(true);
             }
         }
     }
@@ -55,4 +60,5 @@ public class Player : MonoBehaviour
         move.isMovementLocked = false;
         cam.isCameraLocked = false;
     }
+
 }
