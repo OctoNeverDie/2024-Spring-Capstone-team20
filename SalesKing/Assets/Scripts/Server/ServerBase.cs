@@ -85,7 +85,9 @@ public class ServerBase : MonoBehaviour
                 res = new ResultInfo(req.downloadHandler.text, false, true, "InProgress");
                 return res;
             case UnityWebRequest.Result.Success:
-                JObject jobj = JObject.Parse(req.downloadHandler.text);
+                string returningData= req.downloadHandler.text;
+                print(returningData);
+                JObject jobj = JObject.Parse(returningData);
 
                 //if server's "meta code" data is not 0 -> fail
                 //bool isSuccess = int.Parse(jobj["meta"]["code"].ToString()) == 0 ? true : false;

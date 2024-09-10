@@ -43,6 +43,12 @@ public class ServerManager : ServerBase
         yield return CoGetGPT();
     }
 
+    public enum TestSendType
+    { 
+        Init,
+        Chat,
+        Clear
+    }
     private Coroutine CoGetGPT( Action<ResultInfo> onSucceed = null,
                                 Action<ResultInfo> onFailed = null,
                                 Action<ResultInfo> onNetworkFailed = null)
@@ -50,7 +56,10 @@ public class ServerManager : ServerBase
         string url = "http://127.0.0.1:8000/";
 
         JObject jobj = new JObject();
-        jobj.Add("request", _userInput);
+        jobj.Add("Request", _userInput);
+        jobj.Add("SendType", $"{TestSendType.Init}");
+        jobj.Add("Item", "@ObjName = Cup, @ObjectInfo = blah, @defaultPrice =10, @expensvie = 100, @tooExpensive =200");
+        jobj.Add("Npc", "@NpcName = Jack, @NpcSex = female, @NpcAge = 17, @NpcPersonality = Bad, @NpcProplemType = relate, @NpcProblemInfo = blah");
 
         Action<ResultInfo> bringGPTReplay = (result) =>
         {
