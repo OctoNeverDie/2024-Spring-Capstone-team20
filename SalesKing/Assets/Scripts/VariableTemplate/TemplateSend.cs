@@ -5,37 +5,51 @@ using UnityEngine;
 public class TemplateSend
 {
     private string _userSend = "";
-
-    public void Init()
+    public enum SendType
     {
-        ChatInit();
+        None,
+        Init,
+        Chat,
+        Clear,
+        MaxCnt
     }
 
-    public void SendToGPT()
-    { 
+    public void Init(string itemInfo, string npcInfo)
+    {
+        _userSend = MakeChatInit(itemInfo, npcInfo);
+        SendToGPT();
+    }
+
+    public void ChatwithGPT()
+    {
         _userSend = MakeAnswer();
-        Debug.Log($"userSend : {_userSend}");
-        ServerManager.Instance.GetGPTReply(_userSend);
+        SendToGPT();
     }
 
     public void EndGPT()
     {
-        Clear();
+        _userSend = MakeClear();
+        SendToGPT();
+    }
+
+    public void SendToGPT()
+    {
+        Debug.Log($"Send : {_userSend}");
+        ServerManager.Instance.GetGPTReply(_userSend);
     }
 
     private string MakeAnswer()
     { 
-        return $"@relationship : {VariableList.S_Relationship} / input @expecedtPrice : {VariableList.S_ExpectedPrice}, @vender input: {VariableList.S_UserAnswer}";
+        return $"\\SendType : {SendType.Chat} \\ @relationship : {VariableList.S_Relationship}, @expecedtPrice : {VariableList.S_ExpectedPrice}, @vender input: {VariableList.S_UserAnswer}";
     }
 
-    private string Clear()
+    private string MakeChatInit(string itemInfo, string npcInfo)
     {
-        return "clear";
+        string initData = $"\\SendType : {SendType.Init}\\" + itemInfo + "\\"+ npcInfo;
+        return initData;
     }
-    private string ChatInit()
+    private string MakeClear()
     {
-        //TODO : item : too expensive, expensive, affordable
-        //TODO : npc : 
-        return "";
+        return $"\\SendType : {SendType.Clear}";
     }
 }

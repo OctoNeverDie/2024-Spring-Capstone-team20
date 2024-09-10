@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d007cd6881e4b4792e09a7d1486d5d, type: 3}
+  m_Name: Jack
+  m_EditorClassIdentifier: 
+  npcInfo:
+    NpcID: 1
+    NpcName: Jack
+    NpcSex: male
+    NpcAge: 19
+    NpcPersonality: Agressive, cautious. You get anxious when dealing with personal
+      issues. You value honesty and clarity in communication.
+    NpcProplemType: relationProb
+    NpcProblemInfo: "\uC5C4\uB9C8\uAC00 \uC554\uC5D0 \uAC78\uB824\uC11C \uC751\uAE09\uC2E4\uC5D0
+      \uC788\uB294 \uC0C1\uD669\uC774\uC57C. \uB108\uBB34 \uC2AC\uD37C\uC11C \uBB3C\uAC74\uC744
+      \uC0B4 \uAE30\uBD84\uC774 \uC544\uB2C8\uC57C. \uB9CC\uC57D \uADF8 \uBB3C\uAC74\uC774
+      \uB0B4\uAC8C \uB3C4\uC6C0\uC774 \uB418\uACE0, vendor\uAC00 \uBBFF\uC744\uB9CC
+      \uD558\uB2E4\uBA74 \uC0B4 \uC218 \uC788\uC744\uC9C0\uB3C4 \uBAB0\uB77C."
