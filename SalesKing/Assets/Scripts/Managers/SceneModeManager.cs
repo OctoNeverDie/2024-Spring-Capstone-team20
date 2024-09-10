@@ -38,7 +38,8 @@ public class SceneModeManager : MonoBehaviour
         Managers.Instance.AddPlayerManager();
         Managers.Instance.AddNPCManager();
         Managers.Instance.AddUIManager();
-        Managers.Instance.AddConvoManager();
+        Managers.Instance.AddTurnManager();
+        Managers.Instance.AddCameraManager();
     }
 
     public void LoadSceneByName(string name)

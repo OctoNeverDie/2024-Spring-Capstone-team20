@@ -12,6 +12,26 @@ public class TurnManager : MonoBehaviour
         
     }
 
+
+    private void Update()
+    {
+        // test
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ConvoFinished();
+        }
+    }
+
+    public void ConvoFinished()
+    {
+        StopAndRestartTime(false);
+        Managers.Player.MyPlayer.GetComponent<Player>().BackToWalking();
+        Destroy(Managers.NPC.curTalkingNPC);
+        Managers.NPC.curTalkingNPC = null;
+        Managers.Cam.SwitchToFirstPersonCam();
+        Managers.Player.MyPlayer.GetComponent<Player>().PlayerBody.SetActive(true);
+    }
+
     public void StopAndRestartTime(bool isStop)
     {
         if(isStop) Time.timeScale = 0f;

@@ -15,7 +15,7 @@ public class TemplateReceive : VariableUpdate
     public void StringConcat(string GPTanswer)
     {
         int addAffinity = Util.ExtractValue<int>(GPTanswer, @"affinity: ([+-]?\d+)");
-        int addUsefulness = Util.ExtractValue<int>(GPTanswer, @"usefulness: ([+-]?\d+)");
+        int addUsefulness = Util.ExtractValue<int>(GPTanswer, @"persuasion: ([+-]?\d+)");
 
         Debug.Log($"add affin, add usefunl {addAffinity}, {addUsefulness}");
         updateThings(addAffinity, addUsefulness);

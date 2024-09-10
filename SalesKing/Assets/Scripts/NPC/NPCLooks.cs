@@ -19,11 +19,13 @@ public class NPCLooks : MonoBehaviour
 
     private void SetNPCBody()
     {
+        GameObject meshTransform = transform.Find("Mesh").gameObject;
+        //Debug.Log(meshTransform.ToString());
         foreach (NPCDefine.MeshType category in System.Enum.GetValues(typeof(NPCDefine.MeshType)))
         {
-            for (int i = 0; i < transform.childCount; i++)
+            for (int i = 0; i < meshTransform.transform.childCount; i++)
             {
-                GameObject GO = transform.GetChild(i).gameObject;
+                GameObject GO = meshTransform.transform.GetChild(i).gameObject;
                 if (category.ToString() == GO.name)
                 {
                     thisMesh.Add(category, GO);

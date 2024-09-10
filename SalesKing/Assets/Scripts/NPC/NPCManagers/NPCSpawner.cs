@@ -7,8 +7,9 @@ public class NPCSpawner : MonoBehaviour
 {
     [SerializeField] GameObject NPCPrefab;
     [SerializeField] int NPCCount = 20;
-    //[SerializeField] int TalkableNPCCount = 5;
-    [SerializeField] int WeirdNPCCount = 3;
+
+    [SerializeField] int TalkableNPCCount = 5;
+    [SerializeField] int WeirdNPCCount = 0;
 
 
     void Awake()
@@ -50,9 +51,16 @@ public class NPCSpawner : MonoBehaviour
         NPC npcScript = newNPC.GetComponent<NPC>();
         npcScript.destination = Managers.NPC.Move.GetRandomSpawnPoint();
 
-        // 老窜 富 给芭绰 npc甸父 积己
-        npcScript.currentTalkable = NPCDefine.Talkable.Not;
-        npcScript.SetTalkable();
+        if(i < TalkableNPCCount)
+        {
+            npcScript.currentTalkable = NPCDefine.Talkable.Able;
+            npcScript.SetTalkable();
+        }
+        else
+        {
+            npcScript.currentTalkable = NPCDefine.Talkable.Not;
+            npcScript.SetTalkable();
+        }
 
         if(WeirdNPCCount > 0)
         {

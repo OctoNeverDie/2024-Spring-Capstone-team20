@@ -1,10 +1,10 @@
+using DG.Tweening;
 using Newtonsoft.Json.Bson;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
-
 
 public class NPC : MonoBehaviour
 {
@@ -27,7 +27,7 @@ public class NPC : MonoBehaviour
     public float minStandTime = 10f;
     public float maxStandTime = 30f;
 
-    bool isLookAt = false;
+    //bool isLookAt = false;
     Transform playerTransform;
 
 
@@ -45,26 +45,9 @@ public class NPC : MonoBehaviour
         AssignRandomState();
     }
 
-    void FixedUpdate()
-    {
-        if (isLookAt)
-        {
-            Vector3 direction = playerTransform.position - transform.position;
-            direction.y = 0; 
-
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            if (transform.position == playerTransform.position)
-            {
-                isLookAt = false;
-            }
-        }
-    }
-
     void Update()
     {
-        if (curDestination != null)
+        if (currentState != NPCDefine.MoveState.Talk && curDestination != null)
         {
             agent.SetDestination(curDestination.position);
 
@@ -81,7 +64,14 @@ public class NPC : MonoBehaviour
         if (other.CompareTag("Player") && currentTalkable == NPCDefine.Talkable.Able)
         {
             playerTransform = other.transform;
-            isLookAt = true;
+            //isLookAt = true;
+            
+            transform.DOLookAt(playerTransform.position, 1f, AxisConstraint.None, null).SetUpdate(true);
+            Managers.NPC.curTalkingNPC = transform.gameObject;
+            //curDestination = null;
+            Debug.Log("npc stopped to look at you");
+            currentState = NPCDefine.MoveState.Talk;
+            agent.isStopped = true;
         }
     }
 
@@ -121,7 +111,6 @@ public class NPC : MonoBehaviour
         }
     }
 
-
     public void PlayRandomNPCAnim(NPCDefine.AnimType type)
     {
         int randAnimIndex = Random.Range(0, Managers.NPC.Anim.NPCAnimDictionary[type].Count);
@@ -140,5 +129,16 @@ public class NPC : MonoBehaviour
         float standTime = Random.Range(minStandTime, maxStandTime);
         yield return new WaitForSeconds(standTime);
         AssignRandomState();
+    }
+
+    public void UnbotheredByTime()
+    {
+        animator.updateMode = AnimatorUpdateMode.UnscaledTime;
+
+    }
+
+    public void AffectedByTime()
+    {
+        animator.updateMode = AnimatorUpdateMode.Normal;
     }
 }
