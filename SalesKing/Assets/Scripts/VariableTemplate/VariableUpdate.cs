@@ -1,9 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class VariableUpdate : MonoBehaviour
 {
+
+    int fixedAdjustment = 2; //ê³ ì • ì¦ê°€ê°’
+    double percentageAdjustment = 0.05; //í¼ì„¼í…Œì´ì§€ ì¦ê°€ê°’
+
     public void updateThings(int addAffinity, int addUsefulness)
     {
         VariableList.S_Affinity += addAffinity;
@@ -24,23 +29,44 @@ public class VariableUpdate : MonoBehaviour
 
     private void calculateAlphaPrice()
     {
-        VariableList.S_AlphaPrice += VariableList.S_Affinity;
-        Debug.Log($"addAffinityÀÇ ±¸°£¿¡ µû¶ó AlphaPrice ¼±Á¤ : {VariableList.S_AlphaPrice}, {VariableList.S_Affinity}");
+        VariableList.S_AlphaPrice = (int)(VariableList.S_Affinity);
+        Debug.Log($"addAffinityï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ AlphaPrice ï¿½ï¿½ï¿½ï¿½ : {VariableList.S_AlphaPrice}, {VariableList.S_Affinity}");
     }
 
     private void calculateRelationship()
     {
-        if (VariableList.S_Affinity > 0)
+        int affinity = VariableList.S_Affinity;
+        int neutralThreshold = 4;
+
+        if (affinity < neutralThreshold*(-1)*3)
+        {
+            VariableList.S_Relationship = "fuckoff";
+        }
+        else if (affinity < neutralThreshold*(-1))
+        {
+            VariableList.S_Relationship = "dislike";
+        }
+        else if (affinity <= neutralThreshold) // Using <= 8 to include exactly 8 in the "neutral" category
+        {
+            VariableList.S_Relationship = "neutral";
+        }
+        else if (affinity < neutralThreshold*3)
+        {
             VariableList.S_Relationship = "like";
+        }
         else
-            VariableList.S_Relationship = "unlike";
-        Debug.Log("addAffinityÀÇ ±¸°£¿¡ µû¶ó Relationship ¼±Á¤");
+        {
+            VariableList.S_Relationship = "hotlike";
+        }
+
+        Debug.Log($"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {VariableList.S_Relationship}");
     }
 
     private void calculateExpectedPrice()
     {
-        VariableList.S_ExpectedPrice += VariableList.S_Usefulness;
-        Debug.Log($"userfulnessÀÇ ±¸°£¿¡ µû¶ó expectedprice¸¦ ¼±Á¤: {VariableList.S_ExpectedPrice}, {VariableList.S_Usefulness}");
+        int totalAdjustment = VariableList.S_Usefulness * (fixedAdjustment + (int)Math.Ceiling(VariableList.S_DefaultPrice * percentageAdjustment));
+        VariableList.S_ExpectedPrice = VariableList.S_DefaultPrice + totalAdjustment;
+        Debug.Log($"userfulnessï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ expectedpriceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {VariableList.S_ExpectedPrice}, {VariableList.S_Usefulness}");
     }
 
 }
