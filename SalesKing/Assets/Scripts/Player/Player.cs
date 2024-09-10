@@ -9,9 +9,6 @@ public class Player : MonoBehaviour
     PlayerCameraRot cam;
     PlayerMove move;
 
-    [SerializeField]
-    GameObject ConvoPanel;
-    [SerializeField]
     public CinemachineVirtualCamera Camera1;
     public CinemachineVirtualCamera Camera2;
     public GameObject PlayerBody;
@@ -24,15 +21,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        cam.isCameraLocked = false;
-        move.isMovementLocked = false;
-    }
-
-
-    public void FinishConvo()
-    {
-        cam.isCameraLocked = false;
-        move.isMovementLocked = false;
+        FreezeAndUnFreezePlayer(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -42,23 +31,29 @@ public class Player : MonoBehaviour
             NPC thisNPC = other.GetComponent<NPC>();
             if (thisNPC.currentTalkable == NPCDefine.Talkable.Able)
             {
-                Debug.Log("collide with npc");
-                ConvoPanel.SetActive(true);
-                cam.isCameraLocked = true;
-                move.isMovementLocked = true;
-                Managers.Turn.StopAndRestartTime(true);
-                thisNPC.UnbotheredByTime();
-                Managers.Cam.SwitchToDialogueCam();
-                transform.DOLookAt(other.transform.position, 1f, AxisConstraint.None, null).SetUpdate(true);
-                PlayerBody.SetActive(true);
+                PlayerEnterConvo(other.gameObject);
             }
         }
     }
 
-    public void BackToWalking()
+    public void FreezeAndUnFreezePlayer(bool isFreeze)
     {
-        move.isMovementLocked = false;
-        cam.isCameraLocked = false;
+        move.isMovementLocked = isFreeze;
+        cam.isCameraLocked = isFreeze;
     }
 
+    public void PlayerEnterConvo(GameObject npc)
+    {
+        FreezeAndUnFreezePlayer(true);
+        Managers.Turn.ConvoStarted();
+        transform.DOLookAt(npc.transform.position, 1f, AxisConstraint.None, null).
+            SetUpdate(true);
+        PlayerBody.SetActive(true);
+    }
+
+
+    public void PlayerExitConvo()
+    {
+        FreezeAndUnFreezePlayer(false);
+    }
 }
