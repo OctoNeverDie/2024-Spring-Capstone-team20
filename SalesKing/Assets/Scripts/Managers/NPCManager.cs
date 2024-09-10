@@ -13,6 +13,7 @@ public class NPCManager : MonoBehaviour
 
     public List<GameObject> NPCGroup = new List<GameObject>();
     public GameObject NPCHolder;
+    public GameObject curTalkingNPC;
 
     private void Awake()
     {

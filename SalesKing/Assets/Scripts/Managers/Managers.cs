@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Resources;
@@ -37,12 +38,14 @@ public class Managers : MonoBehaviour
     UIManager _ui;
     PlayerManager _player;
     TurnManager _turn;
+    CameraManager _cam;
 
     public static SceneModeManager Scene { get { return Instance._scene; } }
     public static NPCManager NPC { get { return Instance._npc; } }
     public static UIManager UI { get { return Instance._ui; } }
     public static PlayerManager Player { get { return Instance._player; } }
     public static TurnManager Turn { get { return Instance._turn; } }
+    public static CameraManager Cam { get { return Instance._cam; } }
 
     void Awake()
     {
@@ -103,7 +106,7 @@ public class Managers : MonoBehaviour
         }
     }
 
-    public void AddConvoManager()
+    public void AddTurnManager()
     {
         GameObject turnManager = new GameObject("@TurnManager");
         turnManager.transform.parent = transform;
@@ -111,6 +114,17 @@ public class Managers : MonoBehaviour
         if (instance._turn == null)
         {
             instance._turn = turnManager.AddComponent<TurnManager>();
+        }
+    }
+
+    public void AddCameraManager()
+    {
+        GameObject camManager = new GameObject("@CameraManager");
+        camManager.transform.parent = transform;
+
+        if (instance._cam == null)
+        {
+            instance._cam = camManager.AddComponent<CameraManager>();
         }
     }
 

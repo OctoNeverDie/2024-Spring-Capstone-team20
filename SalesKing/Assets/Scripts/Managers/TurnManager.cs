@@ -26,6 +26,9 @@ public class TurnManager : MonoBehaviour
     {
         StopAndRestartTime(false);
         Managers.Player.MyPlayer.GetComponent<Player>().BackToWalking();
+        Destroy(Managers.NPC.curTalkingNPC);
+        Managers.NPC.curTalkingNPC = null;
+        Managers.Cam.SwitchToFirstPersonCam();
     }
 
     public void StopAndRestartTime(bool isStop)

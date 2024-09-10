@@ -1012,6 +1012,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConvoPanel: {fileID: 6425883719743244224}
+  Camera: {fileID: 7246181781373639246}
 --- !u!114 &6727286827480259364
 MonoBehaviour:
   m_ObjectHideFlags: 0
