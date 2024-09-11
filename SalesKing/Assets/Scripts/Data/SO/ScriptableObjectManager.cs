@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public abstract class ScriptableObjectManager<T>
+public abstract class ScriptableObjectManager<T> : MonoBehaviour
 {
-    public void Init()
+    public virtual void Init()
     {
         MakeSOs();
     }

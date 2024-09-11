@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface ILoader<DataFormat>
-{ List<DataFormat> GetItems(); }
+{ List<DataFormat> GetList(); }
 
 public class DataManager
 {
     public List<ItemInfo> itemList = new List<ItemInfo>();
     public void Init()
     {
-        LoadJson<ItemData, ItemInfo>("ItemData").Init();
+        itemList = LoadJson<ItemData, ItemInfo>("ItemData").ItemInit();
         LoadJson<NpcData, NpcInfo>("NpcData").Init();
     }
 

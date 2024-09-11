@@ -39,6 +39,7 @@ public class Managers : MonoBehaviour
     PlayerManager _player;
     TurnManager _turn;
     CameraManager _cam;
+    DataManager _data = new DataManager();
 
     public static SceneModeManager Scene { get { return Instance._scene; } }
     public static NPCManager NPC { get { return Instance._npc; } }
@@ -46,12 +47,12 @@ public class Managers : MonoBehaviour
     public static PlayerManager Player { get { return Instance._player; } }
     public static TurnManager Turn { get { return Instance._turn; } }
     public static CameraManager Cam { get { return Instance._cam; } }
+    public static DataManager Data { get { return Instance._data;  } }
 
     void Awake()
     {
         Init();
         ManagersGO = transform.gameObject;
-
 
         if (instance._scene == null)
         {
@@ -71,6 +72,8 @@ public class Managers : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        instance._data.Init();
     }
 
     public void AddPlayerManager()
