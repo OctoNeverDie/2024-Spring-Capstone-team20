@@ -10,13 +10,10 @@ public class ServerManager : ServerBase
     public static ServerManager Instance => instance;
 
     private TemplateReceive templateReceive;
-
+    private string _userInput = "";
+    private TemplateSend.SendChatType sendChatType;
     private void Init()
-    {
-
-        templateReceive = Util.GetOrAddComponent<TemplateReceive>(this.gameObject);
-
-    }
+    { templateReceive = Util.GetOrAddComponent<TemplateReceive>(this.gameObject);  }
     private void Awake()
     {
         if (instance == null)
@@ -32,22 +29,25 @@ public class ServerManager : ServerBase
         }
     }
 
-    private string _userInput = "";
-    public void GetGPTReply(string userInput) 
+    public void GetGPTReply(string userInput, TemplateSend.SendChatType sendChatTypeFrom)
     {
+        this.sendChatType = sendChatTypeFrom;
         this._userInput = userInput;
+
         StartCoroutine(GetGPTCo());
     }
+
     private IEnumerator GetGPTCo()
     {
         yield return CoGetGPT();
     }
 
-    public enum TestSendType
-    { 
-        Init,
-        Chat,
-        Clear
+    private JObject AddJobjBySendType(JObject jobj, TemplateSend.SendChatType sendChatType)
+    {
+        jobj.Add("Request", _userInput);
+        jobj.Add("SendType", $"{sendChatType}");
+        
+        return jobj;
     }
     private Coroutine CoGetGPT( Action<ResultInfo> onSucceed = null,
                                 Action<ResultInfo> onFailed = null,
@@ -56,41 +56,13 @@ public class ServerManager : ServerBase
         string url = "http://127.0.0.1:8000/";
 
         JObject jobj = new JObject();
-        jobj.Add("Request", _userInput);
-        jobj.Add("SendType", $"{TestSendType.Init}");
-        jobj.Add("Item", "@ObjName = Cup, @ObjectInfo = blah, @defaultPrice =10, @expensvie = 100, @tooExpensive =200");
-        jobj.Add("Npc", "@NpcName = Jack, @NpcSex = female, @NpcAge = 17, @NpcPersonality = Bad, @NpcProplemType = relate, @NpcProblemInfo = blah");
+        jobj = AddJobjBySendType(jobj, sendChatType);
 
         Action<ResultInfo> bringGPTReplay = (result) =>
         {
-            Debug.Log($"+++++++++Reply");
             var resultData = JObject.Parse(result.Json)["reply"];
             Debug.Log($"Reply : {resultData}");
             templateReceive.StringConcat(resultData.ToString());
-            /*
-            JObject jsonObject = JObject.Parse(result.Json);
-
-            JToken resultData1 = jsonObject["reply"];
-            JToken resultData2 = jsonObject["thought"];
-            JToken resultData3 = jsonObject["reason"];
-            JToken resultData4 = jsonObject["emotion"];
-            JToken resultData5 = jsonObject["suggestedPrice"];
-            JToken resultData6 = jsonObject["reaction"];
-
-            Debug.Log($"Reply: {(resultData1 != null ? resultData1.ToString() : "null")}");
-            Debug.Log($"Thought: {(resultData2 != null ? resultData2.ToString() : "null")}");
-            Debug.Log($"Reason: {(resultData3 != null ? resultData3.ToString() : "null")}");
-            Debug.Log($"Emotion: {(resultData4 != null ? resultData4.ToString() : "null")}");
-            Debug.Log($"Suggested Price: {(resultData5 != null ? resultData5.ToString() : "null")}");
-            Debug.Log($"Reaction: {(resultData6 != null ? resultData6.ToString() : "null")}");
-
-    thought: 티타늄으로 만들어졌다니 이 펜은 정말 유용할 것 같아. 그래도 혹시 모르니까 진짜인지 물어봐야겠어., 
-    reason: 물건이 좋은 재료로 만들어졌음. (usefulness: +1), 펜촉이 얇아서 필기가 잘될 것 같음. (usefulness: +1), 
-    emotion: 중립, 
-    suggestedPrice: ?, 
-    reaction: 와! 티타늄으로 만들어졌다는게 사실이라면 쓸모가 있을 것 같아요. 게다가 펜촉이 얇아서 필기도 잘 될 것 같고요. 정말 티타늄으로 만들어진 게 맞나요?
- */
-            //templateReceive(resultData);
         };
 
         Action<ResultInfo> failTest = (result) =>
@@ -98,9 +70,8 @@ public class ServerManager : ServerBase
             Debug.Log("+++++++++fail");
         };
 
-        Action<ResultInfo> networkTest = (result) =>
+        Action<ResultInfo> networkTest = (result) =>//runserver!
         {
-            //runserver 안 했을 때
             Debug.Log("+++++++++networkTest");
         };
 

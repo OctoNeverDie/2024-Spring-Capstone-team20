@@ -21,12 +21,17 @@ public class VaribleInput : MonoBehaviour
 
     private void Start()
     {
+        DataInit();
+    }
+
+    private void DataInit()
+    {
         //just once, before conversation
         //item information
         string itemInfo = "@ObjID =2, @ObjName = Cup, @ObjectInfo = blah, @defaultPrice =10, @expensvie = 100, @tooExpensive =200";
         //npc information
         string npcInfo = "@NpcID = 1, @NpcSex = female, @NpcAge = 17, @NpcPersonality = Bad, @NpcProplemType = relate, @NpcProblemInfo = blah";
-        
+
         _sendTemplate.Init(itemInfo, npcInfo);
     }
 

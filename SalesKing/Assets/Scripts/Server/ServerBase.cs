@@ -10,7 +10,7 @@ using System.Text;
 public class ServerBase : MonoBehaviour
 {
     public enum SendType { GET, POST, PUT ,DELETE }
-    public delegate void RequestCallback(ResultInfo result);
+    //public delegate void RequestCallback(ResultInfo result);
 
     //sent to the server
     protected virtual IEnumerator SendRequest(string url, SendType sendType, JObject jobj, Action<ResultInfo> onSucceed, Action<ResultInfo> onFailed, Action<ResultInfo> onNetworkFailed)
@@ -21,22 +21,17 @@ public class ServerBase : MonoBehaviour
         using (var req = new UnityWebRequest(url, sendType.ToString()))
         {
             //check sending information
-            Debug.LogFormat("url: {0} \n" +
-            "보낸데이터: {1}",
-            url,
-            JsonConvert.SerializeObject(jobj, Formatting.Indented));
+            Debug.LogFormat("Sended Data: {1}", url, JsonConvert.SerializeObject(jobj, Formatting.Indented));
 
-            //make request body
+            //make request body and header
             byte[] bodyRaw = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(jobj));
             req.uploadHandler = new UploadHandlerRaw(bodyRaw);
             req.downloadHandler = new DownloadHandlerBuffer();
-            //make request header
             req.SetRequestHeader("Content-Type", "application/json");
 
-            //sending
             yield return req.SendWebRequest();
 
-            //check success/fail
+            //check result success/fail
             var result = ResultCheck(req);
 
             //if network error
@@ -81,68 +76,40 @@ public class ServerBase : MonoBehaviour
         ResultInfo res;
         switch (req.result)
         {
+            case UnityWebRequest.Result.Success:
+                JObject jobj = JObject.Parse(req.downloadHandler.text);
+
+                res = new ResultInfo(req.downloadHandler.text, true, false, string.Empty);
+                return res;
+
             case UnityWebRequest.Result.InProgress://possibly network error
                 res = new ResultInfo(req.downloadHandler.text, false, true, "InProgress");
                 return res;
-            case UnityWebRequest.Result.Success:
-                string returningData= req.downloadHandler.text;
-                print(returningData);
-                JObject jobj = JObject.Parse(returningData);
-
-                //if server's "meta code" data is not 0 -> fail
-                //bool isSuccess = int.Parse(jobj["meta"]["code"].ToString()) == 0 ? true : false;
-                bool isSuccess = true;
-
-                if (isSuccess)
-                {
-                    res = new ResultInfo(req.downloadHandler.text, true, false, string.Empty);
-                    return res;
-                }
-                else //fail
-                {
-                    Debug.LogErrorFormat("요청 실패: {0}", jobj["message"].ToString());
-                    res = new ResultInfo(req.downloadHandler.text, false, false,
-                        string.Format("Code: {0} - {1}", jobj["code"].ToString(), jobj["message"].ToString()));
-                    return res;
-                }
             #region Connection Error Handle
             case UnityWebRequest.Result.ConnectionError:
             case UnityWebRequest.Result.ProtocolError:
-            case UnityWebRequest.Result.DataProcessingError:
-                // Connection error, Runserver 안 함
-                Debug.LogError(req.error);
+            case UnityWebRequest.Result.DataProcessingError:// Connection error, Runserver 안 함
+            default:
                 Debug.Log(req.downloadHandler.text);
                 res = new ResultInfo(req.downloadHandler.text, false, true, req.error);
-                return res;
-            default:
-                Debug.LogError(req.error);
-                Debug.Log(req.downloadHandler.text);
-                res = new ResultInfo(req.downloadHandler.text, false, true, "Unknown");
                 return res;
              #endregion
         }
     }
 
-    //Hold the result from web
-    public class ResultInfo
+    public class ResultInfo //Hold the result from web
     {
-        private string json; //hold return value from web
-        private bool isSuccess;
-        private bool isNetworkError;
-        private string error;
-
-        public string Json => json;
-        public bool IsSuccess => isSuccess;
-        public bool IsNetworkError => isNetworkError;
-        public string Error => error;
+        public string Json { get; private set; }//hold return value from web
+        public bool IsSuccess { get; private set; } 
+        public bool IsNetworkError { get; private set; }
+        public string Error { get; private set; } 
 
         public ResultInfo(string json, bool isSuccess, bool isNetworkError, string error)
         {
-            this.json = json;
-            this.isSuccess = isSuccess;
-            this.isNetworkError = isNetworkError;
-            this.error = error;
+            this.Json = json;
+            this.IsSuccess = isSuccess;
+            this.IsNetworkError = isNetworkError;
+            this.Error = error;
         }
     }
-
 }
