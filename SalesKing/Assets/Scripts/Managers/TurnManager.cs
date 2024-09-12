@@ -27,6 +27,8 @@ public class TurnManager : MonoBehaviour
         StopAndRestartTime(false);
         Managers.Player.MyPlayer.GetComponent<Player>().PlayerExitConvo();
         //Destroy(Managers.NPC.curTalkingNPC);
+        Managers.NPC.curTalkingNPC.GetComponent<NPC>().currentTalkable = NPCDefine.Talkable.Not;
+        Managers.NPC.curTalkingNPC.GetComponent<NPC>().myCanvas.SetActive(false);
         Managers.NPC.curTalkingNPC = null;
         Managers.Cam.SwitchToFirstPersonCam();
         Managers.Player.MyPlayer.GetComponent<Player>().PlayerBody.SetActive(true);

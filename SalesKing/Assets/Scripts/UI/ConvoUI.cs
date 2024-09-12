@@ -10,13 +10,21 @@ public class ConvoUI : MonoBehaviour
 
     public void YesTalkBtn()
     {
-
+        ChooseItemPanel.SetActive(true);
+        TalkOrNotPanel.SetActive(false);
     }
 
     public void NoTalkBtn()
     {
         Managers.Turn.ConvoFinished();
         TalkOrNotPanel.SetActive(false);
+        ConvoPanel.SetActive(false);
+    }
+
+    public void SelectItemBtn()
+    {
+        ChooseItemPanel.SetActive(false);
+        ConvoPanel.SetActive(true);
     }
 }
 
