@@ -5,7 +5,7 @@ using UnityEngine;
 public class TemplateSend
 {
     private string _userSend = "";
-    public enum SendType
+    public enum SendChatType
     {
         None,
         Init,
@@ -17,39 +17,39 @@ public class TemplateSend
     public void Init(string itemInfo, string npcInfo)
     {
         _userSend = MakeChatInit(itemInfo, npcInfo);
-        SendToGPT();
+        SendToGPT(SendChatType.Init);
     }
 
     public void ChatwithGPT()
     {
         _userSend = MakeAnswer();
-        SendToGPT();
+        SendToGPT(SendChatType.Chat);
     }
 
     public void EndGPT()
     {
         _userSend = MakeClear();
-        SendToGPT();
+        SendToGPT(SendChatType.Clear);
     }
 
-    public void SendToGPT()
+    public void SendToGPT(SendChatType sendChatTypeFrom)
     {
         Debug.Log($"Send : {_userSend}");
-        ServerManager.Instance.GetGPTReply(_userSend);
+        ServerManager.Instance.GetGPTReply(_userSend, sendChatTypeFrom);
     }
 
     private string MakeAnswer()
     { 
-        return $"\\SendType : {SendType.Chat} \\ @relationship : {VariableList.S_Relationship}, @expecedtPrice : {VariableList.S_ExpectedPrice}, @vender input: {VariableList.S_UserAnswer}";
+        return $"@relationship : {VariableList.S_Relationship}, @expecedtPrice : {VariableList.S_ExpectedPrice}, @vender input: {VariableList.S_UserAnswer}";
     }
 
     private string MakeChatInit(string itemInfo, string npcInfo)
     {
-        string initData = $"\\SendType : {SendType.Init}\\" + itemInfo + "\\"+ npcInfo;
+        string initData = $"\n {itemInfo} \n {npcInfo}";
         return initData;
     }
     private string MakeClear()
     {
-        return $"\\SendType : {SendType.Clear}";
+        return "Clear";
     }
 }

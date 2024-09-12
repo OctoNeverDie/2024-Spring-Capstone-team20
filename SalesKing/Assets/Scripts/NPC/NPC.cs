@@ -14,7 +14,7 @@ public class NPC : MonoBehaviour
 
     public Transform destination;
 
-    private GameObject myCanvas;
+    public GameObject myCanvas;
 
     private Animator animator;
     private NavMeshAgent agent;
@@ -26,9 +26,6 @@ public class NPC : MonoBehaviour
 
     public float minStandTime = 10f;
     public float maxStandTime = 30f;
-
-    //bool isLookAt = false;
-    Transform playerTransform;
 
 
     void Awake()
@@ -63,15 +60,7 @@ public class NPC : MonoBehaviour
     {
         if (other.CompareTag("Player") && currentTalkable == NPCDefine.Talkable.Able)
         {
-            playerTransform = other.transform;
-            //isLookAt = true;
-            
-            transform.DOLookAt(playerTransform.position, 1f, AxisConstraint.None, null).SetUpdate(true);
-            Managers.NPC.curTalkingNPC = transform.gameObject;
-            //curDestination = null;
-            Debug.Log("npc stopped to look at you");
-            currentState = NPCDefine.MoveState.Talk;
-            agent.isStopped = true;
+            NPCEnterConvo(other.gameObject);
         }
     }
 
@@ -131,13 +120,16 @@ public class NPC : MonoBehaviour
         AssignRandomState();
     }
 
-    public void UnbotheredByTime()
+    public void NPCEnterConvo(GameObject player)
     {
         animator.updateMode = AnimatorUpdateMode.UnscaledTime;
-
+        transform.DOLookAt(player.transform.position, 1f, AxisConstraint.None, null).SetUpdate(true);
+        Managers.NPC.curTalkingNPC = transform.gameObject;
+        currentState = NPCDefine.MoveState.Talk;
+        agent.isStopped = true;
     }
 
-    public void AffectedByTime()
+    public void NPCExitConvo()
     {
         animator.updateMode = AnimatorUpdateMode.Normal;
     }

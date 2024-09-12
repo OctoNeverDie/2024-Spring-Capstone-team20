@@ -19,7 +19,6 @@ public class CameraManager : MonoBehaviour
     {
         firstPersonCam = Managers.Player.MyPlayer.GetComponent<Player>().Camera1;
         dialogueCam = Managers.Player.MyPlayer.GetComponent<Player>().Camera2;
-        //dialogueCam = GameObject.Find("VCam2(Dialogue)").GetComponent<CinemachineVirtualCamera>();
         SwitchToFirstPersonCam();
     }
 
