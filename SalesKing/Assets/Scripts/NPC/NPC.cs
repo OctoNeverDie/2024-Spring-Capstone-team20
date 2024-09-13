@@ -14,7 +14,7 @@ public class NPC : MonoBehaviour
 
     public Transform destination;
 
-    private GameObject myCanvas;
+    public GameObject myCanvas;
 
     private Animator animator;
     private NavMeshAgent agent;
