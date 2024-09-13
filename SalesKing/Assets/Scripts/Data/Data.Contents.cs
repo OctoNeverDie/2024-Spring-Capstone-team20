@@ -2,33 +2,26 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using System.IO;
+using static UnityEditor.Progress;
 
 #region Item
-public class ItemData : ScriptableObjectManager<ItemInfo>, ILoader<ItemInfo>
+
+[Serializable]
+public class ItemInfo
+{
+    public int ObjID;
+    public string ObjName;
+    public string ObjInfo;
+    public int defaultPrice;
+    public int expensive;
+    public int tooExpensive;
+}
+
+public class ItemData : ILoader<ItemInfo>
 {
     public List<ItemInfo> items = new List<ItemInfo>();
-    public List<ItemInfo> GetItems()
+    public List<ItemInfo> GetList()
     => items;
-
-    protected override void MakeSOs()
-    {
-        base.MakeDirectory("items");
-
-        foreach (var item in items)
-        {
-            MakeSOInstance(item);
-        }
-    }
-    protected override void MakeSOInstance(ItemInfo item)
-    {
-        ItemSO itemSO = ScriptableObject.CreateInstance<ItemSO>();
-        itemSO.Initialize(item);
-
-#if UNITY_EDITOR
-        UnityEditor.AssetDatabase.CreateAsset(itemSO, $"{base.basePath}Items/{itemSO.itemInfo.ObjName}.asset");
-        UnityEditor.AssetDatabase.SaveAssets();
-#endif
-    }
 }
 #endregion
 
@@ -36,10 +29,10 @@ public class ItemData : ScriptableObjectManager<ItemInfo>, ILoader<ItemInfo>
 public class NpcData : ScriptableObjectManager<NpcInfo>, ILoader<NpcInfo>
 {
     public List<NpcInfo> npcs = new List<NpcInfo>();
-    public List<NpcInfo> GetItems()
+    public List<NpcInfo> GetList()
     => npcs;
 
-    protected override void MakeSOs()
+    protected override void MakeSO()
     {
         base.MakeDirectory("npcs");
 

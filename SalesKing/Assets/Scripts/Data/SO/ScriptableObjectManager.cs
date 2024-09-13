@@ -7,7 +7,7 @@ public abstract class ScriptableObjectManager<T> : MonoBehaviour
 {
     public virtual void Init()
     {
-        MakeSOs();
+        MakeSO();
     }
 
     protected string basePath = "Assets/Resources/Data/";
@@ -17,17 +17,15 @@ public abstract class ScriptableObjectManager<T> : MonoBehaviour
         if (!folderName.StartsWith(basePath))
             folderName = Path.Combine(basePath, folderName);
 
-        if (Directory.Exists(folderName))
+        if (!Directory.Exists(folderName))
         {
+            Directory.CreateDirectory(folderName);
             //can seemed not deleted Due to the delay of editor
-            Directory.Delete(folderName, true);
-            
+            //Directory.Delete(folderName, true);
         }
-       
-        Directory.CreateDirectory(folderName);
 #endif
     }
 
-    protected abstract void MakeSOs();
+    protected abstract void MakeSO();
     protected abstract void MakeSOInstance(T DataFromList);
 }

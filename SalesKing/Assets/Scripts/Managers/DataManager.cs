@@ -8,10 +8,11 @@ public interface ILoader<DataFormat>
 public class DataManager
 {
     public List<ItemInfo> itemList = new List<ItemInfo>();
+    public List<NpcInfo> npcList = new List<NpcInfo>();
     public void Init()
     {
-        itemList = LoadJson<ItemData, ItemInfo>("ItemData").ItemInit();
-        LoadJson<NpcData, NpcInfo>("NpcData").Init();
+        itemList = LoadJson<ItemData, ItemInfo>("ItemData").GetList();
+        npcList = LoadJson<NpcData, NpcInfo>("NpcData").GetList();
     }
 
     Loader LoadJson<Loader, DataFormat>(string path) where Loader : ILoader<DataFormat>
