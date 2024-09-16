@@ -127,6 +127,7 @@ public class NPC : MonoBehaviour
         Managers.NPC.curTalkingNPC = transform.gameObject;
         currentState = NPCDefine.MoveState.Talk;
         agent.isStopped = true;
+        animator.Play(Managers.NPC.Anim.NPCAnimDictionary[NPCDefine.AnimType.Standing][0].name);
     }
 
     public void NPCExitConvo()

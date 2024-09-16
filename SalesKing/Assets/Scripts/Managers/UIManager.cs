@@ -23,4 +23,9 @@ public class UIManager : MonoBehaviour
     {
 
     }
+
+    public void SetNPCAnswerText(string text)
+    {
+        ui.NPCSpeechText.text = text;
+    }
 }

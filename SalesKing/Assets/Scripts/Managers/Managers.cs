@@ -39,6 +39,7 @@ public class Managers : MonoBehaviour
     PlayerManager _player;
     TurnManager _turn;
     CameraManager _cam;
+    GPTManager _gpt;
 
     public static SceneModeManager Scene { get { return Instance._scene; } }
     public static NPCManager NPC { get { return Instance._npc; } }
@@ -46,6 +47,7 @@ public class Managers : MonoBehaviour
     public static PlayerManager Player { get { return Instance._player; } }
     public static TurnManager Turn { get { return Instance._turn; } }
     public static CameraManager Cam { get { return Instance._cam; } }
+    public static GPTManager GPT { get { return Instance._gpt; } }
 
     void Awake()
     {
@@ -125,6 +127,17 @@ public class Managers : MonoBehaviour
         if (instance._cam == null)
         {
             instance._cam = camManager.AddComponent<CameraManager>();
+        }
+    }
+
+    public void AddGPTManager()
+    {
+        GameObject gptManager = new GameObject("@GPTManager");
+        gptManager.transform.parent = transform;
+
+        if (instance._gpt == null)
+        {
+            instance._gpt = gptManager.AddComponent<GPTManager>();
         }
     }
 
