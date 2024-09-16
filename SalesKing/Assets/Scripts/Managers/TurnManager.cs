@@ -6,15 +6,6 @@ public class TurnManager : MonoBehaviour
 {
     public int curTurn;
 
-    private void Update()
-    {
-        // test
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            ConvoFinished();
-        }
-    }
-
     public void ConvoStarted()
     {
         StopAndRestartTime(true);
@@ -26,7 +17,6 @@ public class TurnManager : MonoBehaviour
     {
         StopAndRestartTime(false);
         Managers.Player.MyPlayer.GetComponent<Player>().PlayerExitConvo();
-        //Destroy(Managers.NPC.curTalkingNPC);
         Managers.NPC.curTalkingNPC.GetComponent<NPC>().currentTalkable = NPCDefine.Talkable.Not;
         Managers.NPC.curTalkingNPC.GetComponent<NPC>().myCanvas.SetActive(false);
         Managers.NPC.curTalkingNPC = null;

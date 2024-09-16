@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class Managers : MonoBehaviour
 {
-    private static Managers instance; // À¯ÀÏ¼ºÀÌ º¸ÀåµÈ´Ù
+    private static Managers instance; // ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È´ï¿½
     public static Managers Instance 
     {
         get
@@ -29,7 +29,7 @@ public class Managers : MonoBehaviour
             }
             return instance;
         }
-    } // À¯ÀÏÇÑ ¸Å´ÏÀú¸¦ °®°í¿Â´Ù
+    } // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½
 
     public GameObject ManagersGO;
 
@@ -40,6 +40,7 @@ public class Managers : MonoBehaviour
     TurnManager _turn;
     CameraManager _cam;
     DataManager _data = new DataManager();
+    GPTManager _gpt;
 
     public static SceneModeManager Scene { get { return Instance._scene; } }
     public static NPCManager NPC { get { return Instance._npc; } }
@@ -48,6 +49,7 @@ public class Managers : MonoBehaviour
     public static TurnManager Turn { get { return Instance._turn; } }
     public static CameraManager Cam { get { return Instance._cam; } }
     public static DataManager Data { get { return Instance._data;  } }
+    public static GPTManager GPT { get { return Instance._gpt; } }
 
     void Awake()
     {
@@ -60,7 +62,7 @@ public class Managers : MonoBehaviour
         }
     }
 
-    // Managers ±ú¿ì±â
+    // Managers ï¿½ï¿½ï¿½ï¿½ï¿½
     void Init()
     {
         if (instance == null)
@@ -131,12 +133,23 @@ public class Managers : MonoBehaviour
         }
     }
 
+    public void AddGPTManager()
+    {
+        GameObject gptManager = new GameObject("@GPTManager");
+        gptManager.transform.parent = transform;
+
+        if (instance._gpt == null)
+        {
+            instance._gpt = gptManager.AddComponent<GPTManager>();
+        }
+    }
+
     public void ClearChildManagers()
     {
-        // ÀÚ½Ä ¿ÀºêÁ§Æ®ÀÇ ¼ö¸¸Å­ ¹Ýº¹
+        // ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ýºï¿½
         foreach (Transform child in transform)
         {
-            // °¢ ÀÚ½Ä ¿ÀºêÁ§Æ®¸¦ ÆÄ±«
+            // ï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ä±ï¿½
             Destroy(child.gameObject);
         }
     }
