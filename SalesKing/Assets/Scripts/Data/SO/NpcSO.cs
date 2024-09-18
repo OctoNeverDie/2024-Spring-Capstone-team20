@@ -3,18 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[Serializable]
-public class NpcInfo
-{
-    public int NpcID;
-    public string NpcName;
-    public string NpcSex;
-    public int NpcAge;
-    public string NpcPersonality;
-    public string NpcProplemType;
-    public string NpcProblemInfo;
-}
-
 [CreateAssetMenu(fileName = "NpcSO", menuName = "SO/NpcSO")]
 public class NpcSO : ScriptableObject
 {

@@ -7,7 +7,7 @@ public abstract class ScriptableObjectManager<T> : MonoBehaviour
 {
     public virtual void Init()
     {
-        MakeSO();
+        //MakeSO();
     }
 
     protected string basePath = "Assets/Resources/Data/";
