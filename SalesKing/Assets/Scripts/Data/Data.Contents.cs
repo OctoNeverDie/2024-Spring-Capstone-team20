@@ -26,29 +26,41 @@ public class ItemData : ILoader<ItemInfo>
 #endregion
 
 #region NPC
-public class NpcData : ScriptableObjectManager<NpcInfo>, ILoader<NpcInfo>
+[Serializable]
+public class NpcInfo
+{
+    public int NpcID;
+    public string NpcName;
+    public string NpcSex;
+    public int NpcAge;
+    public string NpcPersonality;
+    public string NpcProplemType;
+    public string NpcProblemInfo;
+}
+
+public class NpcData : ILoader<NpcInfo>
 {
     public List<NpcInfo> npcs = new List<NpcInfo>();
     public List<NpcInfo> GetList()
     => npcs;
 
-    protected override void MakeSO()
+    protected void MakeSO()
     {
-        base.MakeDirectory("npcs");
+        //base.MakeDirectory("npcs");
 
         foreach (var npc in npcs)
         {
             MakeSOInstance(npc);
         }
     }
-    protected override void MakeSOInstance(NpcInfo npc)
+    protected void MakeSOInstance(NpcInfo npc)
     {
         NpcSO npcSO = ScriptableObject.CreateInstance<NpcSO>();
         npcSO.Initialize(npc);
 
 #if UNITY_EDITOR
-        UnityEditor.AssetDatabase.CreateAsset(npcSO, $"{base.basePath}Npcs/{npcSO.npcInfo.NpcName}.asset");
-        UnityEditor.AssetDatabase.SaveAssets();
+        //UnityEditor.AssetDatabase.CreateAsset(npcSO, $"{base.basePath}Npcs/{npcSO.npcInfo.NpcName}.asset");
+        //UnityEditor.AssetDatabase.SaveAssets();
 #endif
     }
 }
