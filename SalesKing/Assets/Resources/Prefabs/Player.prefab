@@ -758,7 +758,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7f9780386fd95c4599ebb1656dbe075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ConvoPanel: {fileID: 0}
   Camera1: {fileID: 7246181781373639246}
   Camera2: {fileID: 4493655474283687873}
   PlayerBody: {fileID: 9055469640178224823}
