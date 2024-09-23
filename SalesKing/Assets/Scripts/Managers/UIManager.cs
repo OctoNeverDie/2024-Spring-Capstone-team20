@@ -53,6 +53,7 @@ public class UIManager : MonoBehaviour
 
         string hour_s;
         string min_s;
+        string ampm;
 
         if(hour < 10) hour_s = "0"+hour;
         else hour_s = hour.ToString();
@@ -60,7 +61,10 @@ public class UIManager : MonoBehaviour
         if (minute < 10) min_s = "00";
         else min_s = minute/10+"0";
 
-        ui.TimeText.text = hour_s+" : "+min_s;
+        if (hour < 12) ampm = "AM";
+        else ampm = "PM";
+
+        ui.TimeText.text = hour_s+" : "+min_s+" "+ampm;
     }
 
     public void SetTurnText()
