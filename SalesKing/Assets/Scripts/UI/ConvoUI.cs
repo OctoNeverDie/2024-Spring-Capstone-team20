@@ -13,7 +13,11 @@ public class ConvoUI : MonoBehaviour
 
     public TMP_InputField UserText;
     public GameObject NPCSpeechBubble;
-    public TextMeshProUGUI NPCSpeechText; 
+    public TextMeshProUGUI NPCSpeechText;
+
+    public TextMeshProUGUI StatusText;
+    public TextMeshProUGUI TimeText;
+    public TextMeshProUGUI TurnText;
 
     public void YesTalkBtn()
     {
@@ -40,8 +44,8 @@ public class ConvoUI : MonoBehaviour
         Managers.GPT.TalkToNPC(playerDialogue);
         UserText.text = null;
 
-        // ÀÓ½Ã·Î.. ´ëÈ­ ¸»°É¸é ¹Ù·Î ´äÀå ¿À°Ô ¼³Á¤
-        // ¿©±â¼­ºÎÅÍ..
+        // ì„ì‹œë¡œ.. ëŒ€í™” ë§ê±¸ë©´ ë°”ë¡œ ë‹µì¥ ì˜¤ê²Œ ì„¤ì •
+        // ì—¬ê¸°ì„œë¶€í„°..
         Managers.GPT.ReceiveNPCAnswer();
 
         NPCSpeechBubble.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
@@ -49,7 +53,7 @@ public class ConvoUI : MonoBehaviour
 
         
 
-        // ¿©±â±îÁö. 
+        // ì—¬ê¸°ê¹Œì§€. 
     }
 
 }

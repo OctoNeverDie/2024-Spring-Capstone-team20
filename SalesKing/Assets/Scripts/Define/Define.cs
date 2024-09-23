@@ -21,4 +21,12 @@ public class Define : MonoBehaviour
         Negative,
         VeryNegative
     }
+
+    public enum Skybox
+    {
+        Morning, 
+        Day, 
+        Sunset, 
+        Night
+    }
 }

@@ -12,6 +12,13 @@ public class UIManager : MonoBehaviour
     {
         myCanvas = GameObject.Find("Canvas");
         ui = myCanvas.GetComponent<ConvoUI>();
+        SetTimeText();
+        SetTurnText();
+    }
+
+    private void Update()
+    {
+        SetTimeText();
     }
 
     public void ShowTalkOrNotPanel()
@@ -19,7 +26,12 @@ public class UIManager : MonoBehaviour
         ui.TalkOrNotPanel.SetActive(true);
     }
 
-    public void SetConvoPanel()
+    public void UpdateConvoPanel()
+    {
+
+    }
+
+    public void InitiateConvoPanel()
     {
 
     }
@@ -28,4 +40,32 @@ public class UIManager : MonoBehaviour
     {
         ui.NPCSpeechText.text = text;
     }
+
+    public void SetStatusText(int suggestedPrice, int persuasion)
+    {
+        ui.StatusText.text = "Suggested Price: "+suggestedPrice+"\nPersuasion: "+persuasion;
+    }
+
+    public void SetTimeText()
+    {
+        int hour = Managers.Turn.Hour;
+        int minute = Managers.Turn.Minute;
+
+        string hour_s;
+        string min_s;
+
+        if(hour < 10) hour_s = "0"+hour;
+        else hour_s = hour.ToString();
+
+        if (minute < 10) min_s = "00";
+        else min_s = minute/10+"0";
+
+        ui.TimeText.text = hour_s+" : "+min_s;
+    }
+
+    public void SetTurnText()
+    {
+        ui.TurnText.text = Managers.Turn.curTurn+" / 3";
+    }
+
 }

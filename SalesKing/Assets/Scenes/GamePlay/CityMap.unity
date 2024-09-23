@@ -6353,7 +6353,7 @@ GameObject:
   - component: {fileID: 151548958}
   - component: {fileID: 151548957}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: StatusPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29431,6 +29431,9 @@ MonoBehaviour:
   UserText: {fileID: 658069264}
   NPCSpeechBubble: {fileID: 1262570888}
   NPCSpeechText: {fileID: 1428053739}
+  StatusText: {fileID: 25881296}
+  TimeText: {fileID: 1809009728}
+  TurnText: {fileID: 999583717}
 --- !u!1001 &812538121
 PrefabInstance:
   m_ObjectHideFlags: 0
