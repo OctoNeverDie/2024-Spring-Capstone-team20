@@ -18,15 +18,9 @@ public class PlayerManager : MonoBehaviour
 
         if (PlayerPrefab != null)
         {
-            //Debug.Log("Player Prefab �ε� ����!");
             Transform playerStart = GameObject.Find("PlayerStart").transform;
             MyPlayer = Instantiate(PlayerPrefab, playerStart.position, playerStart.rotation);
             Debug.Log("PlayerStart Rotation: " + playerStart.rotation.eulerAngles);
-
-        }
-        else
-        {
-            Debug.LogError("Player Prefab�� �ε��� �� �����ϴ�. ��θ� Ȯ���ϼ���.");
         }
     }
 }

@@ -31,6 +31,7 @@ public class SceneModeManager : MonoBehaviour
     private void Awake_OfficeScene()
     {
         Managers.Instance.AddPlayerManager();
+        Managers.Instance.AddOfficeManager();
     }
 
     private void Awake_CityScene()

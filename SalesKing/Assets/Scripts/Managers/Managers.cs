@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class Managers : MonoBehaviour
 {
-    private static Managers instance; // ���ϼ��� ����ȴ�
+    private static Managers instance; 
     public static Managers Instance 
     {
         get
@@ -29,7 +29,7 @@ public class Managers : MonoBehaviour
             }
             return instance;
         }
-    } // ������ �Ŵ����� �����´�
+    } 
 
     public GameObject ManagersGO;
 
@@ -41,6 +41,7 @@ public class Managers : MonoBehaviour
     CameraManager _cam;
     DataManager _data = new DataManager();
     GPTManager _gpt;
+    OfficeManager _office;
 
     public static SceneModeManager Scene { get { return Instance._scene; } }
     public static NPCManager NPC { get { return Instance._npc; } }
@@ -50,6 +51,7 @@ public class Managers : MonoBehaviour
     public static CameraManager Cam { get { return Instance._cam; } }
     public static DataManager Data { get { return Instance._data;  } }
     public static GPTManager GPT { get { return Instance._gpt; } }
+    public static OfficeManager Office { get { return Instance._office; } }
 
     void Awake()
     {
@@ -62,7 +64,6 @@ public class Managers : MonoBehaviour
         }
     }
 
-    // Managers �����
     void Init()
     {
         if (instance == null)
@@ -144,12 +145,21 @@ public class Managers : MonoBehaviour
         }
     }
 
+    public void AddOfficeManager()
+    {
+        GameObject officeManager = new GameObject("@OfficeManager");
+        officeManager.transform.parent = transform;
+
+        if (instance._office == null)
+        {
+            instance._office = officeManager.AddComponent<OfficeManager>();
+        }
+    }
+
     public void ClearChildManagers()
     {
-        // �ڽ� ������Ʈ�� ����ŭ �ݺ�
         foreach (Transform child in transform)
         {
-            // �� �ڽ� ������Ʈ�� �ı�
             Destroy(child.gameObject);
         }
     }
