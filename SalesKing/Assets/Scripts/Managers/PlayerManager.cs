@@ -18,13 +18,15 @@ public class PlayerManager : MonoBehaviour
 
         if (PlayerPrefab != null)
         {
-            //Debug.Log("Player Prefab ·Îµå ¼º°ø!");
+            //Debug.Log("Player Prefab ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½!");
             Transform playerStart = GameObject.Find("PlayerStart").transform;
             MyPlayer = Instantiate(PlayerPrefab, playerStart.position, playerStart.rotation);
+            Debug.Log("PlayerStart Rotation: " + playerStart.rotation.eulerAngles);
+
         }
         else
         {
-            Debug.LogError("Player PrefabÀ» ·ÎµåÇÒ ¼ö ¾ø½À´Ï´Ù. °æ·Î¸¦ È®ÀÎÇÏ¼¼¿ä.");
+            Debug.LogError("Player Prefabï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ï¿½ï¿½Î¸ï¿½ È®ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.");
         }
     }
 }
