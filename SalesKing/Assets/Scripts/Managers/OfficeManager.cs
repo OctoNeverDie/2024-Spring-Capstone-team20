@@ -10,6 +10,7 @@ public class OfficeManager : MonoBehaviour
 
     public CinemachineVirtualCamera firstPersonCam; // 1인칭 시점 가상 카메라
     public CinemachineVirtualCamera WelcomeCam;
+    public CinemachineVirtualCamera MyPCCamera;
 
     void Start()
     {
@@ -20,6 +21,7 @@ public class OfficeManager : MonoBehaviour
         firstPersonCam = myPlayer.Camera1;
         Destroy(myPlayer.Camera2.gameObject);
         WelcomeCam = GameObject.Find("WelcomeCamera").GetComponent<CinemachineVirtualCamera>();
+        MyPCCamera = GameObject.Find("MyPCCamera").GetComponent<CinemachineVirtualCamera>();
         SwitchToWelcomeCam();
     }
 
@@ -32,11 +34,20 @@ public class OfficeManager : MonoBehaviour
     {
         firstPersonCam.Priority = 10;
         WelcomeCam.Priority = 5;
+        MyPCCamera.Priority = 5;
     }
 
     public void SwitchToWelcomeCam()
     {
         firstPersonCam.Priority = 5;
         WelcomeCam.Priority = 10;
+        MyPCCamera.Priority = 5;
+    }
+
+    public void SwitchToMyPCCam()
+    {
+        firstPersonCam.Priority = 5;
+        WelcomeCam.Priority = 5;
+        MyPCCamera.Priority = 10;
     }
 }

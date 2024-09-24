@@ -39,6 +39,7 @@ public class OfficeUI : MonoBehaviour
         MyPCButton.gameObject.SetActive(false);
         DOVirtual.DelayedCall(FadeTime, () => ShoppingPanel.SetActive(true));
         Managers.Office.myPlayer.FreezeAndUnFreezePlayer(true);
+        Managers.Office.SwitchToMyPCCam();
         StartFadeInFadeOut(0.5f);
     }
 
@@ -46,6 +47,7 @@ public class OfficeUI : MonoBehaviour
     {
         DOVirtual.DelayedCall(FadeTime, () => ShoppingPanel.SetActive(false));
         Managers.Office.myPlayer.FreezeAndUnFreezePlayer(false);
+        Managers.Office.SwitchToFirstPersonCam();
         StartFadeInFadeOut(0.5f);
     }
 
