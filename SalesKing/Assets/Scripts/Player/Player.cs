@@ -34,6 +34,23 @@ public class Player : MonoBehaviour
                 PlayerEnterConvo(other.gameObject);
             }
         }
+        else if (other.CompareTag("Office_MyPC"))
+        {
+            Managers.Office.officeUI.MyPCButton.gameObject.SetActive(true);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Office_MyPC"))
+        {
+            Managers.Office.officeUI.MyPCButton.gameObject.SetActive(false);
+        }
     }
 
     public void FreezeAndUnFreezePlayer(bool isFreeze)
