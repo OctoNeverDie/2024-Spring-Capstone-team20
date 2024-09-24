@@ -53,7 +53,7 @@ public class ServerManager : ServerBase
                                 Action<ResultInfo> onFailed = null,
                                 Action<ResultInfo> onNetworkFailed = null)
     {
-        string url = "http://127.0.0.1:8000/";
+        string url = "https://salesai-jsy2.azurewebsites.net/"; //"http://127.0.0.1:8000/";
 
         JObject jobj = new JObject();
         jobj = AddJobjBySendType(jobj, sendChatType);

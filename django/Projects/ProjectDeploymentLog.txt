@@ -1,0 +1,45 @@
+1. python 12 다시 깔기
+	완료
+2. 가상환경 venvSales 생성 및 cmd 편집
+	완료
+3. 필요한 pip 전부 설치
+pip install django
+pip install django-extension
+pip install dotenv
+pip install openai
+pip install gunicorn
+pip install django django-extensions python-dotenv openai gunicorn
+	완료
+3. local에서 잘 돌아가나 확인
+http://127.0.0.1:8000/
+	완료
+4. requirements.txt 생성
+	완료
+5. 배포
+	완료
+6. Postman 테스트
+<!doctype html>
+<html lang=en>
+<title>405 Method Not Allowed</title>
+<h1>Method Not Allowed</h1>
+<p>The method is not allowed for the requested URL.</p>
+	완료
+7. gunicorn startup command
+gunicorn --bind 0.0.0.0:8000 config.wsgi
+	완료
+8. 기본 파일 설정
+pip freeze > requirements.txt
+Procfile web: gunicorn --bind 0.0.0.0:8000 config.wsgi
+
+9. local에서 잘 돌아가나 확인
+	완료
+10. 배포
+vscode : output window에서 배포 오류 없나, 잘되나 확인
+	완료
+11. 배포 후 테스팅
+https://salesai-jsy2.azurewebsites.net/
+Azure - App Service - Log stream
+	완료
+--------배포 후 앱 성공함!
+--------그러나 system prompt가 제대로 작동하지 않는다는 점이 남음...
+--------240925 06 : 26

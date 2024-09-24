@@ -161,3 +161,10 @@ evaluation: Vendor provided useful information about the product price, but the 
 evaluation: Vendor was extremely rude and insulting, making the experience very negative.
 but you should translate this to korean. 
 
+
+ @ObjID =2, @ObjName = Cup, @ObjectInfo = blah, @defaultPrice =10, @expensvie = 100, @tooExpensive =200 
+ @NpcID = 1, @NpcSex = female, @NpcAge = 17, @NpcPersonality = Bad, @NpcProplemType = relate, @NpcProblemInfo = blah
+ @ObjID =2, @ObjName = Cup, @ObjectInfo = blah, @defaultPrice =10, @expensvie = 100, @tooExpensive =200 
+ @NpcID = 1, @NpcSex = female, @NpcAge = 17, @NpcPersonality = Bad, @NpcProplemType = relate, @NpcProblemInfo = blah
+ @ObjID =2, @ObjName = Cup, @ObjectInfo = blah, @defaultPrice =10, @expensvie = 100, @tooExpensive =200 
+ @NpcID = 1, @NpcSex = female, @NpcAge = 17, @NpcPersonality = Bad, @NpcProplemType = relate, @NpcProblemInfo = blah
