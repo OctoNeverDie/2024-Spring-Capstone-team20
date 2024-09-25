@@ -19603,6 +19603,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 805719252}
+        m_TargetAssemblyTypeName: VaribleInput, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &555617290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26903,6 +26915,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1116922066107680737, guid: 83483d46a2339bb48b25680cf09ccd7e, type: 3}
   m_PrefabInstance: {fileID: 739040780}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &740546624
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 740546626}
+  - component: {fileID: 740546625}
+  m_Layer: 0
+  m_Name: ServerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &740546625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 740546624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b865be3dccf43c41bc23cd17e0c71e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &740546626
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 740546624}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &741557659
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29347,6 +29403,8 @@ GameObject:
   - component: {fileID: 805719247}
   - component: {fileID: 805719246}
   - component: {fileID: 805719250}
+  - component: {fileID: 805719252}
+  - component: {fileID: 805719251}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -29463,6 +29521,32 @@ MonoBehaviour:
   StatusText: {fileID: 25881296}
   TimeText: {fileID: 1809009728}
   TurnText: {fileID: 999583717}
+--- !u!114 &805719251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805719245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c456d1004c068b346baca9532ba62050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &805719252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805719245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf35b3fad8b0bf245b79a044230e9199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputField: {fileID: 658069262}
+  outputText: 
 --- !u!1001 &812538121
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37244,6 +37328,18 @@ MonoBehaviour:
       - m_Target: {fileID: 805719250}
         m_TargetAssemblyTypeName: ConvoUI, Assembly-CSharp
         m_MethodName: NoTalkBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 805719251}
+        m_TargetAssemblyTypeName: ChatClear, Assembly-CSharp
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -81052,3 +81148,4 @@ SceneRoots:
   - {fileID: 1709433944}
   - {fileID: 1730907877}
   - {fileID: 805719249}
+  - {fileID: 740546626}

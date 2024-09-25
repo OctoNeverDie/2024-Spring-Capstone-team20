@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Define : MonoBehaviour
 {
     public enum SceneMode
@@ -29,4 +30,6 @@ public class Define : MonoBehaviour
         Sunset, 
         Night
     }
+
+
 }

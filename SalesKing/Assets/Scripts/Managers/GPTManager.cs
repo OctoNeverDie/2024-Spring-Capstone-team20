@@ -6,13 +6,14 @@ public class GPTManager : MonoBehaviour
 {
     public void TalkToNPC(string text)
     {
-        // ¿©±â¿¡ gpt·Î º¸³»´Â ÄÚµå Àû±â
+        // ì—¬ê¸°ì— gptë¡œ ë³´ë‚´ëŠ” ì½”ë“œ ì ê¸°
     }
 
     public void ReceiveNPCAnswer()
     {
-        List<string> test_pos = new List<string> { "¿À ±×·¸±º¿ä.", "¾ÆÇÏ¾ÆÇÏ", "»ç¶ûÇØ¿ä~"};
-        List<string> test_neg = new List<string> { "³×? ¹«½¼ ¸»ÀÌÁÒ?", "¾Ö¾Ş ±×°Ç ÀÌ»óÇÑµ¥¿ä.", "À¸¾Ç, Àú¸® °¡¿ä"};
+        /*
+        List<string> test_pos = new List<string> { "ì˜¤ ê·¸ë ‡êµ°ìš”.", "ì•„í•˜ì•„í•˜", "ì‚¬ë‘í•´ìš”~"};
+        List<string> test_neg = new List<string> { "ë„¤? ë¬´ìŠ¨ ë§ì´ì£ ?", "ì• ì•µ ê·¸ê±´ ì´ìƒí•œë°ìš”.", "ìœ¼ì•…, ì €ë¦¬ ê°€ìš”"};
         int pos_int = Random.Range(0, test_pos.Count);
         int neg_int = Random.Range(0, test_neg.Count);
 
@@ -27,7 +28,7 @@ public class GPTManager : MonoBehaviour
             Managers.UI.SetNPCAnswerText(test_neg[neg_int]);
             Managers.NPC.curTalkingNPC.GetComponent<NPC>().PlayRandomNPCAnim(NPCDefine.AnimType.Negative);
         }
-        
+        */
 
         
     }

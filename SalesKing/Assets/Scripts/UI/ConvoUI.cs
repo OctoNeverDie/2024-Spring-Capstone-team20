@@ -40,18 +40,16 @@ public class ConvoUI : MonoBehaviour
 
     public void TalkToNPCBtn()
     {
-        string playerDialogue = UserText.text;
-        Managers.GPT.TalkToNPC(playerDialogue);
-        UserText.text = null;
+        //string playerDialogue = UserText.text;
+        //Managers.GPT.TalkToNPC(playerDialogue);
+        //UserText.text = null;
 
         // 임시로.. 대화 말걸면 바로 답장 오게 설정
         // 여기서부터..
-        Managers.GPT.ReceiveNPCAnswer();
+        //Managers.GPT.ReceiveNPCAnswer();
 
         NPCSpeechBubble.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         NPCSpeechBubble.transform.DOScale(1f, 0.5f).SetEase(Ease.InOutBounce).SetUpdate(true);
-
-        
 
         // 여기까지. 
     }

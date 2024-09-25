@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Drawing;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
@@ -62,6 +63,9 @@ public class ServerManager : ServerBase
         {
             var resultData = JObject.Parse(result.Json)["reply"];
             Debug.Log($"Reply : {resultData}");
+
+            // 추가 코드
+            Managers.UI.SetNPCAnswerText($"{resultData}");
             templateReceive.StringConcat(resultData.ToString());
         };
 
