@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using DG.Tweening;
 
 public class ConvoUI : MonoBehaviour
 {
@@ -17,7 +16,6 @@ public class ConvoUI : MonoBehaviour
 
     public TextMeshProUGUI StatusText;
     public TextMeshProUGUI TimeText;
-    public TextMeshProUGUI TurnText;
 
     public void YesTalkBtn()
     {
@@ -27,7 +25,7 @@ public class ConvoUI : MonoBehaviour
 
     public void NoTalkBtn()
     {
-        Managers.Turn.ConvoFinished();
+        Managers.Convo.ConvoFinished();
         TalkOrNotPanel.SetActive(false);
         ConvoPanel.SetActive(false);
     }
@@ -36,22 +34,6 @@ public class ConvoUI : MonoBehaviour
     {
         ChooseItemPanel.SetActive(false);
         ConvoPanel.SetActive(true);
-    }
-
-    public void TalkToNPCBtn()
-    {
-        //string playerDialogue = UserText.text;
-        //Managers.GPT.TalkToNPC(playerDialogue);
-        //UserText.text = null;
-
-        // 임시로.. 대화 말걸면 바로 답장 오게 설정
-        // 여기서부터..
-        //Managers.GPT.ReceiveNPCAnswer();
-
-        NPCSpeechBubble.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-        NPCSpeechBubble.transform.DOScale(1f, 0.5f).SetEase(Ease.InOutBounce).SetUpdate(true);
-
-        // 여기까지. 
     }
 
 }

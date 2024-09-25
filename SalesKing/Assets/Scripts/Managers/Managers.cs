@@ -33,25 +33,38 @@ public class Managers : MonoBehaviour
 
     public GameObject ManagersGO;
 
+    // 씬마다 다른 매니저 넣어주기
     SceneModeManager _scene;
+
+    // npc와 player
     NPCManager _npc;
-    UIManager _ui;
     PlayerManager _player;
-    TurnManager _turn;
+
+    // ui 오브젝트에 접근하는 코드들
+    UIManager _ui;
+    
+    // 시간 가는 연출, 카메라 워킹 등
+    TimeManager _time;
     CameraManager _cam;
+
+    // 찐 중요한 부분. 메인 핵심.
+    ConvoManager _convo;
+
     DataManager _data = new DataManager();
-    GPTManager _gpt;
+    
+    // office에서 쓰는 것들
     OfficeManager _office;
+    
 
     public static SceneModeManager Scene { get { return Instance._scene; } }
     public static NPCManager NPC { get { return Instance._npc; } }
     public static UIManager UI { get { return Instance._ui; } }
     public static PlayerManager Player { get { return Instance._player; } }
-    public static TurnManager Turn { get { return Instance._turn; } }
+    public static TimeManager Time { get { return Instance._time; } }
     public static CameraManager Cam { get { return Instance._cam; } }
     public static DataManager Data { get { return Instance._data;  } }
-    public static GPTManager GPT { get { return Instance._gpt; } }
     public static OfficeManager Office { get { return Instance._office; } }
+    public static ConvoManager Convo { get { return Instance._convo; } }
 
     void Awake()
     {
@@ -112,14 +125,14 @@ public class Managers : MonoBehaviour
         }
     }
 
-    public void AddTurnManager()
+    public void AddTimeManager()
     {
-        GameObject turnManager = new GameObject("@TurnManager");
-        turnManager.transform.parent = transform;
+        GameObject timeManager = new GameObject("@TimeManager");
+        timeManager.transform.parent = transform;
 
-        if (instance._turn == null)
+        if (instance._time == null)
         {
-            instance._turn = turnManager.AddComponent<TurnManager>();
+            instance._time = timeManager.AddComponent<TimeManager>();
         }
     }
 
@@ -134,17 +147,6 @@ public class Managers : MonoBehaviour
         }
     }
 
-    public void AddGPTManager()
-    {
-        GameObject gptManager = new GameObject("@GPTManager");
-        gptManager.transform.parent = transform;
-
-        if (instance._gpt == null)
-        {
-            instance._gpt = gptManager.AddComponent<GPTManager>();
-        }
-    }
-
     public void AddOfficeManager()
     {
         GameObject officeManager = new GameObject("@OfficeManager");
@@ -153,6 +155,17 @@ public class Managers : MonoBehaviour
         if (instance._office == null)
         {
             instance._office = officeManager.AddComponent<OfficeManager>();
+        }
+    }
+
+    public void AddConvoManager()
+    {
+        GameObject convoManager = new GameObject("@ConvoManager");
+        convoManager.transform.parent = transform;
+
+        if (instance._convo == null)
+        {
+            instance._convo = convoManager.AddComponent<ConvoManager>();
         }
     }
 

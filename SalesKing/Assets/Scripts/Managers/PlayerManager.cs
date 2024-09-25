@@ -20,7 +20,6 @@ public class PlayerManager : MonoBehaviour
         {
             Transform playerStart = GameObject.Find("PlayerStart").transform;
             MyPlayer = Instantiate(PlayerPrefab, playerStart.position, playerStart.rotation);
-            //Debug.Log("PlayerStart Rotation: " + playerStart.rotation.eulerAngles);
         }
     }
 }
