@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemSpawner : MonoBehaviour
 {
@@ -28,7 +29,20 @@ public class ItemSpawner : MonoBehaviour
             // 필요한 경우 다른 데이터 추가
             //GameObject spawnedItem = Instantiate(itemSO.Obj3D[item.ObjID - 1], Vector3.zero, Quaternion.identity);
             //spawnedItem.name = item.ObjName + item.ObjID;
+
+            //아래는 임시. 지금 상태로는 누르면 바로 구매하도록 되어 있음
+            // Button 컴포넌트를 가져와 클릭 이벤트 추가
+             // Button 컴포넌트를 찾기
+            Button itemButton = newItem.GetComponent<Button>();
+            itemButton.onClick.AddListener(() => OnItemClick(item));  // 아이템 클릭 시 호출될 메서드
         }
+    }
+
+      // 아이템 클릭 시 실행되는 메서드
+    void OnItemClick(ItemInfo item)
+    {        
+        // 인벤토리에 해당 아이템 추가
+        InventoryManager.Instance.AddToInventory(item);
     }
 
 }
