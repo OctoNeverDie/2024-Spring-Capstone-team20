@@ -501,8 +501,9 @@ GameObject:
   m_Component:
   - component: {fileID: 432436208}
   - component: {fileID: 432436209}
+  - component: {fileID: 432436210}
   m_Layer: 0
-  m_Name: inventoryManager
+  m_Name: '@managers'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -533,6 +534,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 485455939985a884981d4545e547f4d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &432436210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432436207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6db485152905d14b82487fb994a8526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &436132948

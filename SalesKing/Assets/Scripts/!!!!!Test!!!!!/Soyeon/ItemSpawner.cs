@@ -34,15 +34,23 @@ public class ItemSpawner : MonoBehaviour
             // Button 컴포넌트를 가져와 클릭 이벤트 추가
              // Button 컴포넌트를 찾기
             Button itemButton = newItem.GetComponent<Button>();
-            itemButton.onClick.AddListener(() => OnItemClick(item));  // 아이템 클릭 시 호출될 메서드
+            itemButton.onClick.AddListener(() => PurchaseItem(item));  // 아이템 클릭 시 호출될 메서드
         }
     }
 
-      // 아이템 클릭 시 실행되는 메서드
-    void OnItemClick(ItemInfo item)
-    {        
-        // 인벤토리에 해당 아이템 추가
-        InventoryManager.Instance.AddToInventory(item);
+    // 아이템 구매 시 실행되는 메서드
+    void PurchaseItem(ItemInfo item)
+    {
+        // 현금에서 아이템 가격을 제거
+        if (CashManager.Instance.RemoveCash(item.defaultPrice))
+        {
+            // 인벤토리에 해당 아이템 추가
+            InventoryManager.Instance.AddToInventory(item);
+            Debug.Log(item.ObjName + " purchased successfully!");
+        }
+        else
+        {
+            Debug.Log("Not enough cash to purchase " + item.ObjName);
+        }
     }
-
 }
