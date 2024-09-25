@@ -34,9 +34,12 @@ public class UIManager : MonoBehaviour
         ui.NPCSpeechBubble.transform.DOScale(1f, 0.5f).SetEase(Ease.InOutBounce).SetUpdate(true);
     }
 
-    public void SetStatusText(int suggestedPrice, int persuasion)
+    public void SetStatusText(string thought, string reason, string emotion, string suggestprice)
     {
-        ui.StatusText.text = "Suggested Price: "+suggestedPrice+"\nPersuasion: "+persuasion;
+        ui.StatusText.text = "Thought: "+thought+"\n"
+            +"Reason: " + reason + "\n"
+            +"Emotion: " + emotion + "\n"
+            +"Suggested Price: " + suggestprice + "\n";
     }
 
     public void SetTimeText()

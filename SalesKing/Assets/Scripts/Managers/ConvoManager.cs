@@ -67,20 +67,9 @@ public class ConvoManager : MonoBehaviour
 
     public void ParseNPCAnswer(string input)
     {
-        // 주어진 텍스트의 형식: 
-        /*
-        string input = @"{
-            ""thought"": ""주연님이 계속 인사만 하네요. 뭔가 더 이야기하고 싶어하는 것 같은데, 제안이 필요할까요?"",
-            ""reason"": ""일반적인 대화 (affinity: +0), 물건에 대한 정보 없음 (persuasion: +0)"",
-            ""emotion"": ""중립"",
-            ""suggestedPrice"": ""?"",
-            ""reaction"": ""하이하이! 주연님, 혹시 어떤 물건을 판매하고 계신가요? 도움이 될 수 있는 물건이 있다면 듣고 싶어요!""
-        }";
-        */
         Parser parser = new Parser();
         ConversationData data = parser.ParseInput(input);
 
-        // Now you can access each field like this
         Debug.Log(data.Thought);
         Debug.Log(data.Reason);
         Debug.Log(data.Emotion);
@@ -88,6 +77,7 @@ public class ConvoManager : MonoBehaviour
         Debug.Log(data.Reaction);
 
         Managers.UI.SetNPCAnswerText(data.Reaction);
+        Managers.UI.SetStatusText(data.Thought, data.Reason, data.Emotion, data.SuggestedPrice);
     }
 
     public void ConvoFinished()

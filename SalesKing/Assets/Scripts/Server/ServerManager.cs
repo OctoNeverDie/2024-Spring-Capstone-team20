@@ -65,7 +65,8 @@ public class ServerManager : ServerBase
             Debug.Log($"Reply : {resultData}");
 
             // 추가 코드
-            Managers.UI.SetNPCAnswerText($"{resultData}");
+            Managers.Convo.ParseNPCAnswer($"{resultData}");
+
             templateReceive.StringConcat(resultData.ToString());
         };
 
