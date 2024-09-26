@@ -23,19 +23,19 @@ public class UIManager : MonoBehaviour
         SetTimeText();
 
         // stt 시작 버튼
-        if (Input.GetKeyDown("STT"))
+        if (Input.GetButtonDown("STT"))
         {
             Debug.Log("stt 시작");
         }
 
         // stt 종료 버튼
-        if (Input.GetKeyUp("STT"))
+        if (Input.GetButtonUp("STT"))
         {
             Debug.Log("stt 끝");
         }
 
         // 제출 버튼
-        if (Input.GetKeyDown("Submit"))
+        if (Input.GetButtonDown("Submit"))
         {
             Debug.Log("대화 보내기");
         }
