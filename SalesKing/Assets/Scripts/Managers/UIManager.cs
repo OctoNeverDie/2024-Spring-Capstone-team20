@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using DG.Tweening;
+using Newtonsoft.Json.Bson;
 
 public class UIManager : MonoBehaviour
 {
@@ -20,6 +21,24 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         SetTimeText();
+
+        // stt 시작 버튼
+        if (Input.GetKeyDown("STT"))
+        {
+            Debug.Log("stt 시작");
+        }
+
+        // stt 종료 버튼
+        if (Input.GetKeyUp("STT"))
+        {
+            Debug.Log("stt 끝");
+        }
+
+        // 제출 버튼
+        if (Input.GetKeyDown("Submit"))
+        {
+            Debug.Log("대화 보내기");
+        }
     }
 
     public void ShowTalkOrNotPanel()
@@ -61,6 +80,11 @@ public class UIManager : MonoBehaviour
         else ampm = "PM";
 
         ui.TimeText.text = hour_s+" : "+min_s+" "+ampm;
+    }
+
+    public void SetPlayerInputField(string input)
+    {
+        ui.UserText.text = ui.UserText.text + input;
     }
 
 }

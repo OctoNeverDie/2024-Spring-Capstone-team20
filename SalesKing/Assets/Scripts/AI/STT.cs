@@ -13,20 +13,21 @@ public class STT : MonoBehaviour
     private AudioClip _recording = null;
     private int _recordingLengthSec = 15;
     private int _recordingHZ = 22050;
-    public TMP_InputField myInputField;
+    //public TMP_InputField myInputField;
 
     private void Start()
     {
         _microphoneID = Microphone.devices[0];
+        //myInputField = Managers.UI.ui.
     }
 
-    // ¹öÆ°À» OnPointerDown ÇÒ ¶§ È£Ãâ
+    // ë²„íŠ¼ì„ OnPointerDown í•  ë•Œ í˜¸ì¶œ
     public void startRecording()
     {
         Debug.Log("start recording");
         _recording = Microphone.Start(_microphoneID, false, _recordingLengthSec, _recordingHZ);
     }
-    // ¹öÆ°À» OnPointerUp ÇÒ ¶§ È£Ãâ
+    // ë²„íŠ¼ì„ OnPointerUp í•  ë•Œ í˜¸ì¶œ
     public void stopRecording()
     {
         if (Microphone.IsRecording(_microphoneID))
@@ -42,7 +43,7 @@ public class STT : MonoBehaviour
             // audio clip to byte array
             byte[] byteData = getByteFromAudioClip(_recording);
 
-            // ³ìÀ½µÈ audioclip api ¼­¹ö·Î º¸³¿
+            // ë…¹ìŒëœ audioclip api ì„œë²„ë¡œ ë³´ëƒ„
             StartCoroutine(PostVoice(url, byteData));
         }
         return;
@@ -50,23 +51,23 @@ public class STT : MonoBehaviour
 
 
 
-    // ¹Ş¾Æ¿Â °ª¿¡ °£ÆíÇÏ°Ô Á¢±ÙÇÏ±â À§ÇÑ JSON ¼±¾ğ
+    // ë°›ì•„ì˜¨ ê°’ì— ê°„í¸í•˜ê²Œ ì ‘ê·¼í•˜ê¸° ìœ„í•œ JSON ì„ ì–¸
     [Serializable]
     public class VoiceRecognize
     {
         public string text;
     }
 
-    // »ç¿ëÇÒ ¾ğ¾î(Kor)¸¦ ¸Ç µÚ¿¡ ºÙÀÓ
+    // ì‚¬ìš©í•  ì–¸ì–´(Kor)ë¥¼ ë§¨ ë’¤ì— ë¶™ì„
     String url = "https://naveropenapi.apigw.ntruss.com/recog/v1/stt?lang=Kor";
 
     private IEnumerator PostVoice(string url, byte[] data)
     {
-        // request »ı¼º
+        // request ìƒì„±
         WWWForm form = new WWWForm();
         UnityWebRequest request = UnityWebRequest.Post(url, form);
 
-        // ¿äÃ» Çì´õ ¼³Á¤
+        // ìš”ì²­ í—¤ë” ì„¤ì •
         var MY_CLIENT_ID = Environment.GetEnvironmentVariable("X_NCP_APIGW_API_KEY_ID", EnvironmentVariableTarget.User);
         var MY_CLIENT_SECRET = Environment.GetEnvironmentVariable("X_NCP_APIGW_API_KEY", EnvironmentVariableTarget.User);
 
@@ -74,26 +75,27 @@ public class STT : MonoBehaviour
         request.SetRequestHeader("X-NCP-APIGW-API-KEY", MY_CLIENT_SECRET);
         request.SetRequestHeader("Content-Type", "application/octet-stream");
 
-        // ¹Ùµğ¿¡ Ã³¸®°úÁ¤À» °ÅÄ£ Audio Clip data¸¦ ½Ç¾îÁÜ
+        // ë°”ë””ì— ì²˜ë¦¬ê³¼ì •ì„ ê±°ì¹œ Audio Clip dataë¥¼ ì‹¤ì–´ì¤Œ
         request.uploadHandler = new UploadHandlerRaw(data);
 
-        // ¿äÃ»À» º¸³½ ÈÄ response¸¦ ¹ŞÀ» ¶§±îÁö ´ë±â
+        // ìš”ì²­ì„ ë³´ë‚¸ í›„ responseë¥¼ ë°›ì„ ë•Œê¹Œì§€ ëŒ€ê¸°
         yield return request.SendWebRequest();
 
-        // ¸¸¾à response°¡ ºñ¾îÀÖ´Ù¸é error
+        // ë§Œì•½ responseê°€ ë¹„ì–´ìˆë‹¤ë©´ error
         if (request == null)
         {
             Debug.LogError(request.error);
         }
         else
         {
-            // json ÇüÅÂ·Î ¹ŞÀ½ {"text":"ÀÎ½Ä°á°ú"}
+            // json í˜•íƒœë¡œ ë°›ìŒ {"text":"ì¸ì‹ê²°ê³¼"}
             string message = request.downloadHandler.text;
             VoiceRecognize voiceRecognize = JsonUtility.FromJson<VoiceRecognize>(message);
 
             Debug.Log("Voice Server responded: " + voiceRecognize.text);
-            myInputField.text += voiceRecognize.text;
-            // Voice Server responded: ÀÎ½Ä°á°ú
+            Managers.UI.SetNPCAnswerText(voiceRecognize.text);
+            //myInputField.text += voiceRecognize.text;
+            // Voice Server responded: ì¸ì‹ê²°ê³¼
         }
     }
 
@@ -498,7 +500,7 @@ public class STT : MonoBehaviour
             case 3:
                 return "IEEE";
             case 7:
-                return "¥ì-law";
+                return "Î¼-law";
             case 65534:
                 return "WaveFormatExtensable";
             default:
@@ -517,12 +519,12 @@ public class STT : MonoBehaviour
 
         int fileSize = audioClip.samples * BlockSize_16Bit + headerSize;
 
-        // audio clipÀÇ Á¤º¸µéÀ» file stream¿¡ Ãß°¡(¸µÅ© Âü°í ÇÔ¼ö ¼±¾ğ)
+        // audio clipì˜ ì •ë³´ë“¤ì„ file streamì— ì¶”ê°€(ë§í¬ ì°¸ê³  í•¨ìˆ˜ ì„ ì–¸)
         WriteFileHeader(ref stream, fileSize);
         WriteFileFormat(ref stream, audioClip.channels, audioClip.frequency, bitDepth);
         WriteFileData(ref stream, audioClip, bitDepth);
 
-        // streamÀ» arrayÇüÅÂ·Î ¹Ù²Ş
+        // streamì„ arrayí˜•íƒœë¡œ ë°”ê¿ˆ
         byte[] bytes = stream.ToArray();
 
         return bytes;
