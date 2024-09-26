@@ -17,23 +17,33 @@ public class ConvoUI : MonoBehaviour
     public TextMeshProUGUI StatusText;
     public TextMeshProUGUI TimeText;
 
-    public void YesTalkBtn()
+    public void OnClickYesTalkBtn()
     {
         ChooseItemPanel.SetActive(true);
         TalkOrNotPanel.SetActive(false);
     }
 
-    public void NoTalkBtn()
+    public void OnClickNoTalkBtn()
     {
         Managers.Convo.ConvoFinished();
         TalkOrNotPanel.SetActive(false);
         ConvoPanel.SetActive(false);
     }
 
-    public void SelectItemBtn()
+    public void OnClickSelectItemBtn()
     {
         ChooseItemPanel.SetActive(false);
         ConvoPanel.SetActive(true);
+    }
+
+    public void OnClickTalkToNPCBtn()
+    {
+
+    }
+
+    public void OnClickExitNPCBtn()
+    {
+
     }
 
 }

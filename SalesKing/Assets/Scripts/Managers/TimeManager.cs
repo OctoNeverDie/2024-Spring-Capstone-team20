@@ -23,11 +23,14 @@ public class TimeManager : MonoBehaviour
     private static readonly string basePath = "Skyboxes";
     public Dictionary<Define.Skybox, List<Material>> SkyboxDictionary = new Dictionary<Define.Skybox, List<Material>>();
 
+    private Light myLight;
+
     private void Awake()
     {
         LoadSkyboxes();
         AssignRandomSkybox();
         RenderSettings.skybox = Night;
+        myLight = GameObject.Find("Directional Light").GetComponent<Light>();
     }
 
     private void Update()

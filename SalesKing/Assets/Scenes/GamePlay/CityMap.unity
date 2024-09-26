@@ -19589,19 +19589,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 555617290}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 805719252}
-        m_TargetAssemblyTypeName: VaribleInput, Assembly-CSharp
-        m_MethodName: OnClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &555617290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26808,6 +26796,8 @@ GameObject:
   m_Component:
   - component: {fileID: 740546626}
   - component: {fileID: 740546625}
+  - component: {fileID: 740546628}
+  - component: {fileID: 740546627}
   m_Layer: 0
   m_Name: GPT
   m_TagString: Untagged
@@ -26842,6 +26832,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &740546627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 740546624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c456d1004c068b346baca9532ba62050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &740546628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 740546624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf35b3fad8b0bf245b79a044230e9199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputField: {fileID: 658069262}
+  outputText: 
 --- !u!1001 &741557659
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29286,8 +29302,6 @@ GameObject:
   - component: {fileID: 805719247}
   - component: {fileID: 805719246}
   - component: {fileID: 805719250}
-  - component: {fileID: 805719252}
-  - component: {fileID: 805719251}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -29403,32 +29417,6 @@ MonoBehaviour:
   NPCSpeechText: {fileID: 1428053739}
   StatusText: {fileID: 25881296}
   TimeText: {fileID: 1809009728}
---- !u!114 &805719251
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 805719245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c456d1004c068b346baca9532ba62050, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &805719252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 805719245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf35b3fad8b0bf245b79a044230e9199, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputField: {fileID: 658069262}
-  outputText: 
 --- !u!1001 &812538121
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37072,31 +37060,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1031164968}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 805719250}
-        m_TargetAssemblyTypeName: ConvoUI, Assembly-CSharp
-        m_MethodName: NoTalkBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 805719251}
-        m_TargetAssemblyTypeName: ChatClear, Assembly-CSharp
-        m_MethodName: OnClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1031164968
 MonoBehaviour:
   m_ObjectHideFlags: 0
