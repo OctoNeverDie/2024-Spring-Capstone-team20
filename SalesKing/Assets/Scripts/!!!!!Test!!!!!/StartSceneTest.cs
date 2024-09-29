@@ -14,4 +14,13 @@ public class StartSceneTest : MonoBehaviour
     {
         SceneManager.LoadScene("OfficeMap");
     }
+
+    public void GameExit()
+    {
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
+    }
 }
