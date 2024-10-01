@@ -14,9 +14,9 @@ public class TemplateSend
         MaxCnt
     }
 
-    public void Init(string itemInfo, string npcInfo)
+    public void Init(string npcInfo)
     {
-        _userSend = MakeChatInit(itemInfo, npcInfo);
+        _userSend = MakeChatInit(npcInfo);
         SendToGPT(SendChatType.Init);
     }
 
@@ -43,9 +43,10 @@ public class TemplateSend
         return $"@relationship : {VariableList.S_Relationship}, @expecedtPrice : {VariableList.S_ExpectedPrice}, @vender input: {VariableList.S_UserAnswer}";
     }
 
-    private string MakeChatInit(string itemInfo, string npcInfo)
+    private string MakeChatInit(string npcInfo)
     {
-        string initData = $"\n {itemInfo} \n {npcInfo}";
+        string initData = $"\n {npcInfo}";
+        //string initData = $"\n {itemInfo} \n {npcInfo}";
         return initData;
     }
     private string MakeClear()
