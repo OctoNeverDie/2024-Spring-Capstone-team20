@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
         }
         else if (other.CompareTag("Office_MyPC"))
         {
-            Managers.Office.officeUI.MyPCButton.gameObject.SetActive(true);
+
         }
     }
 
@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
     {
         if (other.CompareTag("Office_MyPC"))
         {
-            Managers.Office.officeUI.MyPCButton.gameObject.SetActive(false);
+
         }
     }
 

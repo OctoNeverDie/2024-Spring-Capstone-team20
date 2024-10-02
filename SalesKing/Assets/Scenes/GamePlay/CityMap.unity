@@ -7864,7 +7864,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 805719250}
         m_TargetAssemblyTypeName: ConvoUI, Assembly-CSharp
-        m_MethodName: YesTalkBtn
+        m_MethodName: OnClickYesTalkBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -43058,7 +43058,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 805719250}
         m_TargetAssemblyTypeName: ConvoUI, Assembly-CSharp
-        m_MethodName: SelectItemBtn
+        m_MethodName: OnClickSelectItemBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -61036,7 +61036,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 805719250}
         m_TargetAssemblyTypeName: ConvoUI, Assembly-CSharp
-        m_MethodName: SelectItemBtn
+        m_MethodName: OnClickSelectItemBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -67332,7 +67332,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 805719250}
         m_TargetAssemblyTypeName: ConvoUI, Assembly-CSharp
-        m_MethodName: SelectItemBtn
+        m_MethodName: OnClickSelectItemBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -70397,7 +70397,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 805719250}
         m_TargetAssemblyTypeName: ConvoUI, Assembly-CSharp
-        m_MethodName: NoTalkBtn
+        m_MethodName: OnClickNoTalkBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

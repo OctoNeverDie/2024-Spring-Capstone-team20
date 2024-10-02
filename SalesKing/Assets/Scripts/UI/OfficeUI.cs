@@ -13,8 +13,6 @@ public class OfficeUI : MonoBehaviour
 
     public float FadeTime = 0.2f;
 
-    public Button MyPCButton;
-
     void Start()
     {
         WelcomePanel.SetActive(true);
@@ -36,7 +34,6 @@ public class OfficeUI : MonoBehaviour
 
     public void OnClickMyPC()
     {
-        MyPCButton.gameObject.SetActive(false);
         DOVirtual.DelayedCall(FadeTime, () => ShoppingPanel.SetActive(true));
         Managers.Office.myPlayer.FreezeAndUnFreezePlayer(true);
         Managers.Office.SwitchToMyPCCam();
