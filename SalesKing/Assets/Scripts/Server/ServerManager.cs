@@ -4,6 +4,8 @@ using System.Drawing;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
+using UnityEngine.Networking;
+using static Define;
 
 public class ServerManager : ServerBase
 {
@@ -12,7 +14,7 @@ public class ServerManager : ServerBase
 
     private TemplateReceive templateReceive;
     private string _userInput = "";
-    private TemplateSend.SendChatType sendChatType;
+    private SendChatType sendChatType;
     private void Init()
     { templateReceive = Util.GetOrAddComponent<TemplateReceive>(this.gameObject);  }
     private void Awake()
@@ -30,7 +32,7 @@ public class ServerManager : ServerBase
         }
     }
 
-    public void GetGPTReply(string userInput, TemplateSend.SendChatType sendChatTypeFrom)
+    public void GetGPTReply(string userInput, SendChatType sendChatTypeFrom)
     {
         this.sendChatType = sendChatTypeFrom;
         this._userInput = userInput;
@@ -43,7 +45,7 @@ public class ServerManager : ServerBase
         yield return CoGetGPT();
     }
 
-    private JObject AddJobjBySendType(JObject jobj, TemplateSend.SendChatType sendChatType)
+    private JObject AddJobjBySendType(JObject jobj, SendChatType sendChatType)
     {
         jobj.Add("Request", _userInput);
         jobj.Add("SendType", $"{sendChatType}");
@@ -62,11 +64,20 @@ public class ServerManager : ServerBase
         Action<ResultInfo> bringGPTReplay = (result) =>
         {
             var resultData = JObject.Parse(result.Json)["reply"];
-            Debug.Log($"Reply : {resultData}");
+            var sendTypeData = JObject.Parse(result.Json)["sendType"].ToString();  // JSON에서 string 값 가져옴
+
+            if (Enum.TryParse(sendTypeData, out SendChatType sendChatType))
+            {
+                ChatManager.ChatInstance.TransitionToState(sendChatType);
+            }
+            else
+            {
+                Debug.Log("Failed to parse enum");
+            }
 
             // 추가 코드
             Managers.Convo.ParseNPCAnswer($"{resultData}");
-
+            VariableList.S_GPTAnswer = resultData.ToString();
             templateReceive.StringConcat(resultData.ToString());
         };
 

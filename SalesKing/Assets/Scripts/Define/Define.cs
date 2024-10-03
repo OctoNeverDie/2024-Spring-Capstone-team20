@@ -31,5 +31,14 @@ public class Define : MonoBehaviour
         Night
     }
 
+    public enum SendChatType
+    {
+        None,
+        NpcInit,
+        Chat,
+        Clear,
+        Bargain,
+        MaxCnt
+    }
 
 }

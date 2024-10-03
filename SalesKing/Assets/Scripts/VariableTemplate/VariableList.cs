@@ -5,6 +5,8 @@ using UnityEngine;
 
 public static class VariableList
 {
+    public static string S_GPTAnswer { get; set; }
+
     public static int S_Affinity { get; set; }
     public static int S_Usefulness { get; set; }
     public static int S_AlphaPrice { get; set; }

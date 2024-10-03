@@ -1,23 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
 public class TemplateSend
 {
     private string _userSend = "";
-    public enum SendChatType
-    {
-        None,
-        Init,
-        Chat,
-        Clear,
-        MaxCnt
-    }
 
     public void Init(string npcInfo)
     {
         _userSend = MakeChatInit(npcInfo);
-        SendToGPT(SendChatType.Init);
+        Debug.Log("곧 지워질 아이");
+        //Debug.Log($"1. Init NPC :" + npcInfo);
+        SendToGPT(SendChatType.NpcInit);
     }
 
     public void ChatwithGPT()
@@ -34,8 +29,9 @@ public class TemplateSend
 
     public void SendToGPT(SendChatType sendChatTypeFrom)
     {
-        Debug.Log($"Send : {_userSend}");
-        ServerManager.Instance.GetGPTReply(_userSend, sendChatTypeFrom);
+        Debug.Log("곧 지워질 아이");
+        //Debug.Log($"Send : {_userSend}");
+        //ServerManager.Instance.GetGPTReply(_userSend, sendChatTypeFrom);
     }
 
     private string MakeAnswer()
