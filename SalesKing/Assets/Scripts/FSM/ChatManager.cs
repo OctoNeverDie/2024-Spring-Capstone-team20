@@ -5,7 +5,7 @@ using UnityEngine;
 using static Define;
 
 public class ChatManager : MonoBehaviour
-{    public static ChatManager ChatInstance { get; private set; }
+{   public static ChatManager ChatInstance { get; private set; }
 
     private void Awake()
     {
@@ -26,10 +26,12 @@ public class ChatManager : MonoBehaviour
         _chatStateMachine = new ChatStateMachine();
         _chatStateMachine.SetState(new NpcInitState());
     }
-    public void TestReply(String stateType)
+    public void TestReply(String stateType, String input ="")
     {
         if (Enum.TryParse(stateType, out SendChatType sendChatType))
         {
+            Debug.Log("Success");
+            Debug.Log($"stateType : {stateType}, input : {input}");
             ChatManager.ChatInstance.TransitionToState(sendChatType);
         }
         else
@@ -40,18 +42,19 @@ public class ChatManager : MonoBehaviour
 
     public void TransitionToState(SendChatType sendChatType)
     {
-        ChatBase chatState;
+        ChatBaseState chatState = new ChatSaleState();
         switch (sendChatType)
         {
             case SendChatType.NpcInit:
-                //chatState = new ChatSaleState();
+                Debug.Log("NPCInit Done");
+                chatState = new ChatSaleState();
+
                 break;
             default:
                 //chatState = new ClearState();
                 break;
         }
 
-        Debug.Log("NPCInit Done");
-        //_chatStateMachine.SetState(chatState);
+        _chatStateMachine.SetState(chatState);
     }
 }

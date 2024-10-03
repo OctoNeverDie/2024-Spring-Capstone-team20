@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class ChatStateMachine
 {
-    private ChatBase _currentState;
+    private ChatBaseState _currentState;
 
-    public void SetState(ChatBase newState)
+    public void SetState(ChatBaseState newState)
     {
         _currentState?.Exit();
 

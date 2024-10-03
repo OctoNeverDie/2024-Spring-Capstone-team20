@@ -4,7 +4,7 @@ using System.Diagnostics.Contracts;
 using UnityEngine;
 using static Define;
 
-public class ChatBase
+public class ChatBaseState
 {
     protected ChatStateMachine _chatStateMachine;
 
@@ -13,5 +13,6 @@ public class ChatBase
     public virtual void Enter() { }
     public virtual void Update() { }
     public virtual void Exit() { }
+
     protected virtual string MakeAnswer(string user_send = ""){ return user_send; }
 }

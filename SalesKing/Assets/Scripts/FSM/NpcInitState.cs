@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
-public class NpcInitState : ChatBase
+public class NpcInitState : ChatBaseState
 {
+    //말을 거시겠습니까? 클릭하면 일어남.
     public override void Enter()
     {
         string npcInfo =
@@ -16,6 +17,7 @@ public class NpcInitState : ChatBase
         string _userSend= MakeAnswer(npcInfo);
 
         _sendChatType = SendChatType.NpcInit;
+        //TODO : 오기까지 입력 막기
         ChatManager.ChatInstance.TestReply("NpcInit");
         //ServerManager.Instance.GetGPTReply(_userSend, _sendChatType);
     }

@@ -5,8 +5,34 @@ using UnityEngine;
 
 public static class VariableList
 {
-    public static string S_GPTAnswer { get; set; }
+    public static event Action<string> OnVariableUserUpdated;
+    public static event Action<string> OnVariableGptUpdated;
+    private static string _s_UserAnswer;
+    private static string _s_GptAnswer;
+    public static int S_Turn { get; set; }
 
+    public static string S_UserAnswer
+    {
+        get => _s_UserAnswer;
+        set
+        {
+            _s_UserAnswer = value;
+            // 값이 설정될 때마다 이벤트 호출
+            OnVariableUserUpdated?.Invoke(_s_UserAnswer);
+        }
+    }
+
+    public static string S_GptAnswer
+    { 
+        get => _s_GptAnswer;
+        set 
+        { 
+            _s_GptAnswer = value;
+            OnVariableGptUpdated?.Invoke(_s_GptAnswer);
+        }
+    }
+
+    //-------------------------------------------
     public static int S_Affinity { get; set; }
     public static int S_Usefulness { get; set; }
     public static int S_AlphaPrice { get; set; }
@@ -17,7 +43,6 @@ public static class VariableList
     public static int S_ExpectedPrice { get; set; }
     public static int S_AffordablePrice { get; set; }
     public static string S_Relationship { get; set; }
-    public static string S_UserAnswer { get; set; }
 
     static VariableList()
     {
