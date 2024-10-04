@@ -761,6 +761,8 @@ MonoBehaviour:
   Camera1: {fileID: 7246181781373639246}
   Camera2: {fileID: 4493655474283687873}
   PlayerBody: {fileID: 9055469640178224823}
+  rayDistance: 10
+  isRaycast: 1
 --- !u!114 &6727286827480259364
 MonoBehaviour:
   m_ObjectHideFlags: 0
