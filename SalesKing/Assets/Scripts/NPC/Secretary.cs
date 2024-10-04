@@ -10,6 +10,5 @@ public class Secretary : MonoBehaviour
     void Update()
     {
         Neck.transform.LookAt(Managers.Player.MyPlayer.transform.position);
-        //Debug.Log(Managers.Player.MyPlayer.transform);
     }
 }
