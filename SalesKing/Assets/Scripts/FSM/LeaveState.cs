@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static ChatSaleState;
 using static Define;
 
 public class LeaveState : ChatBaseState
@@ -21,7 +20,6 @@ public class LeaveState : ChatBaseState
     public override void Exit()
     {
         VariableList.OnVariableGptUpdated -= SaveEvaluation;
-
         //TODO : add other end action
     }
 

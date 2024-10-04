@@ -39,8 +39,6 @@ public static class VariableList
         public string npcEvaluation;
     }
     private static int S_currentNpcId;
-
-    private static Dictionary<int, NpcEvaluation> _npcEvalDict = new Dictionary<int, NpcEvaluation>();
     public static Dictionary<int, NpcEvaluation> S_NpcEvalDict { get; }
     public static void InitNpcDict(int npcId, string npcName, int npcAge, bool npcSex) 
     {
@@ -53,19 +51,34 @@ public static class VariableList
         _npcEvaluation.npcAge = npcAge;
         _npcEvaluation.npcSex = npcSex;
 
-        _npcEvalDict.Add(S_currentNpcId, _npcEvaluation);
+        S_NpcEvalDict.Add(S_currentNpcId, _npcEvaluation);
     }
 
     public static void AddEvaluation(string npcEvaluation) 
     {
-        _npcEvalDict[S_currentNpcId].npcEvaluation = npcEvaluation;
+        S_NpcEvalDict[S_currentNpcId].npcEvaluation = npcEvaluation;
     }
-    public static void AddItemPirce(string item, int price) 
+    public static void AddItemPriceSold(string item, int price) 
     {
-        _npcEvalDict[S_currentNpcId].item = item;
-        _npcEvalDict[S_currentNpcId].price = price;
+        S_NpcEvalDict[S_currentNpcId].item = item;
+        S_NpcEvalDict[S_currentNpcId].price = price;
     }
     //--------------------------------------------------
+    public static event Action<float, ItemInfo> OnItemInit;
+
+    private static float _s_userSuggest;
+    private static ItemInfo _s_itemInfo;
+    public static void InitItem(float userSuggest, ItemInfo itemInfo)
+    { 
+        _s_userSuggest = userSuggest;
+        _s_itemInfo = itemInfo;
+
+        OnItemInit?.Invoke(_s_userSuggest, _s_itemInfo);
+    }
+
+
+    #region Legacy
+
     public static int S_Affinity { get; set; }
     public static int S_Usefulness { get; set; }
     public static int S_AlphaPrice { get; set; }
@@ -91,4 +104,5 @@ public static class VariableList
         S_UserAnswer = "";
         S_Relationship = "neutral";
     }
+    #endregion
 }

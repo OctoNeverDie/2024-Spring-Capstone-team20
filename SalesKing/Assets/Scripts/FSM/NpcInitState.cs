@@ -11,6 +11,7 @@ public class NpcInitState : ChatBaseState
     //말을 거시겠습니까? 클릭하면 일어남.
     public override void Enter()
     {
+        //npcinfo로 받는다.
         string npcInfo =
             "Name: 현민삐, Age: 24, Sex: Female"
             +"Situation_Description: 아빠가 최근에 회사를 그만두셨고, 그 이후로 집안 경제가 어려워졌어. 네가 할 수 있는 게 많지 않아서 무력감을 느끼고 있어. 게다가 너도 졸업을 앞두고 진로에 대한 고민이 많아.\n"

@@ -7,7 +7,6 @@ public class FailState : ChatBaseState
 {
     public override void Enter()
     {
-        //Panel 띄우기
         ChatManager.ChatInstance.ActivatePanel(SendChatType.Fail);
     }
 
@@ -21,7 +20,7 @@ public class FailState : ChatBaseState
 
     public override void Exit() 
     {
-        ChatManager.ChatInstance.ActivatePanel(SendChatType.Fail);
         //TODO : Other logic to show it's fail
+        ChatManager.ChatInstance.ActivatePanel(SendChatType.Fail);
     }
 }

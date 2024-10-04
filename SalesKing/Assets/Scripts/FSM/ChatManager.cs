@@ -25,6 +25,7 @@ public class ChatManager : MonoBehaviour
     [SerializeField] private GameObject _chatPanel;//contains : logpanel, gptpanel, leavebutton, submitbutton, inputbutton
     [SerializeField] private GameObject _confirmPanel;
     [SerializeField] private GameObject _endPanel;
+    [SerializeField] private GameObject _itemPanel;
     
     private ChatStateMachine _chatStateMachine;
     private void Start()
@@ -32,6 +33,7 @@ public class ChatManager : MonoBehaviour
         _confirmPanel.SetActive(false);
         _endPanel.SetActive(false);
         _chatPanel.SetActive(false);
+        _itemPanel.SetActive(false);
 
         _chatStateMachine = new ChatStateMachine();
         _chatStateMachine.SetState(new NpcInitState());
@@ -48,7 +50,7 @@ public class ChatManager : MonoBehaviour
         {
             if (!_confirmPanel.activeSelf)
             {
-                _confirmPanel.SetActive(true); 
+                _confirmPanel.SetActive(true);
             }
             else
             {
@@ -66,10 +68,18 @@ public class ChatManager : MonoBehaviour
         {
             _chatPanel.SetActive(true);
         }
+        else if (chatState == SendChatType.ItemInit)
+        {
+            _itemPanel.SetActive(true);
+            //itemPanel 안에서 button 누르고, 해당 아이템의 first suggest 가격 입력.
+            //iteminfo와 first suggest 가격 가져옴.
+        }
     }
+
     public void UpdatePanel(string gptOutput)
     {
-        
+        //TODO : Log panel, gpt panel update
+        //TODO : Turn 수 update
     }
 
     //TODO : 나중에 지울 것.
@@ -85,5 +95,10 @@ public class ChatManager : MonoBehaviour
         {
             Debug.Log("Failed to parse enum");
         }
+    }
+
+    public void TransitionToState(SendChatType sendChatType)
+    {
+        _chatStateMachine.TransitionToState(sendChatType);
     }
 }
