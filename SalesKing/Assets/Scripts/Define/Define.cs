@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Define : MonoBehaviour
+public class Define
 {
     public enum SceneMode
     {
@@ -36,10 +36,11 @@ public class Define : MonoBehaviour
         None,
         NpcInit,
         ChatSale,
-        NpcNo,
         ItemInit,
-        Clear,
-        Bargain,
+        ChatBargain,
+        Leave,
+        Fail,
+        Success,
         MaxCnt
     }
 

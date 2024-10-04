@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using static Define;
 
 public class ChatManager : MonoBehaviour
@@ -21,17 +22,55 @@ public class ChatManager : MonoBehaviour
         }
     }
     #endregion
-    [SerializeField] private GameObject logPanel;
-    [SerializeField] private GameObject gptPanel;
-
+    [SerializeField] private GameObject _chatPanel;//contains : logpanel, gptpanel, leavebutton, submitbutton, inputbutton
+    [SerializeField] private GameObject _confirmPanel;
+    [SerializeField] private GameObject _endPanel;
+    
     private ChatStateMachine _chatStateMachine;
-    void Start()
+    private void Start()
     {
+        _confirmPanel.SetActive(false);
+        _endPanel.SetActive(false);
+        _chatPanel.SetActive(false);
+
         _chatStateMachine = new ChatStateMachine();
         _chatStateMachine.SetState(new NpcInitState());
     }
 
+    private void Update()
+    {
+        _chatStateMachine.UpdateState();
+    }
 
+    public void ActivatePanel(SendChatType chatState)
+    {
+        if (chatState == SendChatType.Fail)
+        {
+            if (!_confirmPanel.activeSelf)
+            {
+                _confirmPanel.SetActive(true); 
+            }
+            else
+            {
+                _confirmPanel.SetActive(false);
+                _chatPanel.SetActive(false);
+                _endPanel.SetActive(true);
+            }
+        }
+        else if (chatState == SendChatType.Leave)
+        {
+            _chatPanel.SetActive(false);
+            _endPanel.SetActive(true);
+        }
+        else if (chatState == SendChatType.ChatSale)
+        {
+            _chatPanel.SetActive(true);
+        }
+    }
+    public void UpdatePanel(string gptOutput)
+    {
+        
+    }
 
     //TODO : 나중에 지울 것.
     public void TestReply(String stateType, String input ="")
@@ -40,41 +79,11 @@ public class ChatManager : MonoBehaviour
         {
             Debug.Log("Success");
             Debug.Log($"next stateType : {stateType}, input : {input}");
-            ChatManager.ChatInstance.TransitionToState(sendChatType);
+            _chatStateMachine.TransitionToState(sendChatType);
         }
         else
         {
             Debug.Log("Failed to parse enum");
         }
-    }
-
-    //TODO : state machine으로 옮길 것.
-    public void TransitionToState(SendChatType sendChatType)
-    {
-        ChatBaseState chatState = new ChatSaleState();
-        switch (sendChatType)
-        {
-            case SendChatType.NpcInit:
-                chatState = new NpcInitState();
-
-                break;
-            case SendChatType.ChatSale:
-                chatState = new ChatSaleState();
-                break;
-
-            case SendChatType.NpcNo:
-                //chatState = new NpcNoState();
-                break;
-
-            case SendChatType.ItemInit:
-                //chatState = new ItemInitState();
-                break;
-            
-            default:
-                //chatState = new ClearState();
-                break;
-        }
-
-        _chatStateMachine.SetState(chatState);
     }
 }

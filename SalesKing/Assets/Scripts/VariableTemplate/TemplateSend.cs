@@ -24,7 +24,7 @@ public class TemplateSend
     public void EndGPT()
     {
         _userSend = MakeClear();
-        SendToGPT(SendChatType.Clear);
+        //SendToGPT(SendChatType.Clear);
     }
 
     public void SendToGPT(SendChatType sendChatTypeFrom)

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Timeline;
+using static Define;
 
 public class ChatSaleState : ChatBaseState, IVariableChat
 {
@@ -18,28 +19,25 @@ public class ChatSaleState : ChatBaseState, IVariableChat
 
     public override void Enter()
     {
+        ChatManager.ChatInstance.ActivatePanel(SendChatType.ChatSale);
+
         VariableList.OnVariableUserUpdated += UserInput;
         VariableList.OnVariableGptUpdated += GptOutput;
     }
 
     public override void Exit()
     {
+        VariableList.OnVariableUserUpdated -= UserInput;
+        VariableList.OnVariableGptUpdated -= GptOutput;
         //save evaluation
         VariableList.AddEvaluation(_gptResult._evaluation);
     }
 
-    public override void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            CheckChangeState();
-        }
-    }
 
     public void UserInput(string user_input)
     {
+        //ServerManager.Instance.GetGPTReply(user_input, _sendChatType);
         VariableList.S_GptAnswer = "아, 저 살래요! @yes 평가내용 좔좔좔";
-        //ServerManager.Instance.GetGPTReply(_userSend, _sendChatType);
     }
 
     public void GptOutput(string gpt_output)
@@ -48,6 +46,7 @@ public class ChatSaleState : ChatBaseState, IVariableChat
         //Show reaction to User
         //Update Log
         Debug.Log($"reaction : {_gptResult._reaction}, evaluation : {_gptResult._evaluation}");
+        CheckChangeState();
     }
 
     private void CheckChangeState()
@@ -62,7 +61,7 @@ public class ChatSaleState : ChatBaseState, IVariableChat
         }
         else if (!_gptResult._yesIsTrue)
         {
-            ChatManager.ChatInstance.TestReply("NpcNo");
+            ChatManager.ChatInstance.TestReply("Fail");
         }
     }
     private GptResult CheckYesOrNo(string gptAnswer)

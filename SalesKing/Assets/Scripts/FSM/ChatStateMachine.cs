@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Define;
 
 public class ChatStateMachine
 {
@@ -18,5 +19,46 @@ public class ChatStateMachine
     public void UpdateState()
     {
         _currentState?.Update();
+    }
+
+    public void TransitionToState(SendChatType sendChatType)
+    {
+        ChatBaseState chatState = new ChatSaleState();
+        switch (sendChatType)
+        {
+            case SendChatType.NpcInit:
+                chatState = new NpcInitState();
+                break;
+
+            case SendChatType.ItemInit:
+                //chatState = new ItemInitState();
+                break;
+
+            case SendChatType.ChatSale:
+                chatState = new ChatSaleState();
+                break;
+
+            case SendChatType.ChatBargain:
+                //chatState = new ChatBargainState();
+                break;
+
+            case SendChatType.Leave:
+                chatState = new LeaveState();
+                break;
+
+            case SendChatType.Fail:
+                chatState = new FailState();
+                break;
+
+            case SendChatType.Success:
+                //chatState = new SuccessState();
+                break;
+
+            default:
+                chatState = new FailState();
+                break;
+        }
+
+        SetState(chatState);
     }
 }
