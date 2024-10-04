@@ -7,6 +7,7 @@ public class LeaveState : ChatBaseState
 {
     public override void Enter()
     {
+        VariableList.OnVariableGptUpdated -= SaveEvaluation;
         VariableList.OnVariableGptUpdated += SaveEvaluation;
 
         _sendChatType = SendChatType.Leave;

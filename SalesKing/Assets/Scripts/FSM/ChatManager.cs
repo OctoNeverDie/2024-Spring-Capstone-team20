@@ -71,8 +71,6 @@ public class ChatManager : MonoBehaviour
         else if (chatState == SendChatType.ItemInit)
         {
             _itemPanel.SetActive(true);
-            //itemPanel 안에서 button 누르고, 해당 아이템의 first suggest 가격 입력.
-            //iteminfo와 first suggest 가격 가져옴.
         }
     }
 

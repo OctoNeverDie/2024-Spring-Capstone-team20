@@ -68,6 +68,7 @@ public static class VariableList
 
     private static float _s_userSuggest;
     private static ItemInfo _s_itemInfo;
+    public static string S_ThingToBuy { get; set; }
     public static void InitItem(float userSuggest, ItemInfo itemInfo)
     { 
         _s_userSuggest = userSuggest;

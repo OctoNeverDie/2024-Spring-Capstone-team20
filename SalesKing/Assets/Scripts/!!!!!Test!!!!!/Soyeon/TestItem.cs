@@ -18,10 +18,23 @@ public class TestItem : MonoBehaviour
     {
         itemSelect.SetActive(true);
         itemPrice.SetActive(false);
+
+        ForItemInfoMockData();
+    }
+
+    private void ForItemInfoMockData()
+    {
+        _itemInfo.ObjID = 1;
+        _itemInfo.ObjName = "사탕";
+        _itemInfo.ObjInfo = "딸기맛 사탕이다.";
+        _itemInfo.npcFirstSuggestPrice = 5;
+        _itemInfo.expensive = 10;
+        _itemInfo.tooExpensive = 50;
     }
 
     public void OnItemClick(GameObject clickedButtonGOs)
     {
+        //TODO:
         //item's information
         //_itemInfo = clickedButton.GetComponent<ItemInfo>();
         //item's id's 2dsprite
