@@ -4,23 +4,13 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-
-    public static InventoryManager Instance;
     private Dictionary<int, (ItemInfo itemInfo, int quantity)> inventory = new Dictionary<int, (ItemInfo, int)>();
 
 
     // Start is called before the first frame update
     void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(this); // 씬 전환 시에도 파괴되지 않도록 설정
-        }
-        else
-        {
-            Destroy(gameObject); // 중복 인스턴스 방지
-        }
+    
     }
 
     // Add item to inventory, with quantity management

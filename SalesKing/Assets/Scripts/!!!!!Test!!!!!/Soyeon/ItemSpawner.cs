@@ -42,10 +42,10 @@ public class ItemSpawner : MonoBehaviour
     void PurchaseItem(ItemInfo item)
     {
         // 현금에서 아이템 가격을 제거
-        if (CashManager.Instance.RemoveCash(item.defaultPrice))
+        if (Managers.Cash.RemoveCash(item.defaultPrice))
         {
             // 인벤토리에 해당 아이템 추가
-            InventoryManager.Instance.AddToInventory(item);
+            Managers.Inven.AddToInventory(item);
             Debug.Log(item.ObjName + " purchased successfully!");
         }
         else

@@ -4,34 +4,20 @@ using UnityEngine;
 
 public class CashManager : MonoBehaviour
 {
-    public static CashManager Instance;
-
     // 총 현금량
     public int TotalCash { get; private set; }
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject); // 필요에 따라 추가
-        }
-        else
-        {
-            Destroy(gameObject); // 중복 인스턴스 방지
-        }
-
-        // PlayerPrefs에서 현금 로드 일단은 지금은 안씀.
-        //LoadCash();
-
-        TotalCash = 300;
+        // PlayerPrefs에서 현금 로드 (현재는 주석 처리)
+        LoadCash();
     }
 
     // 현금을 추가하는 메서드
     public void AddCash(int amount)
     {
         TotalCash += amount;
-        //SaveCash();
+        SaveCash();
         UpdateCashUI();
     }
 
@@ -41,7 +27,7 @@ public class CashManager : MonoBehaviour
         if (TotalCash >= amount)
         {
             TotalCash -= amount;
-            //SaveCash();
+            SaveCash();
             UpdateCashUI();
             return true; // 성공적으로 제거됨
         }

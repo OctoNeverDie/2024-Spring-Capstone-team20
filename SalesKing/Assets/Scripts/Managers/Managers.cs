@@ -55,6 +55,10 @@ public class Managers : MonoBehaviour
     // office에서 쓰는 것들
     OfficeManager _office;
     
+    // 재산 관련
+    CashManager _cash;
+    //인벤토리 관련
+    InventoryManager _inven;
 
     public static SceneModeManager Scene { get { return Instance._scene; } }
     public static NPCManager NPC { get { return Instance._npc; } }
@@ -65,6 +69,10 @@ public class Managers : MonoBehaviour
     public static DataManager Data { get { return Instance._data;  } }
     public static OfficeManager Office { get { return Instance._office; } }
     public static ConvoManager Convo { get { return Instance._convo; } }
+    public static CashManager Cash { get { return Instance._cash; } }
+    public static InventoryManager Inven { get { return Instance._inven; } }
+
+
     void Awake()
     {
         Init();
@@ -167,6 +175,30 @@ public class Managers : MonoBehaviour
             instance._convo = convoManager.AddComponent<ConvoManager>();
         }
     }
+
+    public void AddCashManager()
+    {
+        GameObject cashManager = new GameObject("@CashManager");
+        cashManager.transform.parent = transform;
+
+        if (instance._cash == null)
+        {
+            instance._cash = cashManager.AddComponent<CashManager>();
+        }
+    }
+
+    
+    public void AddInventoryManager()
+    {
+        GameObject inventoryManager = new GameObject("@InventoryManager");
+        inventoryManager.transform.parent = transform;
+
+        if (instance._inven == null)
+        {
+            instance._inven = inventoryManager.AddComponent<InventoryManager>();
+        }
+    }
+
 
     public void ClearChildManagers()
     {
