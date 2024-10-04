@@ -10,7 +10,13 @@ public class InventoryManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-    
+        AddToInventory(Managers.Data.itemList[1]);
+        AddToInventory(Managers.Data.itemList[3]);
+        AddToInventory(Managers.Data.itemList[4]);
+        Managers.Cash.RemoveCash(Managers.Data.itemList[1].defaultPrice);
+        Managers.Cash.RemoveCash(Managers.Data.itemList[3].defaultPrice);
+        Managers.Cash.RemoveCash(Managers.Data.itemList[4].defaultPrice);
+
     }
 
     // Add item to inventory, with quantity management
@@ -71,11 +77,13 @@ public class InventoryManager : MonoBehaviour
     // PlayerPrefs를 사용하여 인벤토리 데이터를 저장
     public void SaveInventory()
     {
+        /*
         foreach (var entry in inventory)
         {
             PlayerPrefs.SetInt("Inventory_" + entry.Value.itemInfo.ObjID, entry.Value.quantity);
         }
-        PlayerPrefs.Save(); // PlayerPrefs의 변경 내용을 저장
+       // PlayerPrefs.Save(); // PlayerPrefs의 변경 내용을 저장
+       */
         Debug.Log("Inventory saved to PlayerPrefs!");
     }
 

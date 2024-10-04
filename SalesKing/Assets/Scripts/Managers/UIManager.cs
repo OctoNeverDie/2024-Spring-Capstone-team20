@@ -82,6 +82,11 @@ public class UIManager : MonoBehaviour
         ui.TimeText.text = hour_s+" : "+min_s+" "+ampm;
     }
 
+    public void SetCashText(string cashAmount)
+    {
+        ui.CashText.text = cashAmount+ "$";
+    }
+
     public void SetPlayerInputField(string input)
     {
         ui.UserText.text = ui.UserText.text + input;

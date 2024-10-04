@@ -10,7 +10,9 @@ public class CashManager : MonoBehaviour
     private void Awake()
     {
         // PlayerPrefs에서 현금 로드 (현재는 주석 처리)
-        LoadCash();
+        //LoadCash();
+        TotalCash = 300;
+        UpdateCashUI(); 
     }
 
     // 현금을 추가하는 메서드
@@ -37,8 +39,8 @@ public class CashManager : MonoBehaviour
     // 현금 저장
     private void SaveCash()
     {
-        PlayerPrefs.SetInt("TotalCash", TotalCash);
-        PlayerPrefs.Save();
+       // PlayerPrefs.SetInt("TotalCash", TotalCash);
+        //PlayerPrefs.Save();
     }
 
     // 현금 로드
@@ -50,7 +52,6 @@ public class CashManager : MonoBehaviour
     // UI 업데이트 (예: TextMeshPro 또는 UI Text 업데이트)
     private void UpdateCashUI()
     {
-        // UI 업데이트 로직 추가 이거는 추후 추가
-        Debug.Log("Total Cash: " + TotalCash);
+        Managers.UI.SetCashText(TotalCash.ToString());
     }
 }
