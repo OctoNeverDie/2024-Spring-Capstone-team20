@@ -1,124 +1,44 @@
-Shader "Custom/Outline"
+Shader "Custom/RimLight"
 {
-	Properties
-	{
-		_Color("Main Color", Color) = (1,1,1,1)
-		_MainTex("Main Texture", 2D) = "white" {}
-		_Outline("Outline", Float) = 0.1
-		_OutlineColor("Outline Color", Color) = (1,1,1,1)
-	}
+    Properties
+    {
+        _MainTex ("Base Texture", 2D) = "white" {}  // 기본 텍스처
+        _RimColor ("Rim Color", Color) = (1, 0.5, 0, 1)  // 림 색상 (주황색)
+        _RimPower ("Rim Power", Range(0.1, 8.0)) = 3.0  // 림 효과의 범위 조정
+    }
+    SubShader
+    {
+        Tags { "RenderType"="Opaque" }
+        LOD 200
 
-	SubShader
-	{
-		Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" }
+        CGPROGRAM
+        #pragma surface surf Lambert
 
-		// 외곽선 그리기
-		Pass
-		{
-			Blend SrcAlpha OneMinusSrcAlpha
-			Cull Front // 뒷면만 그리기
-			ZWrite Off
+        sampler2D _MainTex;
+        struct Input
+        {
+            float2 uv_MainTex;
+            float3 viewDir;
+            float3 worldNormal;
+        };
 
-			CGPROGRAM
+        uniform float _RimPower;
+        uniform fixed4 _RimColor;
 
-			#pragma vertex vert
-			#pragma fragment frag
+        void surf(Input IN, inout SurfaceOutput o)
+        {
+            // 기본 텍스처 색상 유지
+            fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _RimColor;
+            o.Albedo = c.rgb;
 
-			half _Outline;
-			half4 _OutlineColor;
+            // 카메라와의 각도에 따라 림 효과 추가
+            half rim = 1.0 - saturate(dot(normalize(IN.viewDir), IN.worldNormal));
+            rim = pow(rim, _RimPower);
 
-			struct vertexInput
-			{
-				float4 vertex: POSITION;
-			};
-
-			struct vertexOutput
-			{
-				float4 pos: SV_POSITION;
-			};
-
-			float4 CreateOutline(float4 vertPos, float Outline)
-			{
-				// 행렬 중에 크기를 조절하는 부분만 값을 넣는다.
-				// 밑의 부가 설명 사진 참고.
-				float4x4 scaleMat;
-				scaleMat[0][0] = 1.0f + Outline;
-				scaleMat[0][1] = 0.0f;
-				scaleMat[0][2] = 0.0f;
-				scaleMat[0][3] = 0.0f;
-				scaleMat[1][0] = 0.0f;
-				scaleMat[1][1] = 1.0f + Outline;
-				scaleMat[1][2] = 0.0f;
-				scaleMat[1][3] = 0.0f;
-				scaleMat[2][0] = 0.0f;
-				scaleMat[2][1] = 0.0f;
-				scaleMat[2][2] = 1.0f + Outline;
-				scaleMat[2][3] = 0.0f;
-				scaleMat[3][0] = 0.0f;
-				scaleMat[3][1] = 0.0f;
-				scaleMat[3][2] = 0.0f;
-				scaleMat[3][3] = 1.0f;
-				
-				return mul(scaleMat, vertPos);
-			}
-
-			vertexOutput vert(vertexInput v)
-			{
-				vertexOutput o;
-
-				o.pos = UnityObjectToClipPos(CreateOutline(v.vertex, _Outline));
-
-				return o;
-			}
-
-			half4 frag(vertexOutput i) : COLOR
-			{
-				return _OutlineColor;
-			}
-
-			ENDCG
-		}
-
-		// 정상적으로 그리기
-		Pass
-		{
-			Blend SrcAlpha OneMinusSrcAlpha
-
-			CGPROGRAM
-
-			#pragma vertex vert
-			#pragma fragment frag
-
-			half4 _Color;
-			sampler2D _MainTex;
-			float4 _MainTex_ST;
-
-			struct vertexInput
-			{
-				float4 vertex: POSITION;
-				float4 texcoord: TEXCOORD0;
-			};
-
-			struct vertexOutput
-			{
-				float4 pos: SV_POSITION;
-				float4 texcoord: TEXCOORD0;
-			};
-
-			vertexOutput vert(vertexInput v)
-			{
-				vertexOutput o;
-				o.pos = UnityObjectToClipPos(v.vertex);
-				o.texcoord.xy = (v.texcoord.xy * _MainTex_ST.xy + _MainTex_ST.zw);
-				return o;
-			}
-
-			half4 frag(vertexOutput i) : COLOR
-			{
-				return tex2D(_MainTex, i.texcoord) * _Color;
-			}
-
-			ENDCG
-		}
-	}
+            // 경계선에 림 색상 적용
+            o.Emission = rim * _RimColor.rgb;
+        }
+        ENDCG
+    }
+    FallBack "Diffuse"
 }

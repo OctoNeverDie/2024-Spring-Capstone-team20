@@ -42,7 +42,6 @@ public class SceneModeManager : MonoBehaviour
         Managers.Instance.AddTimeManager();
         Managers.Instance.AddCameraManager();
         Managers.Instance.AddConvoManager();
-        Managers.Instance.AddServerManager();
     }
 
     public void LoadSceneByName(string name)

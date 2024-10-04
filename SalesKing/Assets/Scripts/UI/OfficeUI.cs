@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening; // DOTween 사용
+using TMPro;
 
 public class OfficeUI : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class OfficeUI : MonoBehaviour
     public GameObject WelcomePanel;
     public GameObject ShoppingPanel;
     public Image FadeInFadeOut;
+
+    public GameObject RaycastHitObj;
+    public Image HitIcon;
+    public TextMeshProUGUI HitText;
 
     public float FadeTime = 0.2f;
 
@@ -67,5 +72,18 @@ public class OfficeUI : MonoBehaviour
 
         // 시퀀스 실행
         fadeSequence.Play();
+    }
+
+    public void CrosshairTriggersButton(bool isShow)
+    {
+        if (isShow)
+        {
+            RaycastHitObj.SetActive(true);
+        }
+        else
+        {
+            RaycastHitObj.SetActive(false);
+        }
+        
     }
 }
