@@ -9,9 +9,16 @@ public class Player : MonoBehaviour
     PlayerCameraRot cam;
     PlayerMove move;
 
+    // first person
     public CinemachineVirtualCamera Camera1;
+    // dialogue
     public CinemachineVirtualCamera Camera2;
     public GameObject PlayerBody;
+
+    public float rayDistance = 10f;  // 레이캐스트 거리
+    public bool isRaycast = true;
+    private GameObject previousTarget = null; // 이전에 Raycast가 감지한 오브젝트
+
 
     void Awake()
     {
@@ -21,8 +28,56 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        FreezeAndUnFreezePlayer(false);
+        FreezeAndUnFreezePlayer(true);
     }
+
+    void Update()
+    {
+        if (isRaycast)
+        {
+            // 카메라의 정면 방향으로 Ray 생성
+            Ray ray = new Ray(Camera1.transform.position, Camera1.transform.forward);
+            RaycastHit hit;
+
+            // 레이캐스트 쏘기 (선택한 레이어만 충돌하거나 모든 물체와 충돌)
+            if (Physics.Raycast(ray, out hit, rayDistance))
+            {
+                GameObject currentTarget = hit.collider.gameObject;
+
+                // 히트된 오브젝트 정보 로그 출력
+                //Debug.Log("Hit object: " + currentTarget.name);
+
+                // 이전에 감지한 오브젝트가 있다면 (별도 작업을 하지 않음)
+                if (previousTarget != null)
+                {
+                    // 필요시 추가 기능: previousTarget과 현재 Target이 다를 때 처리
+                    Managers.Office.officeUI.CrosshairTriggersButton(false);
+                }
+
+                // 특정 태그를 가진 오브젝트가 히트되었을 때
+                if (hit.collider.CompareTag("Office_MyPC"))
+                {
+                    Debug.Log("Hit Office_MyPC: " + currentTarget.name);
+                    Managers.Office.officeUI.CrosshairTriggersButton(true);
+                }
+
+                // 이전 타겟 업데이트
+                previousTarget = currentTarget;
+            }
+            else
+            {
+                // 아무것도 감지되지 않았을 때
+                if (previousTarget != null)
+                {
+                    // 이전 타겟 초기화
+                    previousTarget = null;
+                    //Debug.Log("Raycast hit nothing.");
+                    Managers.Office.officeUI.CrosshairTriggersButton(false);
+                }
+            }
+        }
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -34,29 +89,13 @@ public class Player : MonoBehaviour
                 PlayerEnterConvo(other.gameObject);
             }
         }
-        else if (other.CompareTag("Office_MyPC"))
-        {
-            Managers.Office.officeUI.MyPCButton.gameObject.SetActive(true);
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Office_MyPC"))
-        {
-            Managers.Office.officeUI.MyPCButton.gameObject.SetActive(false);
-        }
     }
 
     public void FreezeAndUnFreezePlayer(bool isFreeze)
     {
         move.isMovementLocked = isFreeze;
         cam.isCameraLocked = isFreeze;
+        isRaycast = !isFreeze;
     }
 
     public void PlayerEnterConvo(GameObject npc)

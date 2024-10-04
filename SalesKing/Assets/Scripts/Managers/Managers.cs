@@ -49,7 +49,6 @@ public class Managers : MonoBehaviour
 
     // 찐 중요한 부분. 메인 핵심.
     ConvoManager _convo;
-    ServerManager _server;
 
     DataManager _data = new DataManager();
     
@@ -66,8 +65,6 @@ public class Managers : MonoBehaviour
     public static DataManager Data { get { return Instance._data;  } }
     public static OfficeManager Office { get { return Instance._office; } }
     public static ConvoManager Convo { get { return Instance._convo; } }
-    public static ServerManager Server { get { return Instance._server; } }
-
     void Awake()
     {
         Init();
@@ -168,17 +165,6 @@ public class Managers : MonoBehaviour
         if (instance._convo == null)
         {
             instance._convo = convoManager.AddComponent<ConvoManager>();
-        }
-    }
-
-    public void AddServerManager()
-    {
-        GameObject serverManager = new GameObject("@ServerManager");
-        serverManager.transform.parent = transform;
-
-        if (instance._server == null)
-        {
-            instance._server = serverManager.AddComponent<ServerManager>();
         }
     }
 

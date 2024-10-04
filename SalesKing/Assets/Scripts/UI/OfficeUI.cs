@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening; // DOTween 사용
+using TMPro;
 
 public class OfficeUI : MonoBehaviour
 {
@@ -11,9 +12,11 @@ public class OfficeUI : MonoBehaviour
     public GameObject ShoppingPanel;
     public Image FadeInFadeOut;
 
-    public float FadeTime = 0.2f;
+    public GameObject RaycastHitObj;
+    public Image HitIcon;
+    public TextMeshProUGUI HitText;
 
-    public Button MyPCButton;
+    public float FadeTime = 0.2f;
 
     void Start()
     {
@@ -36,7 +39,6 @@ public class OfficeUI : MonoBehaviour
 
     public void OnClickMyPC()
     {
-        MyPCButton.gameObject.SetActive(false);
         DOVirtual.DelayedCall(FadeTime, () => ShoppingPanel.SetActive(true));
         Managers.Office.myPlayer.FreezeAndUnFreezePlayer(true);
         Managers.Office.SwitchToMyPCCam();
@@ -70,5 +72,18 @@ public class OfficeUI : MonoBehaviour
 
         // 시퀀스 실행
         fadeSequence.Play();
+    }
+
+    public void CrosshairTriggersButton(bool isShow)
+    {
+        if (isShow)
+        {
+            RaycastHitObj.SetActive(true);
+        }
+        else
+        {
+            RaycastHitObj.SetActive(false);
+        }
+        
     }
 }
