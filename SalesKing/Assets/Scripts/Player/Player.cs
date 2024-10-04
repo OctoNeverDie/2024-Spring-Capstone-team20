@@ -44,9 +44,6 @@ public class Player : MonoBehaviour
             {
                 GameObject currentTarget = hit.collider.gameObject;
 
-                // 히트된 오브젝트 정보 로그 출력
-                //Debug.Log("Hit object: " + currentTarget.name);
-
                 // 이전에 감지한 오브젝트가 있다면 (별도 작업을 하지 않음)
                 if (previousTarget != null)
                 {
