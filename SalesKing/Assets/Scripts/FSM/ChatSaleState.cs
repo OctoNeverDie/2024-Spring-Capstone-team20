@@ -1,13 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Timeline;
 using static Define;
 
 public class ChatSaleState : ChatBaseState, IVariableChat
 {
-    public struct GptResult
+    private struct GptResult
     {
         public string _reaction;
         public string _thingToBuy;
@@ -21,18 +18,12 @@ public class ChatSaleState : ChatBaseState, IVariableChat
     public override void Enter()
     {
         ChatManager.ChatInstance.ActivatePanel(SendChatType.ChatSale);
-
-        VariableList.OnVariableUserUpdated -= UserInput;
-        VariableList.OnVariableGptUpdated -= GptOutput;
-
-        VariableList.OnVariableUserUpdated += UserInput;
-        VariableList.OnVariableGptUpdated += GptOutput;
+        SubScribeAction();
     }
 
     public override void Exit()
     {
-        VariableList.OnVariableUserUpdated -= UserInput;
-        VariableList.OnVariableGptUpdated -= GptOutput;
+        UnSubScribeAction();
         //save evaluation
         VariableList.AddEvaluation(_gptResult._evaluation);
         VariableList.S_ThingToBuy = _gptResult._thingToBuy;
@@ -120,5 +111,19 @@ public class ChatSaleState : ChatBaseState, IVariableChat
         }
         
         return result;
+    }
+
+    private void SubScribeAction()
+    {
+        VariableList.OnVariableUserUpdated -= UserInput;
+        VariableList.OnVariableGptUpdated -= GptOutput;
+
+        VariableList.OnVariableUserUpdated += UserInput;
+        VariableList.OnVariableGptUpdated += GptOutput;
+    }
+    private void UnSubScribeAction()
+    {
+        VariableList.OnVariableUserUpdated -= UserInput;
+        VariableList.OnVariableGptUpdated -= GptOutput;
     }
 }

@@ -43,7 +43,7 @@ public class ChatStateMachine
                 break;
 
             case SendChatType.ChatBargain:
-                //chatState = new ChatBargainState();
+                chatState = new ChatBargainState();
                 break;
 
             case SendChatType.Fail:
@@ -51,7 +51,7 @@ public class ChatStateMachine
                 break;
 
             case SendChatType.Success:
-                //chatState = new SuccessState();
+                chatState = new SuccessState();
                 break;
 
             default:
