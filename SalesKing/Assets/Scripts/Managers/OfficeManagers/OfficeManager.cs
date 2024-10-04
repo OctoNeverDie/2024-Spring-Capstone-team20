@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using TMPro.Examples;
 
 public class OfficeManager : MonoBehaviour
 {
@@ -27,7 +28,16 @@ public class OfficeManager : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetButtonDown("Interaction"))
+        {
+            if (officeUI.RaycastHitObj.activeSelf)
+            {
+                Debug.Log("click e key to interact");
+                officeUI.OnClickMyPC();
+            }
+            
+            
+        }
     }
 
     public void SwitchToFirstPersonCam()
