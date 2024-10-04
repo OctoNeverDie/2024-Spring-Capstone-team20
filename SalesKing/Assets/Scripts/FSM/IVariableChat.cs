@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IVariableChat
 {
-    public void Input(string user_input);
-    public void Output(string gpt_output);
+    public void UserInput(string user_input);
+    public void GptOutput(string gpt_output);
 }

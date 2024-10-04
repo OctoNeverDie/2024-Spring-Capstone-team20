@@ -18,7 +18,7 @@ public class TemplateSend
     public void ChatwithGPT()
     {
         _userSend = MakeAnswer();
-        SendToGPT(SendChatType.Chat);
+        //SendToGPT(SendChatType.Chat);
     }
 
     public void EndGPT()

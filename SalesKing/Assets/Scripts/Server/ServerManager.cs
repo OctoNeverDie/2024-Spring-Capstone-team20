@@ -77,7 +77,7 @@ public class ServerManager : ServerBase
 
             // 추가 코드
             Managers.Convo.ParseNPCAnswer($"{resultData}");
-            VariableList.S_GPTAnswer = resultData.ToString();
+            VariableList.S_GptAnswer = resultData.ToString();
             templateReceive.StringConcat(resultData.ToString());
         };
 

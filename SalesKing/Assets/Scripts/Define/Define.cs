@@ -35,7 +35,9 @@ public class Define : MonoBehaviour
     {
         None,
         NpcInit,
-        Chat,
+        ChatSale,
+        NpcNo,
+        ItemInit,
         Clear,
         Bargain,
         MaxCnt
