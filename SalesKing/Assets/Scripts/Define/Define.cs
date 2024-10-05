@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Define : MonoBehaviour
+public class Define
 {
     public enum SceneMode
     {
@@ -31,5 +31,17 @@ public class Define : MonoBehaviour
         Night
     }
 
+    public enum SendChatType
+    {
+        None,
+        NpcInit,
+        ChatSale,
+        ItemInit,
+        ChatBargain,
+        Leave,
+        Fail,
+        Success,
+        MaxCnt
+    }
 
 }

@@ -16,8 +16,8 @@ public class NpcSO : ScriptableObject
         npcInfo.NpcName = data.NpcName;
         npcInfo.NpcSex = data.NpcSex;
         npcInfo.NpcAge = data.NpcAge;
-        npcInfo.NpcPersonality = data.NpcPersonality;
-        npcInfo.NpcProplemType = data.NpcProplemType;
-        npcInfo.NpcProblemInfo = data.NpcProblemInfo;
+        npcInfo.Situation_Description = data.Situation_Description;
+        npcInfo.Personality = data.Personality;
+        npcInfo.Dialogue_Style = data.Dialogue_Style;
     }
 }

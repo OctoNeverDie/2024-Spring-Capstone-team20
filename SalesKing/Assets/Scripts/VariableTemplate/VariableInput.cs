@@ -12,34 +12,11 @@ public class VaribleInput : MonoBehaviour
     [SerializeField] private string outputText;
 
     private string _userInput="";
-    private TemplateSend _sendTemplate;
-
-    private void Awake()
-    {
-        _sendTemplate = new TemplateSend();
-    }
-
-    private void Start()
-    {
-        DataInit();
-    }
-
-    private void DataInit()
-    {
-        //just once, before conversation
-        //item information
-        string itemInfo = "@ObjID =2, @ObjName = Cup, @ObjectInfo = blah, @defaultPrice =10, @expensvie = 100, @tooExpensive =200";
-        //npc information
-        string npcInfo = "@NpcID = 1, @NpcSex = female, @NpcAge = 17, @NpcPersonality = Bad, @NpcProplemType = relate, @NpcProblemInfo = blah";
-
-        _sendTemplate.Init(itemInfo, npcInfo);
-    }
 
     public void OnClick()
     {
         _userInput = inputField.GetComponent<TMP_InputField>().text;
+        //TODO : 현재 단계가 chatSaleState나, ChatBargain 단계 아니면 작성하지 못하게 하기.
         VariableList.S_UserAnswer = _userInput;
-
-        _sendTemplate.ChatwithGPT();
     }
 }

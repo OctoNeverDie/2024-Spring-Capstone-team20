@@ -12,7 +12,7 @@ public class ItemInfo
     public int ObjID;
     public string ObjName;
     public string ObjInfo;
-    public int defaultPrice;
+    public int npcFirstSuggestPrice;
     public int expensive;
     public int tooExpensive;
 }
@@ -33,9 +33,9 @@ public class NpcInfo
     public string NpcName;
     public string NpcSex;
     public int NpcAge;
-    public string NpcPersonality;
-    public string NpcProplemType;
-    public string NpcProblemInfo;
+    public string Situation_Description;
+    public string Personality;
+    public string Dialogue_Style;
 }
 
 public class NpcData : ILoader<NpcInfo>
