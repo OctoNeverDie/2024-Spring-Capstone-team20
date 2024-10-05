@@ -43,6 +43,7 @@ public class SceneModeManager : MonoBehaviour
         Managers.Instance.AddUIManager();
         Managers.Instance.AddTimeManager();
         Managers.Instance.AddCameraManager();
+        Managers.Instance.AddChatManager();
         Managers.Instance.AddConvoManager();
         Managers.Instance.AddCashManager();
         Managers.Instance.AddInventoryManager();

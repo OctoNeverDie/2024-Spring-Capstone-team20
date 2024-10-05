@@ -18,10 +18,13 @@ public class ConvoUI : MonoBehaviour
     public TextMeshProUGUI TimeText;
     public TextMeshProUGUI CashText;
 
-
+    private void Start()
+    {
+        ChatManager.OnPanelUpdated += ShowPanel;
+    }
     public void OnClickYesTalkBtn()
     {
-        ChooseItemPanel.SetActive(true);
+        ConvoPanel.SetActive(true);
         TalkOrNotPanel.SetActive(false);
     }
 
@@ -30,6 +33,15 @@ public class ConvoUI : MonoBehaviour
         Managers.Convo.ConvoFinished();
         TalkOrNotPanel.SetActive(false);
         ConvoPanel.SetActive(false);
+    }
+
+    public void ShowPanel(Define.SendChatType sendChatType)
+    {
+        if (sendChatType == Define.SendChatType.ItemInit)
+        {
+            ConvoPanel.SetActive(false);
+            ChooseItemPanel.SetActive(true);
+        }
     }
 
     public void OnClickSelectItemBtn()

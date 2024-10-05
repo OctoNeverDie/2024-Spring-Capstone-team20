@@ -8,7 +8,7 @@ public class FailState : ChatBaseState
     bool evaluationAlreay = false;
     public override void Enter()
     {
-        ChatManager.ChatInstance.ActivatePanel(SendChatType.Fail);
+        Managers.Chat.ActivatePanel(SendChatType.Fail);
 
         if (VariableList.CheckEvaluationIsAlready())
         {
@@ -32,7 +32,7 @@ public class FailState : ChatBaseState
 
     public override void Exit()
     {
-        ChatManager.ChatInstance.ActivatePanel(SendChatType.Fail);
+        Managers.Chat.ActivatePanel(SendChatType.Fail);
         VariableList.OnVariableGptUpdated -= SaveEvaluation;
         //TODO : add other end action
     }

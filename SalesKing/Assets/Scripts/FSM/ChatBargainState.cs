@@ -27,7 +27,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
             "vendorSuggest : 180\r\n" +
             "yourSuggest : 100";
 
-        ChatManager.ChatInstance.ActivatePanel(_sendChatType);
+        Managers.Chat.ActivatePanel(_sendChatType);
 
         _gptResult._turn = TurnInit;
     }
@@ -50,20 +50,20 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         UpdateSuggest(gpt_output);
         if (!CheckTurn())
         {
-            ChatManager.ChatInstance.UpdateTurn(0, _gptResult._npcSuggest, _gptResult._userSuggest);
+            Managers.Chat.UpdateTurn(0, _gptResult._npcSuggest, _gptResult._userSuggest);
         }
 
-        ChatManager.ChatInstance.UpdatePanel(_gptResult._npcReaction);
+        Managers.Chat.UpdatePanel(_gptResult._npcReaction);
 
         if (!CheckTurn())
         {
-            ChatManager.ChatInstance.TransitionToState(SendChatType.Fail);
+            Managers.Chat.TransitionToState(SendChatType.Fail);
         }
     }
 
     protected override string MakeAnswer(string user_send = "")
     {
-        string priceOpinion = ChatManager.ChatInstance.ratePrice(_gptResult._userSuggest);
+        string priceOpinion = Managers.Chat.ratePrice(_gptResult._userSuggest);
         string user_template = user_send + $"\n vendor Suggest: {_gptResult._userSuggest}"
                                 + $" npc Suggest: {_gptResult._npcSuggest} price Opinion: {priceOpinion}";
         return user_template;
@@ -97,9 +97,9 @@ public class ChatBargainState : ChatBaseState, IVariableChat
 
     private void UpdateAndActivate()
     {
-        ChatManager.ChatInstance.UpdateTurn(_gptResult._turn, _gptResult._npcSuggest, _gptResult._userSuggest);
+        Managers.Chat.UpdateTurn(_gptResult._turn, _gptResult._npcSuggest, _gptResult._userSuggest);
         VariableList.AddItemPriceSold(_gptResult._npcSuggest);
-        ChatManager.ChatInstance.ActivatePanel(_sendChatType);
+        Managers.Chat.ActivatePanel(_sendChatType);
     }
 
     private void SubScribeAction()
