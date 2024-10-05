@@ -8,6 +8,7 @@ public class InventorySpawn : MonoBehaviour
 {
     [SerializeField] private GameObject itemPrefab;  // Prefab for the UI item display
     [SerializeField] private Transform gridParent;   // Parent transform for the UI items
+    [SerializeField] private GameObject choosePricePanel;
 
     private void Start()
     {
@@ -41,7 +42,6 @@ public class InventorySpawn : MonoBehaviour
     // Example method for using an item
     void UseItem(ItemInfo item)
     {
-        Debug.Log("Using item: " + item.ObjName);
-        // Implement the logic to use or remove the item from inventory
+        choosePricePanel.SetActive(true); 
     }
 }
