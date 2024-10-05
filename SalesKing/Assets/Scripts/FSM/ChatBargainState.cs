@@ -1,7 +1,8 @@
 using System;
 using System.Text.RegularExpressions;
-using Unity.VisualScripting;
+using UnityEngine;
 using static Define;
+
 
 public class ChatBargainState : ChatBaseState, IVariableChat
 {
@@ -19,7 +20,10 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     public override void Enter()
     {
         SubScribeAction();
-        
+
+        _gptResult._turn = TurnInit;
+        Debug.Log(_gptResult._turn);
+
         _sendChatType = SendChatType.ChatBargain;
         //ServerManager.Instance.GetGPTReply("$start", _sendChatType);
         VariableList.S_GptAnswer = "reaction : 말씀은 이해합니다만, 저도 졸업을 앞둔 학생이라 금전적인 여유가 없습니다. 정말 100달러 정도면 할 수 있을 것 같아요. 이 금액을 초과하면 정말 어렵습니다.\r\n" +
@@ -28,8 +32,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
             "yourSuggest : 100";
 
         Managers.Chat.ActivatePanel(_sendChatType);
-
-        _gptResult._turn = TurnInit;
+        //여기있으면 왜 훨씬 나중에 실행되지?
     }
 
     public override void Exit()
@@ -47,7 +50,9 @@ public class ChatBargainState : ChatBaseState, IVariableChat
 
     public void GptOutput(string gpt_output)
     {
+        Debug.Log(gpt_output);
         UpdateSuggest(gpt_output);
+        
         if (!CheckTurn())
         {
             Managers.Chat.UpdateTurn(0, _gptResult._npcSuggest, _gptResult._userSuggest);
@@ -57,6 +62,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
 
         if (!CheckTurn())
         {
+            Debug.Log(_gptResult._turn);
             Managers.Chat.TransitionToState(SendChatType.Fail);
         }
     }
@@ -72,7 +78,9 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     private void UpdateSuggest(string gpt_output)
     {
         _gptResult._npcReaction = ExtractStringValue(gpt_output, "reaction");
+        Debug.Log(_gptResult._turn);
         _gptResult._turn += (int)ExtractFloatValue(gpt_output, "persuasion");
+        Debug.Log(_gptResult._turn);
 
         float npcSuggest = ExtractFloatValue(gpt_output, "@yourSuggest");
         _gptResult._npcSuggest = npcSuggest !=-1.37f? (float)Math.Round(npcSuggest, 3) : _gptResult._npcSuggest;

@@ -43,6 +43,7 @@ public class ItemInitState : ChatBaseState
         + $"Your First Suggest: {itemInfo.defaultPrice} credit"
         + $"yourOpinion: {expensiveRate}";
 
+        Debug.Log($"userSend : {_userSend}");
         Managers.Chat.TestReply("ChatBargain", _userSend);
     }
 }

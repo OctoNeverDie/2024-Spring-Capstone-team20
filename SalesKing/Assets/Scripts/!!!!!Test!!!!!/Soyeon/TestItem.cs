@@ -43,6 +43,8 @@ public class TestItem : MonoBehaviour
     }
     private void ForItemInfoMockData()
     {
+        _itemInfo = new ItemInfo();
+
         _itemInfo.ObjID = 1;
         _itemInfo.ObjName = "사탕";
         _itemInfo.ObjInfo = "딸기맛 사탕이다.";
