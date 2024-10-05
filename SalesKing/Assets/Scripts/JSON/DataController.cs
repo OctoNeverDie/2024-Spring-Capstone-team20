@@ -84,6 +84,7 @@ public class DataController : MonoBehaviour
 
     void Start()
     {
+        /*
         if (PlayerPrefs.HasKey("key") == true)
         {
             if (gameObject.name == "DataControllerF")
@@ -100,6 +101,7 @@ public class DataController : MonoBehaviour
             if (gameObject.name == "DataControllerF")
                 GameObject.Find("DataControllerF").SetActive(false);
         }
+        */
 
     }
 
