@@ -13,7 +13,9 @@ public class STT : MonoBehaviour
     private AudioClip _recording = null;
     private int _recordingLengthSec = 15;
     private int _recordingHZ = 22050;
-    //public TMP_InputField myInputField;
+    
+    public TMP_InputField myInputField;
+    public TextMeshProUGUI myText;
 
     private void Start()
     {
@@ -26,10 +28,12 @@ public class STT : MonoBehaviour
         if (Input.GetButtonDown("STT"))
         {
             startRecording();
+            myText.text = "말하는 중...";
         }
         if (Input.GetButtonUp("STT"))
         {
             stopRecording();
+            myText.text = "Space를 누르고 말하세요";
         }
     }
 
@@ -106,7 +110,7 @@ public class STT : MonoBehaviour
 
             Debug.Log("Voice Server responded: " + voiceRecognize.text);
             //Managers.UI.SetNPCAnswerText(voiceRecognize.text);
-            //myInputField.text += voiceRecognize.text;
+            myInputField.text += voiceRecognize.text;
             // Voice Server responded: 인식결과
         }
     }
