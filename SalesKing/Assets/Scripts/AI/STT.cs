@@ -18,7 +18,19 @@ public class STT : MonoBehaviour
     private void Start()
     {
         _microphoneID = Microphone.devices[0];
-        //myInputField = Managers.UI.ui.
+        //myInputField = Managers.UI.ui.        
+    }
+
+    void Update()
+    {
+        if (Input.GetButtonDown("STT"))
+        {
+            startRecording();
+        }
+        if (Input.GetButtonUp("STT"))
+        {
+            stopRecording();
+        }
     }
 
     // 버튼을 OnPointerDown 할 때 호출
@@ -93,7 +105,7 @@ public class STT : MonoBehaviour
             VoiceRecognize voiceRecognize = JsonUtility.FromJson<VoiceRecognize>(message);
 
             Debug.Log("Voice Server responded: " + voiceRecognize.text);
-            Managers.UI.SetNPCAnswerText(voiceRecognize.text);
+            //Managers.UI.SetNPCAnswerText(voiceRecognize.text);
             //myInputField.text += voiceRecognize.text;
             // Voice Server responded: 인식결과
         }
