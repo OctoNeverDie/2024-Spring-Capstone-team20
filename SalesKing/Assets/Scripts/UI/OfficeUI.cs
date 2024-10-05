@@ -12,10 +12,6 @@ public class OfficeUI : MonoBehaviour
     public GameObject ShoppingPanel;
     public Image FadeInFadeOut;
 
-    public GameObject RaycastHitObj;
-    public Image HitIcon;
-    public TextMeshProUGUI HitText;
-
     public float FadeTime = 0.2f;
 
     void Start()
@@ -41,7 +37,7 @@ public class OfficeUI : MonoBehaviour
     {
         DOVirtual.DelayedCall(FadeTime, () => ShoppingPanel.SetActive(true));
         Managers.Office.myPlayer.FreezeAndUnFreezePlayer(true);
-        Managers.Office.SwitchToMyPCCam();
+        //Managers.Office.SwitchToMyPCCam();
         StartFadeInFadeOut(0.5f);
     }
 
@@ -49,7 +45,7 @@ public class OfficeUI : MonoBehaviour
     {
         DOVirtual.DelayedCall(FadeTime, () => ShoppingPanel.SetActive(false));
         Managers.Office.myPlayer.FreezeAndUnFreezePlayer(false);
-        Managers.Office.SwitchToFirstPersonCam();
+        //Managers.Office.SwitchToFirstPersonCam();
         StartFadeInFadeOut(0.5f);
     }
 
@@ -74,16 +70,4 @@ public class OfficeUI : MonoBehaviour
         fadeSequence.Play();
     }
 
-    public void CrosshairTriggersButton(bool isShow)
-    {
-        if (isShow)
-        {
-            RaycastHitObj.SetActive(true);
-        }
-        else
-        {
-            RaycastHitObj.SetActive(false);
-        }
-        
-    }
 }

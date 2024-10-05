@@ -30,7 +30,7 @@ public class OfficeManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Interaction"))
         {
-            if (officeUI.RaycastHitObj.activeSelf)
+            if (Managers.Player.MyPlayer.GetComponent<Player>().RaycastHitObj.activeSelf)
             {
                 Debug.Log("click e key to interact");
                 officeUI.OnClickMyPC();

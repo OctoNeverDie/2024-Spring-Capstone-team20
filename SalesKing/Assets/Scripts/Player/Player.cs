@@ -3,6 +3,8 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -19,6 +21,9 @@ public class Player : MonoBehaviour
     public bool isRaycast = true;
     private GameObject previousTarget = null; // 이전에 Raycast가 감지한 오브젝트
 
+    public GameObject RaycastHitObj;
+    public Image HitIcon;
+    public TextMeshProUGUI HitText;
 
     void Awake()
     {
@@ -28,7 +33,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        FreezeAndUnFreezePlayer(true);
+        FreezeAndUnFreezePlayer(false);
     }
 
     void Update()
@@ -48,14 +53,17 @@ public class Player : MonoBehaviour
                 if (previousTarget != null)
                 {
                     // 필요시 추가 기능: previousTarget과 현재 Target이 다를 때 처리
-                    Managers.Office.officeUI.CrosshairTriggersButton(false);
+                    CrosshairTriggersButton(false);
                 }
 
                 // 특정 태그를 가진 오브젝트가 히트되었을 때
                 if (hit.collider.CompareTag("Office_MyPC"))
                 {
-                    Debug.Log("Hit Office_MyPC: " + currentTarget.name);
-                    Managers.Office.officeUI.CrosshairTriggersButton(true);
+                    CrosshairTriggersButton(true);
+                }
+                else if (hit.collider.CompareTag("Office_Door_Out"))
+                {
+                    CrosshairTriggersButton(true);
                 }
 
                 // 이전 타겟 업데이트
@@ -68,8 +76,7 @@ public class Player : MonoBehaviour
                 {
                     // 이전 타겟 초기화
                     previousTarget = null;
-                    //Debug.Log("Raycast hit nothing.");
-                    Managers.Office.officeUI.CrosshairTriggersButton(false);
+                    CrosshairTriggersButton(false);
                 }
             }
         }
@@ -108,5 +115,10 @@ public class Player : MonoBehaviour
     public void PlayerExitConvo()
     {
         FreezeAndUnFreezePlayer(false);
+    }
+
+    public void CrosshairTriggersButton(bool isShow)
+    {
+        RaycastHitObj.SetActive(isShow);
     }
 }
