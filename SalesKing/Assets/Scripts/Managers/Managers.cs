@@ -60,6 +60,8 @@ public class Managers : MonoBehaviour
     //인벤토리 관련
     InventoryManager _inven;
 
+    MissionManager _mission;
+
     public static SceneModeManager Scene { get { return Instance._scene; } }
     public static NPCManager NPC { get { return Instance._npc; } }
     public static UIManager UI { get { return Instance._ui; } }
@@ -71,7 +73,7 @@ public class Managers : MonoBehaviour
     public static ConvoManager Convo { get { return Instance._convo; } }
     public static CashManager Cash { get { return Instance._cash; } }
     public static InventoryManager Inven { get { return Instance._inven; } }
-
+    public static MissionManager Mission { get { return Instance._mission; } }
 
     void Awake()
     {
@@ -81,6 +83,10 @@ public class Managers : MonoBehaviour
         if (instance._scene == null)
         {
             instance._scene = ManagersGO.AddComponent<SceneModeManager>();
+        }
+        if (instance._mission == null)
+        {
+            instance._mission = ManagersGO.AddComponent<MissionManager>();
         }
     }
 
@@ -198,7 +204,6 @@ public class Managers : MonoBehaviour
             instance._inven = inventoryManager.AddComponent<InventoryManager>();
         }
     }
-
 
     public void ClearChildManagers()
     {
