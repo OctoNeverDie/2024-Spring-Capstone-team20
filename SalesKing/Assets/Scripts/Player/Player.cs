@@ -90,6 +90,7 @@ public class Player : MonoBehaviour
             NPC thisNPC = other.GetComponent<NPC>();
             if (thisNPC.currentTalkable == NPCDefine.Talkable.Able)
             {
+                Managers.Chat.Init();
                 PlayerEnterConvo(other.gameObject);
             }
         }

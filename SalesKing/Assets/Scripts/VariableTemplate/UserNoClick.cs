@@ -6,6 +6,6 @@ public class UserNoClick : MonoBehaviour
 {
     public void OnClick()
     {
-        ChatManager.ChatInstance.TestReply("Leave");
+        Managers.Chat.TestReply("Leave");
     }
 }

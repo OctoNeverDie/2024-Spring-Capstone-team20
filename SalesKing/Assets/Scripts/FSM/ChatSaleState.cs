@@ -17,7 +17,7 @@ public class ChatSaleState : ChatBaseState, IVariableChat
 
     public override void Enter()
     {
-        ChatManager.ChatInstance.ActivatePanel(SendChatType.ChatSale);
+        Managers.Chat.ActivatePanel(SendChatType.ChatSale);
         SubScribeAction();
     }
 
@@ -38,7 +38,7 @@ public class ChatSaleState : ChatBaseState, IVariableChat
     public void GptOutput(string gpt_output)
     {
         _gptResult = CheckYesOrNo(gpt_output);
-        ChatManager.ChatInstance.UpdatePanel(_gptResult._reaction);
+        Managers.Chat.UpdatePanel(_gptResult._reaction);
         //Show reaction to User
         //Update Log
         Debug.Log($"reaction : {_gptResult._reaction}, evaluation : {_gptResult._evaluation}");
@@ -53,11 +53,11 @@ public class ChatSaleState : ChatBaseState, IVariableChat
         }
         else if (_gptResult._yesIsTrue)
         {
-            ChatManager.ChatInstance.TestReply("ItemInit");
+            Managers.Chat.TestReply("ItemInit");
         }
         else if (!_gptResult._yesIsTrue)
         {
-            ChatManager.ChatInstance.TestReply("Fail");
+            Managers.Chat.TestReply("Fail");
         }
     }
     private GptResult CheckYesOrNo(string gptAnswer)

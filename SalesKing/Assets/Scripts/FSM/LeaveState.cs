@@ -9,6 +9,6 @@ public class LeaveState : ChatBaseState
     {
         _sendChatType = SendChatType.Leave;
 
-        ChatManager.ChatInstance.ActivatePanel(SendChatType.Fail, true);
+        Managers.Chat.ActivatePanel(SendChatType.Fail, true);
     }
 }
