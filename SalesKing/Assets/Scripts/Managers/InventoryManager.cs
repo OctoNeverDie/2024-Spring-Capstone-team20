@@ -6,9 +6,14 @@ public class InventoryManager : MonoBehaviour
 {
     private Dictionary<int, (ItemInfo itemInfo, int quantity)> inventory = new Dictionary<int, (ItemInfo, int)>();
 
+    public Dictionary<int, (ItemInfo itemInfo, int quantity)> GetInventory()
+    {
+        return inventory;
+    }
+
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         AddToInventory(Managers.Data.itemList[1]);
         AddToInventory(Managers.Data.itemList[3]);
