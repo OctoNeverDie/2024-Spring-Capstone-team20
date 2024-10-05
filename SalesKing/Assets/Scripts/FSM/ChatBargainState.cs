@@ -98,6 +98,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     private void UpdateAndActivate()
     {
         ChatManager.ChatInstance.UpdateTurn(_gptResult._turn, _gptResult._npcSuggest, _gptResult._userSuggest);
+        VariableList.AddItemPriceSold(_gptResult._npcSuggest);
         ChatManager.ChatInstance.ActivatePanel(_sendChatType);
     }
 

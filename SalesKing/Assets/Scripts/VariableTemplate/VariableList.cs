@@ -58,10 +58,12 @@ public static class VariableList
     {
         S_NpcEvalDict[S_currentNpcId].npcEvaluation = npcEvaluation;
     }
-    public static void AddItemPriceSold(string item, int price) 
+
+    public static bool CheckEvaluationIsAlready()
     {
-        S_NpcEvalDict[S_currentNpcId].item = item;
-        S_NpcEvalDict[S_currentNpcId].price = price;
+        if (S_NpcEvalDict[S_currentNpcId].npcEvaluation == null)
+            return true;
+        return false;
     }
     //--------------------------------------------------
     public static event Action<float, ItemInfo> OnItemInit;
@@ -73,8 +75,14 @@ public static class VariableList
 
         OnItemInit?.Invoke(userSuggest, S_itemInfo);
     }
+
+    public static void AddItemPriceSold(float price)
+    {
+        S_NpcEvalDict[S_currentNpcId].item = S_itemInfo.ObjName;
+        S_NpcEvalDict[S_currentNpcId].price = price;
+    }
     //------------------------------------------------------
-    
+
     #region Legacy
 
     public static int S_Affinity { get; set; }

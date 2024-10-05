@@ -29,7 +29,6 @@ public class ChatSaleState : ChatBaseState, IVariableChat
         VariableList.S_ThingToBuy = _gptResult._thingToBuy;
     }
 
-
     public void UserInput(string user_input)
     {
         //ServerManager.Instance.GetGPTReply(user_input, _sendChatType);

@@ -44,11 +44,11 @@ public class ChatManager : MonoBehaviour
         _chatStateMachine.UpdateState();
     }
 
-    public void ActivatePanel(SendChatType chatState)
+    public void ActivatePanel(SendChatType chatState, bool previousStateIfDiff=false)
     {
         if (chatState == SendChatType.Fail)
         {
-            if (!_confirmPanel.activeSelf)
+            if (!_confirmPanel.activeSelf && !previousStateIfDiff)
             {
                 //TODO : 1초 뒤 생성
                 _confirmPanel.SetActive(true);
@@ -59,11 +59,6 @@ public class ChatManager : MonoBehaviour
                 _chatPanel.SetActive(false);
                 _endPanel.SetActive(true);
             }
-        }
-        else if (chatState == SendChatType.Leave)
-        {
-            _chatPanel.SetActive(false);
-            _endPanel.SetActive(true);
         }
         else if (chatState == SendChatType.ChatSale)
         {
