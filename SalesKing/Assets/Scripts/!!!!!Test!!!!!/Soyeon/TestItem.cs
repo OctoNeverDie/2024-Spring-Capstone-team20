@@ -27,7 +27,7 @@ public class TestItem : MonoBehaviour
         _itemInfo.ObjID = 1;
         _itemInfo.ObjName = "사탕";
         _itemInfo.ObjInfo = "딸기맛 사탕이다.";
-        _itemInfo.npcFirstSuggestPrice = 5;
+        _itemInfo.defaultPrice = 5;
         _itemInfo.expensive = 10;
         _itemInfo.tooExpensive = 50;
     }

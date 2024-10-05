@@ -25,7 +25,7 @@ public class ItemSpawner : MonoBehaviour
             GameObject newItem = Instantiate(itemPrefab, gridParent);
             // 아이템 이미지, 이름, 가격을 동적으로 설정
             newItem.transform.Find("ItemName").GetComponent<TextMeshProUGUI>().text = item.ObjName;
-            newItem.transform.Find("Price/PriceText").GetComponent<TextMeshProUGUI>().text = item.npcFirstSuggestPrice.ToString() + "$";
+            newItem.transform.Find("Price/PriceText").GetComponent<TextMeshProUGUI>().text = item.defaultPrice.ToString() + "$";
             // 필요한 경우 다른 데이터 추가
             //GameObject spawnedItem = Instantiate(itemSO.Obj3D[item.ObjID - 1], Vector3.zero, Quaternion.identity);
             //spawnedItem.name = item.ObjName + item.ObjID;
@@ -42,7 +42,7 @@ public class ItemSpawner : MonoBehaviour
     void PurchaseItem(ItemInfo item)
     {
         // 현금에서 아이템 가격을 제거
-        if (Managers.Cash.RemoveCash(item.npcFirstSuggestPrice))
+        if (Managers.Cash.RemoveCash(item.defaultPrice))
         {
             // 인벤토리에 해당 아이템 추가
             Managers.Inven.AddToInventory(item);

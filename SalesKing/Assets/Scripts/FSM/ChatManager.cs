@@ -119,7 +119,7 @@ public class ChatManager : MonoBehaviour
 
         string expensiveRate = "";
 
-        if (userSuggest < itemInfo.npcFirstSuggestPrice)
+        if (userSuggest < itemInfo.defaultPrice)
             expensiveRate = "Very Cheap";
         else if (userSuggest < itemInfo.expensive)
             expensiveRate = "Soso, Not that Cheap, not that Expensive";

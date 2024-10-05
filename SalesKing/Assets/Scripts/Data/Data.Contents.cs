@@ -12,7 +12,7 @@ public class ItemInfo
     public int ObjID;
     public string ObjName;
     public string ObjInfo;
-    public int npcFirstSuggestPrice;
+    public int defaultPrice;
     public int expensive;
     public int tooExpensive;
 }

@@ -40,7 +40,7 @@ public class ItemInitState : ChatBaseState
         _userSend = $"\nThe thing you want to buy: {VariableList.S_ThingToBuy}"
         + $"\nThe thing vendor is selling to you: {itemInfo.ObjName}"
         + $"\nvendor First Suggest: {userSuggest} credit,"
-        + $"Your First Suggest: {itemInfo.npcFirstSuggestPrice} credit"
+        + $"Your First Suggest: {itemInfo.defaultPrice} credit"
         + $"yourOpinion: {expensiveRate}";
 
         ChatManager.ChatInstance.TestReply("ChatBargain", _userSend);
