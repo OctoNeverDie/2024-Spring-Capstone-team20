@@ -7995,6 +7995,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1836740819}
   - component: {fileID: 1836740818}
+  - component: {fileID: 1836740820}
   m_Layer: 0
   m_Name: '@Managers'
   m_TagString: Untagged
@@ -8030,6 +8031,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1836740820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836740817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b33d0c696a0f4f4e8677e8b63eb53f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameData:
+    day: 0
+    itemList: []
 --- !u!1 &1888574583
 GameObject:
   m_ObjectHideFlags: 0
