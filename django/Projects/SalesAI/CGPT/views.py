@@ -33,24 +33,25 @@ def init_npc(npc_data):
 
     append_system_message('CGPT/decide_system.txt', npc_data)
     append_system_message('CGPT/bargain_system.txt', npc_data)
-    return JsonResponse({'reply': 'Npc Attached.'})
+    return JsonResponse({'reply': '@ Npc Attached.'})
 
 def init_item(item_data):
     append_system_message('CGPT/bargain_system.txt', item_data)
-    return JsonResponse({'reply': 'Item Attached.'})
+    return JsonResponse({'reply': '@ Item Attached.'})  
 
-def clear_datas(request):
+def clear_everything(request):
     overwrite_system_message('CGPT/decide_system.txt', original_decide_prompt)
     overwrite_system_message('CGPT/bargain_system.txt', original_bargain_prompt)
 
+    clear_chatHistory(request)
+    return JsonResponse({'reply': '@ Data cleared.'})
+    
+def clear_chatHistory(request):
     if 'chat_history' in request.session and request.session['chat_history']:
         request.session['chat_history'] = []
-        return JsonResponse({'reply': 'Chat history cleared.'})
-    else:
-        return JsonResponse({'reply': 'No chat history to clear.'})
-
-
-#def make_evaluation():
+        #return JsonResponse({'reply': 'Chat history cleared.'})
+    #else:
+        #return JsonResponse({'reply': 'No chat history to clear.'})
 
 def update_history(prompt, request):
     if 'chat_history' not in request.session:
@@ -62,10 +63,19 @@ def update_history(prompt, request):
     return chat_history
 # endregion
 
-def get_completion(input):
-    print("user" + input)
+def check_needEval(request):
+    if request.startswith('$'):
+        return True
+    return False
 
-    system_message_content = read_system_message('CGPT/system_message.txt')
+
+def get_completion(input, sendType):
+    if(sendType == "ChatSale"): 
+        system_message_content = read_system_message('CGPT/decide_system.txt')
+    elif(sendType in ["ChatBargain", "Success", "Fail"]):
+        system_message_content = read_system_message('CGPT/bargain_system.txt')
+    elif(sendType == "Leave"):
+        system_message_content = read_system_message('CGPT/evaluation_system.txt')
 
     query = client.chat.completions.create(
         model="gpt-4o-mini",
@@ -76,10 +86,9 @@ def get_completion(input):
         max_tokens=500,
         n=1,
         stop=None,
-        temperature=0.5,
+        temperature=0.5
     )
     response = query.choices[0].message.content
-    print("AI" + response)
     return response
 
 @csrf_exempt
@@ -90,30 +99,40 @@ def query_view(request):
             prompt = data.get('Request')
             sendType = data.get('SendType')
 
-            if sendType == "Clear":
-                return clear_datas(request)
-
-            elif sendType == "Init_NPC":
+            if sendType == "NpcInit":
                 return init_npc(prompt)
             
-            elif sendType == "Item_NPC":
+            elif sendType == "ItemInit":
+                clear_chatHistory(request)
                 return init_item(prompt)
-
-            elif sendType == "Chat":
+            
+            elif sendType in ["ChatSale", "ChatBargain"]:
                 messages = update_history(prompt, request)
 
                 if isinstance(messages, list):
                     str_messages = str(messages)
-                    response = get_completion(str_messages)
+                    response = get_completion(str_messages, sendType)
                     
                     request.session['chat_history'].append({"role": "assistant", "content": response})
                     return JsonResponse({'reply': response})
+
+            elif sendType == "Leave" :
+                response = get_completion("$start", sendType)
+                clear_everything(request)
+                return JsonResponse({'reply': response})
+            
+            elif sendType in ["Fail", "Success"] :
+                response = "@nothing"
+                if(check_needEval(prompt)):
+                    response = get_completion(prompt ,sendType)
+                clear_everything(request)
+                return JsonResponse({'reply': response})
+
             else:
-                return JsonResponse('Please Select Proper SendType')
+                return JsonResponse({'error' : 'Please Select Proper SendType'})
 
         except json.JSONDecodeError:
             print("에러났다!")
             return JsonResponse({'error': 'Invalid JSON.'}, status=400)
 
     return JsonResponse({'reply': 'Bottom Code'})
-    #return render(request, 'index.html')
