@@ -44,4 +44,11 @@ public class Define
         MaxCnt
     }
 
+    public enum Interactables
+    {
+        Office_MyPC,
+        Office_Door_Out,
+        City_NPC
+    }
+
 }

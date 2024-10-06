@@ -30,10 +30,14 @@ public class OfficeManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Interaction"))
         {
-            if (Managers.Player.MyPlayer.GetComponent<Player>().RaycastHitObj.activeSelf)
+            if (myPlayer.ui.RaycastHitObj.activeSelf)
             {
-                Debug.Log("click e key to interact");
-                officeUI.OnClickMyPC();
+                switch (myPlayer.ui.curInteractable)
+                {
+                    case Define.Interactables.Office_MyPC: officeUI.OnClickMyPC(); break;
+                    case Define.Interactables.Office_Door_Out: Managers.Scene.LoadSceneByName("CityMap"); break;
+                }
+                
             }
             
             

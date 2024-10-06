@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
 {
     PlayerCameraRot cam;
     PlayerMove move;
+    public PlayerUI ui;
 
     // first person
     public CinemachineVirtualCamera Camera1;
@@ -21,13 +22,11 @@ public class Player : MonoBehaviour
     public bool isRaycast = true;
     private GameObject previousTarget = null; // 이전에 Raycast가 감지한 오브젝트
 
-    public GameObject RaycastHitObj;
-    public List<GameObject> InteractableIcons = new List<GameObject>();
-
     void Awake()
     {
         cam = transform.GetComponentInChildren<PlayerCameraRot>();
         move = GetComponent<PlayerMove>();
+        ui = transform.GetComponentInChildren<PlayerUI>();
     }
 
     void Start()
@@ -52,19 +51,19 @@ public class Player : MonoBehaviour
                 if (previousTarget != null)
                 {
                     // 필요시 추가 기능: previousTarget과 현재 Target이 다를 때 처리
-                    CrosshairTriggersButton(false);
+                    ui.CrosshairTriggersButton(false);
                 }
 
                 // 특정 태그를 가진 오브젝트가 히트되었을 때
                 if (hit.collider.CompareTag("Office_MyPC"))
                 {
-                    OnlyShowCurInteractableIcon(0);
-                    CrosshairTriggersButton(true);
+                    ui.ShowCurInteractableIcon(Define.Interactables.Office_MyPC);
+                    ui.CrosshairTriggersButton(true);
                 }
                 else if (hit.collider.CompareTag("Office_Door_Out"))
                 {
-                    OnlyShowCurInteractableIcon(1);
-                    CrosshairTriggersButton(true);
+                    ui.ShowCurInteractableIcon(Define.Interactables.Office_Door_Out);
+                    ui.CrosshairTriggersButton(true);
                 }
 
                 // 이전 타겟 업데이트
@@ -77,20 +76,10 @@ public class Player : MonoBehaviour
                 {
                     // 이전 타겟 초기화
                     previousTarget = null;
-                    CrosshairTriggersButton(false);
+                    ui.CrosshairTriggersButton(false);
                 }
             }
         }
-    }
-
-    private void OnlyShowCurInteractableIcon(int index)
-    {
-        for (int i = 0; i < InteractableIcons.Count; i++)
-        {
-            if (i == index) InteractableIcons[i].SetActive(true);
-            else InteractableIcons[i].SetActive(false);
-        }
-               
     }
 
     private void OnTriggerEnter(Collider other)
@@ -128,8 +117,5 @@ public class Player : MonoBehaviour
         FreezeAndUnFreezePlayer(false);
     }
 
-    public void CrosshairTriggersButton(bool isShow)
-    {
-        RaycastHitObj.SetActive(isShow);
-    }
+
 }
