@@ -14,7 +14,7 @@ public class ServerManager : ServerBase
 
     private TemplateReceive templateReceive;
     private string _userInput = "";
-    private SendChatType sendChatType;
+    private SendChatType _sendChatType;
     private void Init()
     { templateReceive = Util.GetOrAddComponent<TemplateReceive>(this.gameObject);  }
     private void Awake()
@@ -48,7 +48,7 @@ public class ServerManager : ServerBase
     private JObject AddJobjBySendType(JObject jobj, SendChatType sendChatType)
     {
         jobj.Add("Request", _userInput);
-        jobj.Add("SendType", $"{sendChatType}");
+        jobj.Add("SendType", sendChatType.ToString());
         
         return jobj;
     }
@@ -59,7 +59,7 @@ public class ServerManager : ServerBase
         string url = "https://salesai-jsy2.azurewebsites.net/"; //"http://127.0.0.1:8000/";
 
         JObject jobj = new JObject();
-        jobj = AddJobjBySendType(jobj, sendChatType);
+        jobj = AddJobjBySendType(jobj, _sendChatType);
 
         Action<ResultInfo> bringGPTReplay = (result) =>
         {
