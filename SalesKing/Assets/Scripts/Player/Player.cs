@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     public float rayDistance = 10f;  // 레이캐스트 거리
     public bool isRaycast = true;
     private GameObject previousTarget = null; // 이전에 Raycast가 감지한 오브젝트
+    public GameObject RaycastCollider;
 
     void Awake()
     {
@@ -65,9 +66,19 @@ public class Player : MonoBehaviour
                     ui.ShowCurInteractableIcon(Define.Interactables.Office_Door_Out);
                     ui.CrosshairTriggersButton(true);
                 }
+                else if (hit.collider.CompareTag("NPC"))
+                {
+                    NPC thisNPC = hit.collider.gameObject.GetComponent<NPC>();
+                    if (thisNPC.currentTalkable == NPCDefine.Talkable.Able)
+                    {
+                        ui.ShowCurInteractableIcon(Define.Interactables.City_NPC);
+                        ui.CrosshairTriggersButton(true);
+                        RaycastCollider = hit.collider.gameObject;
+                    }
+                }
 
-                // 이전 타겟 업데이트
-                previousTarget = currentTarget;
+                    // 이전 타겟 업데이트
+                    previousTarget = currentTarget;
             }
             else
             {
@@ -82,6 +93,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("NPC"))
@@ -94,6 +106,7 @@ public class Player : MonoBehaviour
             }
         }
     }
+    */
 
     public void FreezeAndUnFreezePlayer(bool isFreeze)
     {

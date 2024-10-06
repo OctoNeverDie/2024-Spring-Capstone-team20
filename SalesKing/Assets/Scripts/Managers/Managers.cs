@@ -64,6 +64,8 @@ public class Managers : MonoBehaviour
     //대화 관련
     ChatManager _chat;
 
+    UserInputManager _input;
+
     public static SceneModeManager Scene { get { return Instance._scene; } }
     public static NPCManager NPC { get { return Instance._npc; } }
     public static UIManager UI { get { return Instance._ui; } }
@@ -77,6 +79,7 @@ public class Managers : MonoBehaviour
     public static InventoryManager Inven { get { return Instance._inven; } }
     public static MissionManager Mission { get { return Instance._mission; } }
     public static ChatManager Chat { get { return Instance._chat; } }
+    public static UserInputManager Input { get { return Instance._input; } }
 
 
     void Awake()
@@ -91,6 +94,10 @@ public class Managers : MonoBehaviour
         if (instance._mission == null)
         {
             instance._mission = ManagersGO.AddComponent<MissionManager>();
+        }
+        if (instance._input == null)
+        {
+            instance._input = ManagersGO.AddComponent<UserInputManager>();
         }
     }
 
