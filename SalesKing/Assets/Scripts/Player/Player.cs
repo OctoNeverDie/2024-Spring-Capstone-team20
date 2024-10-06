@@ -22,8 +22,7 @@ public class Player : MonoBehaviour
     private GameObject previousTarget = null; // 이전에 Raycast가 감지한 오브젝트
 
     public GameObject RaycastHitObj;
-    public Image HitIcon;
-    public TextMeshProUGUI HitText;
+    public List<GameObject> InteractableIcons = new List<GameObject>();
 
     void Awake()
     {
@@ -59,10 +58,12 @@ public class Player : MonoBehaviour
                 // 특정 태그를 가진 오브젝트가 히트되었을 때
                 if (hit.collider.CompareTag("Office_MyPC"))
                 {
+                    OnlyShowCurInteractableIcon(0);
                     CrosshairTriggersButton(true);
                 }
                 else if (hit.collider.CompareTag("Office_Door_Out"))
                 {
+                    OnlyShowCurInteractableIcon(1);
                     CrosshairTriggersButton(true);
                 }
 
@@ -82,6 +83,15 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnlyShowCurInteractableIcon(int index)
+    {
+        for (int i = 0; i < InteractableIcons.Count; i++)
+        {
+            if (i == index) InteractableIcons[i].SetActive(true);
+            else InteractableIcons[i].SetActive(false);
+        }
+               
+    }
 
     private void OnTriggerEnter(Collider other)
     {
