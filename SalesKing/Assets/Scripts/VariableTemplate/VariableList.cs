@@ -39,7 +39,8 @@ public static class VariableList
         public string npcEvaluation;
     }
     private static int S_currentNpcId;
-    public static Dictionary<int, NpcEvaluation> S_NpcEvalDict { get; }
+    // NpcEvaluation 타입을 저장하는 Dictionary를 정의
+    public static Dictionary<int, NpcEvaluation> S_NpcEvalDict { get; } = new Dictionary<int, NpcEvaluation>();
     public static void InitNpcDict(int npcId, string npcName, int npcAge, bool npcSex) 
     {
         NpcEvaluation _npcEvaluation = new NpcEvaluation();

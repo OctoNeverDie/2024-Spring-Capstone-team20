@@ -7,33 +7,21 @@ using static Define;
 
 public class ChatManager : MonoBehaviour
 {
-    #region Singletone
-    public static ChatManager ChatInstance { get; private set; }
-    private void Awake()
-    {
-        if (ChatInstance == null)
-        {
-            ChatInstance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-    #endregion
-    [SerializeField] private GameObject _chatPanel;//contains : logpanel, gptpanel, leavebutton, submitbutton, inputbutton
+    /*[SerializeField] private GameObject _chatPanel;//contains : logpanel, gptpanel, leavebutton, submitbutton, inputbutton
     [SerializeField] private GameObject _confirmPanel;
     [SerializeField] private GameObject _endPanel;
     [SerializeField] private GameObject _itemPanel;
-    
+    */
+
     private ChatStateMachine _chatStateMachine;
-    private void Start()
+    public static event Action<SendChatType> OnPanelUpdated;
+    public void Init()
     {
-        _confirmPanel.SetActive(false);
+        /*_confirmPanel.SetActive(false);
         _endPanel.SetActive(false);
         _chatPanel.SetActive(false);
         _itemPanel.SetActive(false);
+        */
 
         _chatStateMachine = new ChatStateMachine();
         _chatStateMachine.SetState(new NpcInitState());
@@ -41,13 +29,14 @@ public class ChatManager : MonoBehaviour
 
     private void Update()
     {
-        _chatStateMachine.UpdateState();
+        _chatStateMachine?.UpdateState();
     }
 
     public void ActivatePanel(SendChatType chatState, bool previousStateIfDiff=false)
     {
         if (chatState == SendChatType.Fail)
         {
+            /*
             if (!_confirmPanel.activeSelf && !previousStateIfDiff)
             {
                 //TODO : 1초 뒤 생성
@@ -58,15 +47,16 @@ public class ChatManager : MonoBehaviour
                 _confirmPanel.SetActive(false);
                 _chatPanel.SetActive(false);
                 _endPanel.SetActive(true);
-            }
+            }*/
         }
         else if (chatState == SendChatType.ChatSale)
         {
-            _chatPanel.SetActive(true);
+            //_chatPanel.SetActive(true);
         }
         else if (chatState == SendChatType.ItemInit)
         {
-            _itemPanel.SetActive(true);
+            OnPanelUpdated?.Invoke(chatState);
+            //_itemPanel.SetActive(true);
         }
         else if (chatState == SendChatType.ChatBargain)
         {
@@ -136,7 +126,6 @@ public class ChatManager : MonoBehaviour
     {
         if (Enum.TryParse(stateType, out SendChatType sendChatType))
         {
-            Debug.Log("Success");
             Debug.Log($"next stateType : {stateType}, input : {input}");
             _chatStateMachine.TransitionToState(sendChatType);
         }

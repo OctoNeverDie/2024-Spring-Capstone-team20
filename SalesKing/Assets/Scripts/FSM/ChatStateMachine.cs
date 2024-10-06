@@ -10,6 +10,7 @@ public class ChatStateMachine
 
     public void SetState(ChatBaseState newState)
     {
+        Debug.Log($"Go to {newState.ToString()}");
         _currentState?.Exit();
 
         _currentState = newState;

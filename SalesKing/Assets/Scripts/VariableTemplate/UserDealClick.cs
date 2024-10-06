@@ -6,13 +6,13 @@ public class UserDealClick : MonoBehaviour
 {
     public void OnClickYes()
     {
-        ChatManager.ChatInstance.TestReply("Success");
+        Managers.Chat.TestReply("Success");
         this.gameObject.SetActive(false);
     }
 
     public void OnClickNo()
     {
-        ChatManager.ChatInstance.CheckTurnFail();
+        Managers.Chat.CheckTurnFail();
         this.gameObject.SetActive(false);
     }
 }

@@ -68,7 +68,7 @@ public class ServerManager : ServerBase
 
             if (Enum.TryParse(sendTypeData, out SendChatType sendChatType))
             {
-                ChatManager.ChatInstance.TransitionToState(sendChatType);
+                Managers.Chat.TransitionToState(sendChatType);
             }
             else
             {

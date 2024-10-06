@@ -24,8 +24,12 @@ public class NpcInitState : ChatBaseState
         VariableList.InitNpcDict(NpcID, "현민삐", 24, true);
 
         _sendChatType = SendChatType.NpcInit;
-        ChatManager.ChatInstance.TestReply("ChatSale");
+
+        Debug.Log($"userSend : {_userSend}");
         //ServerManager.Instance.GetGPTReply(_userSend, _sendChatType);
+        
+        Managers.Chat.TestReply("ChatSale");
+        
     }
 
     protected override string MakeAnswer(string user_send = "")
