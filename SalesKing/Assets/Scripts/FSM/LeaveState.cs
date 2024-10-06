@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.Examples;
 using UnityEngine;
 using static Define;
 
@@ -9,6 +10,19 @@ public class LeaveState : ChatBaseState
     {
         _sendChatType = SendChatType.Leave;
 
-        Managers.Chat.ActivatePanel(SendChatType.Fail, true);
+        VariableList.OnVariableGptUpdated -= SaveEvaluation;
+        VariableList.OnVariableGptUpdated += SaveEvaluation;
+        //ServerManager.Instance.GetGPTReply(_userSend, _sendChatType);
+    }
+
+    public override void Exit()
+    {
+        VariableList.OnVariableGptUpdated -= SaveEvaluation;
+    }
+
+    public void SaveEvaluation(string gpt_output)
+    {
+        VariableList.AddEvaluation(gpt_output);
+        Exit();
     }
 }
