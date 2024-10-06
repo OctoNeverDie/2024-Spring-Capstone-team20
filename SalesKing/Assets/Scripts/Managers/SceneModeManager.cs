@@ -51,6 +51,7 @@ public class SceneModeManager : MonoBehaviour
 
     public void LoadSceneByName(string name)
     {
+        Managers.Instance.ClearChildManagers();
         SceneManager.LoadScene(name);
     }
 }
