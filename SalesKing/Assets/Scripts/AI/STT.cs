@@ -36,6 +36,8 @@ public class STT : MonoBehaviour
         {
             startRecording();
             myText.text = "말하는 중...";
+
+            //여기에 튜토리얼 text넣는거... 에바??? 좀 고민해야할듯.
         }
         if (Input.GetButtonUp("STT"))
         {
