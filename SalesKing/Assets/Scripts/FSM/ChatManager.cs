@@ -80,8 +80,6 @@ public class ChatManager : MonoBehaviour
     public void Clear()
     {
         VariableList.ClearStaticData();
-        _endType = EndType.None;
-        _chatStateMachine.EndStateMachine();
         Debug.Log($"지워 : ++++여기 들어가면 대화 끝났다고 보면 돼!!!!");
     }
 

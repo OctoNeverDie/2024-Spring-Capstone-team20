@@ -90,6 +90,8 @@ def query_view(request):
             data = json.loads(request.body)
             prompt = data.get('Request')
             sendType = data.get('SendType')
+            print(prompt)
+            print(sendType)
 
             if sendType == "NpcInit":
                 return init_npc(prompt)
@@ -108,18 +110,18 @@ def query_view(request):
                     request.session['chat_history'].append({"role": "assistant", "content": response})
                     return JsonResponse({'reply': response})
 
-            elif sendType == "EndPoint" :#prompt : $buy, $reject, $leave, $clear
+            elif sendType == "Endpoint" :#prompt : $buy, $reject, $leave, $clear
                 response = "$clear"
-                if(prompt != "$clear"):
+                if prompt.strip() != "$clear":
                     response = get_completion(prompt ,sendType)
                 clear_everything(request)
                 return JsonResponse({'reply': response})
 
             else:
-                return JsonResponse({'error' : 'Please Select Proper SendType'})
+                return JsonResponse({'reply' : 'Please Select Proper SendType'})
 
         except json.JSONDecodeError:
             print("에러났다!")
-            return JsonResponse({'error': 'Invalid JSON.'}, status=400)
+            return JsonResponse({'reply': 'Invalid JSON.'}, status=400)
 
     return JsonResponse({'reply': 'Bottom Code'})

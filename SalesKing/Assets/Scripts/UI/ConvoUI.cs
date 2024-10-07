@@ -107,7 +107,11 @@ public class ConvoUI : MonoBehaviour
         Managers.Chat.Clear();
 
         EndPanel.SetActive(false);
-        ConvoPanel.GetComponentInChildren<DealBtn>().gameObject.SetActive(false);
+        ConvoPanel.GetComponentInChildren<DealBtn>().GetComponent<Button>();
+        if (ConvoPanel.GetComponentInChildren<DealBtn>().GetComponent<Button>() != null)
+        {
+            ConvoPanel.GetComponentInChildren<DealBtn>().GetComponent<Button>().interactable = false;
+        }
         ConvoPanel.SetActive(false);
 
         Managers.Convo.ConvoFinished();

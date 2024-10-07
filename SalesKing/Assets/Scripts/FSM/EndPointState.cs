@@ -25,15 +25,17 @@ public class EndPointState : ChatBaseState
         VariableList.OnVariableGptUpdated -= GptOutput;
 
         _gptResult = new GptResult();
+        Debug.Log("Clear!!!!!1111");
         Managers.Chat.Clear();
     }
+
     private void GptOutput(string gpt_output)
     {
         ConcatReply(gpt_output);
         VariableList.AddEvaluation(_gptResult.evaluation);
         
         //아이템 팔기 성공/실패 패널 뜬다.
-        Managers.Chat.ActivatePanel(_sendChatType);
+        //Managers.Chat.ActivatePanel(_sendChatType);
     }
 
     private struct GptResult

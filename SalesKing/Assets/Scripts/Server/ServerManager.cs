@@ -34,6 +34,9 @@ public class ServerManager : ServerBase
 
     public void GetGPTReply(string userInput, SendChatType sendChatTypeFrom)
     {
+        if (_sendChatType == SendChatType.Endpoint && sendChatTypeFrom != SendChatType.NpcInit)
+            return;
+
         Debug.Log($"User답++++++++++{userInput}");
         this._sendChatType = sendChatTypeFrom;
         this._userInput = userInput;
@@ -63,7 +66,9 @@ public class ServerManager : ServerBase
         jobj = AddJobjBySendType(jobj, _sendChatType);
 
         Action<ResultInfo> bringGPTReply = (result) =>
-        { 
+        {
+            if (result.Json == null)
+                Debug.Log("dhooooooooooooooo");
             var resultData = JObject.Parse(result.Json)["reply"].ToString();
             //var sendTypeData = JObject.Parse(result.Json)["sendType"].ToString();  // JSON에서 string 값 가져옴
             Debug.Log($"Gpt 답+++++++++++++++ {resultData}");

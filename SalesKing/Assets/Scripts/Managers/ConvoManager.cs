@@ -69,13 +69,13 @@ public class ConvoManager : MonoBehaviour
     {
         Parser parser = new Parser();
         ConversationData data = parser.ParseInput(input);
-
+        /*
         Debug.Log(data.Thought);
         Debug.Log(data.Reason);
         Debug.Log(data.Emotion);
         Debug.Log(data.SuggestedPrice);
         Debug.Log(data.Reaction);
-
+        */
         Managers.UI.SetNPCAnswerText(data.Reaction);
         Managers.UI.SetStatusText(data.Thought, data.Reason, data.Emotion, data.SuggestedPrice);
     }

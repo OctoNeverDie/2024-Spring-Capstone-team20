@@ -22,11 +22,6 @@ public class ChatStateMachine
         _currentState?.Update();
     }
 
-    public void EndStateMachine()
-    {
-        _currentState?.Exit();
-    }
-
     public void TransitionToState(SendChatType sendChatType)
     {
         ChatBaseState chatState = new ChatSaleState();

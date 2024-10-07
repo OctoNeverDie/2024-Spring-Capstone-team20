@@ -35,7 +35,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         SubScribeAction();
 
         _gptResult._turn = TurnInit;
-        Debug.Log($"Init Turn : {_gptResult._turn}");
+        Debug.Log($"지워 : Init Turn : {_gptResult._turn}");
 
         _sendChatType = SendChatType.ChatBargain;
         ServerManager.Instance.GetGPTReply("$start", _sendChatType);
@@ -105,7 +105,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
             
             int persuasion = (int)GetFloat(sections[4]);
 
-            if (persuasion >= 20)
+            if (persuasion <= -20)
             {
                 isState = State.Fail;
                 return;

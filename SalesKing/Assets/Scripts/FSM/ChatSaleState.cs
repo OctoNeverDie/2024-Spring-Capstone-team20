@@ -97,7 +97,7 @@ public class ChatSaleState : ChatBaseState, IVariableChat
     {
         string[] sections = gptAnswer.Split(new string[] { "ThingToBuy", "yourReply", "summary" }, StringSplitOptions.None);
 
-        if (sections.Length > 3)
+        if (sections.Length > 3)//yes일 때,
         {
             _gptResult._thingToBuy = sections[1];
             _gptResult._reaction = sections[2];
@@ -106,11 +106,18 @@ public class ChatSaleState : ChatBaseState, IVariableChat
             Debug.Log($"지워 :_gptResult._thingToBuy {_gptResult._thingToBuy}+_gptResult._reaction{_gptResult._reaction}+_gptResult._evaluation{_gptResult._evaluation}");
         }
 
+        else if (sections.Length > 2)//no일 때,
+        {
+            Debug.Log($"지워 :_gptResult._reaction{_gptResult._reaction}+_gptResult._evaluation{_gptResult._evaluation}");
+            _gptResult._reaction = sections[1];
+            _gptResult._evaluation = sections[2];
+        }
+
         else if (sections.Length > 1)
         {
             Debug.Log($"지워 : _gptResult._reaction {sections[1]}");
             _gptResult._reaction = sections[1];//later : Trim()
-            
+
         }
     }
 
