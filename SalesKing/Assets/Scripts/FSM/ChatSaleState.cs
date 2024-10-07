@@ -36,7 +36,6 @@ public class ChatSaleState : ChatBaseState, IVariableChat
         {
             isEndHere = false;
             ServerManager.Instance.GetGPTReply("$clear", SendChatType.Endpoint);
-            Managers.Chat.CheckTurnEndpoint(Define.EndType.Fail);
             Managers.Chat.ActivatePanel(SendChatType.Endpoint);
             Managers.Chat.Clear();
         }
@@ -53,8 +52,6 @@ public class ChatSaleState : ChatBaseState, IVariableChat
     {
         CheckYesOrNo(gpt_output);//yes,no 왔는지 체크
         ConcatReply(gpt_output);//gpt 답변 _gptResult에 업데이트
-
-        Managers.Chat.UpdatePanel(_gptResult._reaction);//gpt reaction
         
         CheckChangeState();//다음 행동
     }

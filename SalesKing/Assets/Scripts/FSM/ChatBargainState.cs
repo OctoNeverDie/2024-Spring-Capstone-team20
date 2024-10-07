@@ -72,7 +72,6 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         else if (isState == State.Wait)
         {
             UpdateTurn();
-            Managers.Chat.UpdatePanel(_gptResult._npcReaction);
             return;
         }
         else if (isState == State.Succes)
