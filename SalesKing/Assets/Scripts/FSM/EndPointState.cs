@@ -6,6 +6,7 @@ using static Define;
 
 public class EndPointState : ChatBaseState
 {
+    Define.EndType _endType = EndType.None;
     public override void Enter()
     {
         _sendChatType = Define.SendChatType.Endpoint;
@@ -13,8 +14,10 @@ public class EndPointState : ChatBaseState
         VariableList.OnVariableGptUpdated -= GptOutput;
         VariableList.OnVariableGptUpdated += GptOutput;
 
-        //ServerManager.Instance.GetGPTReply("$buy", SendChatType.Success);
-        ServerManager.Instance.GetGPTReply("\\\"reaction\\\": \\\"Generate a response where the player asks why the item is so expensive and expresses doubt. The tone should reflect the character's personality traits (e.g., timid, anxious, or assertive).\\\",\r\n        \\\"summary\\\" : \\\"최악의 거래\\\"", _sendChatType);
+        this._endType = Managers.Chat._endType;
+        string input = "$"+_endType.ToString();
+        ServerManager.Instance.GetGPTReply(input, _sendChatType);
+
     }
 
     public override void Exit()

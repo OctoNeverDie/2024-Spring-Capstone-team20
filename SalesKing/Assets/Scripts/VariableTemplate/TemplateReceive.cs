@@ -6,20 +6,12 @@ using static Define;
 public class TemplateReceive : MonoBehaviour
 {
     SendChatType nextChatType = SendChatType.None;
-    public void GetGptAnswer(string resultData, string sendTypeData)
+    public void GetGptAnswer(string resultData, SendChatType sendTypeData)
     {
-        Debug.Log($"GPT reply : {resultData}");
-        if (Enum.TryParse(sendTypeData, out SendChatType sendChatType))
+        if (UpdateGptReply(sendTypeData, resultData))
         {
-            if (UpdateGptReply(sendChatType, resultData))
-            {
-                string GptAnswer = GptReply(sendChatType, resultData);
-                VariableList.S_GptAnswer = GptAnswer;
-            }
-        }
-        else
-        {
-            Debug.Log("Failed to parse enum");
+            string GptAnswer = GptReply(sendTypeData, resultData);
+            VariableList.S_GptAnswer = GptAnswer;
         }
     }
 
