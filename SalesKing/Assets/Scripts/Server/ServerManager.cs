@@ -34,10 +34,12 @@ public class ServerManager : ServerBase
 
     public void GetGPTReply(string userInput, SendChatType sendChatTypeFrom)
     {
-        //this.sendChatType = sendChatTypeFrom;
+        Debug.Log($"I'm Sending : {userInput}");
+        this._sendChatType = sendChatTypeFrom;
         this._userInput = userInput;
 
-        StartCoroutine(GetGPTCo());
+        templateReceive.GetGptAnswer(userInput, sendChatTypeFrom.ToString());
+        //StartCoroutine(GetGPTCo());
     }
 
     private IEnumerator GetGPTCo()
@@ -61,24 +63,15 @@ public class ServerManager : ServerBase
         JObject jobj = new JObject();
         jobj = AddJobjBySendType(jobj, _sendChatType);
 
-        Action<ResultInfo> bringGPTReplay = (result) =>
-        {
-            var resultData = JObject.Parse(result.Json)["reply"];
+        Action<ResultInfo> bringGPTReply = (result) =>
+        { 
+            var resultData = JObject.Parse(result.Json)["reply"].ToString();
             var sendTypeData = JObject.Parse(result.Json)["sendType"].ToString();  // JSON에서 string 값 가져옴
 
-            if (Enum.TryParse(sendTypeData, out SendChatType sendChatType))
-            {
-                Managers.Chat.TransitionToState(sendChatType);
-            }
-            else
-            {
-                Debug.Log("Failed to parse enum");
-            }
+            templateReceive.GetGptAnswer(resultData, sendTypeData);
 
             // 추가 코드
             Managers.Convo.ParseNPCAnswer($"{resultData}");
-            VariableList.S_GptAnswer = resultData.ToString();
-            templateReceive.StringConcat(resultData.ToString());
         };
 
         Action<ResultInfo> failTest = (result) =>
@@ -91,7 +84,7 @@ public class ServerManager : ServerBase
             Debug.Log("+++++++++networkTest");
         };
 
-        onSucceed += bringGPTReplay;
+        onSucceed += bringGPTReply;
         onFailed += failTest;
         onNetworkFailed += networkTest;
 

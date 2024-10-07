@@ -17,9 +17,8 @@ public class FailState : ChatBaseState
 
         VariableList.OnVariableGptUpdated -= SaveEvaluation;
         VariableList.OnVariableGptUpdated += SaveEvaluation;
-
-        string clear = "Make Final Evaluation";
-        //ServerManager.Instance.GetGPTReply(clear, _sendChatType);
+        
+        ServerManager.Instance.GetGPTReply("$reject", _sendChatType);
     }
 
     public override void Update()

@@ -17,7 +17,8 @@ public class ChatSaleState : ChatBaseState, IVariableChat
 
     public override void Enter()
     {
-        Managers.Chat.ActivatePanel(SendChatType.ChatSale);
+        _sendChatType = SendChatType.ChatSale;
+        Managers.Chat.ActivatePanel(_sendChatType);
         SubScribeAction();
     }
 
@@ -31,8 +32,8 @@ public class ChatSaleState : ChatBaseState, IVariableChat
 
     public void UserInput(string user_input)
     {
-        //ServerManager.Instance.GetGPTReply(user_input, _sendChatType);
-        VariableList.S_GptAnswer = "아, 저 살래요! @yes @ThingToBuy: (상인이 네게 제안한 물건) @Summary: 왜 이 물건을 사려고 하는지. 상인에 대해 어떤 감정을 느끼는지에 대한 서술.";
+        ServerManager.Instance.GetGPTReply(user_input, _sendChatType);
+        //VariableList.S_GptAnswer = "아, 저 살래요! @yes @ThingToBuy: (상인이 네게 제안한 물건) @Summary: 왜 이 물건을 사려고 하는지. 상인에 대해 어떤 감정을 느끼는지에 대한 서술.";
     }
 
     public void GptOutput(string gpt_output)
@@ -66,7 +67,7 @@ public class ChatSaleState : ChatBaseState, IVariableChat
         result._yesOrNo = null;
         result._yesIsTrue = false;
 
-        string[] markers = { "@yes", "@no" };
+        string[] markers = { "yes", "no" };
         /*        
         @yes
         @ThingToBuy: (상인이 네게 제안한 물건)
@@ -78,37 +79,28 @@ public class ChatSaleState : ChatBaseState, IVariableChat
             if (index >= 0)
             {
                 result._yesOrNo = gptAnswer.Substring(index, marker.Length);
-                result._yesIsTrue = marker.Equals("@yes", StringComparison.OrdinalIgnoreCase);
+                result._yesIsTrue = marker.Equals("yes", StringComparison.OrdinalIgnoreCase);
                 break;
             }
+
+
         }
 
-        if (result._yesOrNo != null)
+        string[] sections = gptAnswer.Split(new string[] { "ThingToBuy", "yourReply", "summary" }, StringSplitOptions.None);
+
+        if (sections.Length > 3)
         {
-            string[] splitParts = gptAnswer.Split(new string[] { result._yesOrNo }, StringSplitOptions.None);
-            result._reaction = splitParts[0].Trim();
-
-            if (splitParts.Length > 1)
-            {
-                string remainingText = splitParts[1].Trim();
-                string[] sections = remainingText.Split(new string[] { "@ThingToBuy:", "@Summary:" }, StringSplitOptions.None);
-                
-                if (sections.Length > 1)
-                {
-                    result._thingToBuy = sections[1].Trim();
-                }
-
-                if (sections.Length > 2)
-                {
-                    result._evaluation = sections[2].Trim();
-                }
-            }
+            result._thingToBuy = sections[1];
+            result._reaction = sections[2];
+            result._evaluation = sections[3];
         }
-        else
-        { 
-            result._reaction = gptAnswer;
+
+        else if (sections.Length > 1)
+        {
+            Debug.Log($"reply : {sections[1]}, count");
+            result._reaction = sections[1];//later : Trim()
         }
-        
+
         return result;
     }
 
