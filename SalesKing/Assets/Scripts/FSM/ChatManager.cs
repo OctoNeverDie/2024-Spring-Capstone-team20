@@ -53,7 +53,7 @@ public class ChatManager : MonoBehaviour
         {
             //_chatPanel.SetActive(true);
         }
-        else if (chatState == (SendChatType.ItemInit)
+        else if (chatState == (SendChatType.ItemInit))
         {
             OnPanelUpdated?.Invoke(chatState);
             //_itemPanel.SetActive(true);
