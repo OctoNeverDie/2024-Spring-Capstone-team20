@@ -18,9 +18,6 @@ public class InventoryManager : MonoBehaviour
         AddToInventory(Managers.Data.itemList[1]);
         AddToInventory(Managers.Data.itemList[3]);
         AddToInventory(Managers.Data.itemList[4]);
-        Managers.Cash.RemoveCash(Managers.Data.itemList[1].defaultPrice);
-        Managers.Cash.RemoveCash(Managers.Data.itemList[3].defaultPrice);
-        Managers.Cash.RemoveCash(Managers.Data.itemList[4].defaultPrice);
 
     }
 

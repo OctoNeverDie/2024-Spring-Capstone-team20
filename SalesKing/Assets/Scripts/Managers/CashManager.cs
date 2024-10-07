@@ -11,7 +11,7 @@ public class CashManager : MonoBehaviour
     {
         // PlayerPrefs에서 현금 로드 (현재는 주석 처리)
         //LoadCash();
-        TotalCash = 300;
+        TotalCash = 0;
         UpdateCashUI(); 
     }
 
