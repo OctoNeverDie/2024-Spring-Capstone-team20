@@ -11,7 +11,6 @@ public class ConvoUI : MonoBehaviour
     public GameObject ConvoPanel;
     public GameObject ItemSoldPanel;
     public GameObject YoufailedPanel;
-    public GameObject UnniiEndpoint;
 
     public TMP_InputField UserText;
     public GameObject NPCSpeechBubble;
@@ -74,19 +73,23 @@ public class ConvoUI : MonoBehaviour
     }
 
     #region 물건 사기
-    public void OnClickBuy()
+    public void OnClickBuy()//딜 버튼 누름
     {
         Managers.Chat.CheckTurnSuccess();
         
-        //ServerManager.Instance.GetGPTReply("$buy", SendChatType.Success);
         this.gameObject.SetActive(false);
     }
 
     public void OnEndChat()
     {
         Managers.Chat.Clear();
-        this.gameObject.SetActive(false);
-        UnniiEndpoint.SetActive(true);
+
+        ItemSoldPanel.SetActive(false);
+        YoufailedPanel.SetActive(false);
+        ConvoPanel.GetComponentInChildren<IDeal>().gameObject.SetActive(false);
+        ConvoPanel.SetActive(false);
+
+        Managers.Convo.ConvoFinished();
     }
     #endregion
     public void OnPriceClick(TMP_InputField inputFieldGO)
