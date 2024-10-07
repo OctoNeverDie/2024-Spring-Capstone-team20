@@ -14,12 +14,10 @@ public class VariableCheck : MonoBehaviour
         InitVariables();
 
         ChatManager.OnNumberUpdated += UpdateTurnSuggest;
-        ChatManager.OnGptResponse += NpcLog;
         ChatManager.OnStringUpdated += ThingToBuy;
 
-
         VariableList.OnVariableUserUpdated += UserLog;
-        VariableList.OnVariableChanged += NpcProfileEval;
+        VariableList.OnVariableChanged += NpcProfileEvalLog;
     }
 
     private void OnEnable()
@@ -39,12 +37,7 @@ public class VariableCheck : MonoBehaviour
         variables[3].text = $"userReact : {user_input}";
     }
 
-    private void NpcLog(string gpt_input)
-    {
-        variables[4].text = $"npcReact: {gpt_input}";
-    }
-
-    private void NpcProfileEval(string variableName)
+    private void NpcProfileEvalLog(string variableName)
     {
         switch (variableName)
         {
@@ -62,6 +55,9 @@ public class VariableCheck : MonoBehaviour
             case nameof(VariableList.S_itemInfo):
                 variables[7].text = $"산물건: {VariableList.S_NpcEvalDict[VariableList.S_currentNpcId].item}";
                 variables[8].text = $"판가격: {VariableList.S_NpcEvalDict[VariableList.S_currentNpcId].price}";
+                break;
+            case nameof(VariableList.S_GptReaction):
+                variables[4].text = $"npcReact: {VariableList.S_GptReaction}";
                 break;
         }
     }

@@ -38,7 +38,6 @@ public class ServerManager : ServerBase
         this._sendChatType = sendChatTypeFrom;
         this._userInput = userInput;
 
-        //templateReceive.GetGptAnswer(userInput, sendChatTypeFrom.ToString());
         StartCoroutine(GetGPTCo());
     }
 

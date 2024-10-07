@@ -40,10 +40,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         _sendChatType = SendChatType.ChatBargain;
         ServerManager.Instance.GetGPTReply("$start", _sendChatType);
         
-        //VariableList.S_GptAnswer = "reaction : 말씀은 이해합니다만, 저도 졸업을 앞둔 학생이라 금전적인 여유가 없습니다. 정말 100달러 정도면 할 수 있을 것 같아요. 이 금액을 초과하면 정말 어렵습니다.\r\n" +"persuasion : -1\r\n" +"vendorSuggest : 180\r\n" +"yourSuggest : 100";
-
         Managers.Chat.ActivatePanel(_sendChatType);
-        //여기있으면 왜 훨씬 나중에 실행되지?
     }
 
     public override void Exit()

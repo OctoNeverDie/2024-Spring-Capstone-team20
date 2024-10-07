@@ -11,6 +11,16 @@ public static class VariableList
 
     private static string _s_UserAnswer;
     private static string _s_GptAnswer;
+    private static string _s_GptReaction;
+    public static string S_GptReaction
+    {
+        get => _s_GptReaction;
+        set
+        {
+            _s_GptReaction = value;
+            OnVariableChanged?.Invoke(nameof(S_GptReaction));
+        }
+    }
     public static string S_UserAnswer
     {
         get => _s_UserAnswer;
@@ -32,12 +42,14 @@ public static class VariableList
 
     public static void ClearStaticData()
     {
+        Debug.Log($"지워 : 2 S_currentNpcId {S_currentNpcId} ");
         _s_UserAnswer = "";
         _s_GptAnswer = "";
         S_currentNpcId = 0;
 
         S_itemInfo = new ItemInfo();
         S_ThingToBuy = "";
+        Debug.Log($"지워 : 3 S_currentNpcId {S_currentNpcId} ");
     }
     //--------------------------------------------------
     public class NpcEvaluation
@@ -78,7 +90,7 @@ public static class VariableList
             S_NpcEvalDict.Add(S_currentNpcId, _npcEvaluation);
         }
 
-
+        Debug.Log($"지워 : S_currentNpcId {S_currentNpcId} ");
         OnVariableChanged?.Invoke(nameof(S_currentNpcId));
     }
 

@@ -8,10 +8,11 @@ public class TemplateReceive : MonoBehaviour
     SendChatType nextChatType = SendChatType.None;
     public void GetGptAnswer(string resultData, SendChatType sendTypeData)
     {
+        VariableList.S_GptAnswer = resultData;//이건 쌩
         if (UpdateGptReply(sendTypeData, resultData))
         {
             string GptAnswer = GptReply(sendTypeData, resultData);
-            VariableList.S_GptAnswer = GptAnswer;
+            VariableList.S_GptReaction = GptAnswer;//이건 리액션만 따로
         }
     }
 
@@ -24,18 +25,21 @@ public class TemplateReceive : MonoBehaviour
                 Managers.Chat.TransitionToState(nextChatType);
                 return false;
 
-            case SendChatType.ChatSale:
-                VariableList.S_GptAnswer = resultData;
-                return false;
-
             case SendChatType.ItemInit:
                 nextChatType = SendChatType.ChatBargain;
                 Managers.Chat.TransitionToState(nextChatType);
                 return false;
 
+            case SendChatType.ChatSale:
+                return true;
+
             case SendChatType.ChatBargain:
-                VariableList.S_GptAnswer = resultData;
-                return false;
+                return true;
+
+            case SendChatType.Endpoint:
+                if (resultData == "$clear")
+                    return false;
+                return true;
 
             default:
                 return false;
@@ -51,7 +55,16 @@ public class TemplateReceive : MonoBehaviour
             pattern = @"\""yourReply\"": \""(.*?)\""";
             Match match = Regex.Match(GPTanswer, pattern);
 
-            if (match.Success) return match.Groups[1].Value;
+            if (match.Success)
+                return match.Groups[1].Value;
+        }
+        else if ((sendChatType == SendChatType.ChatBargain) || (sendChatType == SendChatType.Endpoint))
+        {
+            pattern = @"\""reaction\"": \""(.*?)\""";
+            Match match = Regex.Match(GPTanswer, pattern);
+
+            if (match.Success)
+                return match.Groups[1].Value;
         }
 
         return GPTanswer;

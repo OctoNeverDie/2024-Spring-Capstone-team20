@@ -108,8 +108,10 @@ def query_view(request):
                     request.session['chat_history'].append({"role": "assistant", "content": response})
                     return JsonResponse({'reply': response})
 
-            elif sendType == "EndPoint" :#prompt : $buy, $reject, $leave
-                response = get_completion(prompt ,sendType)
+            elif sendType == "EndPoint" :#prompt : $buy, $reject, $leave, $clear
+                response = "$clear"
+                if(prompt != "$clear"):
+                    response = get_completion(prompt ,sendType)
                 clear_everything(request)
                 return JsonResponse({'reply': response})
 

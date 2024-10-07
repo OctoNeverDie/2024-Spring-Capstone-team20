@@ -41,27 +41,9 @@ public class ChatManager : MonoBehaviour
         }
         else if (chatState == SendChatType.Endpoint)
         {
-            /*
-             * fail
-            if (!_confirmPanel.activeSelf && !previousStateIfDiff)
-            {
-                //TODO : 1초 뒤 생성
-                _confirmPanel.SetActive(true);
-            }
-            else
-            {
-                _confirmPanel.SetActive(false);
-                _chatPanel.SetActive(false);
-                _endPanel.SetActive(true);
-            }*/
+            //endtype따라 마지막 패널 달라진다!
             OnPanelUpdated?.Invoke(chatState, _endType);
         }
-    }
-
-    public static event Action<String> OnGptResponse;
-    public void UpdatePanel(string gptOutput)
-    {
-        OnGptResponse?.Invoke(gptOutput);
     }
 
     public int _turn;
@@ -100,6 +82,7 @@ public class ChatManager : MonoBehaviour
         VariableList.ClearStaticData();
         _endType = EndType.None;
         _chatStateMachine.EndStateMachine();
+        Debug.Log($"지워 : ++++여기 들어가면 대화 끝났다고 보면 돼!!!!");
     }
 
     public void TransitionToState(SendChatType sendChatType)
