@@ -67,8 +67,6 @@ public class ServerManager : ServerBase
 
         Action<ResultInfo> bringGPTReply = (result) =>
         {
-            if (result.Json == null)
-                Debug.Log("dhooooooooooooooo");
             var resultData = JObject.Parse(result.Json)["reply"].ToString();
             //var sendTypeData = JObject.Parse(result.Json)["sendType"].ToString();  // JSON에서 string 값 가져옴
             Debug.Log($"Gpt 답+++++++++++++++ {resultData}");
