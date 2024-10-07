@@ -6,6 +6,6 @@ public class UserNoClick : MonoBehaviour
 {
     public void OnClick()
     {
-        Managers.Chat.TestReply("Leave");
+        Managers.Chat.TransitionToState(Define.SendChatType.Fail);
     }
 }

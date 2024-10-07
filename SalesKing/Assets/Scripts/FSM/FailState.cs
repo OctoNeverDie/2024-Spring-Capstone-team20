@@ -5,7 +5,6 @@ using static Define;
 
 public class FailState : ChatBaseState
 {
-    bool evaluationAlreay = false;
     public override void Enter()
     {
         Managers.Chat.ActivatePanel(SendChatType.Fail);

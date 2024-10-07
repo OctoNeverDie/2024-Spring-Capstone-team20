@@ -12,9 +12,5 @@ public class UserDealClick : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    public void OnClickNo()
-    {
-        Managers.Chat.CheckTurnFail();
-        this.gameObject.SetActive(false);
-    }
+
 }
