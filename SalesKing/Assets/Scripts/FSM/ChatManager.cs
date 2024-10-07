@@ -58,14 +58,23 @@ public class ChatManager : MonoBehaviour
         }
     }
 
+    public static event Action<String> OnGptResponse;
     public void UpdatePanel(string gptOutput)
     {
-        //
+        OnGptResponse?.Invoke(gptOutput);
     }
 
-    private int _turn;
-    private float _npcSuggest;
-    private float _userSuggest;
+    public int _turn;
+    public float _npcSuggest =0;
+    public float _userSuggest =0;
+
+    public static event Action<int, float, float> OnNumberUpdated;
+    public static event Action<string> OnStringUpdated;
+    public void UpdateThingToBuy(string thingtobuy)
+    {
+        OnStringUpdated?.Invoke(thingtobuy);
+    }
+
     public void UpdateTurn(int turn, float npcSuggest = -1.37f, float userSuggest = -1.37f)
     { 
         _turn = turn;
@@ -73,6 +82,8 @@ public class ChatManager : MonoBehaviour
             _npcSuggest = npcSuggest;
         if(userSuggest != -1.37f)
             _userSuggest = userSuggest;
+
+        OnNumberUpdated?.Invoke(_turn, _npcSuggest, _userSuggest);
         //TODO : Panel에 남은 turn 수 출력, 서로 제시한 거 출력
     }
 

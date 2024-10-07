@@ -120,8 +120,6 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         }
         else if (sections.Length > 1)
         { _gptResult._npcReaction = sections[1]; }
-
-        Debug.Log($"{_gptResult._npcReaction} + {_gptResult._turn} + {_gptResult._npcSuggest} + {_gptResult._userSuggest}");
     }
 
     private float GetFloat(string text)

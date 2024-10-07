@@ -98,6 +98,7 @@ public class ChatSaleState : ChatBaseState, IVariableChat
             _gptResult._thingToBuy = sections[1];
             _gptResult._reaction = sections[2];
             _gptResult._evaluation = sections[3];
+            Managers.Chat.UpdateThingToBuy(_gptResult._thingToBuy);
             Debug.Log($"{_gptResult._thingToBuy}+{_gptResult._reaction}+{_gptResult._evaluation}");
         }
 

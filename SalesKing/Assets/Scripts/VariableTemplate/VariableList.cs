@@ -7,6 +7,8 @@ public static class VariableList
 {
     public static event Action<string> OnVariableUserUpdated;
     public static event Action<string> OnVariableGptUpdated;
+    public static event Action<string> OnVariableChanged;
+
     private static string _s_UserAnswer;
     private static string _s_GptAnswer;
     public static string S_UserAnswer
@@ -32,7 +34,7 @@ public static class VariableList
     {
         _s_UserAnswer = "";
         _s_GptAnswer = "";
-        _s_currentNpcId = 0;
+        S_currentNpcId = 0;
 
         S_itemInfo = new ItemInfo();
         S_ThingToBuy = "";
@@ -48,7 +50,7 @@ public static class VariableList
         public float price;
         public string npcEvaluation;
     }
-    private static int _s_currentNpcId;
+    public static int S_currentNpcId { get; private set; }
     // NpcEvaluation 타입을 저장하는 Dictionary를 정의
     public static Dictionary<int, NpcEvaluation> S_NpcEvalDict { get; private set; } = new Dictionary<int, NpcEvaluation>();
     
@@ -65,29 +67,28 @@ public static class VariableList
             npcEvaluation = string.Empty
         };
 
-        _s_currentNpcId = npcId;
+        S_currentNpcId = npcId;
 
-        if (S_NpcEvalDict.ContainsKey(_s_currentNpcId))
+        if (S_NpcEvalDict.ContainsKey(S_currentNpcId))
         {
-            S_NpcEvalDict[_s_currentNpcId] = _npcEvaluation;
+            S_NpcEvalDict[S_currentNpcId] = _npcEvaluation;
         }
         else
         {
-            S_NpcEvalDict.Add(_s_currentNpcId, _npcEvaluation);
+            S_NpcEvalDict.Add(S_currentNpcId, _npcEvaluation);
         }
+
+
+        OnVariableChanged?.Invoke(nameof(S_currentNpcId));
     }
 
     public static void AddEvaluation(string npcEvaluation) 
     {
-        S_NpcEvalDict[_s_currentNpcId].npcEvaluation = npcEvaluation;
+        S_NpcEvalDict[S_currentNpcId].npcEvaluation = npcEvaluation;
+
+        OnVariableChanged?.Invoke(nameof(S_NpcEvalDict));
     }
 
-    public static bool CheckEvaluationIsAlready()
-    {
-        if (S_NpcEvalDict[_s_currentNpcId].npcEvaluation == null)
-            return true;
-        return false;
-    }
     //--------------------------------------------------
     public static event Action<float, ItemInfo> OnItemInit;
     public static ItemInfo S_itemInfo { get; set; }
@@ -101,7 +102,9 @@ public static class VariableList
 
     public static void AddItemPriceSold(float price)
     {
-        S_NpcEvalDict[_s_currentNpcId].item = S_itemInfo.ObjName;
-        S_NpcEvalDict[_s_currentNpcId].price = price;
+        S_NpcEvalDict[S_currentNpcId].item = S_itemInfo.ObjName;
+        S_NpcEvalDict[S_currentNpcId].price = price;
+
+        OnVariableChanged?.Invoke(nameof(S_itemInfo));
     }
 }
