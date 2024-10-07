@@ -8,9 +8,8 @@ public class NPCSpawner : MonoBehaviour
     [SerializeField] GameObject NPCPrefab;
     [SerializeField] int NPCCount = 20;
 
-    [SerializeField] int TalkableNPCCount = 5;
+    [SerializeField] int TalkableNPCCount = 20;
     [SerializeField] int WeirdNPCCount = 0;
-
 
     void Awake()
     {
@@ -31,11 +30,11 @@ public class NPCSpawner : MonoBehaviour
 
         if (NPCPrefab != null)
         {
-            //Debug.Log("NPC Prefab ·Îµå ¼º°ø!");
+            //Debug.Log("NPC Prefab ë¡œë“œ ì„±ê³µ!");
         }
         else
         {
-            Debug.LogError("NPC PrefabÀ» ·ÎµåÇÒ ¼ö ¾ø½À´Ï´Ù. °æ·Î¸¦ È®ÀÎÇÏ¼¼¿ä.");
+            Debug.LogError("NPC Prefabì„ ë¡œë“œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ê²½ë¡œë¥¼ í™•ì¸í•˜ì„¸ìš”.");
         }
     }
 
