@@ -118,12 +118,26 @@ public class EndState : ITutorialState
 }
 public class TutorialManager : MonoBehaviour
 {
+    public static TutorialManager Instance { get; private set; } // 싱글턴 인스턴스
+
     public GameObject guidePanel;           // 첫 안내 패널
     public GameObject endPanel;              // 하루 끝 패널
     public TextMeshProUGUI missionText;      // 미션 텍스트 (Mission Panel 안의 Text)
 
     private ITutorialState currentState;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this; // 인스턴스 설정
+            DontDestroyOnLoad(gameObject); // 씬이 바뀌어도 유지
+        }
+        else
+        {
+            Destroy(gameObject); // 이미 인스턴스가 있을 경우 삭제
+        }
+    }
     void Start()
     {
         ChangeState(new TalkToCustomerState(missionText, guidePanel));  // 시작 상태 설정
@@ -143,6 +157,12 @@ public class TutorialManager : MonoBehaviour
 
     public void OnTalkToCustomer()
     {
+        if (currentState == null)
+        {
+            Debug.LogError("currentState가 null입니다. TutorialManager가 초기화되지 않았습니다.");
+            return; // null일 경우 작업을 중지
+        }
+
         if (currentState is RecordingState)
         {
             Debug.LogWarning("이미 대화 녹음 중입니다.");

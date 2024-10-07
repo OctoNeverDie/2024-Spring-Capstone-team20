@@ -16,7 +16,7 @@ public class STT : MonoBehaviour
     private int _recordingHZ = 22050;
     
     public TMP_InputField myInputField;
-    public TextMeshProUGUI myText;
+    //public TextMeshProUGUI myText;
     public Slider recordingSlider;  // 슬라이더를 public으로 받아옴
 
     private float currentRecordingTime = 0f;
@@ -35,14 +35,14 @@ public class STT : MonoBehaviour
         if (Input.GetButtonDown("STT"))
         {
             startRecording();
-            myText.text = "말하는 중...";
+            //myText.text = "말하는 중...";
 
             //여기에 튜토리얼 text넣는거... 에바??? 좀 고민해야할듯.
         }
         if (Input.GetButtonUp("STT"))
         {
             stopRecording();
-            myText.text = "Space를 누르고 말하세요";
+            //myText.text = "Space를 누르고 말하세요";
         }
     }
 
@@ -103,7 +103,7 @@ public class STT : MonoBehaviour
             byte[] byteData = getByteFromAudioClip(_recording);
 
             // 녹음된 audioclip api 서버로 보냄
-            StartCoroutine(PostVoice(url, byteData));
+            //StartCoroutine(PostVoice(url, byteData));
         }
         return;
     }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -18078,7 +18078,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &505951692
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19418,7 +19418,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &538708285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27057,7 +27057,7 @@ RectTransform:
   m_Father: {fileID: 904417932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -44544,8 +44544,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1170800256}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0.00001335144}
   m_SizeDelta: {x: 21.7503, y: -25.0892}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -51213,7 +51213,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1380398440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51255,7 +51255,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidePanel: {fileID: 505951691}
-  MissionText: {fileID: 0}
+  endPanel: {fileID: 0}
+  missionText: {fileID: 1540983182}
 --- !u!1001 &1383667569
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56584,9 +56585,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 505951692}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 350.57596, y: -55}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 654.0874, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1540983182
@@ -71732,7 +71733,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myInputField: {fileID: 658069264}
-  myText: {fileID: 0}
   recordingSlider: {fileID: 1682002013}
 --- !u!4 &1899070237
 Transform:
