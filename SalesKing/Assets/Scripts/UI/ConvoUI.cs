@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using static Define;
 
 public class ConvoUI : MonoBehaviour
 {
     public GameObject TalkOrNotPanel;
     public GameObject ChooseItemPanel;
     public GameObject ConvoPanel;
-    public GameObject ItemSoldPanel;
-    public GameObject YoufailedPanel;
+    public GameObject EndPanel;
 
     public TMP_InputField UserText;
     public GameObject NPCSpeechBubble;
@@ -52,14 +52,29 @@ public class ConvoUI : MonoBehaviour
         }
         else if (sendChatType == Define.SendChatType.ChatBargain)
         {
-            ConvoPanel.GetComponentInChildren<IDeal>().gameObject.SetActive(true);
+            DealBtn dealBtn = ConvoPanel.GetComponentInChildren<DealBtn>(true);
+            if (dealBtn != null)
+            {
+                dealBtn.gameObject.SetActive(true);
+            }
         }
         else if (sendChatType == Define.SendChatType.Endpoint)
         {
+            TextMeshProUGUI text = EndPanel.GetComponentInChildren<TextMeshProUGUI>();
+            TextMeshProUGUI btnText = EndPanel.GetComponentInChildren<Button>().GetComponentInChildren<TextMeshProUGUI>();
+
             if (endType == Define.EndType.Success)
-                ItemSoldPanel.SetActive(true);
+            {
+                text.text = "물건 판매 성공~!";
+                btnText.text = "짱~!";
+            }
             else if (endType == Define.EndType.Fail || endType == Define.EndType.Leave)
-                YoufailedPanel.SetActive(true);
+            {
+                text.text = "물건 판매 실패...";
+                btnText.text = "우...";
+            }
+
+            EndPanel.SetActive(true);
         }
     }
 
@@ -73,18 +88,26 @@ public class ConvoUI : MonoBehaviour
     #region 물건 사기
     public void OnClickBuy()//딜 버튼 누름
     {
-        Managers.Chat.CheckTurnEndpoint(Define.EndType.Success);
-        
-        this.gameObject.SetActive(false);
+        Button dealBtn = ConvoPanel.GetComponentInChildren<DealBtn>().GetComponent<Button>();
+        if (dealBtn != null)
+        {
+            dealBtn.interactable = false;
+        }
+        ShowPanel(Define.SendChatType.Endpoint, Define.EndType.Success);
+    }
+
+    public void OnChatLeave()
+    {
+        Managers.Chat.CheckTurnEndpoint(Define.EndType.Leave);
+        OnEndChat();
     }
 
     public void OnEndChat()
     {
-        Managers.Chat.CheckTurnEndpoint(Define.EndType.Leave);
+        Managers.Chat.Clear();
 
-        ItemSoldPanel.SetActive(false);
-        YoufailedPanel.SetActive(false);
-        ConvoPanel.GetComponentInChildren<IDeal>().gameObject.SetActive(false);
+        EndPanel.SetActive(false);
+        ConvoPanel.GetComponentInChildren<DealBtn>().gameObject.SetActive(false);
         ConvoPanel.SetActive(false);
 
         Managers.Convo.ConvoFinished();
