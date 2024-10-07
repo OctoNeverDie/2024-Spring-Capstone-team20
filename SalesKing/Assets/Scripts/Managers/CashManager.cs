@@ -5,18 +5,18 @@ using UnityEngine;
 public class CashManager : MonoBehaviour
 {
     // 총 현금량
-    public int TotalCash { get; private set; }
+    public float TotalCash { get; private set; }
 
     private void Start()
     {
         // PlayerPrefs에서 현금 로드 (현재는 주석 처리)
         //LoadCash();
-        TotalCash = 0;
+        TotalCash = 0f;
         UpdateCashUI(); 
     }
 
     // 현금을 추가하는 메서드
-    public void AddCash(int amount)
+    public void AddCash(float amount)
     {
         TotalCash += amount;
         SaveCash();
@@ -24,7 +24,7 @@ public class CashManager : MonoBehaviour
     }
 
     // 현금을 제거하는 메서드
-    public bool RemoveCash(int amount)
+    public bool RemoveCash(float amount)
     {
         if (TotalCash >= amount)
         {
@@ -46,6 +46,7 @@ public class CashManager : MonoBehaviour
     // 현금 로드
     private void LoadCash()
     {
+
         TotalCash = PlayerPrefs.GetInt("TotalCash", 300); // 기본값 300
     }
 
