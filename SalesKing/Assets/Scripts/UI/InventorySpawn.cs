@@ -67,7 +67,6 @@ public class InventorySpawn : MonoBehaviour
         if (float.TryParse(inputFieldGO.text, out inputPrice))
         {
             VariableList.InitItem(inputPrice, selectedItem);
-            // 여기에 필요한 로직 추가
         }
         else
         {
