@@ -12,7 +12,8 @@ public class LeaveState : ChatBaseState
 
         VariableList.OnVariableGptUpdated -= SaveEvaluation;
         VariableList.OnVariableGptUpdated += SaveEvaluation;
-        //ServerManager.Instance.GetGPTReply(_userSend, _sendChatType);
+        
+        ServerManager.Instance.GetGPTReply("", _sendChatType);
     }
 
     public override void Exit()
