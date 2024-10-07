@@ -16,6 +16,6 @@ public class SuccessState : ChatBaseState
 
     private void ClearVariables()
     {
-        //VariableList.Clear(); 만들기.
+        //TODO : VariableList.Clear(); 만들기.
     }
 }

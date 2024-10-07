@@ -43,7 +43,7 @@ public class ItemInitState : ChatBaseState
         + $"Your First Suggest: {itemInfo.defaultPrice} credit"
         + $"yourOpinion: {expensiveRate}";
 
-        Debug.Log($"userSend : {_userSend}");
-        Managers.Chat.TestReply("ChatBargain", _userSend);
+        ServerManager.Instance.GetGPTReply(_userSend, _sendChatType);
+        //Managers.Chat.TestReply("ChatBargain", _userSend);
     }
 }
