@@ -98,7 +98,8 @@ public class ConvoUI : MonoBehaviour
 
     public void OnClickExitNPCBtn()
     {
-
+        Managers.Convo.ConvoFinished();
+        ConvoPanel.SetActive(false);
     }
 
 }

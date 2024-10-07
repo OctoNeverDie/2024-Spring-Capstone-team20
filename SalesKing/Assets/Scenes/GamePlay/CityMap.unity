@@ -30059,7 +30059,6 @@ MonoBehaviour:
   ConvoPanel: {fileID: 538708284}
   ItemSoldPanel: {fileID: 0}
   YoufailedPanel: {fileID: 0}
-  UnniiEndpoint: {fileID: 0}
   UserText: {fileID: 658069264}
   NPCSpeechBubble: {fileID: 1262570888}
   NPCSpeechText: {fileID: 1428053739}
@@ -37751,6 +37750,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1031164970}
         m_TargetAssemblyTypeName: UserNoClick, Assembly-CSharp
         m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 805719250}
+        m_TargetAssemblyTypeName: ConvoUI, Assembly-CSharp
+        m_MethodName: OnClickExitNPCBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -71678,7 +71689,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1899070237}
-  - component: {fileID: 1899070236}
+  - component: {fileID: 1899070238}
   m_Layer: 0
   m_Name: STT
   m_TagString: Untagged
@@ -71686,20 +71697,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1899070236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1899070235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e540a5ecbf094a40a92f9b24aa57d22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myInputField: {fileID: 658069264}
-  recordingSlider: {fileID: 1682002013}
 --- !u!4 &1899070237
 Transform:
   m_ObjectHideFlags: 0
@@ -71715,6 +71712,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1899070238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899070235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20382af62a9deca4d87a76fe0842be1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myInputField: {fileID: 658069264}
+  recordingSlider: {fileID: 1682002013}
 --- !u!1 &1900457094
 GameObject:
   m_ObjectHideFlags: 0
