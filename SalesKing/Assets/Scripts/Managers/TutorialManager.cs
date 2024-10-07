@@ -29,7 +29,10 @@ public class TalkToCustomerState : ITutorialState
         guidePanel.SetActive(true);  // 첫 안내 패널 표시
     }
 
-    public void Exit() { }
+    public void Exit()
+    {
+        missionText.text = "수고하셨습니다! NPC와 계속 대화를 나눠보세요.";
+    }
 
     public void Update() { }
 }
@@ -64,6 +67,57 @@ public class RecordingState : ITutorialState
     }
 }
 
+
+public class persuadeState : ITutorialState
+{
+    private TextMeshProUGUI missionText;
+    private GameObject guidePanel;  // guidePanel 참조 추가
+
+
+    public persuadeState(TextMeshProUGUI missionText, GameObject guidePanel)
+    {
+        this.missionText = missionText;
+        this.guidePanel = guidePanel;
+
+    }
+
+    public void Enter()
+    {
+        missionText.text = "npc들과 계속 대화하세요.";  // 미션 텍스트 업데이트
+
+    }
+
+    public void Exit()
+    {
+       guidePanel.SetActive(false);  // guidePanel 비활성화
+    }
+
+    public void Update()
+    {
+        // 3초 후 자동으로 Idle 상태로 전환
+        DOVirtual.DelayedCall(3f, () =>
+        {
+            Exit();  // 상태 종료 호출
+            TutorialManager.Instance.ChangeState(new IdleState());  // Idle 상태로 전환
+        });
+    }
+}
+
+public class IdleState : ITutorialState
+{
+    public void Enter()
+    {
+
+    }
+
+    public void Exit()
+    {
+    }
+
+    public void Update()
+    {
+    }
+}
 public class EndState : ITutorialState
 {
     private TextMeshProUGUI missionText;
@@ -138,9 +192,11 @@ public class TutorialManager : MonoBehaviour
             Destroy(gameObject); // 이미 인스턴스가 있을 경우 삭제
         }
     }
+
     void Start()
     {
-        ChangeState(new TalkToCustomerState(missionText, guidePanel));  // 시작 상태 설정
+        // 처음 상태를 Idle로 설정
+        ChangeState(new TalkToCustomerState(missionText, guidePanel));
     }
 
     void Update()
@@ -155,21 +211,28 @@ public class TutorialManager : MonoBehaviour
         currentState.Enter();  // 새 상태 초기화
     }
 
-    public void OnTalkToCustomer()
+    public void OnRecord()
     {
-        if (currentState == null)
+        // currentState가 IdleState일 때만 상태 변경 허용
+        if (currentState is IdleState)
         {
-            Debug.LogError("currentState가 null입니다. TutorialManager가 초기화되지 않았습니다.");
-            return; // null일 경우 작업을 중지
+            return;
         }
 
-        if (currentState is RecordingState)
+        ChangeState(new RecordingState(missionText)); // 고객과 대화 시작 상태로 변경
+
+    }
+
+    public void OnPersuadeToCustomer()
+    {
+        // currentState가 IdleState일 때만 상태 변경 허용
+        if (currentState is IdleState)
         {
-            Debug.LogWarning("이미 대화 녹음 중입니다.");
-            return; // 이미 녹음 상태일 때는 아무 작업도 하지 않음
+            return;
         }
 
-        ChangeState(new RecordingState(missionText)); // 대화 녹음 상태로 변경
+        ChangeState(new persuadeState(missionText, guidePanel)); // 고객과 대화 시작 상태로 변경
+
     }
 
     // 대화가 끝났을 때 호출되는 메서드
