@@ -59,7 +59,7 @@ public class RecordingState : ITutorialState
         }
         else if (Input.GetButtonUp("STT"))
         {
-            missionText.text = "수고하셨습니다! 엔터키를 눌러 대화를 전송하세요.";  // 대화 전송 안내 텍스트 업데이트
+            missionText.text = "대화 전송 버튼을 눌러 전송하세요.";  // 대화 전송 안내 텍스트 업데이트
         }
     }
 }

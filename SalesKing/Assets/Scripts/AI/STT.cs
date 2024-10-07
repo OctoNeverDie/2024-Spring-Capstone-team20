@@ -36,8 +36,6 @@ public class STT : MonoBehaviour
         {
             startRecording();
             //myText.text = "말하는 중...";
-
-            //여기에 튜토리얼 text넣는거... 에바??? 좀 고민해야할듯.
         }
         if (Input.GetButtonUp("STT"))
         {
@@ -52,7 +50,7 @@ public class STT : MonoBehaviour
     {
         while (Microphone.IsRecording(_microphoneID))
         {
-            currentRecordingTime += Time.deltaTime;  // 시간이 지남에 따라 증가
+            currentRecordingTime += Time.fixedDeltaTime;  // 시간이 지남에 따라 증가
             recordingSlider.value = _recordingLengthSec - currentRecordingTime; // 슬라이더 값 감소
 
             // 녹음 시간이 다 되면 녹음 중지

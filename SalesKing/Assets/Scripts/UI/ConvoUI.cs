@@ -24,6 +24,7 @@ public class ConvoUI : MonoBehaviour
     }
     public void OnClickYesTalkBtn()
     {
+        TutorialManager.Instance.OnTalkToCustomer();
         ConvoPanel.SetActive(true);
         TalkOrNotPanel.SetActive(false);
     }

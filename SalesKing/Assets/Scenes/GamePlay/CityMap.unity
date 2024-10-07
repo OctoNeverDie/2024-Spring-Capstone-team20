@@ -8003,7 +8003,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -540.0884}
+  m_AnchoredPosition: {x: 480, y: -540}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &196950042
@@ -20850,7 +20850,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uD134\uC744\n\uD3EC\uAE30\uD558\uAE30"
+  m_text: "\uB300\uD654\n\uADF8\uB9CC\uB450\uAE30"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea19d02ef06bb494496484e58bb47d42, type: 2}
   m_sharedMaterial: {fileID: -6765461674992963274, guid: ea19d02ef06bb494496484e58bb47d42, type: 2}
@@ -67505,7 +67505,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC774\uB300\uB85C \n\uB9D0\uD558\uAE30"
+  m_text: "\uB300\uD654\n\uC804\uC1A1\uD558\uAE30"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea19d02ef06bb494496484e58bb47d42, type: 2}
   m_sharedMaterial: {fileID: -6765461674992963274, guid: ea19d02ef06bb494496484e58bb47d42, type: 2}
@@ -71785,7 +71785,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1440, y: -540.0884}
+  m_AnchoredPosition: {x: 1440, y: -540}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1900457096
