@@ -14,7 +14,7 @@ public class SuccessState : ChatBaseState
         VariableList.OnVariableGptUpdated += GptOutput;
 
         //ServerManager.Instance.GetGPTReply("$buy", SendChatType.Success);
-        ServerManager.Instance.GetGPTReply("\\\"reaction\\\": \\\"Generate a response where the player asks why the item is so expensive and expresses doubt. The tone should reflect the character's personality traits (e.g., timid, anxious, or assertive).\\\",\r\n        \\\"summary\\\" : \\\"최악의 거래\\\"", SendChatType.Success);
+        ServerManager.Instance.GetGPTReply("\\\"reaction\\\": \\\"Generate a response where the player asks why the item is so expensive and expresses doubt. The tone should reflect the character's personality traits (e.g., timid, anxious, or assertive).\\\",\r\n        \\\"summary\\\" : \\\"최악의 거래\\\"", _sendChatType);
     }
 
     public override void Exit()
