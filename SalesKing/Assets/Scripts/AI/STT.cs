@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using TMPro;
 using OpenAI_API;
+using UnityEngine.UI;
 
 public class STT : MonoBehaviour
 {
@@ -16,11 +17,17 @@ public class STT : MonoBehaviour
     
     public TMP_InputField myInputField;
     public TextMeshProUGUI myText;
+    public Slider recordingSlider;  // 슬라이더를 public으로 받아옴
+
+    private float currentRecordingTime = 0f;
+    private Coroutine recordingCoroutine;
 
     private void Start()
     {
         _microphoneID = Microphone.devices[0];
         //myInputField = Managers.UI.ui.        
+        recordingSlider.maxValue = _recordingLengthSec; // 슬라이더 최대값을 녹음 시간으로 설정
+        recordingSlider.value = _recordingLengthSec;
     }
 
     void Update()
@@ -29,6 +36,8 @@ public class STT : MonoBehaviour
         {
             startRecording();
             myText.text = "말하는 중...";
+
+            //여기에 튜토리얼 text넣는거... 에바??? 좀 고민해야할듯.
         }
         if (Input.GetButtonUp("STT"))
         {
@@ -37,17 +46,51 @@ public class STT : MonoBehaviour
         }
     }
 
+    // 슬라이더 값 갱신
+    // 녹음 중일 때 슬라이더를 줄여주는 Coroutine
+    private IEnumerator UpdateRecordingSlider()
+    {
+        while (Microphone.IsRecording(_microphoneID))
+        {
+            currentRecordingTime += Time.deltaTime;  // 시간이 지남에 따라 증가
+            recordingSlider.value = _recordingLengthSec - currentRecordingTime; // 슬라이더 값 감소
+
+            // 녹음 시간이 다 되면 녹음 중지
+            if (currentRecordingTime >= _recordingLengthSec)
+            {
+                stopRecording();
+                yield break;
+            }
+
+            yield return null;  // 한 프레임 대기
+        }
+    }
+
     // 버튼을 OnPointerDown 할 때 호출
     public void startRecording()
     {
         Debug.Log("start recording");
+        UpdateRecordingSlider();
         _recording = Microphone.Start(_microphoneID, false, _recordingLengthSec, _recordingHZ);
+
+        // 녹음 시작 시 슬라이더 초기화
+        currentRecordingTime = 0f;
+        recordingSlider.value = _recordingLengthSec;  // 슬라이더를 다시 채움
+
+        // Coroutine으로 슬라이더 업데이트 시작
+        if (recordingCoroutine != null)
+        {
+            StopCoroutine(recordingCoroutine);
+        }
+        recordingCoroutine = StartCoroutine(UpdateRecordingSlider());
     }
     // 버튼을 OnPointerUp 할 때 호출
     public void stopRecording()
     {
         if (Microphone.IsRecording(_microphoneID))
         {
+            recordingSlider.value = _recordingLengthSec;
+
             Microphone.End(_microphoneID);
 
             Debug.Log("stop recording");

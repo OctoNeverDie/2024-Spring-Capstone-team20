@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening; // DOTween 사용
 
 public class UserInputManager : MonoBehaviour
 {
@@ -25,9 +26,9 @@ public class UserInputManager : MonoBehaviour
                 switch (myPlayer.ui.curInteractable)
                 {
                     case Define.Interactables.Office_MyPC: Managers.Office.officeUI.OnClickMyPC(); break;
-                    case Define.Interactables.Office_Door_Out: 
-                        Managers.Scene.LoadSceneByName("CityMap");
-                        Managers.Trans.ui.StartFadeInFadeOut(3f);
+                    case Define.Interactables.Office_Door_Out:
+                        Managers.Trans.ui.StartFadeInFadeOut(1f);
+                        DOVirtual.DelayedCall(Managers.Trans.ui.FadeTime, () => Managers.Scene.LoadSceneByName("CityMap"));
                         break;
 
                     case Define.Interactables.City_NPC:
