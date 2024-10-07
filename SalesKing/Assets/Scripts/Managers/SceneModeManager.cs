@@ -12,21 +12,23 @@ public class SceneModeManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Scene Loaded: " + scene.name);
+        //Debug.Log("Scene Loaded: " + scene.name);
         Managers.Instance.ClearChildManagers();
         switch (scene.name)
         {
-            case "Start": Awake_StartScene(); break;
+            //case "Start": Awake_StartScene(); break;
             case "CityMap": Awake_CityScene(); break;
             case "OfficeMap": Awake_OfficeScene(); break;
             default: break;
         }
     }
 
+    /*
     private void Awake_StartScene()
     {
 
     }
+    */
 
     private void Awake_OfficeScene()
     {
