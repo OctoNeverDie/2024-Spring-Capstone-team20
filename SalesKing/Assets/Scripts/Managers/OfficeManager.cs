@@ -26,23 +26,6 @@ public class OfficeManager : MonoBehaviour
         SwitchToWelcomeCam();
     }
 
-    void Update()
-    {
-        if (Input.GetButtonDown("Interaction"))
-        {
-            if (myPlayer.ui.RaycastHitObj.activeSelf)
-            {
-                switch (myPlayer.ui.curInteractable)
-                {
-                    case Define.Interactables.Office_MyPC: officeUI.OnClickMyPC(); break;
-                    case Define.Interactables.Office_Door_Out: Managers.Scene.LoadSceneByName("CityMap"); break;
-                }
-                
-            }
-            
-            
-        }
-    }
 
     public void SwitchToFirstPersonCam()
     {

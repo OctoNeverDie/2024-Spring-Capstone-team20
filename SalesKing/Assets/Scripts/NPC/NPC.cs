@@ -20,7 +20,7 @@ public class NPC : MonoBehaviour
     private NavMeshAgent agent;
 
     public float speed = 0.5f;
-    public float rotationSpeed = 5.0f; // ¼­¼­È÷ È¸ÀüÇÏ±â À§ÇÑ ¼Óµµ
+    public float rotationSpeed = 5.0f; // ì„œì„œíˆ íšŒì „í•˜ê¸° ìœ„í•œ ì†ë„
 
     public Transform curDestination;
 
@@ -56,6 +56,7 @@ public class NPC : MonoBehaviour
         }
     }
 
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && currentTalkable == NPCDefine.Talkable.Able)
@@ -63,6 +64,7 @@ public class NPC : MonoBehaviour
             NPCEnterConvo(other.gameObject);
         }
     }
+    */
 
     public void AssignRandomState()
     {
