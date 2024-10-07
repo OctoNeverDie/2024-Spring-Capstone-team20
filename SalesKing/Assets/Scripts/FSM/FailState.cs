@@ -7,6 +7,7 @@ public class FailState : ChatBaseState
 {
     public override void Enter()
     {
+        
         Managers.Chat.ActivatePanel(SendChatType.Fail);
 
         if (VariableList.CheckEvaluationIsAlready())
@@ -16,7 +17,8 @@ public class FailState : ChatBaseState
 
         VariableList.OnVariableGptUpdated -= SaveEvaluation;
         VariableList.OnVariableGptUpdated += SaveEvaluation;
-        
+
+
         ServerManager.Instance.GetGPTReply("$reject", _sendChatType);
     }
 

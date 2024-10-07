@@ -8,15 +8,13 @@ public class SuccessState : ChatBaseState
 {
     public override void Enter()
     {
-
         _sendChatType = Define.SendChatType.Success;
 
         VariableList.OnVariableGptUpdated -= GptOutput;
         VariableList.OnVariableGptUpdated += GptOutput;
 
+        //ServerManager.Instance.GetGPTReply("$buy", SendChatType.Success);
         ServerManager.Instance.GetGPTReply("\\\"reaction\\\": \\\"Generate a response where the player asks why the item is so expensive and expresses doubt. The tone should reflect the character's personality traits (e.g., timid, anxious, or assertive).\\\",\r\n        \\\"summary\\\" : \\\"최악의 거래\\\"", SendChatType.Success);
-        //TODO : variableList.currentNPC의 itemPrice에 합의요금 업데이트
-        //유저의 bill system에 variableList.itemPrice에 업데이트
     }
 
     public override void Exit()
@@ -29,6 +27,9 @@ public class SuccessState : ChatBaseState
     {
         ConcatReply(gpt_output);
         VariableList.AddEvaluation(_gptResult.evaluation);
+
+        //성공 리액션 보여줌
+        Managers.Chat.UpdatePanel(_gptResult.reaction);
 
         //아이템 팔기 성공 패널 뜬다.
         Managers.Chat.ActivatePanel(_sendChatType);
