@@ -30057,6 +30057,9 @@ MonoBehaviour:
   TalkOrNotPanel: {fileID: 1225610228}
   ChooseItemPanel: {fileID: 830839847}
   ConvoPanel: {fileID: 538708284}
+  ItemSoldPanel: {fileID: 0}
+  YoufailedPanel: {fileID: 0}
+  UnniiEndpoint: {fileID: 0}
   UserText: {fileID: 658069264}
   NPCSpeechBubble: {fileID: 1262570888}
   NPCSpeechText: {fileID: 1428053739}
@@ -49244,7 +49247,6 @@ GameObject:
   - component: {fileID: 1316546852}
   - component: {fileID: 1316546851}
   - component: {fileID: 1316546850}
-  - component: {fileID: 1316546853}
   m_Layer: 5
   m_Name: confirmButton
   m_TagString: Untagged
@@ -49315,31 +49317,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1316546851}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 805719250}
-        m_TargetAssemblyTypeName: ConvoUI, Assembly-CSharp
-        m_MethodName: OnClickSelectItemBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1316546853}
-        m_TargetAssemblyTypeName: TestItem, Assembly-CSharp
-        m_MethodName: OnPriceClick
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 40951170}
-          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_InputField, Unity.TextMeshPro
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1316546851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49378,18 +49356,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316546848}
   m_CullTransparentMesh: 1
---- !u!114 &1316546853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1316546848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b94484f5587d3458a992020bdfa6f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1316972427
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -83828,6 +83794,8 @@ MonoBehaviour:
   itemPrefab: {fileID: 6013066372810641813, guid: bcda031a552b6b0478b608ac95af6834, type: 3}
   gridParent: {fileID: 1348104044580795753}
   choosePricePanel: {fileID: 1753527889}
+  priceInputField: {fileID: 40951170}
+  confirmPriceButton: {fileID: 1316546850}
 --- !u!1 &7065233862752777095
 GameObject:
   m_ObjectHideFlags: 0

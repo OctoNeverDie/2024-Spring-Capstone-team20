@@ -11,7 +11,6 @@ public class ConvoUI : MonoBehaviour
     public GameObject ConvoPanel;
     public GameObject ItemSoldPanel;
     public GameObject YoufailedPanel;
-    public GameObject UnniiEndpoint;
 
     public TMP_InputField UserText;
     public GameObject NPCSpeechBubble;
@@ -74,51 +73,26 @@ public class ConvoUI : MonoBehaviour
     }
 
     #region 물건 사기
-    public void OnClickBuy()
+    public void OnClickBuy()//딜 버튼 누름
     {
         Managers.Chat.CheckTurnSuccess();
         
-        //ServerManager.Instance.GetGPTReply("$buy", SendChatType.Success);
         this.gameObject.SetActive(false);
     }
 
     public void OnEndChat()
     {
         Managers.Chat.Clear();
-        this.gameObject.SetActive(false);
-        UnniiEndpoint.SetActive(true);
+
+        ItemSoldPanel.SetActive(false);
+        YoufailedPanel.SetActive(false);
+        ConvoPanel.GetComponentInChildren<IDeal>().gameObject.SetActive(false);
+        ConvoPanel.SetActive(false);
+
+        Managers.Convo.ConvoFinished();
     }
     #endregion
-    public void OnPriceClick(TMP_InputField inputFieldGO)
-    {
-        ItemInfo _itemInfo = ForItemInfoMockData();
-
-        float inputPrice;
-
-        if (float.TryParse(inputFieldGO.GetComponent<TMPro.TMP_InputField>().text, out inputPrice))
-        {
-            VariableList.InitItem(inputPrice, _itemInfo);
-            //itemPrice.SetActive(false);
-        }
-        else
-        {
-            Debug.LogError("It's not float type");
-        }
-    }
-    private ItemInfo ForItemInfoMockData()
-    {
-        ItemInfo _itemInfo = new ItemInfo();
-
-        _itemInfo.ObjID = 1;
-        _itemInfo.ObjName = "사탕";
-        _itemInfo.ObjInfo = "딸기맛 사탕이다.";
-        _itemInfo.defaultPrice = 5;
-        _itemInfo.expensive = 10;
-        _itemInfo.tooExpensive = 50;
-
-        return _itemInfo;
-    }
-
+  
     public void OnClickTalkToNPCBtn()
     {
 

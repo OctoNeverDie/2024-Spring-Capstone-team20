@@ -67,8 +67,6 @@ public class ChatManager : MonoBehaviour
         else if (chatState == SendChatType.Success)
         {
             OnPanelUpdated?.Invoke(chatState);
-            //TODO : success panel 나옴
-
         }
     }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -11,6 +12,14 @@ public class ChatBargainState : ChatBaseState, IVariableChat
 {
     const int TurnInit = 8;
     private bool lastChance =false;
+    State isState = State.Wait;
+
+    private enum State
+    { 
+        Wait,
+        Succes,
+        Fail
+    }
     private struct GptResult
     {
         public int _turn;
@@ -39,6 +48,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
 
     public override void Exit()
     {
+        UpdateAndActivate();
         UnSubScribeAction();
     }
 
@@ -46,27 +56,34 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     {
         string user_send;
         user_send = MakeAnswer(user_input);
+        
         ServerManager.Instance.GetGPTReply(user_input, _sendChatType);
-        //VariableList.S_GptAnswer = "reaction : 춥고 배고프고 졸려요. persuasion : +1, vendorSuggest: 90, yourSuggest:100";
     }
 
     public void GptOutput(string gpt_output)
     {
         ConcatReply(gpt_output);
 
-        bool isTurnLeft = CheckTurn();
-        if (!isTurnLeft)
-        {
-            Managers.Chat.UpdateTurn(0, _gptResult._npcSuggest, _gptResult._userSuggest);
-        }
+        if(isState != State.Fail)
+            isState = CheckState();
 
-        Managers.Chat.UpdatePanel(_gptResult._npcReaction);
-
-        if (!isTurnLeft)
+        if (isState == State.Fail)
         {
-            Debug.Log($"CheckTrun 이후 : {_gptResult._turn}");
-            Managers.Chat.TransitionToState(SendChatType.Fail);
+            UpdateTurn();
+            Managers.Chat.CheckTurnFail();
         }
+        else if (isState == State.Wait)
+        {
+            UpdateTurn();
+            Managers.Chat.UpdatePanel(_gptResult._npcReaction);
+            return;
+        }
+        else if (isState == State.Succes)
+        {
+            UpdateAndActivate();
+            Managers.Chat.CheckTurnSuccess();
+        }
+        
     }
 
     protected override string MakeAnswer(string user_send = "")
@@ -89,9 +106,17 @@ public class ChatBargainState : ChatBaseState, IVariableChat
             _gptResult._npcReaction = sections[1];
             _gptResult._userSuggest = GetFloat(sections[2]);
             _gptResult._npcSuggest = GetFloat(sections[3]);
-            Debug.Log($"persu 빼기 전 : {_gptResult._turn}");
+            
+            int persuasion = (int)GetFloat(sections[4]);
+
+            if (persuasion >= 20)
+            {
+                isState = State.Fail;
+                return;
+            }
+
             _gptResult._turn += (int)GetFloat(sections[4]);
-            Debug.Log($"persu 뺌: {_gptResult._turn}");
+            
         }
         else if (sections.Length > 1)
         { _gptResult._npcReaction = sections[1]; }
@@ -110,35 +135,43 @@ public class ChatBargainState : ChatBaseState, IVariableChat
 
     }
 
-    private bool CheckTurn()
+    private State CheckState()
     {
         //persuasion 해도 턴이 남았을 때
-        if (_gptResult._turn >=2)
+        if (_gptResult._turn >=1)
         {
+            //받고, 업데이트 했으니 이제 플레이어가 보내야하는 상황의 턴이 나옴
             _gptResult._turn = Math.Max(_gptResult._turn - 1, 0);//턴 하나 빼기
 
-            if (_gptResult._turn == 1)//마지막 찬스
+            if (_gptResult._turn == 1)
             {
                 lastChance = true;
             }
-            if (_gptResult._userSuggest <= _gptResult._npcSuggest)
-            {
-                UpdateAndActivate();
-            }
-            return true;
+
+            return State.Wait;//다음 대화
         }
 
-        //persuation으로 턴이 0이 됐을 때
-        
+        //만약 마지막 턴이었을 때(persuasion 무시됨)vendor랑 npc랑 비교
+        if (lastChance && (_gptResult._userSuggest <= _gptResult._npcSuggest))
+        {
+            //성공
+            lastChance = false;
+            return State.Succes;
+        }
 
-        return false;
+        return State.Fail;
     }
 
-    private void UpdateAndActivate()
+    private void UpdateAndActivate()//마지막으로 갱신됨
+    {
+        UpdateTurn();
+        //최종값 올림
+        VariableList.AddItemPriceSold(_gptResult._npcSuggest);
+    }
+
+    private void UpdateTurn()
     {
         Managers.Chat.UpdateTurn(_gptResult._turn, _gptResult._npcSuggest, _gptResult._userSuggest);
-        VariableList.AddItemPriceSold(_gptResult._npcSuggest);
-        Managers.Chat.ActivatePanel(_sendChatType);
     }
 
     private void SubScribeAction()
