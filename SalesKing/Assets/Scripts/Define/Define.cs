@@ -48,7 +48,8 @@ public class Define
     {
         Office_MyPC,
         Office_Door_Out,
-        City_NPC
+        City_NPC,
+        Office_Secretary
     }
 
 }

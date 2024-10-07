@@ -38,6 +38,10 @@ public class UserInputManager : MonoBehaviour
                         thisNPC.NPCEnterConvo(myPlayer.gameObject);
                         break;
 
+                    case Define.Interactables.Office_Secretary:
+                        Debug.Log("비서한테 말걸기");
+                        break;
+
                     default: break;
                 }
 
