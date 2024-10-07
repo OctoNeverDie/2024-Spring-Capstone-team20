@@ -80,6 +80,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         _gptResult._npcSuggest = npcSuggest !=-1.37f? (float)Math.Round(npcSuggest, 3) : _gptResult._npcSuggest;
         float vendorSuggest = ExtractFloatValue(gpt_output, "vendorSuggest");
         _gptResult._userSuggest = vendorSuggest != -1.37f ? (float)Math.Round(vendorSuggest, 3) : _gptResult._userSuggest;
+        
     }
 
     private bool CheckTurn()
