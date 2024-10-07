@@ -2,8 +2,9 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Resources;
-using TMPro.EditorUtilities;
-using UnityEditor.EditorTools;
+using TMPro;
+//using TMPro.EditorUtilities;
+//using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
