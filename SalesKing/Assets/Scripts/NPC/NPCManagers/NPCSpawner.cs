@@ -11,6 +11,8 @@ public class NPCSpawner : MonoBehaviour
     [SerializeField] int TalkableNPCCount = 20;
     [SerializeField] int WeirdNPCCount = 0;
 
+    private List<Transform> usedSpawnPoints = new List<Transform>();
+
     void Awake()
     {
         LoadNPCPrefab();
@@ -38,8 +40,8 @@ public class NPCSpawner : MonoBehaviour
         }
     }
 
-    
 
+    /*
     private void SpawnNPC(int i)
     {
         Transform npcTransform = Managers.NPC.Move.GetRandomSpawnPoint();
@@ -83,6 +85,64 @@ public class NPCSpawner : MonoBehaviour
             }
         }
 
+    }
+    */
+
+    private void SpawnNPC(int i)
+    {
+        Transform npcTransform = GetUniqueSpawnPoint();
+        GameObject newNPC = Instantiate(NPCPrefab, npcTransform.position, npcTransform.rotation);
+        newNPC.transform.parent = Managers.NPC.NPCHolder.transform;
+        Managers.NPC.NPCGroup.Add(newNPC);
+
+        NPC npcScript = newNPC.GetComponent<NPC>();
+        npcScript.destination = GetUniqueSpawnPoint();
+
+        if (i < TalkableNPCCount)
+        {
+            npcScript.currentTalkable = NPCDefine.Talkable.Able;
+            npcScript.SetTalkable();
+        }
+        else
+        {
+            npcScript.currentTalkable = NPCDefine.Talkable.Not;
+            npcScript.SetTalkable();
+        }
+
+        if (WeirdNPCCount > 0)
+        {
+            int isWeird = Random.Range(0, 2);
+            if (isWeird == 0)
+            {
+                npcScript.currentLook = NPCDefine.LookState.Abnormal;
+                WeirdNPCCount--;
+            }
+            else
+            {
+                if (WeirdNPCCount >= (NPCCount - i))
+                {
+                    npcScript.currentLook = NPCDefine.LookState.Abnormal;
+                    WeirdNPCCount--;
+                }
+                else
+                {
+                    npcScript.currentLook = NPCDefine.LookState.Normal;
+                }
+            }
+        }
+    }
+
+    private Transform GetUniqueSpawnPoint()
+    {
+        Transform spawnPoint;
+        do
+        {
+            spawnPoint = Managers.NPC.Move.GetRandomSpawnPoint();
+        }
+        while (usedSpawnPoints.Contains(spawnPoint));
+
+        usedSpawnPoints.Add(spawnPoint);
+        return spawnPoint;
     }
 
 
