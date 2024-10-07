@@ -51,18 +51,30 @@ public static class VariableList
     private static int _s_currentNpcId;
     // NpcEvaluation 타입을 저장하는 Dictionary를 정의
     public static Dictionary<int, NpcEvaluation> S_NpcEvalDict { get; } = new Dictionary<int, NpcEvaluation>();
-    public static void InitNpcDict(int npcId, string npcName, int npcAge, bool npcSex) 
+    
+    public static void InitNpcDict(int npcId, string npcName, int npcAge, bool npcSex)
     {
-        NpcEvaluation _npcEvaluation = new NpcEvaluation();
+        NpcEvaluation _npcEvaluation = new NpcEvaluation
+        {
+            npcID = npcId,
+            npcName = npcName,
+            npcAge = npcAge,
+            npcSex = npcSex,
+            item = string.Empty,
+            price = 0.0f,
+            npcEvaluation = string.Empty
+        };
 
         _s_currentNpcId = npcId;
-        _npcEvaluation.npcID = _s_currentNpcId;
-;
-        _npcEvaluation.npcName = npcName;
-        _npcEvaluation.npcAge = npcAge;
-        _npcEvaluation.npcSex = npcSex;
 
-        S_NpcEvalDict.Add(_s_currentNpcId, _npcEvaluation);
+        if (S_NpcEvalDict.ContainsKey(_s_currentNpcId))
+        {
+            S_NpcEvalDict[_s_currentNpcId] = _npcEvaluation;
+        }
+        else
+        {
+            S_NpcEvalDict.Add(_s_currentNpcId, _npcEvaluation);
+        }
     }
 
     public static void AddEvaluation(string npcEvaluation) 
