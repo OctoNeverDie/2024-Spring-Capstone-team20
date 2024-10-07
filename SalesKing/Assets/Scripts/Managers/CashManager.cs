@@ -7,7 +7,7 @@ public class CashManager : MonoBehaviour
     // 총 현금량
     public int TotalCash { get; private set; }
 
-    private void Awake()
+    private void Start()
     {
         // PlayerPrefs에서 현금 로드 (현재는 주석 처리)
         //LoadCash();
