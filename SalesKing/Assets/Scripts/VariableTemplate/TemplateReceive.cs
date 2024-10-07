@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using static Define;
 
-public class TemplateReceive : VariableUpdate
+public class TemplateReceive : MonoBehaviour
 {
     SendChatType nextChatType = SendChatType.None;
     public void GetGptAnswer(string resultData, string sendTypeData)
