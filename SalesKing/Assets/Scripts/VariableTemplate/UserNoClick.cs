@@ -6,6 +6,7 @@ public class UserNoClick : MonoBehaviour
 {
     public void OnClick()
     {
-        Managers.Chat.TransitionToState(Define.SendChatType.Fail);
+        Managers.Chat.CheckTurnEndpoint(Define.EndType.Leave);
+        Managers.Chat.TransitionToState(Define.SendChatType.Endpoint);
     }
 }

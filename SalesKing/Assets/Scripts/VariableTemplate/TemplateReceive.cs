@@ -45,9 +45,6 @@ public class TemplateReceive : MonoBehaviour
                 VariableList.S_GptAnswer = resultData;
                 return false;
 
-            case SendChatType.Success:
-
-
             default:
                 return false;
         }

@@ -70,7 +70,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         if (isState == State.Fail)
         {
             UpdateTurn();
-            Managers.Chat.CheckTurnFail();
+            Managers.Chat.CheckTurnEndpoint(EndType.Fail);
         }
         else if (isState == State.Wait)
         {
@@ -81,14 +81,14 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         else if (isState == State.Succes)
         {
             UpdateAndActivate();
-            Managers.Chat.CheckTurnSuccess();
+            Managers.Chat.CheckTurnEndpoint(EndType.Success);
         }
         
     }
 
     protected override string MakeAnswer(string user_send = "")
     {
-        string priceOpinion = Managers.Chat.ratePrice(_gptResult._userSuggest);
+        string priceOpinion = Managers.Chat.RatePrice(_gptResult._userSuggest);
         string user_template = user_send + $"\n vendor Suggest: {_gptResult._userSuggest}"
                                 + $" npc Suggest: {_gptResult._npcSuggest} price Opinion: {priceOpinion}";
         if (lastChance)

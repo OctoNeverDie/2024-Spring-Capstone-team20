@@ -43,7 +43,7 @@ public class ConvoUI : MonoBehaviour
     #endregion
 
 
-    public void ShowPanel(Define.SendChatType sendChatType)
+    public void ShowPanel(Define.SendChatType sendChatType, Define.EndType endType)
     {
         if (sendChatType == Define.SendChatType.ItemInit)
         {
@@ -54,15 +54,13 @@ public class ConvoUI : MonoBehaviour
         {
             ConvoPanel.GetComponentInChildren<IDeal>().gameObject.SetActive(true);
         }
-        else if (sendChatType == Define.SendChatType.Success)
+        else if (sendChatType == Define.SendChatType.Endpoint)
         {
-            ItemSoldPanel.SetActive(true);
+            if (endType == Define.EndType.Success)
+                ItemSoldPanel.SetActive(true);
+            else if (endType == Define.EndType.Fail || endType == Define.EndType.Leave)
+                YoufailedPanel.SetActive(true);
         }
-        else if (sendChatType == Define.SendChatType.Fail)
-        { 
-            YoufailedPanel.SetActive(true);
-        }
-
     }
 
     public void OnClickSelectItemBtn()
@@ -75,14 +73,14 @@ public class ConvoUI : MonoBehaviour
     #region 물건 사기
     public void OnClickBuy()//딜 버튼 누름
     {
-        Managers.Chat.CheckTurnSuccess();
+        Managers.Chat.CheckTurnEndpoint(Define.EndType.Success);
         
         this.gameObject.SetActive(false);
     }
 
     public void OnEndChat()
     {
-        Managers.Chat.Clear();
+        Managers.Chat.CheckTurnEndpoint(Define.EndType.Leave);
 
         ItemSoldPanel.SetActive(false);
         YoufailedPanel.SetActive(false);

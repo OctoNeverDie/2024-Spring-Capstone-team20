@@ -7,7 +7,7 @@ public class UserDealClick : MonoBehaviour
 {
     public void OnClickYes()
     {
-        ServerManager.Instance.GetGPTReply("$buy", SendChatType.Success);
+        ServerManager.Instance.GetGPTReply("$buy", SendChatType.Endpoint);
         //Managers.Chat.TestReply("Success");
         this.gameObject.SetActive(false);
     }
