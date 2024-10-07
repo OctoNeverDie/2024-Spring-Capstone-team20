@@ -25,11 +25,9 @@ public class NpcInitState : ChatBaseState
 
         _sendChatType = SendChatType.NpcInit;
 
-        Debug.Log($"userSend : {_userSend}");
-        //ServerManager.Instance.GetGPTReply(_userSend, _sendChatType);
+        ServerManager.Instance.GetGPTReply(_userSend, _sendChatType);
         
-        Managers.Chat.TestReply("ChatSale");
-        
+        //Managers.Chat.TestReply("ChatSale");
     }
 
     protected override string MakeAnswer(string user_send = "")
