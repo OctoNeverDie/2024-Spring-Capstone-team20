@@ -48,6 +48,7 @@ public class ConvoUI : MonoBehaviour
     {
         ChooseItemPanel.SetActive(false);
         ConvoPanel.SetActive(true);
+        ConvoPanel.GetComponentInChildren<Button>()
     }
 
     public void OnClickTalkToNPCBtn()

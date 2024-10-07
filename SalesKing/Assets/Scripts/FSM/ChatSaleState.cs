@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using static Define;
+using static IVariableChat;
 
 public class ChatSaleState : ChatBaseState, IVariableChat
 {
@@ -38,7 +39,9 @@ public class ChatSaleState : ChatBaseState, IVariableChat
 
     public void GptOutput(string gpt_output)
     {
-        _gptResult = CheckYesOrNo(gpt_output);
+        CheckYesOrNo(gpt_output);
+        ConcatReply(gpt_output);
+
         Managers.Chat.UpdatePanel(_gptResult._reaction);
         //Show reaction to User
         //Update Log
@@ -61,11 +64,10 @@ public class ChatSaleState : ChatBaseState, IVariableChat
             Managers.Chat.TestReply("Fail");
         }
     }
-    private GptResult CheckYesOrNo(string gptAnswer)
+    private void CheckYesOrNo(string gptAnswer)
     {
-        GptResult result = new GptResult();
-        result._yesOrNo = null;
-        result._yesIsTrue = false;
+        _gptResult._yesOrNo = null;
+        _gptResult._yesIsTrue = false;
 
         string[] markers = { "yes", "no" };
         /*        
@@ -78,30 +80,30 @@ public class ChatSaleState : ChatBaseState, IVariableChat
             int index = gptAnswer.IndexOf(marker, StringComparison.OrdinalIgnoreCase);
             if (index >= 0)
             {
-                result._yesOrNo = gptAnswer.Substring(index, marker.Length);
-                result._yesIsTrue = marker.Equals("yes", StringComparison.OrdinalIgnoreCase);
+                _gptResult._yesOrNo = gptAnswer.Substring(index, marker.Length);
+                _gptResult._yesIsTrue = marker.Equals("yes", StringComparison.OrdinalIgnoreCase);
                 break;
             }
-
-
         }
+    }
 
+    private void ConcatReply(string gptAnswer)
+    {
         string[] sections = gptAnswer.Split(new string[] { "ThingToBuy", "yourReply", "summary" }, StringSplitOptions.None);
 
         if (sections.Length > 3)
         {
-            result._thingToBuy = sections[1];
-            result._reaction = sections[2];
-            result._evaluation = sections[3];
+            _gptResult._thingToBuy = sections[1];
+            _gptResult._reaction = sections[2];
+            _gptResult._evaluation = sections[3];
+            Debug.Log($"{_gptResult._thingToBuy}+{_gptResult._reaction}+{_gptResult._evaluation}");
         }
 
         else if (sections.Length > 1)
         {
-            Debug.Log($"reply : {sections[1]}, count");
-            result._reaction = sections[1];//later : Trim()
+            Debug.Log($"reply : {sections[1]}");
+            _gptResult._reaction = sections[1];//later : Trim()
         }
-
-        return result;
     }
 
     private void SubScribeAction()
