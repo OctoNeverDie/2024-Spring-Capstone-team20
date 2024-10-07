@@ -89,36 +89,7 @@ public class ConvoUI : MonoBehaviour
         UnniiEndpoint.SetActive(true);
     }
     #endregion
-    public void OnPriceClick(TMP_InputField inputFieldGO)
-    {
-        ItemInfo _itemInfo = ForItemInfoMockData();
-
-        float inputPrice;
-
-        if (float.TryParse(inputFieldGO.GetComponent<TMPro.TMP_InputField>().text, out inputPrice))
-        {
-            VariableList.InitItem(inputPrice, _itemInfo);
-            //itemPrice.SetActive(false);
-        }
-        else
-        {
-            Debug.LogError("It's not float type");
-        }
-    }
-    private ItemInfo ForItemInfoMockData()
-    {
-        ItemInfo _itemInfo = new ItemInfo();
-
-        _itemInfo.ObjID = 1;
-        _itemInfo.ObjName = "사탕";
-        _itemInfo.ObjInfo = "딸기맛 사탕이다.";
-        _itemInfo.defaultPrice = 5;
-        _itemInfo.expensive = 10;
-        _itemInfo.tooExpensive = 50;
-
-        return _itemInfo;
-    }
-
+  
     public void OnClickTalkToNPCBtn()
     {
 

@@ -6,18 +6,25 @@ using UnityEngine.UI;
 
 public class InventorySpawn : MonoBehaviour
 {
-    [SerializeField] private GameObject itemPrefab;  // Prefab for the UI item display
-    [SerializeField] private Transform gridParent;   // Parent transform for the UI items
-    [SerializeField] private GameObject choosePricePanel;
+    [SerializeField] private GameObject itemPrefab;  // UI 아이템 프리팹
+    [SerializeField] private Transform gridParent;   // UI 아이템의 부모 Transform
+    [SerializeField] private GameObject choosePricePanel; // 가격 입력 패널
+    [SerializeField] private TMP_InputField priceInputField; // 가격 입력 필드
+    [SerializeField] private Button confirmPriceButton; // 가격 확인 버튼
+
+    private ItemInfo selectedItem; // 선택된 아이템 정보
 
     private void Start()
     {
         SpawnInventoryItems();
+
+        // 가격 확인 버튼 클릭 이벤트 연결
+        confirmPriceButton.onClick.AddListener(ConfirmPrice);
     }
 
     void SpawnInventoryItems()
     {
-        // Get the inventory from the InventoryManager
+        // 인벤토리에서 아이템 정보 가져오기
         Dictionary<int, (ItemInfo itemInfo, int quantity)> inventory = Managers.Inven.GetInventory();
 
         foreach (var entry in inventory)
@@ -25,23 +32,47 @@ public class InventorySpawn : MonoBehaviour
             ItemInfo item = entry.Value.itemInfo;
             int quantity = entry.Value.quantity;
 
-            // Instantiate the UI prefab for each item
+            // UI 프리팹 인스턴스화
             GameObject newItem = Instantiate(itemPrefab, gridParent);
 
-            // Set item name, price, and quantity in the UI
+            // 아이템 이름, 가격 및 수량 설정
             newItem.transform.Find("ItemName").GetComponent<TextMeshProUGUI>().text = item.ObjName;
             newItem.transform.Find("PriceText").GetComponent<TextMeshProUGUI>().text = item.defaultPrice.ToString() + "$";
             newItem.transform.Find("QuantityText").GetComponent<TextMeshProUGUI>().text = "수량:" + quantity;
 
-            // If needed, add functionality to interact with the inventory items (e.g., use, sell, etc.)
+            // 아이템 사용 버튼 설정
             Button itemButton = newItem.GetComponent<Button>();
-            itemButton.onClick.AddListener(() => UseItem(item));  // Example usage interaction
+            itemButton.onClick.AddListener(() => UseItem(item));  // 아이템 사용
         }
     }
 
-    // Example method for using an item
+    // 아이템 사용 메서드
     void UseItem(ItemInfo item)
     {
-        choosePricePanel.SetActive(true); 
+        selectedItem = item; // 선택된 아이템 정보 저장
+        choosePricePanel.SetActive(true); // 가격 입력 패널 활성화
+        priceInputField.text = ""; // 가격 입력 필드 초기화
     }
+
+    // 가격 확인 메서드
+    public void ConfirmPrice()
+    {
+        OnPriceClick(priceInputField, selectedItem); // PriceHandler의 메서드 호출
+    }
+
+    public void OnPriceClick(TMP_InputField inputFieldGO, ItemInfo selectedItem)
+    {
+        float inputPrice;
+
+        if (float.TryParse(inputFieldGO.text, out inputPrice))
+        {
+            VariableList.InitItem(inputPrice, selectedItem);
+            // 여기에 필요한 로직 추가
+        }
+        else
+        {
+            Debug.LogError("It's not float type");
+        }
+    }
+
 }
