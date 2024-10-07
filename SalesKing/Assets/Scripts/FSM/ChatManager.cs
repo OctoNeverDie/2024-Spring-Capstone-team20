@@ -4,25 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static Define;
+using static ServerBase;
 
 public class ChatManager : MonoBehaviour
 {
-    /*[SerializeField] private GameObject _chatPanel;//contains : logpanel, gptpanel, leavebutton, submitbutton, inputbutton
-    [SerializeField] private GameObject _confirmPanel;
-    [SerializeField] private GameObject _endPanel;
-    [SerializeField] private GameObject _itemPanel;
-    */
-
     private ChatStateMachine _chatStateMachine;
-    public static event Action<SendChatType> OnPanelUpdated;
+    public static event Action<SendChatType, EndType> OnPanelUpdated;
     public void Init()
     {
-        /*_confirmPanel.SetActive(false);
-        _endPanel.SetActive(false);
-        _chatPanel.SetActive(false);
-        _itemPanel.SetActive(false);
-        */
-
         _chatStateMachine = new ChatStateMachine();
         _chatStateMachine.SetState(new NpcInitState());
     }
@@ -32,11 +21,28 @@ public class ChatManager : MonoBehaviour
         _chatStateMachine?.UpdateState();
     }
 
+
     public void ActivatePanel(SendChatType chatState)
     {
-        if (chatState == SendChatType.Fail)
+        if (chatState == SendChatType.ChatSale)
+        {
+            //_chatPanel.SetActive(true);
+        }
+        else if (chatState == (SendChatType.ItemInit))
+        {
+            OnPanelUpdated?.Invoke(chatState, _endType);
+            //_itemPanel.SetActive(true);
+        }
+        else if (chatState == SendChatType.ChatBargain)
+        {
+            OnPanelUpdated?.Invoke(chatState, _endType);
+            //TODO : 2초 뒤에 흥정시작~! panel 나오고 점점 fade out
+            //위에 거 이미 했으면, 한 1초 뒤에 Deal panel 나오게.
+        }
+        else if (chatState == SendChatType.Endpoint)
         {
             /*
+             * fail
             if (!_confirmPanel.activeSelf && !previousStateIfDiff)
             {
                 //TODO : 1초 뒤 생성
@@ -48,32 +54,13 @@ public class ChatManager : MonoBehaviour
                 _chatPanel.SetActive(false);
                 _endPanel.SetActive(true);
             }*/
-        }
-        else if (chatState == SendChatType.ChatSale)
-        {
-            //_chatPanel.SetActive(true);
-        }
-        else if (chatState == (SendChatType.ItemInit))
-        {
-            OnPanelUpdated?.Invoke(chatState);
-            //_itemPanel.SetActive(true);
-        }
-        else if (chatState == SendChatType.ChatBargain)
-        {
-            OnPanelUpdated?.Invoke(chatState);
-            //TODO : 2초 뒤에 흥정시작~! panel 나오고 점점 fade out
-            //위에 거 이미 했으면, 한 1초 뒤에 Deal panel 나오게.
-        }
-        else if (chatState == SendChatType.Success)
-        {
-            OnPanelUpdated?.Invoke(chatState);
+            OnPanelUpdated?.Invoke(chatState, _endType);
         }
     }
 
     public void UpdatePanel(string gptOutput)
     {
-        //TODO : Log panel, gpt panel update
-        //TODO : Turn 수 update
+        //
     }
 
     private int _turn;
@@ -89,20 +76,18 @@ public class ChatManager : MonoBehaviour
         //TODO : Panel에 남은 turn 수 출력, 서로 제시한 거 출력
     }
 
-    public void CheckTurnFail()
-    {
-        if (_turn <= 0)
-            TransitionToState(SendChatType.Fail);
-    }
+    public EndType _endType { get; private set; }
 
-    public void CheckTurnSuccess()
+    public void CheckTurnEndpoint(EndType endType)
     {
-        TransitionToState(SendChatType.Success);
+        _endType = endType;
+        TransitionToState(SendChatType.Endpoint);
     }
 
     public void Clear()
     {
         VariableList.ClearStaticData();
+        _endType = EndType.None;
         _chatStateMachine.EndStateMachine();
     }
 
@@ -111,7 +96,7 @@ public class ChatManager : MonoBehaviour
         _chatStateMachine.TransitionToState(sendChatType);
     }
 
-    public string ratePrice(float userSuggest, ItemInfo itemInfo=null)
+    public string RatePrice(float userSuggest, ItemInfo itemInfo=null)
     {
         if (itemInfo == null)
         {

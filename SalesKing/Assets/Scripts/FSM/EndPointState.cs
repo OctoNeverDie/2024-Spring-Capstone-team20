@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
-public class SuccessState : ChatBaseState
+public class EndPointState : ChatBaseState
 {
     public override void Enter()
     {
-        _sendChatType = Define.SendChatType.Success;
+        _sendChatType = Define.SendChatType.Endpoint;
 
         VariableList.OnVariableGptUpdated -= GptOutput;
         VariableList.OnVariableGptUpdated += GptOutput;
@@ -28,10 +28,10 @@ public class SuccessState : ChatBaseState
         ConcatReply(gpt_output);
         VariableList.AddEvaluation(_gptResult.evaluation);
 
-        //성공 리액션 보여줌
+        //성공/실패 리액션 보여줌
         Managers.Chat.UpdatePanel(_gptResult.reaction);
-
-        //아이템 팔기 성공 패널 뜬다.
+        
+        //아이템 팔기 성공/실패 패널 뜬다.
         Managers.Chat.ActivatePanel(_sendChatType);
     }
 

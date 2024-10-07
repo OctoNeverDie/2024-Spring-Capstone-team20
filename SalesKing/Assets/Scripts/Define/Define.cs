@@ -38,10 +38,16 @@ public class Define
         ChatSale,
         ItemInit,
         ChatBargain,
-        Leave,
+        Endpoint,
+        MaxCnt
+    }
+
+    public enum EndType
+    {
+        None,
         Fail,
         Success,
-        MaxCnt
+        Leave
     }
 
     public enum Interactables
