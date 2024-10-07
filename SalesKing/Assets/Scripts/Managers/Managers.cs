@@ -66,6 +66,8 @@ public class Managers : MonoBehaviour
 
     UserInputManager _input;
 
+    TransitionManager _trans;
+
     public static SceneModeManager Scene { get { return Instance._scene; } }
     public static NPCManager NPC { get { return Instance._npc; } }
     public static UIManager UI { get { return Instance._ui; } }
@@ -80,6 +82,7 @@ public class Managers : MonoBehaviour
     public static MissionManager Mission { get { return Instance._mission; } }
     public static ChatManager Chat { get { return Instance._chat; } }
     public static UserInputManager Input { get { return Instance._input; } }
+    public static TransitionManager Trans { get { return Instance._trans; } }
 
 
     void Awake()
@@ -98,6 +101,10 @@ public class Managers : MonoBehaviour
         if (instance._input == null)
         {
             instance._input = ManagersGO.AddComponent<UserInputManager>();
+        }
+        if (instance._trans == null)
+        {
+            instance._trans = ManagersGO.AddComponent<TransitionManager>();
         }
     }
 
