@@ -32,7 +32,7 @@ public class ChatManager : MonoBehaviour
         _chatStateMachine?.UpdateState();
     }
 
-    public void ActivatePanel(SendChatType chatState, bool previousStateIfDiff=false)
+    public void ActivatePanel(SendChatType chatState)
     {
         if (chatState == SendChatType.Fail)
         {
@@ -53,18 +53,20 @@ public class ChatManager : MonoBehaviour
         {
             //_chatPanel.SetActive(true);
         }
-        else if (chatState == SendChatType.ItemInit)
+        else if (chatState == (SendChatType.ItemInit)
         {
             OnPanelUpdated?.Invoke(chatState);
             //_itemPanel.SetActive(true);
         }
         else if (chatState == SendChatType.ChatBargain)
         {
+            OnPanelUpdated?.Invoke(chatState);
             //TODO : 2초 뒤에 흥정시작~! panel 나오고 점점 fade out
             //위에 거 이미 했으면, 한 1초 뒤에 Deal panel 나오게.
         }
         else if (chatState == SendChatType.Success)
-        { 
+        {
+            OnPanelUpdated?.Invoke(chatState);
             //TODO : success panel 나옴
 
         }
@@ -95,6 +97,17 @@ public class ChatManager : MonoBehaviour
             TransitionToState(SendChatType.Fail);
     }
 
+    public void CheckTurnSuccess()
+    {
+        TransitionToState(SendChatType.Success);
+    }
+
+    public void Clear()
+    {
+        VariableList.ClearStaticData();
+        _chatStateMachine.EndStateMachine();
+    }
+
     public void TransitionToState(SendChatType sendChatType)
     {
         _chatStateMachine.TransitionToState(sendChatType);
@@ -110,7 +123,7 @@ public class ChatManager : MonoBehaviour
         string expensiveRate = "";
 
         if (userSuggest < itemInfo.defaultPrice)
-            expensiveRate = "Very Cheap";
+            expensiveRate = "Affordable";
         else if (userSuggest < itemInfo.expensive)
             expensiveRate = "Soso, Not that Cheap, not that Expensive";
         else if (userSuggest < itemInfo.tooExpensive)
@@ -119,19 +132,5 @@ public class ChatManager : MonoBehaviour
             expensiveRate = "Too Expensive, you are angry about the price.";
 
         return expensiveRate;
-    }
-
-    //TODO : 나중에 지울 것.
-    public void TestReply(String stateType, String input = "")
-    {
-        if (Enum.TryParse(stateType, out SendChatType sendChatType))
-        {
-            Debug.Log($"next stateType : {stateType}, input : {input}");
-            _chatStateMachine.TransitionToState(sendChatType);
-        }
-        else
-        {
-            Debug.Log("Failed to parse enum");
-        }
     }
 }

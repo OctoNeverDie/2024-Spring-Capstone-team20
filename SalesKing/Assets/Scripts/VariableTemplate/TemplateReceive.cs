@@ -45,6 +45,9 @@ public class TemplateReceive : VariableUpdate
                 VariableList.S_GptAnswer = resultData;
                 return false;
 
+            case SendChatType.Success:
+
+
             default:
                 return false;
         }

@@ -14,7 +14,7 @@ public class ChatSaleState : ChatBaseState, IVariableChat
         public string _evaluation;
     }
 
-    GptResult _gptResult;
+    GptResult _gptResult = new GptResult();
 
     public override void Enter()
     {
@@ -57,11 +57,13 @@ public class ChatSaleState : ChatBaseState, IVariableChat
         }
         else if (_gptResult._yesIsTrue)
         {
-            Managers.Chat.TestReply("ItemInit");
+            Managers.Chat.TransitionToState(SendChatType.ItemInit);
+            //Managers.Chat.TestReply("ItemInit");
         }
         else if (!_gptResult._yesIsTrue)
         {
-            Managers.Chat.TestReply("Fail");
+            Managers.Chat.TransitionToState(SendChatType.Fail);
+            //Managers.Chat.TestReply("Fail");
         }
     }
     private void CheckYesOrNo(string gptAnswer)

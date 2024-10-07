@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Windows;
 using static Define;
@@ -9,6 +10,7 @@ using static IVariableChat;
 public class ChatBargainState : ChatBaseState, IVariableChat
 {
     const int TurnInit = 8;
+    private bool lastChance =false;
     private struct GptResult
     {
         public int _turn;
@@ -17,7 +19,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         public float _npcSuggest;
     }
 
-    GptResult _gptResult;
+    GptResult _gptResult = new GptResult();
 
     public override void Enter()
     {
@@ -38,12 +40,12 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     public override void Exit()
     {
         UnSubScribeAction();
-        //TODO : send evaluation needed! and save evaluation
     }
 
     public void UserInput(string user_input)
     {
-        string user_send = MakeAnswer(user_input);
+        string user_send;
+        user_send = MakeAnswer(user_input);
         ServerManager.Instance.GetGPTReply(user_input, _sendChatType);
         //VariableList.S_GptAnswer = "reaction : 춥고 배고프고 졸려요. persuasion : +1, vendorSuggest: 90, yourSuggest:100";
     }
@@ -72,6 +74,9 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         string priceOpinion = Managers.Chat.ratePrice(_gptResult._userSuggest);
         string user_template = user_send + $"\n vendor Suggest: {_gptResult._userSuggest}"
                                 + $" npc Suggest: {_gptResult._npcSuggest} price Opinion: {priceOpinion}";
+        if (lastChance)
+            user_template = "$" + user_template;
+
         return user_template;
     }
 
@@ -107,19 +112,25 @@ public class ChatBargainState : ChatBaseState, IVariableChat
 
     private bool CheckTurn()
     {
-        Debug.Log($"CheckTurn 전 : {_gptResult._turn}");
-
-        if (_gptResult._turn > 0 || (_gptResult._turn == 0 && _gptResult._userSuggest <= _gptResult._npcSuggest))
+        //persuasion 해도 턴이 남았을 때
+        if (_gptResult._turn >=2)
         {
-            _gptResult._turn = Math.Max(_gptResult._turn - 1, 0);
-            Debug.Log($"CheckTurn 후 : {_gptResult._turn}");
+            _gptResult._turn = Math.Max(_gptResult._turn - 1, 0);//턴 하나 빼기
 
+            if (_gptResult._turn == 1)//마지막 찬스
+            {
+                lastChance = true;
+            }
             if (_gptResult._userSuggest <= _gptResult._npcSuggest)
             {
                 UpdateAndActivate();
             }
             return true;
         }
+
+        //persuation으로 턴이 0이 됐을 때
+        
+
         return false;
     }
 
@@ -142,47 +153,5 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     {
         VariableList.OnVariableUserUpdated -= UserInput;
         VariableList.OnVariableGptUpdated -= GptOutput;
-    }
-
-    private string ExtractStringValue(string input, string tag)
-    {
-        string[] sections = input.Split(tag, StringSplitOptions.None);
-
-        if (sections.Length > 1)
-        {
-            string midString = sections[1];//later : Trim()
-            Debug.Log($"input : {input}, groups : {midString}");
-            return midString;
-        }
-
-        string pattern = $@"{tag}\s*:\s*(.*?)(,|$|\r|\n)";
-        Match match = Regex.Match(input, pattern);
-        if (match.Success)
-        {
-            return match.Groups[1].Value.Trim();
-        }
-        return "";
-    }
-    private float ExtractFloatValue(string input, string tag)
-    {
-        string[] sections = input.Split(tag, StringSplitOptions.None);
-
-        if (sections.Length > 1)
-        {
-            string midString = sections[1];//later : Trim()
-            Debug.Log($"input : {input}, groups : {midString}");
-            return float.Parse(midString);
-        }
-        /*string pattern = $@"{tag}\s*:\s*(-?\d+(\.\d+)?)";
-        
-        Match match = Regex.Match(input, pattern);
-
-        Debug.Log($"input : {input}, groups : {match.Groups[1].Value}");
-        if (match.Success)
-        {
-            return float.Parse(match.Groups[1].Value);
-        }
-        */
-        return -1.37f;
     }
 }
