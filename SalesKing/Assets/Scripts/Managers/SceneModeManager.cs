@@ -34,8 +34,6 @@ public class SceneModeManager : MonoBehaviour
     {
         Managers.Instance.AddPlayerManager();
         Managers.Instance.AddOfficeManager();
-        Managers.Instance.AddCashManager();
-        Managers.Instance.AddInventoryManager();
     }
 
     private void Awake_CityScene()
@@ -47,6 +45,8 @@ public class SceneModeManager : MonoBehaviour
         Managers.Instance.AddCameraManager();
         Managers.Instance.AddChatManager();
         Managers.Instance.AddConvoManager();
+        Managers.Instance.AddCashManager();
+        Managers.Instance.AddInventoryManager();
     }
 
     public void LoadSceneByName(string name)
