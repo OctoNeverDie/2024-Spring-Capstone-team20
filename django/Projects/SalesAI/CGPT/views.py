@@ -63,19 +63,11 @@ def update_history(prompt, request):
     return chat_history
 # endregion
 
-def check_needEval(request):
-    if request.startswith('$'):
-        return True
-    return False
-
-
 def get_completion(input, sendType):
     if(sendType == "ChatSale"): 
         system_message_content = read_system_message('CGPT/decide_system.txt')
-    elif(sendType in ["ChatBargain", "Success", "Fail"]):
+    elif(sendType in ["ChatBargain", "EndPoint"]):
         system_message_content = read_system_message('CGPT/bargain_system.txt')
-    elif(sendType == "Leave"):
-        system_message_content = read_system_message('CGPT/evaluation_system.txt')
 
     query = client.chat.completions.create(
         model="gpt-4o-mini",
@@ -116,15 +108,8 @@ def query_view(request):
                     request.session['chat_history'].append({"role": "assistant", "content": response})
                     return JsonResponse({'reply': response})
 
-            elif sendType == "Leave" :
-                response = get_completion("$start", sendType)
-                clear_everything(request)
-                return JsonResponse({'reply': response})
-            
-            elif sendType in ["Fail", "Success"] :
-                response = "@nothing"
-                if(check_needEval(prompt)):
-                    response = get_completion(prompt ,sendType)
+            elif sendType == "EndPoint" :#prompt : $buy, $reject, $leave
+                response = get_completion(prompt ,sendType)
                 clear_everything(request)
                 return JsonResponse({'reply': response})
 
