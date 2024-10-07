@@ -34,7 +34,7 @@ public class ServerManager : ServerBase
 
     public void GetGPTReply(string userInput, SendChatType sendChatTypeFrom)
     {
-        this.sendChatType = sendChatTypeFrom;
+        //this.sendChatType = sendChatTypeFrom;
         this._userInput = userInput;
 
         StartCoroutine(GetGPTCo());

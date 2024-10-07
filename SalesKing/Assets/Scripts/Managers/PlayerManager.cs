@@ -7,9 +7,10 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] GameObject PlayerPrefab;
     public GameObject MyPlayer;
 
-    void Start()
+    void Awake()
     {
         SpawnPlayer();
+        //Managers.Input.myPlayer = MyPlayer.GetComponent<Player>();
     }
 
     private void SpawnPlayer()

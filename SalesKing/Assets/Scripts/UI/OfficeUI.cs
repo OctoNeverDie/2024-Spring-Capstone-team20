@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening; // DOTween 사용
 using TMPro;
+using DG.Tweening; // DOTween 사용
 
 public class OfficeUI : MonoBehaviour
 {
     public GameObject MainPanel;
     public GameObject WelcomePanel;
     public GameObject ShoppingPanel;
-    public Image FadeInFadeOut;
 
-    public float FadeTime = 0.2f;
+    Player myPlayer;
 
     void Start()
     {
         WelcomePanel.SetActive(true);
+        myPlayer = Managers.Player.MyPlayer.GetComponent<Player>();
     }
 
     public void OnClickWelcomeOK()
@@ -35,39 +35,34 @@ public class OfficeUI : MonoBehaviour
 
     public void OnClickMyPC()
     {
-        DOVirtual.DelayedCall(FadeTime, () => ShoppingPanel.SetActive(true));
+        Debug.Log("OnClickMyPC called");
+        if (myPlayer == null)
+        {
+            Debug.LogError("myPlayer is null");
+            return;
+        }
+
+        if (ShoppingPanel == null)
+        {
+            Debug.LogError("ShoppingPanel is null");
+            return;
+        }
+        DOVirtual.DelayedCall(myPlayer.ui.FadeTime, () => ShoppingPanel.SetActive(true));
         Managers.Office.myPlayer.FreezeAndUnFreezePlayer(true);
         //Managers.Office.SwitchToMyPCCam();
-        StartFadeInFadeOut(0.5f);
+        myPlayer.ui.StartFadeInFadeOut(0.5f);
+        //myPlayer.isRaycast = false;
     }
 
     public void OnClickExitMyPC()
     {
-        DOVirtual.DelayedCall(FadeTime, () => ShoppingPanel.SetActive(false));
+        DOVirtual.DelayedCall(myPlayer.ui.FadeTime, () => ShoppingPanel.SetActive(false));
         Managers.Office.myPlayer.FreezeAndUnFreezePlayer(false);
         //Managers.Office.SwitchToFirstPersonCam();
-        StartFadeInFadeOut(0.5f);
+        myPlayer.ui.StartFadeInFadeOut(0.5f);
+        //myPlayer.isRaycast = true;
     }
 
-    public void StartFadeInFadeOut(float duration)
-    {
-        FadeInFadeOut.gameObject.SetActive(true);
-
-        Sequence fadeSequence = DOTween.Sequence();
-        // 페이드 인: 알파값을 0에서 1로 (0.2초)
-        fadeSequence.Append(FadeInFadeOut.DOFade(1, FadeTime));
-        // 유지 시간 (duration 동안 대기)
-        fadeSequence.AppendInterval(duration);
-        // 페이드 아웃: 알파값을 1에서 0으로 (0.2초)
-        fadeSequence.Append(FadeInFadeOut.DOFade(0, FadeTime));
-
-        fadeSequence.OnComplete(() => {
-            FadeInFadeOut.gameObject.SetActive(false);
-            FadeInFadeOut.color = new Color(FadeInFadeOut.color.r, FadeInFadeOut.color.g, FadeInFadeOut.color.b, 0f);
-        });
-
-        // 시퀀스 실행
-        fadeSequence.Play();
-    }
+    
 
 }

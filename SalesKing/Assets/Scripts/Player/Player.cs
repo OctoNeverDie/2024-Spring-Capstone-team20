@@ -113,6 +113,7 @@ public class Player : MonoBehaviour
         move.isMovementLocked = isFreeze;
         cam.isCameraLocked = isFreeze;
         isRaycast = !isFreeze;
+        ui.CrosshairTriggersButton(!isFreeze);
     }
 
     public void PlayerEnterConvo(GameObject npc)

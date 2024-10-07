@@ -5,7 +5,6 @@ using UnityEngine;
 public class UserInputManager : MonoBehaviour
 {
     Player myPlayer;
-
     void Start()
     {
         myPlayer = Managers.Player.MyPlayer.GetComponent<Player>();
@@ -15,13 +14,15 @@ public class UserInputManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Interaction"))
         {
-            myPlayer = Managers.Player.MyPlayer.GetComponent<Player>();
             if (myPlayer.ui.RaycastHitObj.activeSelf)
             {
                 switch (myPlayer.ui.curInteractable)
                 {
                     case Define.Interactables.Office_MyPC: Managers.Office.officeUI.OnClickMyPC(); break;
-                    case Define.Interactables.Office_Door_Out: Managers.Scene.LoadSceneByName("CityMap"); break;
+                    case Define.Interactables.Office_Door_Out: 
+                        Managers.Scene.LoadSceneByName("CityMap");
+                        myPlayer.ui.StartFadeInFadeOut(3f);
+                        break;
 
                     case Define.Interactables.City_NPC:
                         NPC thisNPC = myPlayer.RaycastCollider.GetComponent<NPC>();
