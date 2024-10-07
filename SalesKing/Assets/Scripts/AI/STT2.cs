@@ -1,7 +1,12 @@
+using System;
 using System.Collections;
+using System.IO;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 using TMPro;
+using OpenAI_API;
+using UnityEngine.UI;
 
 public class STT2 : MonoBehaviour
 {
@@ -15,8 +20,10 @@ public class STT2 : MonoBehaviour
 
     // Naver Clova API URL 및 인증 키
     private string apiURL = "https://naveropenapi.apigw.ntruss.com/recog/v1/stt?lang=Kor";
-    private string apiKeyID = "fi40p9tp3m";  // 실제 API Key ID로 대체하세요
-    private string apiKey = "dvVWmmbdx3uP1IzifddBG7cor3z59NuS11ivcP1o";       // 실제 API Key로 대체하세요
+    //private string apiKeyID = "fi40p9tp3m";  // 실제 API Key ID로 대체하세요
+    private string apiKeyID;
+    //private string apiKey = "dvVWmmbdx3uP1IzifddBG7cor3z59NuS11ivcP1o";       // 실제 API Key로 대체하세요
+    private string apiKey;
 
     void Start()
     {
@@ -29,6 +36,10 @@ public class STT2 : MonoBehaviour
         {
             Debug.LogError("마이크 장치를 찾을 수 없습니다.");
         }
+
+        // 요청 헤더 설정
+        apiKeyID = Environment.GetEnvironmentVariable("X_NCP_APIGW_API_KEY_ID", EnvironmentVariableTarget.User);
+        apiKey = Environment.GetEnvironmentVariable("X_NCP_APIGW_API_KEY", EnvironmentVariableTarget.User);
     }
 
     void Update()
