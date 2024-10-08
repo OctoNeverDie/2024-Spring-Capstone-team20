@@ -21,8 +21,6 @@ public class ConvoUI : MonoBehaviour
     public TextMeshProUGUI CashText;
     public TextMeshProUGUI TurnText;
 
-    public Define.UserInputMode DefaultMode = Define.UserInputMode.Keyboard;
-    public Define.UserInputMode CurInputMode;
     public GameObject RecordPanel;
     public GameObject KeyboardPanel;
 
@@ -30,22 +28,6 @@ public class ConvoUI : MonoBehaviour
     {
         ChatManager.OnPanelUpdated -= ShowPanel;
         ChatManager.OnPanelUpdated += ShowPanel;
-    }
-
-    private void InitiateInputMode()
-    {
-        CurInputMode = DefaultMode;
-
-        if(DefaultMode==Define.UserInputMode.Keyboard)
-        {
-            RecordPanel.SetActive(false);
-            KeyboardPanel.SetActive(true);
-        }
-        else if (DefaultMode == Define.UserInputMode.Voice)
-        {
-            RecordPanel.SetActive(true);
-            KeyboardPanel.SetActive(false);
-        }
     }
 
     #region 대화 시작하겠습니까?
@@ -157,15 +139,18 @@ public class ConvoUI : MonoBehaviour
     public void OnClickSwitchBtn()
     {
         // switch to voice
-        if (CurInputMode == Define.UserInputMode.Keyboard)
+        if (Managers.Input.CurInputMode == Define.UserInputMode.Keyboard)
         {
             RecordPanel.SetActive(true);
             KeyboardPanel.SetActive(false);
+            Managers.Input.CurInputMode = Define.UserInputMode.Voice;
         }
-        else if (CurInputMode == Define.UserInputMode.Voice)
+        else if (Managers.Input.CurInputMode == Define.UserInputMode.Voice)
         {
             RecordPanel.SetActive(false);
             KeyboardPanel.SetActive(true);
+            Managers.Input.CurInputMode = Define.UserInputMode.Keyboard;
+
         }
     }
 }

@@ -97,4 +97,17 @@ public class UIManager : MonoBehaviour
         ui.UserText.text = ui.UserText.text + input;
     }
 
+    public void InitiateInputMode(Define.UserInputMode defaultMode)
+    {
+        if (defaultMode == Define.UserInputMode.Keyboard)
+        {
+            ui.RecordPanel.SetActive(false);
+            ui.KeyboardPanel.SetActive(true);
+        }
+        else if (defaultMode == Define.UserInputMode.Voice)
+        {
+            ui.RecordPanel.SetActive(true);
+            ui.KeyboardPanel.SetActive(false);
+        }
+    }
 }
