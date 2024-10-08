@@ -48,8 +48,9 @@ public class STT2 : MonoBehaviour
 
     void Update()
     {
-        if(Managers.Input.CurInputMode == Define.UserInputMode.Voice)
+        if(Managers.Input.CurInputMode == Define.UserInputMode.Voice )
         {
+            Debug.Log("cur mode is "+ Managers.Input.CurInputMode);
             if (Input.GetButtonDown("STT"))
             {
                 StartRecording();
