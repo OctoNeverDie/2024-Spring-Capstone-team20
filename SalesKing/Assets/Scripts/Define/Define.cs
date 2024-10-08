@@ -58,4 +58,10 @@ public class Define
         Office_Secretary
     }
 
+    public enum UserInputMode
+    {
+        Keyboard, 
+        Voice
+    }
+
 }
