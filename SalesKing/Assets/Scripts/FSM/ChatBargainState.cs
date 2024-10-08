@@ -45,8 +45,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     }
 
     public override void Exit()
-    {
-        UpdateAndActivate();
+    {        
         UnSubScribeAction();
     }
 
