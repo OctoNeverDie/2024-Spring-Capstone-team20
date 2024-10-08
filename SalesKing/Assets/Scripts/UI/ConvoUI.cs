@@ -108,10 +108,10 @@ public class ConvoUI : MonoBehaviour
         Managers.Chat.TransitionToState(SendChatType.Endpoint);
 
         EndPanel.SetActive(false);
-        ConvoPanel.GetComponentInChildren<DealBtn>().GetComponent<Button>();
-        if (ConvoPanel.GetComponentInChildren<DealBtn>().GetComponent<Button>() != null)
+        
+        if (ConvoPanel.GetComponentInChildren<DealBtn>(true).GetComponent<Button>() != null)
         {
-            ConvoPanel.GetComponentInChildren<DealBtn>().GetComponent<Button>().interactable = false;
+            ConvoPanel.GetComponentInChildren<DealBtn>(true).GetComponent<Button>().interactable = false;
         }
         ConvoPanel.SetActive(false);
 
