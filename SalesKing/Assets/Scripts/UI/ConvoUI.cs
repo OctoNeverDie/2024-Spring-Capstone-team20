@@ -56,6 +56,7 @@ public class ConvoUI : MonoBehaviour
             if (dealBtn != null)
             {
                 dealBtn.gameObject.SetActive(true);
+                dealBtn.GetComponent<Button>().interactable = true;
             }
         }
         else if (sendChatType == Define.SendChatType.Endpoint)
@@ -98,13 +99,13 @@ public class ConvoUI : MonoBehaviour
 
     public void OnChatLeave()
     {
-        Managers.Chat.CheckTurnEndpoint(Define.EndType.Leave);
+        Managers.Chat._endType = EndType.Leave;
         OnEndChat();
     }
 
     public void OnEndChat()
     {
-        Managers.Chat.Clear();
+        Managers.Chat.TransitionToState(SendChatType.Endpoint);
 
         EndPanel.SetActive(false);
         ConvoPanel.GetComponentInChildren<DealBtn>().GetComponent<Button>();

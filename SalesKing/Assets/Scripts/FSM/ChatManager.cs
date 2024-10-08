@@ -24,18 +24,13 @@ public class ChatManager : MonoBehaviour
 
     public void ActivatePanel(SendChatType chatState)
     {
-        if (chatState == SendChatType.ChatSale)
+        if (chatState == (SendChatType.ItemInit))
         {
-            //_chatPanel.SetActive(true);
-        }
-        else if (chatState == (SendChatType.ItemInit))
-        {
-            OnPanelUpdated?.Invoke(chatState, _endType);
-            //_itemPanel.SetActive(true);
+            OnPanelUpdated?.Invoke(chatState, EndType.None);
         }
         else if (chatState == SendChatType.ChatBargain)
         {
-            OnPanelUpdated?.Invoke(chatState, _endType);
+            OnPanelUpdated?.Invoke(chatState, EndType.None);
             //TODO : 2초 뒤에 흥정시작~! panel 나오고 점점 fade out
             //위에 거 이미 했으면, 한 1초 뒤에 Deal panel 나오게.
         }
@@ -51,11 +46,6 @@ public class ChatManager : MonoBehaviour
     public float _userSuggest =0;
 
     public static event Action<int, float, float> OnNumberUpdated;
-    public static event Action<string> OnStringUpdated;
-    public void UpdateThingToBuy(string thingtobuy)
-    {
-        OnStringUpdated?.Invoke(thingtobuy);
-    }
 
     public void UpdateTurn(int turn, float npcSuggest = -1.37f, float userSuggest = -1.37f)
     { 
@@ -69,7 +59,7 @@ public class ChatManager : MonoBehaviour
         //TODO : Panel에 남은 turn 수 출력, 서로 제시한 거 출력
     }
 
-    public EndType _endType { get; private set; }
+    public EndType _endType { get; set; }
 
     public void CheckTurnEndpoint(EndType endType)
     {

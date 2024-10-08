@@ -20,6 +20,7 @@ public class ChatSaleState : ChatBaseState, IVariableChat
     public override void Enter()
     {
         _sendChatType = SendChatType.ChatSale;
+        //맨 처음 시작할 때, convo ui 나와야한다.
         Managers.Chat.ActivatePanel(_sendChatType);
         SubScribeAction();
     }
@@ -29,21 +30,19 @@ public class ChatSaleState : ChatBaseState, IVariableChat
         UnSubScribeAction();
         _gptResult = new GptResult();
         //save evaluation
-        VariableList.AddEvaluation(_gptResult._evaluation);
-        VariableList.S_ThingToBuy = _gptResult._thingToBuy;
 
         if (isEndHere)
         {
             isEndHere = false;
+            Managers.Chat._endType = EndType.Fail;
             ServerManager.Instance.GetGPTReply("$clear", SendChatType.Endpoint);
-            Managers.Chat.ActivatePanel(SendChatType.Endpoint);
-            Managers.Chat.Clear();
         }
     }
 
     //유저가 입력할 때 : 
     public void UserInput(string user_input)
     {//그대로 보낸다
+        Debug.Log($"ChatSaleState에서 보냄 {_sendChatType}");
         ServerManager.Instance.GetGPTReply(user_input, _sendChatType);
     }
 
@@ -64,10 +63,14 @@ public class ChatSaleState : ChatBaseState, IVariableChat
         }
         else if (_gptResult._yesIsTrue)
         {
+            VariableList.AddEvaluation(_gptResult._evaluation);
+            VariableList.S_ThingToBuy = _gptResult._thingToBuy;
             Managers.Chat.TransitionToState(SendChatType.ItemInit);
         }
         else if (!_gptResult._yesIsTrue)
         {
+            VariableList.AddEvaluation(_gptResult._evaluation);
+            VariableList.S_ThingToBuy = _gptResult._thingToBuy;
             isEndHere = true;
             Exit();
         }
@@ -102,15 +105,15 @@ public class ChatSaleState : ChatBaseState, IVariableChat
             _gptResult._thingToBuy = sections[1];
             _gptResult._reaction = sections[2];
             _gptResult._evaluation = sections[3];
-            Managers.Chat.UpdateThingToBuy(_gptResult._thingToBuy);
+            VariableList.S_ThingToBuy = _gptResult._thingToBuy;
             Debug.Log($"지워 :_gptResult._thingToBuy {_gptResult._thingToBuy}+_gptResult._reaction{_gptResult._reaction}+_gptResult._evaluation{_gptResult._evaluation}");
         }
 
         else if (sections.Length > 2)//no일 때,
         {
-            Debug.Log($"지워 :_gptResult._reaction{_gptResult._reaction}+_gptResult._evaluation{_gptResult._evaluation}");
             _gptResult._reaction = sections[1];
             _gptResult._evaluation = sections[2];
+            Debug.Log($"지워 :_gptResult._reaction{_gptResult._reaction}+_gptResult._evaluation{_gptResult._evaluation}");
         }
 
         else if (sections.Length > 1)

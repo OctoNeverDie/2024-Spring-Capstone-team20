@@ -16,6 +16,8 @@ public class EndPointState : ChatBaseState
 
         this._endType = Managers.Chat._endType;
         string input = "$"+_endType.ToString();
+
+        Debug.Log($"EndPointState에서 보냄 {_sendChatType}, {input}");
         ServerManager.Instance.GetGPTReply(input, _sendChatType);
 
     }
@@ -33,9 +35,6 @@ public class EndPointState : ChatBaseState
     {
         ConcatReply(gpt_output);
         VariableList.AddEvaluation(_gptResult.evaluation);
-        
-        //아이템 팔기 성공/실패 패널 뜬다.
-        //Managers.Chat.ActivatePanel(_sendChatType);
     }
 
     private struct GptResult

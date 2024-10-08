@@ -37,7 +37,7 @@ public class ServerManager : ServerBase
         if (_sendChatType == SendChatType.Endpoint && sendChatTypeFrom != SendChatType.NpcInit)
             return;
 
-        Debug.Log($"User답++++++++++{userInput}");
+        Debug.Log($"User답++++++++++{userInput}, {sendChatTypeFrom.ToString()}");
         this._sendChatType = sendChatTypeFrom;
         this._userInput = userInput;
 
@@ -69,7 +69,7 @@ public class ServerManager : ServerBase
         {
             var resultData = JObject.Parse(result.Json)["reply"].ToString();
             //var sendTypeData = JObject.Parse(result.Json)["sendType"].ToString();  // JSON에서 string 값 가져옴
-            Debug.Log($"Gpt 답+++++++++++++++ {resultData}");
+            Debug.Log($"Gpt 답+++++++++++++++ {resultData}, {_sendChatType.ToString()}");
             templateReceive.GetGptAnswer(resultData, _sendChatType);
 
             // 추가 코드

@@ -40,6 +40,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         _sendChatType = SendChatType.ChatBargain;
         ServerManager.Instance.GetGPTReply("$start", _sendChatType);
         
+        //맨 처음 시작할 때, convo ui 나와야한다.
         Managers.Chat.ActivatePanel(_sendChatType);
     }
 
@@ -53,7 +54,8 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     {
         string user_send;
         user_send = MakeAnswer(user_input);
-        
+
+        Debug.Log($"ChatBargainState에서 보냄 {_sendChatType}");
         ServerManager.Instance.GetGPTReply(user_input, _sendChatType);
     }
 
@@ -64,10 +66,12 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         if(isState != State.Fail)
             isState = CheckState();
 
+        Debug.Log($"ChatBargainState에서 보냄 {isState.ToString()}");
         if (isState == State.Fail)
         {
             UpdateTurn();
-            Managers.Chat.CheckTurnEndpoint(EndType.Fail);
+            Managers.Chat._endType = EndType.Fail;
+            Managers.Chat.TransitionToState(SendChatType.Endpoint);
         }
         else if (isState == State.Wait)
         {
@@ -77,7 +81,8 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         else if (isState == State.Succes)
         {
             UpdateAndActivate();
-            Managers.Chat.CheckTurnEndpoint(EndType.Success);
+            Managers.Chat._endType = EndType.Success;
+            Managers.Chat.TransitionToState(SendChatType.Endpoint);
         }
         
     }

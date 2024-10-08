@@ -103,8 +103,18 @@ public static class VariableList
 
     //--------------------------------------------------
     public static event Action<float, ItemInfo> OnItemInit;
+
     public static ItemInfo S_itemInfo { get; set; }
-    public static string S_ThingToBuy { get; set; }
+    private static string _s_ThingToBuy;
+    public static string S_ThingToBuy
+    {
+        get => _s_ThingToBuy;
+        set
+        {
+            _s_ThingToBuy = value;
+            OnVariableChanged?.Invoke(nameof(S_ThingToBuy));
+        }
+    }
     public static void InitItem(float userSuggest, ItemInfo itemInfo)
     { 
         S_itemInfo = itemInfo;

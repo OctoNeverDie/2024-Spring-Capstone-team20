@@ -14,6 +14,11 @@ public class TemplateReceive : MonoBehaviour
             string GptAnswer = GptReply(sendTypeData, resultData);
             VariableList.S_GptReaction = GptAnswer;//이건 리액션만 따로
         }
+        if (sendTypeData == SendChatType.Endpoint)
+        {
+            Managers.Chat.ActivatePanel(SendChatType.Endpoint);
+            Managers.Chat.Clear();
+        }
     }
 
     private bool UpdateGptReply(SendChatType sendChatType, string resultData)
@@ -21,13 +26,11 @@ public class TemplateReceive : MonoBehaviour
         switch (sendChatType) 
         {
             case SendChatType.NpcInit:
-                nextChatType = SendChatType.ChatSale;
-                Managers.Chat.TransitionToState(nextChatType);
+                Managers.Chat.TransitionToState(SendChatType.ChatSale);
                 return false;
 
             case SendChatType.ItemInit:
-                nextChatType = SendChatType.ChatBargain;
-                Managers.Chat.TransitionToState(nextChatType);
+                Managers.Chat.TransitionToState(SendChatType.ChatBargain);
                 return false;
 
             case SendChatType.ChatSale:

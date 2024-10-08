@@ -66,7 +66,7 @@ def update_history(prompt, request):
 def get_completion(input, sendType):
     if(sendType == "ChatSale"): 
         system_message_content = read_system_message('CGPT/decide_system.txt')
-    elif(sendType in ["ChatBargain", "EndPoint"]):
+    elif(sendType in ["ChatBargain", "Endpoint"]):
         system_message_content = read_system_message('CGPT/bargain_system.txt')
 
     query = client.chat.completions.create(

@@ -12,6 +12,7 @@ public class ItemInitState : ChatBaseState
         VariableList.OnItemInit += MakeAnswer;
 
         _sendChatType = SendChatType.ItemInit;
+        Debug.Log($"ItemInitState에서 보냄1 {_sendChatType}");
         Managers.Chat.ActivatePanel(_sendChatType);
     }
 
@@ -21,20 +22,6 @@ public class ItemInitState : ChatBaseState
     }
     private void MakeAnswer(float userSuggest, ItemInfo itemInfo)
     {
-        /* some format to send
-         * public class ItemInfo
-        {
-            public int ObjID;
-            public string ObjName;
-            public string ObjInfo;
-            public int npcFirstSuggestPrice;;
-            public int expensive;
-            public int tooExpensive;
-        }
-         * The thing you want to buy: 동기부여 관련 책
-        The thing vendor is selling to you:  책
-        vendor First Suggest: 200$, Your First Suggest: 50$, yourOpinion: too expensive
-         */
         string expensiveRate = Managers.Chat.RatePrice(userSuggest, itemInfo);
 
         _userSend = $"\nThe thing you want to buy: {VariableList.S_ThingToBuy}"
@@ -43,7 +30,7 @@ public class ItemInitState : ChatBaseState
         + $"Your First Suggest: {itemInfo.defaultPrice} credit"
         + $"yourOpinion: {expensiveRate}";
 
+        Debug.Log($"ItemInitState에서 보냄2 {_sendChatType}");
         ServerManager.Instance.GetGPTReply(_userSend, _sendChatType);
-        //Managers.Chat.TestReply("ChatBargain", _userSend);
     }
 }
