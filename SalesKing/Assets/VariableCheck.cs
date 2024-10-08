@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 
 public class VariableCheck : MonoBehaviour
-{
+{/*
     TextMeshProUGUI[] variables;
     bool isNew = false;
 
@@ -34,9 +34,10 @@ public class VariableCheck : MonoBehaviour
         Debug.Log($"2 유저인풋 업데이트{user_input}");
         variables[3].text = $"userReact : {user_input}";
     }
-
+    
     private void NpcProfileEvalLog(string variableName)
     {
+        var variableList =
         switch (variableName)
         {
             case nameof(VariableList.S_currentNpcId):
@@ -81,5 +82,5 @@ public class VariableCheck : MonoBehaviour
         variables[8].text = "판가격";
         variables[9].text = "사고픈물건";
         variables[10].text = "턴";
-    }
+    }*/
 }

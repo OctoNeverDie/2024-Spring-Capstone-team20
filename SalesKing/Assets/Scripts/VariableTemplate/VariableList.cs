@@ -7,20 +7,10 @@ public static class VariableList
 {
     public static event Action<string> OnVariableUserUpdated;
     public static event Action<string> OnVariableGptUpdated;
-    public static event Action<string> OnVariableChanged;
-
+    public static event Action<string> OnVariableEtcUpdated;
     private static string _s_UserAnswer;
     private static string _s_GptAnswer;
     private static string _s_GptReaction;
-    public static string S_GptReaction
-    {
-        get => _s_GptReaction;
-        set
-        {
-            _s_GptReaction = value;
-            OnVariableChanged?.Invoke(nameof(S_GptReaction));
-        }
-    }
     public static string S_UserAnswer
     {
         get => _s_UserAnswer;
@@ -40,16 +30,23 @@ public static class VariableList
         }
     }
 
+    public static string S_GptReaction
+    {
+        get => _s_GptReaction;
+        set {
+            _s_GptReaction = value;
+            OnVariableEtcUpdated?.Invoke(nameof(S_GptReaction));
+        }
+    }
+
     public static void ClearStaticData()
     {
-        Debug.Log($"지워 : 2 S_currentNpcId {S_currentNpcId} ");
         _s_UserAnswer = "";
         _s_GptAnswer = "";
-        S_currentNpcId = 0;
+        _s_currentNpcId = 0;
 
         S_itemInfo = new ItemInfo();
         S_ThingToBuy = "";
-        Debug.Log($"지워 : 3 S_currentNpcId {S_currentNpcId} ");
     }
     //--------------------------------------------------
     public class NpcEvaluation
@@ -62,7 +59,7 @@ public static class VariableList
         public float price;
         public string npcEvaluation;
     }
-    public static int S_currentNpcId { get; private set; }
+    private static int _s_currentNpcId;
     // NpcEvaluation 타입을 저장하는 Dictionary를 정의
     public static Dictionary<int, NpcEvaluation> S_NpcEvalDict { get; private set; } = new Dictionary<int, NpcEvaluation>();
     
@@ -79,42 +76,33 @@ public static class VariableList
             npcEvaluation = string.Empty
         };
 
-        S_currentNpcId = npcId;
+        _s_currentNpcId = npcId;
 
-        if (S_NpcEvalDict.ContainsKey(S_currentNpcId))
+        if (S_NpcEvalDict.ContainsKey(_s_currentNpcId))
         {
-            S_NpcEvalDict[S_currentNpcId] = _npcEvaluation;
+            S_NpcEvalDict[_s_currentNpcId] = _npcEvaluation;
         }
         else
         {
-            S_NpcEvalDict.Add(S_currentNpcId, _npcEvaluation);
+            S_NpcEvalDict.Add(_s_currentNpcId, _npcEvaluation);
         }
-
-        Debug.Log($"지워 : S_currentNpcId {S_currentNpcId} ");
-        OnVariableChanged?.Invoke(nameof(S_currentNpcId));
     }
 
     public static void AddEvaluation(string npcEvaluation) 
     {
-        S_NpcEvalDict[S_currentNpcId].npcEvaluation = npcEvaluation;
-
-        OnVariableChanged?.Invoke(nameof(S_NpcEvalDict));
+        S_NpcEvalDict[_s_currentNpcId].npcEvaluation = npcEvaluation;
     }
 
+    public static bool CheckEvaluationIsAlready()
+    {
+        if (S_NpcEvalDict[_s_currentNpcId].npcEvaluation == null)
+            return true;
+        return false;
+    }
     //--------------------------------------------------
     public static event Action<float, ItemInfo> OnItemInit;
-
     public static ItemInfo S_itemInfo { get; set; }
-    private static string _s_ThingToBuy;
-    public static string S_ThingToBuy
-    {
-        get => _s_ThingToBuy;
-        set
-        {
-            _s_ThingToBuy = value;
-            OnVariableChanged?.Invoke(nameof(S_ThingToBuy));
-        }
-    }
+    public static string S_ThingToBuy { get; set; }
     public static void InitItem(float userSuggest, ItemInfo itemInfo)
     { 
         S_itemInfo = itemInfo;
@@ -124,9 +112,7 @@ public static class VariableList
 
     public static void AddItemPriceSold(float price)
     {
-        S_NpcEvalDict[S_currentNpcId].item = S_itemInfo.ObjName;
-        S_NpcEvalDict[S_currentNpcId].price = price;
-
-        OnVariableChanged?.Invoke(nameof(S_itemInfo));
+        S_NpcEvalDict[_s_currentNpcId].item = S_itemInfo.ObjName;
+        S_NpcEvalDict[_s_currentNpcId].price = price;
     }
 }

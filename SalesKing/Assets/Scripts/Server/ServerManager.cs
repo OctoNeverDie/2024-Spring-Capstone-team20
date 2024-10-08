@@ -41,7 +41,8 @@ public class ServerManager : ServerBase
         this._sendChatType = sendChatTypeFrom;
         this._userInput = userInput;
 
-        StartCoroutine(GetGPTCo());
+
+        //StartCoroutine(GetGPTCo());
     }
 
     private IEnumerator GetGPTCo()
