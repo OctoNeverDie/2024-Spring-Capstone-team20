@@ -42,7 +42,7 @@ public class ServerManager : ServerBase
         this._userInput = userInput;
 
 
-        //StartCoroutine(GetGPTCo());
+        StartCoroutine(GetGPTCo());
     }
 
     private IEnumerator GetGPTCo()
@@ -61,7 +61,7 @@ public class ServerManager : ServerBase
                                 Action<ResultInfo> onFailed = null,
                                 Action<ResultInfo> onNetworkFailed = null)
     {
-        string url = "http://127.0.0.1:8000/";//"https://salesai-jsy2.azurewebsites.net/";
+        string url = "https://salesai-jsy2.azurewebsites.net/"; //"http://127.0.0.1:8000/";
 
         JObject jobj = new JObject();
         jobj = AddJobjBySendType(jobj, _sendChatType);
