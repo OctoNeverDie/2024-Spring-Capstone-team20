@@ -35,7 +35,7 @@ public class ItemInitState : ChatBaseState
         The thing vendor is selling to you:  책
         vendor First Suggest: 200$, Your First Suggest: 50$, yourOpinion: too expensive
          */
-        string expensiveRate = Managers.Chat.ratePrice(userSuggest, itemInfo);
+        string expensiveRate = Managers.Chat.RatePrice(userSuggest, itemInfo);
 
         _userSend = $"\nThe thing you want to buy: {VariableList.S_ThingToBuy}"
         + $"\nThe thing vendor is selling to you: {itemInfo.ObjName}"

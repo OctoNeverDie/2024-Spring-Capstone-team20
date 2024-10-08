@@ -62,7 +62,7 @@ public class ChatSaleState : ChatBaseState, IVariableChat
         }
         else if (!_gptResult._yesIsTrue)
         {
-            Managers.Chat.TransitionToState(SendChatType.Fail);
+            Managers.Chat.TransitionToState(SendChatType.Endpoint);
             //Managers.Chat.TestReply("Fail");
         }
     }

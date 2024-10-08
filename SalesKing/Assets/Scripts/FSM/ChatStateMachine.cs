@@ -32,10 +32,6 @@ public class ChatStateMachine
         ChatBaseState chatState = new ChatSaleState();
         switch (sendChatType)
         {
-            case SendChatType.Leave:
-                chatState = new LeaveState();
-                break;
-
             case SendChatType.NpcInit:
                 chatState = new NpcInitState();
                 break;
@@ -52,20 +48,16 @@ public class ChatStateMachine
                 chatState = new ChatBargainState();
                 break;
 
-            case SendChatType.Fail:
-                chatState = new FailState();
-                break;
-
-            case SendChatType.Success:
-                chatState = new SuccessState();
+            case SendChatType.Endpoint:
+                chatState = new EndPointState();
                 break;
 
             default:
-                chatState = new FailState();
+                chatState = new EndPointState();
                 break;
         }
 
-        if (_currentState is LeaveState)
+        if (_currentState is EndPointState)
             return;
 
         SetState(chatState);
