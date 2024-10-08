@@ -34,11 +34,14 @@ public class ServerManager : ServerBase
 
     public void GetGPTReply(string userInput, SendChatType sendChatTypeFrom)
     {
-        Debug.Log($"I'm Sending : {userInput}");
+        if (_sendChatType == SendChatType.Endpoint && sendChatTypeFrom != SendChatType.NpcInit)
+            return;
+
+        Debug.Log($"User답++++++++++{userInput}, {sendChatTypeFrom.ToString()}");
         this._sendChatType = sendChatTypeFrom;
         this._userInput = userInput;
 
-        templateReceive.GetGptAnswer(userInput, sendChatTypeFrom.ToString());
+
         //StartCoroutine(GetGPTCo());
     }
 
@@ -58,17 +61,17 @@ public class ServerManager : ServerBase
                                 Action<ResultInfo> onFailed = null,
                                 Action<ResultInfo> onNetworkFailed = null)
     {
-        string url = "https://salesai-jsy2.azurewebsites.net/"; //"http://127.0.0.1:8000/";
+        string url = "http://127.0.0.1:8000/";//"https://salesai-jsy2.azurewebsites.net/";
 
         JObject jobj = new JObject();
         jobj = AddJobjBySendType(jobj, _sendChatType);
 
         Action<ResultInfo> bringGPTReply = (result) =>
-        { 
+        {
             var resultData = JObject.Parse(result.Json)["reply"].ToString();
-            var sendTypeData = JObject.Parse(result.Json)["sendType"].ToString();  // JSON에서 string 값 가져옴
-
-            templateReceive.GetGptAnswer(resultData, sendTypeData);
+            //var sendTypeData = JObject.Parse(result.Json)["sendType"].ToString();  // JSON에서 string 값 가져옴
+            Debug.Log($"Gpt 답+++++++++++++++ {resultData}, {_sendChatType.ToString()}");
+            templateReceive.GetGptAnswer(resultData, _sendChatType);
 
             // 추가 코드
             Managers.Convo.ParseNPCAnswer($"{resultData}");

@@ -6,20 +6,18 @@ using static Define;
 public class TemplateReceive : MonoBehaviour
 {
     SendChatType nextChatType = SendChatType.None;
-    public void GetGptAnswer(string resultData, string sendTypeData)
+    public void GetGptAnswer(string resultData, SendChatType sendTypeData)
     {
-        Debug.Log($"GPT reply : {resultData}");
-        if (Enum.TryParse(sendTypeData, out SendChatType sendChatType))
+        VariableList.S_GptAnswer = resultData;//이건 쌩
+        if (UpdateGptReply(sendTypeData, resultData))
         {
-            if (UpdateGptReply(sendChatType, resultData))
-            {
-                string GptAnswer = GptReply(sendChatType, resultData);
-                VariableList.S_GptAnswer = GptAnswer;
-            }
+            string GptAnswer = GptReply(sendTypeData, resultData);
+            VariableList.S_GptReaction = GptAnswer;//이건 리액션만 따로
         }
-        else
+        if (sendTypeData == SendChatType.Endpoint)
         {
-            Debug.Log("Failed to parse enum");
+            Managers.Chat.ActivatePanel(SendChatType.Endpoint);
+            Managers.Chat.Clear();
         }
     }
 
@@ -28,22 +26,23 @@ public class TemplateReceive : MonoBehaviour
         switch (sendChatType) 
         {
             case SendChatType.NpcInit:
-                nextChatType = SendChatType.ChatSale;
-                Managers.Chat.TransitionToState(nextChatType);
-                return false;
-
-            case SendChatType.ChatSale:
-                VariableList.S_GptAnswer = resultData;
+                Managers.Chat.TransitionToState(SendChatType.ChatSale);
                 return false;
 
             case SendChatType.ItemInit:
-                nextChatType = SendChatType.ChatBargain;
-                Managers.Chat.TransitionToState(nextChatType);
+                Managers.Chat.TransitionToState(SendChatType.ChatBargain);
                 return false;
 
+            case SendChatType.ChatSale:
+                return true;
+
             case SendChatType.ChatBargain:
-                VariableList.S_GptAnswer = resultData;
-                return false;
+                return true;
+
+            case SendChatType.Endpoint:
+                if (resultData == "$clear")
+                    return false;
+                return true;
 
             default:
                 return false;
@@ -59,7 +58,16 @@ public class TemplateReceive : MonoBehaviour
             pattern = @"\""yourReply\"": \""(.*?)\""";
             Match match = Regex.Match(GPTanswer, pattern);
 
-            if (match.Success) return match.Groups[1].Value;
+            if (match.Success)
+                return match.Groups[1].Value;
+        }
+        else if ((sendChatType == SendChatType.ChatBargain) || (sendChatType == SendChatType.Endpoint))
+        {
+            pattern = @"\""reaction\"": \""(.*?)\""";
+            Match match = Regex.Match(GPTanswer, pattern);
+
+            if (match.Success)
+                return match.Groups[1].Value;
         }
 
         return GPTanswer;

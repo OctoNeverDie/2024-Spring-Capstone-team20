@@ -35,20 +35,17 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         SubScribeAction();
 
         _gptResult._turn = TurnInit;
-        Debug.Log($"Init Turn : {_gptResult._turn}");
+        Debug.Log($"지워 : Init Turn : {_gptResult._turn}");
 
         _sendChatType = SendChatType.ChatBargain;
         ServerManager.Instance.GetGPTReply("$start", _sendChatType);
         
-        //VariableList.S_GptAnswer = "reaction : 말씀은 이해합니다만, 저도 졸업을 앞둔 학생이라 금전적인 여유가 없습니다. 정말 100달러 정도면 할 수 있을 것 같아요. 이 금액을 초과하면 정말 어렵습니다.\r\n" +"persuasion : -1\r\n" +"vendorSuggest : 180\r\n" +"yourSuggest : 100";
-
+        //맨 처음 시작할 때, convo ui 나와야한다.
         Managers.Chat.ActivatePanel(_sendChatType);
-        //여기있으면 왜 훨씬 나중에 실행되지?
     }
 
     public override void Exit()
-    {
-        UpdateAndActivate();
+    {        
         UnSubScribeAction();
     }
 
@@ -56,7 +53,8 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     {
         string user_send;
         user_send = MakeAnswer(user_input);
-        
+
+        Debug.Log($"ChatBargainState에서 보냄 {_sendChatType}");
         ServerManager.Instance.GetGPTReply(user_input, _sendChatType);
     }
 
@@ -67,21 +65,23 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         if(isState != State.Fail)
             isState = CheckState();
 
+        Debug.Log($"ChatBargainState에서 보냄 {isState.ToString()}");
         if (isState == State.Fail)
         {
             UpdateTurn();
-            Managers.Chat.CheckTurnEndpoint(EndType.Fail);
+            Managers.Chat._endType = EndType.Fail;
+            Managers.Chat.TransitionToState(SendChatType.Endpoint);
         }
         else if (isState == State.Wait)
         {
             UpdateTurn();
-            Managers.Chat.UpdatePanel(_gptResult._npcReaction);
             return;
         }
         else if (isState == State.Succes)
         {
             UpdateAndActivate();
-            Managers.Chat.CheckTurnEndpoint(EndType.Success);
+            Managers.Chat._endType = EndType.Success;
+            Managers.Chat.TransitionToState(SendChatType.Endpoint);
         }
         
     }
@@ -109,7 +109,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
             
             int persuasion = (int)GetFloat(sections[4]);
 
-            if (persuasion >= 20)
+            if (persuasion <= -20)
             {
                 isState = State.Fail;
                 return;
@@ -120,8 +120,6 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         }
         else if (sections.Length > 1)
         { _gptResult._npcReaction = sections[1]; }
-
-        Debug.Log($"{_gptResult._npcReaction} + {_gptResult._turn} + {_gptResult._npcSuggest} + {_gptResult._userSuggest}");
     }
 
     private float GetFloat(string text)

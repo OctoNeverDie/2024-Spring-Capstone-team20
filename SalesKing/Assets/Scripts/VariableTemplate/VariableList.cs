@@ -7,8 +7,10 @@ public static class VariableList
 {
     public static event Action<string> OnVariableUserUpdated;
     public static event Action<string> OnVariableGptUpdated;
+    public static event Action<string> OnVariableEtcUpdated;
     private static string _s_UserAnswer;
     private static string _s_GptAnswer;
+    private static string _s_GptReaction;
     public static string S_UserAnswer
     {
         get => _s_UserAnswer;
@@ -25,6 +27,15 @@ public static class VariableList
         {
             _s_GptAnswer = value;
             OnVariableGptUpdated?.Invoke(_s_GptAnswer);
+        }
+    }
+
+    public static string S_GptReaction
+    {
+        get => _s_GptReaction;
+        set {
+            _s_GptReaction = value;
+            OnVariableEtcUpdated?.Invoke(nameof(S_GptReaction));
         }
     }
 

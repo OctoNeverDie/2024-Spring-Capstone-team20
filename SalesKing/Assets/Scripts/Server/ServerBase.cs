@@ -21,7 +21,7 @@ public class ServerBase : MonoBehaviour
         using (var req = new UnityWebRequest(url, sendType.ToString()))
         {
             //check sending information
-            Debug.LogFormat("Sended Data: {1}", url, JsonConvert.SerializeObject(jobj, Formatting.Indented));
+            //Debug.LogFormat("Sended Data: {1}", url, JsonConvert.SerializeObject(jobj, Formatting.Indented));
 
             //make request body and header
             byte[] bodyRaw = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(jobj));
@@ -39,10 +39,10 @@ public class ServerBase : MonoBehaviour
             {
                 onNetworkFailed?.Invoke(result);
 
-                // TODO: ³×Æ®¿öÅ© Àç½Ãµµ ÆË¾÷ È£Ãâ.
+                // TODO: ë„¤íŠ¸ì›Œí¬ ì¬ì‹œë„ íŒì—… í˜¸ì¶œ.
 
                 yield return new WaitForSeconds(1f);
-                Debug.LogError("Àç½Ãµµ");
+                Debug.LogError("ì¬ì‹œë„");
                 yield return StartCoroutine(SendRequest(url, sendType, jobj, onSucceed, onFailed, onNetworkFailed));
             }
             else
@@ -88,7 +88,7 @@ public class ServerBase : MonoBehaviour
             #region Connection Error Handle
             case UnityWebRequest.Result.ConnectionError:
             case UnityWebRequest.Result.ProtocolError:
-            case UnityWebRequest.Result.DataProcessingError:// Connection error, Runserver ¾È ÇÔ
+            case UnityWebRequest.Result.DataProcessingError:// Connection error, Runserver ì•ˆ í•¨
             default:
                 Debug.Log(req.downloadHandler.text);
                 res = new ResultInfo(req.downloadHandler.text, false, true, req.error);
