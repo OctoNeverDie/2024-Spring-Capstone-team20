@@ -19,6 +19,7 @@ public class ConvoUI : MonoBehaviour
     public TextMeshProUGUI StatusText;
     public TextMeshProUGUI TimeText;
     public TextMeshProUGUI CashText;
+    public TextMeshProUGUI TurnText;
 
     private void Start()
     {
