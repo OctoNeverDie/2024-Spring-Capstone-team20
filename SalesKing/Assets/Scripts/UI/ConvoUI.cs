@@ -12,11 +12,11 @@ public class ConvoUI : MonoBehaviour
     public GameObject ConvoPanel;
     public GameObject EndPanel;
 
-    public TMP_InputField UserText;
     public GameObject NPCSpeechBubble;
     public TextMeshProUGUI NPCSpeechText;
+    public GameObject UserSpeechBubble;
+    public TextMeshProUGUI UserSpeechText;
 
-    public TextMeshProUGUI StatusText;
     public TextMeshProUGUI TimeText;
     public TextMeshProUGUI CashText;
     public TextMeshProUGUI TurnText;

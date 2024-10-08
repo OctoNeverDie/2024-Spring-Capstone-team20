@@ -30,9 +30,18 @@ public class UIManager : MonoBehaviour
 
     public void SetNPCAnswerText(string text)
     {
+        Debug.Log("npc 대화창 띄우기: "+text);
         ui.NPCSpeechText.text = text;
         ui.NPCSpeechBubble.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         ui.NPCSpeechBubble.transform.DOScale(1f, 0.5f).SetEase(Ease.InOutBounce).SetUpdate(true);
+    }
+
+    public void SetUserAnswerText(string text)
+    {
+        Debug.Log("유저 입력창 띄우기: " + text);
+        ui.UserSpeechText.text = text;
+        ui.UserSpeechBubble.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        ui.UserSpeechBubble.transform.DOScale(1f, 0.5f).SetEase(Ease.InOutBounce).SetUpdate(true);
     }
 
     public void SetTimeText()

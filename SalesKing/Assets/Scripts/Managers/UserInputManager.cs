@@ -9,6 +9,7 @@ public class UserInputManager : MonoBehaviour
 
     public Define.UserInputMode DefaultMode = Define.UserInputMode.Keyboard;
     public Define.UserInputMode CurInputMode;
+
     void Start()
     {
         myPlayer = Managers.Player.MyPlayer.GetComponent<Player>();
