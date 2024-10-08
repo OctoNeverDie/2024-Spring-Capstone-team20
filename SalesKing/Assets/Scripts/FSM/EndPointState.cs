@@ -27,7 +27,6 @@ public class EndPointState : ChatBaseState
         VariableList.OnVariableGptUpdated -= GptOutput;
 
         _gptResult = new GptResult();
-        Debug.Log("Clear!!!!!1111");
         Managers.Chat.Clear();
     }
 
