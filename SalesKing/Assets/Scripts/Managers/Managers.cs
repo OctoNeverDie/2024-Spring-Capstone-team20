@@ -69,6 +69,8 @@ public class Managers : MonoBehaviour
 
     TransitionManager _trans;
 
+    TurnManager _turn;
+
     public static SceneModeManager Scene { get { return Instance._scene; } }
     public static NPCManager NPC { get { return Instance._npc; } }
     public static UIManager UI { get { return Instance._ui; } }
@@ -84,6 +86,7 @@ public class Managers : MonoBehaviour
     public static ChatManager Chat { get { return Instance._chat; } }
     public static UserInputManager Input { get { return Instance._input; } }
     public static TransitionManager Trans { get { return Instance._trans; } }
+    public static TurnManager Turn { get { return Instance._turn; } }
 
 
     void Awake()
@@ -231,6 +234,17 @@ public class Managers : MonoBehaviour
         if (instance._inven == null)
         {
             instance._inven = inventoryManager.AddComponent<InventoryManager>();
+        }
+    }
+
+    public void AddTurnManager()
+    {
+        GameObject turnManager = new GameObject("@TurnManager");
+        turnManager.transform.parent = transform;
+
+        if (instance._turn == null)
+        {
+            instance._turn = turnManager.AddComponent<TurnManager>();
         }
     }
 

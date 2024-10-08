@@ -87,6 +87,11 @@ public class UIManager : MonoBehaviour
         ui.CashText.text = cashAmount+ "$";
     }
 
+    public void SetTurnText(int turn, int maxTurn)
+    {
+        ui.TurnText.text = turn.ToString()+" / " +maxTurn.ToString();
+    }
+
     public void SetPlayerInputField(string input)
     {
         ui.UserText.text = ui.UserText.text + input;

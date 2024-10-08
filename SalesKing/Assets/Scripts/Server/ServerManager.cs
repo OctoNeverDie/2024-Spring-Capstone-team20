@@ -73,8 +73,6 @@ public class ServerManager : ServerBase
             Debug.Log($"Gpt 답+++++++++++++++ {resultData}, {_sendChatType.ToString()}");
             templateReceive.GetGptAnswer(resultData, _sendChatType);
 
-            // 추가 코드
-            Managers.Convo.ParseNPCAnswer($"{resultData}");
         };
 
         Action<ResultInfo> failTest = (result) =>
