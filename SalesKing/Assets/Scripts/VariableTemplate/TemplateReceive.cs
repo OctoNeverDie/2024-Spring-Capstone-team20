@@ -5,7 +5,6 @@ using static Define;
 
 public class TemplateReceive : MonoBehaviour
 {
-    SendChatType nextChatType = SendChatType.None;
     public void GetGptAnswer(string resultData, SendChatType sendTypeData)
     {
         VariableList.S_GptAnswer = resultData;//이건 쌩

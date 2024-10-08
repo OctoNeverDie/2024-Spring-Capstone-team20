@@ -67,11 +67,13 @@ public class ConvoUI : MonoBehaviour
 
             if (endType == Define.EndType.Success)
             {
+                Debug.Log("????");
                 text.text = "물건 판매 성공~!";
                 btnText.text = "짱~!";
             }
             else if (endType == Define.EndType.Fail || endType == Define.EndType.Leave)
             {
+                Debug.Log("!!!!");
                 text.text = "물건 판매 실패...";
                 btnText.text = "우...";
             }

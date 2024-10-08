@@ -40,6 +40,8 @@ def init_item(item_data):
     return JsonResponse({'reply': '@ Item Attached.'})  
 
 def clear_everything(request):
+    print(original_decide_prompt)
+    print(original_bargain_prompt)
     overwrite_system_message('CGPT/decide_system.txt', original_decide_prompt)
     overwrite_system_message('CGPT/bargain_system.txt', original_bargain_prompt)
 
