@@ -31,8 +31,6 @@ public class VariableCheck : MonoBehaviour
         //variables[10].text = $"턴 : {turn}";
         //variables[1].text = $"userSuggest : {userSuggest}";
         //variables[2].text = $"npcSuggest: {npcSuggest}";
-        userSuggestText.text = $"userSuggest : {userSuggest}";
-        npcSuggestText.text = $"npcSuggest: {npcSuggest}";
     }
 
     private void UserLog(string user_input)

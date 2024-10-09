@@ -15,13 +15,30 @@ public class NPCRandomer : MonoBehaviour
 
     private void InitQueue()
     {
-
         //TODO : SO로 바꾸기
         npcSuffledList = Managers.Data.npcList;
         for (int i = 0; i < npcSuffledList.Count; i++)
         {
             NpcInfo temp = npcSuffledList[i];
-            //int randomIdx = Random.Range()
+            int randomIdx = Random.Range(i, npcSuffledList.Count);
+            npcSuffledList[i] = npcSuffledList[randomIdx];
+            npcSuffledList[randomIdx] = temp;
+        }
+
+        npcQueue = new Queue<NpcInfo>(npcSuffledList);
+    }
+
+    public NpcInfo GetNextNpc()
+    {
+        if (npcQueue.Count > 0)
+        {
+            return npcQueue.Dequeue();
+        }
+        
+        else
+        {
+            Debug.Log("이제 NPC가 없음");
+            return null;
         }
     }
 }
