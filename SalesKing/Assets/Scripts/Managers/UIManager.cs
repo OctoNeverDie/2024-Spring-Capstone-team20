@@ -9,7 +9,7 @@ using Newtonsoft.Json.Bson;
 public class UIManager : MonoBehaviour
 {
     GameObject myCanvas;
-    ConvoUI ui;
+    public ConvoUI ui;
 
     void Start()
     {
@@ -75,10 +75,13 @@ public class UIManager : MonoBehaviour
         ui.TurnText.text = turn.ToString()+" / " +maxTurn.ToString();
     }
 
-    public void InitiateInputMode(Define.UserInputMode defaultMode)
+    public void InitiateInputMode()
     {
+        Define.UserInputMode defaultMode = Managers.Input.CurInputMode;
+
         if (defaultMode == Define.UserInputMode.Keyboard)
         {
+            Debug.Log("키보드 인풋 모드로 초기화");
             ui.RecordPanel.SetActive(false);
             ui.KeyboardPanel.SetActive(true);
         }
