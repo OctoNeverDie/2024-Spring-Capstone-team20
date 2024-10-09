@@ -66,7 +66,7 @@ public class InventorySpawn : MonoBehaviour
 
         if (float.TryParse(inputFieldGO.text, out inputPrice))
         {
-            VariableList.InitItem(inputPrice, selectedItem);
+            Managers.Chat.EvalManager.InitItem(inputPrice, selectedItem);
         }
         else
         {
