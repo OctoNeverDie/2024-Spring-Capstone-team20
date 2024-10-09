@@ -12,6 +12,12 @@ public class UserDealClick : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
+    //떠나기 버튼 누르면
+    public void OnLeaveClickFSM()
+    {
+        Managers.Chat._endType = EndType.Leave;
+        OnEndChatFSM();
+    }
     //endpanel 확인버튼 누르면
     public void OnEndChatFSM()
     {

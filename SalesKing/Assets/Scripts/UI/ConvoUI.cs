@@ -89,8 +89,9 @@ public class ConvoUI : MonoBehaviour
         }
     }
 
-    public void OnClickSelectItemBtn()
+    public void OnClickSelectItemBtn(GameObject priceTab)
     {
+        priceTab.transform.gameObject.SetActive(false);
         ChooseItemPanel.SetActive(false);
         ConvoPanel.SetActive(true);
         EndPanel.SetActive(false);
@@ -125,6 +126,7 @@ public class ConvoUI : MonoBehaviour
     public void OnClickExitNPCBtn()
     {
         Managers.Convo.ConvoFinished();
+
         ConvoPanel.SetActive(false);
     }
 
