@@ -124,7 +124,7 @@ public class Managers : MonoBehaviour
             Destroy(gameObject);
         }
 
-        instance._data.Init();
+        instance._data.Init();        
     }
 
     public void AddPlayerManager()
@@ -223,6 +223,7 @@ public class Managers : MonoBehaviour
         if (instance._chat == null)
         {
             instance._chat = chatManager.AddComponent<ChatManager>();
+            instance._chat.npcSupplyManager.InitQueue();
         }
     }
 

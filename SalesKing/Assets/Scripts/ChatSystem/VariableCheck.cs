@@ -46,6 +46,10 @@ public class VariableCheck : MonoBehaviour
         var ReplyManager = Managers.Chat.ReplyManager;
 
         int DictId = EvalManager.currentNpcId;
+
+        if (DictId == 0)
+            return;
+
         var variableList = EvalManager.NpcEvalDict[DictId];
 
         switch (variableName)
