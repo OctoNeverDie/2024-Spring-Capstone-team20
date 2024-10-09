@@ -42,6 +42,8 @@ public class ConvoUI : MonoBehaviour
     {
         TutorialManager.Instance.OnRecord();
         ConvoPanel.SetActive(true);
+        ActivateDealBtn(false);
+        EndPanel.SetActive(false);
         TalkOrNotPanel.SetActive(false);
         Managers.UI.InitiateInputMode();
     }
@@ -50,26 +52,22 @@ public class ConvoUI : MonoBehaviour
     {
         Managers.Convo.ConvoFinished();
         TalkOrNotPanel.SetActive(false);
+        EndPanel.SetActive(false);
         ConvoPanel.SetActive(false);
     }
     #endregion
-
 
     public void ShowPanel(Define.SendChatType sendChatType, Define.EndType endType)
     {
         if (sendChatType == Define.SendChatType.ItemInit)
         {
+            EndPanel.SetActive(false);
             ConvoPanel.SetActive(false);
             ChooseItemPanel.SetActive(true);
         }
         else if (sendChatType == Define.SendChatType.ChatBargain)
         {
-            DealBtn dealBtn = ConvoPanel.GetComponentInChildren<DealBtn>(true);
-            if (dealBtn != null)
-            {
-                dealBtn.gameObject.SetActive(true);
-                dealBtn.GetComponent<Button>().interactable = true;
-            }
+            ActivateDealBtn();
         }
         else if (sendChatType == Define.SendChatType.Endpoint)
         {
@@ -78,13 +76,11 @@ public class ConvoUI : MonoBehaviour
 
             if (endType == Define.EndType.Success)
             {
-                Debug.Log("????");
                 text.text = "물건 판매 성공~!";
                 btnText.text = "짱~!";
             }
             else if (endType == Define.EndType.Fail || endType == Define.EndType.Leave)
             {
-                Debug.Log("!!!!");
                 text.text = "물건 판매 실패...";
                 btnText.text = "우...";
             }
@@ -97,17 +93,12 @@ public class ConvoUI : MonoBehaviour
     {
         ChooseItemPanel.SetActive(false);
         ConvoPanel.SetActive(true);
-        //ConvoPanel.GetComponentInChildren<Button>()
+        EndPanel.SetActive(false);
     }
 
     #region 물건 사기
     public void OnClickBuy()//딜 버튼 누름
     {
-        Button dealBtn = ConvoPanel.GetComponentInChildren<DealBtn>().GetComponent<Button>();
-        if (dealBtn != null)
-        {
-            dealBtn.interactable = false;
-        }
         ShowPanel(Define.SendChatType.Endpoint, Define.EndType.Success);
     }
 
@@ -119,14 +110,7 @@ public class ConvoUI : MonoBehaviour
 
     public void OnEndChat()
     {
-        Managers.Chat.TransitionToState(SendChatType.Endpoint);
-
-        EndPanel.SetActive(false);
-        
-        if (ConvoPanel.GetComponentInChildren<DealBtn>(true).GetComponent<Button>() != null)
-        {
-            ConvoPanel.GetComponentInChildren<DealBtn>(true).GetComponent<Button>().interactable = false;
-        }
+        EndPanel.SetActive(true);
         ConvoPanel.SetActive(false);
 
         Managers.Convo.ConvoFinished();
@@ -159,6 +143,23 @@ public class ConvoUI : MonoBehaviour
             KeyboardPanel.SetActive(true);
             Managers.Input.CurInputMode = Define.UserInputMode.Keyboard;
 
+        }
+    }
+
+    //------------------------------------------------------
+    private void ActivateDealBtn(bool activate = true)
+    {
+        DealBtn dealBtn = ConvoPanel.GetComponentInChildren<DealBtn>(true);
+        if (dealBtn != null)
+        {
+            if (!activate)
+            {
+                dealBtn.gameObject.SetActive(false);
+                return;
+            }
+
+            dealBtn.gameObject.SetActive(true);
+            dealBtn.GetComponent<Button>().interactable = true;
         }
     }
 
