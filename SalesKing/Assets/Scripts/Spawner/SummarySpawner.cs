@@ -15,7 +15,7 @@ public class SummarySpawner : MonoBehaviour
     void SpawnEntities()
     {
         // S_NpcEvalDict에서 NPC 정보를 받아옴
-        foreach (var npcEval in VariableList.S_NpcEvalDict.Values)
+        foreach (var npcEval in Managers.Chat.EvalManager.NpcEvalDict.Values)
         {
             GameObject newNpc = Instantiate(npcPrefab, gridParent);
 

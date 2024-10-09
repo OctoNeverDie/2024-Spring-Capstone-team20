@@ -17,9 +17,9 @@ public class EvalSubManager
     }
 
     // NpcEvaluation 타입을 저장하는 Dictionary를 정의
-    public Dictionary<int, NpcEvaluation> S_NpcEvalDict { get; private set; } = new Dictionary<int, NpcEvaluation>();
+    public Dictionary<int, NpcEvaluation> NpcEvalDict { get; private set; } = new Dictionary<int, NpcEvaluation>();
 
-    public int S_currentNpcId = 0;
+    public int currentNpcId = 0;
     public void InitNpcDict(int npcId, string npcName, int npcAge, bool npcSex)
     {
         NpcEvaluation _npcEvaluation = new NpcEvaluation
@@ -33,53 +33,51 @@ public class EvalSubManager
             npcEvaluation = string.Empty
         };
 
-        S_currentNpcId = npcId;
+        currentNpcId = npcId;
 
-        if (S_NpcEvalDict.ContainsKey(S_currentNpcId))
+        if (NpcEvalDict.ContainsKey(currentNpcId))
         {
-            S_NpcEvalDict[S_currentNpcId] = _npcEvaluation;
+            NpcEvalDict[currentNpcId] = _npcEvaluation;
         }
         else
         {
-            S_NpcEvalDict.Add(S_currentNpcId, _npcEvaluation);
+            NpcEvalDict.Add(currentNpcId, _npcEvaluation);
         }
     }
 
     public void InitializeNpcEvaluations()
     {
         // 임시 데이터 추가
-        S_NpcEvalDict.Clear();  // 기존 데이터 초기화
-        S_NpcEvalDict.Add(1, new NpcEvaluation { npcID = 1, npcName = "김철수", npcAge = 25, npcSex = false, npcEvaluation = "친절하고 상냥해요." });
-        S_NpcEvalDict.Add(2, new NpcEvaluation { npcID = 2, npcName = "이영희", npcAge = 30, npcSex = true, npcEvaluation = "활발하고 재미있어요." });
-        S_NpcEvalDict.Add(3, new NpcEvaluation { npcID = 3, npcName = "박민수", npcAge = 22, npcSex = false, npcEvaluation = "조용하고 신중해요." });
+        NpcEvalDict.Clear();  // 기존 데이터 초기화
+        NpcEvalDict.Add(1, new NpcEvaluation { npcID = 1, npcName = "김철수", npcAge = 25, npcSex = false, npcEvaluation = "친절하고 상냥해요." });
+        NpcEvalDict.Add(2, new NpcEvaluation { npcID = 2, npcName = "이영희", npcAge = 30, npcSex = true, npcEvaluation = "활발하고 재미있어요." });
+        NpcEvalDict.Add(3, new NpcEvaluation { npcID = 3, npcName = "박민수", npcAge = 22, npcSex = false, npcEvaluation = "조용하고 신중해요." });
     }
-
 
     public void AddEvaluation(string npcEvaluation)
     {
-        S_NpcEvalDict[S_currentNpcId].npcEvaluation = npcEvaluation;
+        NpcEvalDict[currentNpcId].npcEvaluation = npcEvaluation;
     }
 
     //--------------------------------------------------
     public static event Action<float, ItemInfo> OnItemInit;
-    public ItemInfo S_itemInfo { get; set; }
-    public string S_ThingToBuy { get; set; }
+    public ItemInfo itemInfo { get; set; }
+    public string ThingToBuy { get; set; }
     public void InitItem(float userSuggest, ItemInfo itemInfo)
     {
-        S_itemInfo = itemInfo;
-
-        OnItemInit?.Invoke(userSuggest, S_itemInfo);
+        this.itemInfo = itemInfo;
+        OnItemInit?.Invoke(userSuggest, itemInfo);
     }
 
     public void AddItemPriceSold(float price)
     {
-        S_NpcEvalDict[S_currentNpcId].item = S_itemInfo.ObjName;
-        S_NpcEvalDict[S_currentNpcId].price = price;
+        NpcEvalDict[currentNpcId].item = itemInfo.ObjName;
+        NpcEvalDict[currentNpcId].price = price;
     }
 
     public void PrintDictionary()
     {
-        foreach (var kvp in S_NpcEvalDict)
+        foreach (var kvp in NpcEvalDict)
         {
             int npcId = kvp.Key;
             NpcEvaluation npcEval = kvp.Value;

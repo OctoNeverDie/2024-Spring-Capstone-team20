@@ -71,7 +71,7 @@ public class ChatManager : MonoBehaviour
 
     public void Clear()
     {
-        VariableList.ClearStaticData();
+        ReplyManager.ClearReplyData();
         Debug.Log($"지워 : ++++여기 들어가면 대화 끝났다고 보면 돼!!!!");
     }
 
@@ -84,10 +84,10 @@ public class ChatManager : MonoBehaviour
     {
         if (itemInfo == null)
         {
-            itemInfo = VariableList.S_itemInfo;
+            itemInfo = EvalManager.itemInfo;
         }
 
-        string expensiveRate = "";
+        string expensiveRate;
 
         if (userSuggest < itemInfo.defaultPrice)
             expensiveRate = "Affordable";

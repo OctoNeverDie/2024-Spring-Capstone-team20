@@ -20,8 +20,8 @@ public class VariableCheck : MonoBehaviour
 
         ChatManager.OnNumberUpdated += UpdateTurnSuggest;
 
-        VariableList.OnVariableUserUpdated += UserLog;
-        VariableList.OnVariableEtcUpdated += NpcProfileEvalLog;
+        ReplySubManager.OnUserReplyUpdated += UserLog;
+        ReplySubManager.OnChatDataUpdated += NpcProfileEvalLog;
     }
 
 
@@ -42,10 +42,15 @@ public class VariableCheck : MonoBehaviour
     
     private void NpcProfileEvalLog(string variableName)
     {
-        var variableList = VariableList.S_NpcEvalDict[VariableList.S_currentNpcId];
+        var EvalManager = Managers.Chat.EvalManager;
+        var ReplyManager = Managers.Chat.ReplyManager;
+
+        int DictId = EvalManager.currentNpcId;
+        var variableList = EvalManager.NpcEvalDict[DictId];
+
         switch (variableName)
         {
-            case nameof(VariableList.S_currentNpcId):
+            case nameof(EvalManager.currentNpcId):
                 Debug.Log("3 npc 프로필 업데이트");
                 /*
                 variables[5].text = $"npc: {variableList.npcID}+" +
@@ -55,24 +60,24 @@ public class VariableCheck : MonoBehaviour
                 */
                 break;
 
-            case nameof(VariableList.S_NpcEvalDict):
+            case nameof(EvalManager.NpcEvalDict):
                 Debug.Log($"4 평가 업데이트 {variableList.npcEvaluation}");
                 //variables[6].text = $"npcEval:{variableList.npcEvaluation}";
                 break;
 
-            case nameof(VariableList.S_itemInfo):
+            case nameof(EvalManager.itemInfo):
                 Debug.Log($"5 판가격,아이템 업데이트{variableList.item}, {variableList.price}");
                 //variables[7].text = $"산물건: {variableList.item}";
                 //variables[8].text = $"판가격: {variableList.price}";
                 break;
-            case nameof(VariableList.S_GptReaction):
-                Debug.Log($"6 npc 리액션 업데이트{VariableList.S_GptReaction}");
-                //variables[4].text = $"npcReact: {VariableList.S_GptReaction}";
-                Managers.UI.SetNPCAnswerText(VariableList.S_GptReaction);
+            case nameof(ReplyManager.GptReaction):
+                Debug.Log($"6 npc 리액션 업데이트{ReplyManager.GptReaction}");
+                //variables[4].text = $"npcReact: {VariableList.GptReaction}";
+                Managers.UI.SetNPCAnswerText(ReplyManager.GptReaction);
                 break;
-            case nameof(VariableList.S_ThingToBuy):
-                Debug.Log($"7 사고픈물건 업데이트{VariableList.S_ThingToBuy}");
-                //variables[9].text = $"사고픈물건: {VariableList.S_ThingToBuy}";
+            case nameof(EvalManager.ThingToBuy):
+                Debug.Log($"7 사고픈물건 업데이트{EvalManager.ThingToBuy}");
+                //variables[9].text = $"사고픈물건: {VariableList.ThingToBuy}";
                 break;
         }
     }

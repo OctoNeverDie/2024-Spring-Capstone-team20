@@ -11,8 +11,8 @@ public class NpcInitState : ChatBaseState
     //말을 거시겠습니까? 클릭하면 일어남.
     public override void Enter()
     {
+        Managers.Chat.Clear();
         //npcinfo로 받는다.
-
         string npcInfo =
             "Name: 곽제리, Age: 22, Sex: Female"
             + "Situation_Description: 너는 평범한 하루를 보내고 있을 때, 낯선 사람과 마주쳐 대화를 시작하게 돼. 그들은 친근하게 다가와서 이야기를 나누고 싶어 해. 처음엔 그들의 진짜 의도를 모르지만, 대화가 흥미롭게 진행될 수 있어. 그렇지만 대학생이라 그런지 과한 지출은 피하고 싶어해.\n"

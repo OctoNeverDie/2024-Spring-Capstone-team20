@@ -51,7 +51,9 @@ public class ChatSaleState : ChatBaseState, IVariableChat
     {
         CheckYesOrNo(gpt_output);//yes,no 왔는지 체크
         ConcatReply(gpt_output);//gpt 답변 _gptResult에 업데이트
-        
+
+        Debug.Log($"지워 :_gptResult._thingToBuy {_gptResult._thingToBuy}+_gptResult._reaction{_gptResult._reaction}+_gptResult._evaluation{_gptResult._evaluation}");
+        Debug.Log($"지워: _gptResult._yesOrNo {_gptResult._isYesNo} _gptResult._yesIsTrue {_gptResult._yesIsTrue}");
         CheckChangeState();//다음 행동
     }
 
@@ -61,16 +63,16 @@ public class ChatSaleState : ChatBaseState, IVariableChat
         {
             return;
         }
-        else if (_gptResult._yesIsTrue)
+
+        Managers.Chat.EvalManager.AddEvaluation(_gptResult._evaluation);
+        Managers.Chat.EvalManager.ThingToBuy = _gptResult._thingToBuy;
+
+        if (_gptResult._yesIsTrue)
         {
-            VariableList.AddEvaluation(_gptResult._evaluation);
-            VariableList.S_ThingToBuy = _gptResult._thingToBuy;
             Managers.Chat.TransitionToState(SendChatType.ItemInit);
         }
         else if (!_gptResult._yesIsTrue)
         {
-            VariableList.AddEvaluation(_gptResult._evaluation);
-            VariableList.S_ThingToBuy = _gptResult._thingToBuy;
             isEndHere = true;
             Exit();
         }
@@ -80,7 +82,6 @@ public class ChatSaleState : ChatBaseState, IVariableChat
         _gptResult._isYesNo = false;
         _gptResult._yesIsTrue = false;
 
-        Debug.Log($"지워 : gptAnswer {gptAnswer}");
         string[] markers = { "yes", "no" };
         
         foreach (string marker in markers)
@@ -93,7 +94,6 @@ public class ChatSaleState : ChatBaseState, IVariableChat
                 break;
             }
         }
-        Debug.Log($"지워: _gptResult._yesOrNo {_gptResult._isYesNo} _gptResult._yesIsTrue {_gptResult._yesIsTrue}");
     }
 
     private void ConcatReply(string gptAnswer)
@@ -105,20 +105,16 @@ public class ChatSaleState : ChatBaseState, IVariableChat
             _gptResult._thingToBuy = sections[1];
             _gptResult._reaction = sections[2];
             _gptResult._evaluation = sections[3];
-            VariableList.S_ThingToBuy = _gptResult._thingToBuy;
-            Debug.Log($"지워 :_gptResult._thingToBuy {_gptResult._thingToBuy}+_gptResult._reaction{_gptResult._reaction}+_gptResult._evaluation{_gptResult._evaluation}");
         }
 
         else if (sections.Length > 2)//no일 때,
         {
             _gptResult._reaction = sections[1];
             _gptResult._evaluation = sections[2];
-            Debug.Log($"지워 :_gptResult._reaction{_gptResult._reaction}+_gptResult._evaluation{_gptResult._evaluation}");
         }
 
         else if (sections.Length > 1)
         {
-            Debug.Log($"지워 : _gptResult._reaction {sections[1]}");
             _gptResult._reaction = sections[1];//later : Trim()
 
         }
@@ -126,15 +122,15 @@ public class ChatSaleState : ChatBaseState, IVariableChat
 
     private void SubScribeAction()
     {
-        VariableList.OnVariableUserUpdated -= UserInput;
-        VariableList.OnVariableGptUpdated -= GptOutput;
+        ReplySubManager.OnUserReplyUpdated -= UserInput;
+        ReplySubManager.OnGptReplyUpdated -= GptOutput;
 
-        VariableList.OnVariableUserUpdated += UserInput;
-        VariableList.OnVariableGptUpdated += GptOutput;
+        ReplySubManager.OnUserReplyUpdated += UserInput;
+        ReplySubManager.OnGptReplyUpdated += GptOutput;
     }
     private void UnSubScribeAction()
     {
-        VariableList.OnVariableUserUpdated -= UserInput;
-        VariableList.OnVariableGptUpdated -= GptOutput;
+        ReplySubManager.OnUserReplyUpdated -= UserInput;
+        ReplySubManager.OnGptReplyUpdated -= GptOutput;
     }
 }

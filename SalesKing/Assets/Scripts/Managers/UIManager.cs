@@ -88,8 +88,11 @@ public class UIManager : MonoBehaviour
         if (defaultMode == Define.UserInputMode.Keyboard)
         {
             Debug.Log("키보드 인풋 모드로 초기화");
-            ui.RecordPanel.SetActive(false);
-            ui.KeyboardPanel.SetActive(true);
+            if (ui!=null)
+            {
+                ui.RecordPanel.SetActive(false);
+                ui.KeyboardPanel.SetActive(true);
+            }
         }
         else if (defaultMode == Define.UserInputMode.Voice)
         {

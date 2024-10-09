@@ -7,16 +7,15 @@ public class TemplateReceive : MonoBehaviour
 {
     public void GetGptAnswer(string resultData, SendChatType sendTypeData)
     {
-        VariableList.S_GptAnswer = resultData;//이건 쌩
+        Managers.Chat.ReplyManager.GptAnswer = resultData;//이건 쌩
         if (UpdateGptReply(sendTypeData, resultData))
         {
             string GptAnswer = GptReply(sendTypeData, resultData);
-            VariableList.S_GptReaction = GptAnswer;//이건 리액션만 따로
+            Managers.Chat.ReplyManager.GptReaction = GptAnswer;//이건 리액션만 따로
         }
         if (sendTypeData == SendChatType.Endpoint)
         {
             Managers.Chat.ActivatePanel(SendChatType.Endpoint);
-            Managers.Chat.Clear();
         }
     }
 
@@ -50,7 +49,7 @@ public class TemplateReceive : MonoBehaviour
     }
     private string GptReply(SendChatType sendChatType, string GPTanswer)
     {
-        string pattern = "";
+        string pattern;
 
         if (sendChatType == SendChatType.ChatSale)
         {

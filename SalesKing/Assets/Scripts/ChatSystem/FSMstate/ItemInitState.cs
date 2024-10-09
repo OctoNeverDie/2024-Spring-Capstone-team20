@@ -8,8 +8,8 @@ public class ItemInitState : ChatBaseState
     string _userSend;
     public override void Enter()
     {
-        VariableList.OnItemInit -= MakeAnswer;
-        VariableList.OnItemInit += MakeAnswer;
+        EvalSubManager.OnItemInit -= MakeAnswer;
+        EvalSubManager.OnItemInit += MakeAnswer;
 
         _sendChatType = SendChatType.ItemInit;
         Debug.Log($"ItemInitState에서 보냄1 {_sendChatType}");
@@ -18,13 +18,13 @@ public class ItemInitState : ChatBaseState
 
     public override void Exit()
     {
-        VariableList.OnItemInit -= MakeAnswer;
+        EvalSubManager.OnItemInit -= MakeAnswer;
     }
     private void MakeAnswer(float userSuggest, ItemInfo itemInfo)
     {
         string expensiveRate = Managers.Chat.RatePrice(userSuggest, itemInfo);
 
-        _userSend = $"\nThe thing you want to buy: {VariableList.S_ThingToBuy}"
+        _userSend = $"\nThe thing you want to buy: {Managers.Chat.EvalManager.ThingToBuy}"
         + $"\nThe thing vendor is selling to you: {itemInfo.ObjName}"
         + $"\nvendor First Suggest: {userSuggest} credit,"
         + $"Your First Suggest: {itemInfo.defaultPrice} credit"

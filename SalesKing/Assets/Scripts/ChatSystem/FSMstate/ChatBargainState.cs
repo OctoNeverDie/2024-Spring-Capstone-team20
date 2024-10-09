@@ -164,7 +164,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     {
         UpdateTurn();
         //최종값 올림
-        VariableList.AddItemPriceSold(_gptResult._npcSuggest);
+        Managers.Chat.EvalManager.AddItemPriceSold(_gptResult._npcSuggest);
     }
 
     private void UpdateTurn()
@@ -174,15 +174,16 @@ public class ChatBargainState : ChatBaseState, IVariableChat
 
     private void SubScribeAction()
     {
-        VariableList.OnVariableUserUpdated -= UserInput;
-        VariableList.OnVariableGptUpdated -= GptOutput;
+        ReplySubManager.OnUserReplyUpdated -= UserInput;
+        ReplySubManager.OnGptReplyUpdated -= GptOutput;
+        
 
-        VariableList.OnVariableUserUpdated += UserInput;
-        VariableList.OnVariableGptUpdated += GptOutput;
+        ReplySubManager.OnUserReplyUpdated += UserInput;
+        ReplySubManager.OnGptReplyUpdated += GptOutput;
     }
     private void UnSubScribeAction()
     {
-        VariableList.OnVariableUserUpdated -= UserInput;
-        VariableList.OnVariableGptUpdated -= GptOutput;
+        ReplySubManager.OnUserReplyUpdated -= UserInput;
+        ReplySubManager.OnGptReplyUpdated -= GptOutput;
     }
 }

@@ -11,8 +11,8 @@ public class EndPointState : ChatBaseState
     {
         _sendChatType = Define.SendChatType.Endpoint;
 
-        VariableList.OnVariableGptUpdated -= GptOutput;
-        VariableList.OnVariableGptUpdated += GptOutput;
+        ReplySubManager.OnGptReplyUpdated -= GptOutput;
+        ReplySubManager.OnGptReplyUpdated += GptOutput;
 
         this._endType = Managers.Chat._endType;
         string input = "$"+_endType.ToString();
@@ -24,7 +24,7 @@ public class EndPointState : ChatBaseState
 
     public override void Exit()
     {
-        VariableList.OnVariableGptUpdated -= GptOutput;
+        ReplySubManager.OnGptReplyUpdated -= GptOutput;
 
         _gptResult = new GptResult();
         Managers.Chat.Clear();
@@ -33,7 +33,7 @@ public class EndPointState : ChatBaseState
     private void GptOutput(string gpt_output)
     {
         ConcatReply(gpt_output);
-        VariableList.AddEvaluation(_gptResult.evaluation);
+        Managers.Chat.EvalManager.AddEvaluation(_gptResult.evaluation);
     }
 
     private struct GptResult
