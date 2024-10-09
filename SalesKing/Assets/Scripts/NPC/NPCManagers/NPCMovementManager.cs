@@ -43,7 +43,6 @@ public class NPCMovementManager : MonoBehaviour
     {
         if (availableSpawnPoints.Count == 0)
         {
-            Debug.LogError("No more available spawn points.");
             return null;
         }
 

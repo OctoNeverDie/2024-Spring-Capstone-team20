@@ -5,12 +5,16 @@ using static Define;
 
 public class UserDealClick : MonoBehaviour
 {
-    public void OnClickYes()
+    //Deal 버튼 누르면
+    public void OnClickYesFSM()
     {
         ServerManager.Instance.GetGPTReply("$buy", SendChatType.Endpoint);
-        //Managers.Chat.TestReply("Success");
         this.gameObject.SetActive(false);
     }
 
-
+    //endpanel 확인버튼 누르면
+    public void OnEndChatFSM()
+    {
+        Managers.Chat.TransitionToState(SendChatType.Endpoint);
+    }
 }
