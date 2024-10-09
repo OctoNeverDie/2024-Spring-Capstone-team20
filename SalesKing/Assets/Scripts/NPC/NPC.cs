@@ -110,7 +110,7 @@ public class NPC : MonoBehaviour
 
     public void ChooseNextDestination()
     {
-        Transform thisTransform = Managers.NPC.Move.GetRandomSpawnPoint();
+        Transform thisTransform = Managers.NPC.Move.GetUniqueSpawnPoint();
         if (thisTransform != null) curDestination = thisTransform;
         else curDestination = this.transform;
     }

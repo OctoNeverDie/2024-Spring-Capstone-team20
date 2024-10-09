@@ -12,13 +12,17 @@ public class ConvoUI : MonoBehaviour
     public GameObject ConvoPanel;
     public GameObject EndPanel;
 
-    public TMP_InputField UserText;
     public GameObject NPCSpeechBubble;
     public TextMeshProUGUI NPCSpeechText;
+    public GameObject UserSpeechBubble;
+    public TextMeshProUGUI UserSpeechText;
 
-    public TextMeshProUGUI StatusText;
     public TextMeshProUGUI TimeText;
     public TextMeshProUGUI CashText;
+    public TextMeshProUGUI TurnText;
+
+    public GameObject RecordPanel;
+    public GameObject KeyboardPanel;
 
     private void Start()
     {
@@ -132,5 +136,22 @@ public class ConvoUI : MonoBehaviour
         ConvoPanel.SetActive(false);
     }
 
+    public void OnClickSwitchBtn()
+    {
+        // switch to voice
+        if (Managers.Input.CurInputMode == Define.UserInputMode.Keyboard)
+        {
+            RecordPanel.SetActive(true);
+            KeyboardPanel.SetActive(false);
+            Managers.Input.CurInputMode = Define.UserInputMode.Voice;
+        }
+        else if (Managers.Input.CurInputMode == Define.UserInputMode.Voice)
+        {
+            RecordPanel.SetActive(false);
+            KeyboardPanel.SetActive(true);
+            Managers.Input.CurInputMode = Define.UserInputMode.Keyboard;
+
+        }
+    }
 }
 

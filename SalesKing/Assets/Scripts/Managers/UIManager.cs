@@ -21,24 +21,6 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         SetTimeText();
-
-        // stt 시작 버튼
-        if (Input.GetButtonDown("STT"))
-        {
-            Debug.Log("stt 시작");
-        }
-
-        // stt 종료 버튼
-        if (Input.GetButtonUp("STT"))
-        {
-            Debug.Log("stt 끝");
-        }
-
-        // 제출 버튼
-        if (Input.GetButtonDown("Submit"))
-        {
-            Debug.Log("대화 보내기");
-        }
     }
 
     public void ShowTalkOrNotPanel()
@@ -48,17 +30,18 @@ public class UIManager : MonoBehaviour
 
     public void SetNPCAnswerText(string text)
     {
+        Debug.Log("npc 대화창 띄우기: "+text);
         ui.NPCSpeechText.text = text;
         ui.NPCSpeechBubble.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         ui.NPCSpeechBubble.transform.DOScale(1f, 0.5f).SetEase(Ease.InOutBounce).SetUpdate(true);
     }
 
-    public void SetStatusText(string thought, string reason, string emotion, string suggestprice)
+    public void SetUserAnswerText(string text)
     {
-        ui.StatusText.text = "Thought: "+thought+"\n"
-            +"Reason: " + reason + "\n"
-            +"Emotion: " + emotion + "\n"
-            +"Suggested Price: " + suggestprice + "\n";
+        Debug.Log("유저 입력창 띄우기: " + text);
+        ui.UserSpeechText.text = text;
+        ui.UserSpeechBubble.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        ui.UserSpeechBubble.transform.DOScale(1f, 0.5f).SetEase(Ease.InOutBounce).SetUpdate(true);
     }
 
     public void SetTimeText()
@@ -87,9 +70,22 @@ public class UIManager : MonoBehaviour
         ui.CashText.text = cashAmount+ "$";
     }
 
-    public void SetPlayerInputField(string input)
+    public void SetTurnText(int turn, int maxTurn)
     {
-        ui.UserText.text = ui.UserText.text + input;
+        ui.TurnText.text = turn.ToString()+" / " +maxTurn.ToString();
     }
 
+    public void InitiateInputMode(Define.UserInputMode defaultMode)
+    {
+        if (defaultMode == Define.UserInputMode.Keyboard)
+        {
+            ui.RecordPanel.SetActive(false);
+            ui.KeyboardPanel.SetActive(true);
+        }
+        else if (defaultMode == Define.UserInputMode.Voice)
+        {
+            ui.RecordPanel.SetActive(true);
+            ui.KeyboardPanel.SetActive(false);
+        }
+    }
 }

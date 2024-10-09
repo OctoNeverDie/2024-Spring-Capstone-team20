@@ -98,21 +98,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    /*
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("NPC"))
-        {
-            NPC thisNPC = other.GetComponent<NPC>();
-            if (thisNPC.currentTalkable == NPCDefine.Talkable.Able)
-            {
-                Managers.Chat.Init();
-                PlayerEnterConvo(other.gameObject);
-            }
-        }
-    }
-    */
-
     public void FreezeAndUnFreezePlayer(bool isFreeze)
     {
         move.isMovementLocked = isFreeze;
