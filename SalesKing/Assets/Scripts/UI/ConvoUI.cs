@@ -33,7 +33,7 @@ public class ConvoUI : MonoBehaviour
 
     public TMP_InputField UserInputField;
 
-    private float todayGoal = 300;
+    private float todayGoal = 200;
 
     private void Start()
     {
@@ -213,7 +213,7 @@ public class ConvoUI : MonoBehaviour
         SceneManager.LoadScene("Start");
     }
 
-    public void onClickFail()
+    public void OnClickFail()
     {
         SceneManager.LoadScene("Last");
     }
