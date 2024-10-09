@@ -9,7 +9,7 @@ public class EventManager : MonoBehaviour
     public GameObject youDiedPanel;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         Sequence sequence = DOTween.Sequence();
 

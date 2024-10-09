@@ -2851,7 +2851,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1836740819}
   - component: {fileID: 1836740818}
-  - component: {fileID: 1836740820}
   m_Layer: 0
   m_Name: '@Managers'
   m_TagString: Untagged
@@ -2887,19 +2886,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1836740820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1836740817}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e01b5974f1c7cb4429293c531c5a9a87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  youDiedPanel: {fileID: 614620277}
 --- !u!1 &1870178401
 GameObject:
   m_ObjectHideFlags: 0
@@ -3054,6 +3040,7 @@ GameObject:
   - component: {fileID: 2018772916}
   - component: {fileID: 2018772915}
   - component: {fileID: 2018772914}
+  - component: {fileID: 2018772917}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -3111,6 +3098,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2018772917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2018772913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e01b5974f1c7cb4429293c531c5a9a87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  youDiedPanel: {fileID: 614620277}
 --- !u!1 &2087371630
 GameObject:
   m_ObjectHideFlags: 0
