@@ -26,6 +26,7 @@ public static class VariableList
         set
         {
             _s_GptAnswer = value;
+            PrintDictionary();
             OnVariableGptUpdated?.Invoke(_s_GptAnswer);
         }
     }
@@ -124,5 +125,15 @@ public static class VariableList
     {
         S_NpcEvalDict[S_currentNpcId].item = S_itemInfo.ObjName;
         S_NpcEvalDict[S_currentNpcId].price = price;
+    }
+
+    public static void PrintDictionary()
+    {
+        foreach (var kvp in S_NpcEvalDict)
+        {
+            int npcId = kvp.Key;
+            NpcEvaluation npcEval = kvp.Value;
+            Debug.Log($"NPC ID: {npcId}, Details: {npcEval.npcID}+{npcEval.npcEvaluation}");
+        }
     }
 }
