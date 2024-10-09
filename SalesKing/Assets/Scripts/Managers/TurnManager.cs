@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour
 {
@@ -10,6 +12,9 @@ public class TurnManager : MonoBehaviour
     public int todayTurn=0;
     // 대화 횟수 제한
     public int talkLimit = 3;
+
+    private float todayCashFloat;
+    private float todayGoal = 200;
 
     void Start()
     {
@@ -23,6 +28,8 @@ public class TurnManager : MonoBehaviour
         if (todayTurn >= talkLimit)
         {
             Debug.Log("대화 횟수 소진, 엔딩 호출 (위치: TurnManager)");
+            Managers.UI.ShowSummaryPanel();
+
         }
     }
 

@@ -89,6 +89,16 @@ public static class VariableList
         }
     }
 
+    public static void InitializeNpcEvaluations()
+    {
+        // 임시 데이터 추가
+        S_NpcEvalDict.Clear();  // 기존 데이터 초기화
+        S_NpcEvalDict.Add(1, new NpcEvaluation { npcID = 1, npcName = "김철수", npcAge = 25, npcSex = false, npcEvaluation = "친절하고 상냥해요." });
+        S_NpcEvalDict.Add(2, new NpcEvaluation { npcID = 2, npcName = "이영희", npcAge = 30, npcSex = true, npcEvaluation = "활발하고 재미있어요." });
+        S_NpcEvalDict.Add(3, new NpcEvaluation { npcID = 3, npcName = "박민수", npcAge = 22, npcSex = false, npcEvaluation = "조용하고 신중해요." });
+    }
+
+
     public static void AddEvaluation(string npcEvaluation) 
     {
         S_NpcEvalDict[S_currentNpcId].npcEvaluation = npcEvaluation;

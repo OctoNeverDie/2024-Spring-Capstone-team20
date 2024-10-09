@@ -10,12 +10,15 @@ public class ConvoUI : MonoBehaviour
     public GameObject TalkOrNotPanel;
     public GameObject ChooseItemPanel;
     public GameObject ConvoPanel;
+    public GameObject SummaryPanel;
     public GameObject EndPanel;
 
     public GameObject NPCSpeechBubble;
     public TextMeshProUGUI NPCSpeechText;
     public GameObject UserSpeechBubble;
     public TextMeshProUGUI UserSpeechText;
+    public TextMeshProUGUI todayCashText;
+
 
     public TextMeshProUGUI TimeText;
     public TextMeshProUGUI CashText;
@@ -25,6 +28,8 @@ public class ConvoUI : MonoBehaviour
     public GameObject KeyboardPanel;
 
     public TMP_InputField UserInputField;
+
+    private float todayGoal = 300;
 
     private void Start()
     {
@@ -157,5 +162,18 @@ public class ConvoUI : MonoBehaviour
             dealBtn.GetComponent<Button>().interactable = true;
         }
     }
+
+    public void OnclickEndingBtn()
+    {
+        if (Managers.Cash.TotalCash >= todayGoal)
+        {
+            Debug.Log("성공~");
+        }
+        else
+        {
+            Debug.Log("실패~");
+        }
+    }
+
 }
 

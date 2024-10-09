@@ -28,6 +28,12 @@ public class UIManager : MonoBehaviour
         ui.TalkOrNotPanel.SetActive(true);
     }
 
+    public void ShowSummaryPanel()
+    {
+        ui.todayCashText.text = "오늘 번 돈: " + Managers.Cash.TotalCash.ToString() + "$";
+        ui.SummaryPanel.SetActive(true);
+    }
+
     public void SetNPCAnswerText(string text)
     {
         Debug.Log("npc 대화창 띄우기: "+text);
