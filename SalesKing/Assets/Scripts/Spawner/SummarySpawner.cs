@@ -9,7 +9,6 @@ public class SummarySpawner : MonoBehaviour
 
     private void Start()
     {
-        VariableList.InitializeNpcEvaluations();  // 임시 NPC 데이터 초기화
         SpawnEntities();
     }
 
