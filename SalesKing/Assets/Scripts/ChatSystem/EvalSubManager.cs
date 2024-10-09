@@ -3,53 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class VariableList
+public class EvalSubManager
 {
-    public static event Action<string> OnVariableUserUpdated;
-    public static event Action<string> OnVariableGptUpdated;
-    public static event Action<string> OnVariableEtcUpdated;
-    private static string _s_UserAnswer;
-    private static string _s_GptAnswer;
-    private static string _s_GptReaction;
-    public static string S_UserAnswer
-    {
-        get => _s_UserAnswer;
-        set
-        {
-            _s_UserAnswer = value;
-            OnVariableUserUpdated?.Invoke(_s_UserAnswer);
-        }
-    }
-    public static string S_GptAnswer
-    {
-        get => _s_GptAnswer;
-        set
-        {
-            _s_GptAnswer = value;
-            PrintDictionary();
-            OnVariableGptUpdated?.Invoke(_s_GptAnswer);
-        }
-    }
-
-    public static string S_GptReaction
-    {
-        get => _s_GptReaction;
-        set {
-            _s_GptReaction = value;
-            OnVariableEtcUpdated?.Invoke(nameof(S_GptReaction));
-        }
-    }
-
-    public static void ClearStaticData()
-    {
-        _s_UserAnswer = "";
-        _s_GptAnswer = "";
-        S_currentNpcId = 0;
-
-        S_itemInfo = new ItemInfo();
-        S_ThingToBuy = "";
-    }
-    //--------------------------------------------------
     public class NpcEvaluation
     {
         public int npcID;
@@ -60,11 +15,12 @@ public static class VariableList
         public float price;
         public string npcEvaluation;
     }
-    public static int S_currentNpcId;
+
     // NpcEvaluation 타입을 저장하는 Dictionary를 정의
-    public static Dictionary<int, NpcEvaluation> S_NpcEvalDict { get; private set; } = new Dictionary<int, NpcEvaluation>();
-    
-    public static void InitNpcDict(int npcId, string npcName, int npcAge, bool npcSex)
+    public Dictionary<int, NpcEvaluation> S_NpcEvalDict { get; private set; } = new Dictionary<int, NpcEvaluation>();
+
+    public int S_currentNpcId = 0;
+    public void InitNpcDict(int npcId, string npcName, int npcAge, bool npcSex)
     {
         NpcEvaluation _npcEvaluation = new NpcEvaluation
         {
@@ -89,7 +45,7 @@ public static class VariableList
         }
     }
 
-    public static void InitializeNpcEvaluations()
+    public void InitializeNpcEvaluations()
     {
         // 임시 데이터 추가
         S_NpcEvalDict.Clear();  // 기존 데이터 초기화
@@ -99,35 +55,29 @@ public static class VariableList
     }
 
 
-    public static void AddEvaluation(string npcEvaluation) 
+    public void AddEvaluation(string npcEvaluation)
     {
         S_NpcEvalDict[S_currentNpcId].npcEvaluation = npcEvaluation;
     }
 
-    public static bool CheckEvaluationIsAlready()
-    {
-        if (S_NpcEvalDict[S_currentNpcId].npcEvaluation == null)
-            return true;
-        return false;
-    }
     //--------------------------------------------------
     public static event Action<float, ItemInfo> OnItemInit;
-    public static ItemInfo S_itemInfo { get; set; }
-    public static string S_ThingToBuy { get; set; }
-    public static void InitItem(float userSuggest, ItemInfo itemInfo)
-    { 
+    public ItemInfo S_itemInfo { get; set; }
+    public string S_ThingToBuy { get; set; }
+    public void InitItem(float userSuggest, ItemInfo itemInfo)
+    {
         S_itemInfo = itemInfo;
 
         OnItemInit?.Invoke(userSuggest, S_itemInfo);
     }
 
-    public static void AddItemPriceSold(float price)
+    public void AddItemPriceSold(float price)
     {
         S_NpcEvalDict[S_currentNpcId].item = S_itemInfo.ObjName;
         S_NpcEvalDict[S_currentNpcId].price = price;
     }
 
-    public static void PrintDictionary()
+    public void PrintDictionary()
     {
         foreach (var kvp in S_NpcEvalDict)
         {

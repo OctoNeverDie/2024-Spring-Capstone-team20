@@ -22,7 +22,7 @@ public class NpcInitState : ChatBaseState
         NpcID = 2;
 
         string _userSend= MakeAnswer(npcInfo);
-        VariableList.InitNpcDict(NpcID, "곽제리", 22, true);
+        Managers.Chat.EvalManager.InitNpcDict(NpcID, "곽제리", 22, true);
 
         _sendChatType = SendChatType.NpcInit;
 

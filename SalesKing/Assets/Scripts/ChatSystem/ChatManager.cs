@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static Define;
-using static ServerBase;
 
 public class ChatManager : MonoBehaviour
 {
     private ChatStateMachine _chatStateMachine;
+    public ReplySubManager ReplyManager = new ReplySubManager();
+    public EvalSubManager EvalManager = new EvalSubManager();
+
     public static event Action<SendChatType, EndType> OnPanelUpdated;
     public void Init()
     {

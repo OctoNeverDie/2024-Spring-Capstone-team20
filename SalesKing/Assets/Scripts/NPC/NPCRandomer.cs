@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //NPC list 랜덤으로 섞고, 마주칠 때마다 Queue로 NPC 뺌
-public class NPCRandomer : MonoBehaviour
+public class NpcSupplyManager : MonoBehaviour
 {
     void Start()
     {
