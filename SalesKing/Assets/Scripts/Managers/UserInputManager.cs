@@ -14,7 +14,7 @@ public class UserInputManager : MonoBehaviour
     {
         myPlayer = Managers.Player.MyPlayer.GetComponent<Player>();
         CurInputMode = DefaultMode;
-        Managers.UI.InitiateInputMode(CurInputMode);
+        Managers.UI.InitiateInputMode();
     }
 
     void Update()
@@ -51,6 +51,11 @@ public class UserInputManager : MonoBehaviour
                 }
 
             }
+        }
+
+        if (Input.GetButtonDown("Submit"))
+        {
+            //VaribleInput.OnClick();
         }
     }
 }
