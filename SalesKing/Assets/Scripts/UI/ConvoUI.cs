@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using static Define;
+using DG.Tweening; // DoTween 네임스페이스 추가
 
 public class ConvoUI : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class ConvoUI : MonoBehaviour
     public GameObject ConvoPanel;
     public GameObject SummaryPanel;
     public GameObject EndPanel;
+    public GameObject DemoEndPanel;
 
     public GameObject NPCSpeechBubble;
     public TextMeshProUGUI NPCSpeechText;
@@ -89,8 +91,9 @@ public class ConvoUI : MonoBehaviour
         }
     }
 
-    public void OnClickSelectItemBtn()
+    public void OnClickSelectItemBtn(GameObject priceTab)
     {
+        priceTab.transform.gameObject.SetActive(false);
         ChooseItemPanel.SetActive(false);
         ConvoPanel.SetActive(true);
         EndPanel.SetActive(false);
@@ -125,6 +128,7 @@ public class ConvoUI : MonoBehaviour
     public void OnClickExitNPCBtn()
     {
         Managers.Convo.ConvoFinished();
+
         ConvoPanel.SetActive(false);
     }
 
@@ -168,11 +172,35 @@ public class ConvoUI : MonoBehaviour
         if (Managers.Cash.TotalCash >= todayGoal)
         {
             Debug.Log("성공~");
+            EndingScene(true);
         }
         else
         {
             Debug.Log("실패~");
+            EndingScene(false);
         }
+    }
+
+    public void EndingScene(bool isSurvive)
+    {
+        DemoEndPanel.SetActive(true); // DemoEndPanel 활성화
+
+        GameObject gObject;
+
+        if (isSurvive)
+        {
+            // DemoEndPanel 내에서 Suceed 오브젝트 찾기
+            gObject = DemoEndPanel.transform.Find("Succeed").gameObject;
+
+        } else
+        {
+            // DemoEndPanel 내에서 Suceed 오브젝트 찾기
+            gObject = DemoEndPanel.transform.Find("Fail").gameObject;
+
+            // Suceed 오브젝트 활성화
+        }
+        gObject.SetActive(true);
+
     }
 
 }
