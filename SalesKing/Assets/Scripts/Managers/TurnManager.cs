@@ -14,7 +14,6 @@ public class TurnManager : MonoBehaviour
     public int talkLimit = 3;
 
     private float todayCashFloat;
-    private float todayGoal = 200;
 
     void Start()
     {

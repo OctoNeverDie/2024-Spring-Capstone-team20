@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 using static Define;
 using DG.Tweening; // DoTween 네임스페이스 추가
+using UnityEngine.SceneManagement;
+
 
 public class ConvoUI : MonoBehaviour
 {
@@ -31,7 +33,7 @@ public class ConvoUI : MonoBehaviour
 
     public TMP_InputField UserInputField;
 
-    private float todayGoal = 300;
+    private float todayGoal = 200;
 
     private void Start()
     {
@@ -201,6 +203,19 @@ public class ConvoUI : MonoBehaviour
         }
         gObject.SetActive(true);
 
+    }
+
+    public void OnClickRestart()
+    {
+        //첫 장면을 가져오게 된다.
+        //GetActiveScene.name를 통해 현재 scene의 이름을 받아온다.
+        //LoadScene을 통해 해당 scene을 실행한다.
+        SceneManager.LoadScene("Start");
+    }
+
+    public void OnClickFail()
+    {
+        SceneManager.LoadScene("Last");
     }
 
 }

@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GamePlay/CityMap.unity
     guid: 513a136143c8fba4094a34b5317b917b
+  - enabled: 1
+    path: Assets/Scenes/GamePlay/Last.unity
+    guid: 830ea67847fb17543af511be021aa9fe
   m_configObjects: {}
