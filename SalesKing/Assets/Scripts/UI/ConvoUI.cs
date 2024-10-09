@@ -24,6 +24,8 @@ public class ConvoUI : MonoBehaviour
     public GameObject RecordPanel;
     public GameObject KeyboardPanel;
 
+    public TMP_InputField UserInputField;
+
     private void Start()
     {
         ChatManager.OnPanelUpdated -= ShowPanel;
@@ -36,6 +38,7 @@ public class ConvoUI : MonoBehaviour
         TutorialManager.Instance.OnRecord();
         ConvoPanel.SetActive(true);
         TalkOrNotPanel.SetActive(false);
+        Managers.UI.InitiateInputMode();
     }
 
     public void OnClickNoTalkBtn()
