@@ -29,7 +29,6 @@ public class TurnManager : MonoBehaviour
         {
             Debug.Log("대화 횟수 소진, 엔딩 호출 (위치: TurnManager)");
             Managers.UI.ShowSummaryPanel();
-
         }
     }
 
