@@ -25,11 +25,13 @@ def overwrite_system_message(file_path, original_prompt):
 # endregion
 
 # region Data Manager
-def init_npc(npc_data):  
+def init_npc(npc_data, request):  
     global original_decide_prompt
     global original_bargain_prompt
-    original_decide_prompt = read_system_message('CGPT/decide_system.txt')
-    original_bargain_prompt = read_system_message('CGPT/bargain_system.txt')
+    original_decide_prompt = read_system_message('CGPT/decide_system_original.txt')
+    original_bargain_prompt = read_system_message('CGPT/bargain_system_original.txt')
+
+    clear_everything(request)
 
     append_system_message('CGPT/decide_system.txt', npc_data)
     append_system_message('CGPT/bargain_system.txt', npc_data)
@@ -40,13 +42,13 @@ def init_item(item_data):
     return JsonResponse({'reply': '@ Item Attached.'})  
 
 def clear_everything(request):
-    print(original_decide_prompt)
-    print(original_bargain_prompt)
-    overwrite_system_message('CGPT/decide_system.txt', original_decide_prompt)
-    overwrite_system_message('CGPT/bargain_system.txt', original_bargain_prompt)
-
+    clear_prompt()
     clear_chatHistory(request)
     return JsonResponse({'reply': '@ Data cleared.'})
+
+def clear_prompt():
+    overwrite_system_message('CGPT/decide_system.txt', original_decide_prompt)
+    overwrite_system_message('CGPT/bargain_system.txt', original_bargain_prompt)
     
 def clear_chatHistory(request):
     if 'chat_history' in request.session and request.session['chat_history']:
@@ -96,7 +98,7 @@ def query_view(request):
             print(sendType)
 
             if sendType == "NpcInit":
-                return init_npc(prompt)
+                return init_npc(prompt, request)
             
             elif sendType == "ItemInit":
                 clear_chatHistory(request)
