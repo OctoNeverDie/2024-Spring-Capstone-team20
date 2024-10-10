@@ -67,7 +67,7 @@ public class ChatSaleState : ChatBaseState, IVariableChat
         {
             return;
         }
-
+        Debug.Log("ChatSaleState");
         Managers.Chat.EvalManager.AddEvaluation(_gptResult._evaluation);
         Managers.Chat.EvalManager.ThingToBuy = _gptResult._thingToBuy;
 

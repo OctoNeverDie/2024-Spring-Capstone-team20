@@ -18,6 +18,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     { 
         Wait,
         Succes,
+        Clear,
         Fail
     }
     private struct GptResult
@@ -61,6 +62,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         ServerManager.Instance.GetGPTReply(user_input, _sendChatType);
     }
 
+    private bool is20 = false;
     public void GptOutput(string type, string gpt_output)
     {
         if (type != nameof(Managers.Chat.ReplyManager.GptAnswer))
@@ -68,19 +70,25 @@ public class ChatBargainState : ChatBaseState, IVariableChat
 
         ConcatReply(gpt_output);
 
-        if(isState != State.Fail)
+        if(isState != State.Fail && isState != State.Clear)
             isState = CheckState();
 
+
         Debug.Log($"ChatBargainState에서 보냄 {isState.ToString()}");
-        if (isState == State.Fail)
+        UpdateTurn();
+        if (isState == State.Clear)
         {
-            UpdateTurn();
+            //-20으로 쫓겨남
+            Managers.Chat._endType = EndType.clear;
+            Managers.Chat.TransitionToState(SendChatType.Endpoint);
+        }
+        else if (isState == State.Fail)
+        {
             Managers.Chat._endType = EndType.Fail;
             Managers.Chat.TransitionToState(SendChatType.Endpoint);
         }
         else if (isState == State.Wait)
         {
-            UpdateTurn();
             return;
         }
         else if (isState == State.Succes)
@@ -115,7 +123,8 @@ public class ChatBargainState : ChatBaseState, IVariableChat
 
             if (persuasion <= -20)
             {
-                isState = State.Fail;
+                is20 = true;
+                isState = State.Clear;
                 return;
             }
 
@@ -155,7 +164,6 @@ public class ChatBargainState : ChatBaseState, IVariableChat
 
     private void UpdateAndActivate()//마지막으로 갱신됨
     {
-        UpdateTurn();
         float smaller = (_gptResult._npcSuggest > _gptResult._userSuggest) ? _gptResult._userSuggest : _gptResult._npcSuggest;
         //최종값 올림
         Managers.Chat.EvalManager.AddItemPriceSold(_gptResult._npcSuggest);

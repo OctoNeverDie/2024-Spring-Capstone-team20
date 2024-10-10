@@ -84,6 +84,7 @@ public class ConvoUI : MonoBehaviour
 
     public void OnClickNoTalkBtn()
     {
+        Debug.Log($"OnClickNoTalkBtn");
         Managers.Convo.ConvoFinished();
         TalkOrNotPanel.SetActive(false);
         EndPanel.SetActive(false);
@@ -146,8 +147,7 @@ public class ConvoUI : MonoBehaviour
 
     public void OnChatLeave()
     {
-        Managers.Chat._endType = EndType.Leave;
-        OnEndChat();
+        //OnEndChat();
     }
 
     public void OnEndChat()
@@ -155,6 +155,7 @@ public class ConvoUI : MonoBehaviour
         EndPanel.SetActive(true);
         ConvoPanel.SetActive(false);
 
+        Debug.Log($"OnEndChat");
         Managers.Convo.ConvoFinished();
         EndPanel.SetActive(false);
     }
@@ -167,6 +168,8 @@ public class ConvoUI : MonoBehaviour
 
     public void OnClickExitNPCBtn()
     {
+        Debug.Log($"OnClickExitNPCBtn");
+        Managers.Chat._endType = EndType.Leave;
         Managers.Convo.ConvoFinished();
         EndPanel.SetActive(false);
         ConvoPanel.SetActive(false);

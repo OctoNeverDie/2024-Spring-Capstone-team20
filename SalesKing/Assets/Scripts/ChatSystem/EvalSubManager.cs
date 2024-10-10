@@ -38,6 +38,11 @@ public class EvalSubManager
             npcEvaluation = string.Empty
         };
 
+        if (currentNpcId != 0)
+        {
+            Debug.Log($"+++++++++그 전 애{NpcEvalDict[currentNpcId].npcName} 평가 {NpcEvalDict[currentNpcId].npcEvaluation}");
+        }
+
         currentNpcId = npcId;
 
         if (NpcEvalDict.ContainsKey(currentNpcId))
@@ -88,6 +93,7 @@ public class EvalSubManager
     {
         NpcEvalDict[currentNpcId].price = suggest;
     }
+    /*
     public void PrintDictionary()
     {
         foreach (var kvp in NpcEvalDict)
@@ -97,4 +103,5 @@ public class EvalSubManager
             Debug.Log($"NPC ID: {npcId}, Details: {npcEval.npcID}+{npcEval.npcEvaluation}");
         }
     }
+    */
 }
