@@ -40,15 +40,19 @@ public class ChatSaleState : ChatBaseState, IVariableChat
     }
 
     //유저가 입력할 때 : 
-    public void UserInput(string user_input)
+    public void UserInput(string type, string user_input)
     {//그대로 보낸다
+        if (type != nameof(Managers.Chat.ReplyManager.UserAnswer))
+            return;
         Debug.Log($"ChatSaleState에서 보냄 {_sendChatType}");
         ServerManager.Instance.GetGPTReply(user_input, _sendChatType);
     }
 
     //GPT 답 돌아왔을 때: 
-    public void GptOutput(string gpt_output)
+    public void GptOutput(string type, string gpt_output)
     {
+        if (type != nameof(Managers.Chat.ReplyManager.GptAnswer))
+            return;
         CheckYesOrNo(gpt_output);//yes,no 왔는지 체크
         ConcatReply(gpt_output);//gpt 답변 _gptResult에 업데이트
 
@@ -122,15 +126,15 @@ public class ChatSaleState : ChatBaseState, IVariableChat
 
     private void SubScribeAction()
     {
-        ReplySubManager.OnUserReplyUpdated -= UserInput;
-        ReplySubManager.OnGptReplyUpdated -= GptOutput;
+        ReplySubManager.OnReplyUpdated -= UserInput;
+        ReplySubManager.OnReplyUpdated -= GptOutput;
 
-        ReplySubManager.OnUserReplyUpdated += UserInput;
-        ReplySubManager.OnGptReplyUpdated += GptOutput;
+        ReplySubManager.OnReplyUpdated += UserInput;
+        ReplySubManager.OnReplyUpdated += GptOutput;
     }
     private void UnSubScribeAction()
     {
-        ReplySubManager.OnUserReplyUpdated -= UserInput;
-        ReplySubManager.OnGptReplyUpdated -= GptOutput;
+        ReplySubManager.OnReplyUpdated -= UserInput;
+        ReplySubManager.OnReplyUpdated -= GptOutput;
     }
 }

@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class ReplySubManager
 {
-    public static event Action<string> OnUserReplyUpdated;
-    public static event Action<string> OnGptReplyUpdated;
-    public static event Action<string> OnChatDataUpdated;
+    public static event Action<string, string> OnReplyUpdated;
 
     private string _UserAnswer;
     private string _GptAnswer;
@@ -17,7 +15,7 @@ public class ReplySubManager
         set
         {
             _UserAnswer = value;
-            OnUserReplyUpdated?.Invoke(_UserAnswer);
+            OnReplyUpdated?.Invoke(nameof(UserAnswer), _UserAnswer);
         }
     }
     public string GptAnswer
@@ -26,7 +24,7 @@ public class ReplySubManager
         set
         {
             _GptAnswer = value;
-            OnGptReplyUpdated?.Invoke(_GptAnswer);
+            OnReplyUpdated?.Invoke(nameof(GptAnswer), GptAnswer);
         }
     }
 
@@ -36,7 +34,7 @@ public class ReplySubManager
         set
         {
             _GptReaction = value;
-            OnChatDataUpdated?.Invoke(nameof(GptReaction));
+            OnReplyUpdated?.Invoke(nameof(GptReaction), GptReaction);
         }
     }
 

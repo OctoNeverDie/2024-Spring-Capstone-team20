@@ -33,6 +33,8 @@ public class ServerManager : ServerBase
         }
     }
 
+    public static event Action<bool> OnReplyUpdate;
+
     public void GetGPTReply(string userInput, SendChatType sendChatTypeFrom)
     {
         if (_sendChatType == SendChatType.Endpoint && sendChatTypeFrom != SendChatType.NpcInit)
@@ -42,7 +44,7 @@ public class ServerManager : ServerBase
         this._sendChatType = sendChatTypeFrom;
         this._userInput = userInput;
 
-
+        ServerManager.OnReplyUpdate?.Invoke(true);
         StartCoroutine(GetGPTCo());
     }
 
@@ -72,6 +74,7 @@ public class ServerManager : ServerBase
             var resultData = JObject.Parse(result.Json)["reply"].ToString();
             //var sendTypeData = JObject.Parse(result.Json)["sendType"].ToString();  // JSON에서 string 값 가져옴
             Debug.Log($"Gpt 답+++++++++++++++ {resultData}, {_sendChatType.ToString()}");
+            ServerManager.OnReplyUpdate?.Invoke(false);
             templateReceive.GetGptAnswer(resultData, _sendChatType);
 
         };

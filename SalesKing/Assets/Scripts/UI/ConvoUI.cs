@@ -16,6 +16,7 @@ public class ConvoUI : MonoBehaviour
     public GameObject SummaryPanel;
     public GameObject EndPanel;
     public GameObject DemoEndPanel;
+    public GameObject WaitReplyPanel;
 
     public GameObject NPCSpeechBubble;
     public TextMeshProUGUI NPCSpeechText;
@@ -31,14 +32,25 @@ public class ConvoUI : MonoBehaviour
     public GameObject RecordPanel;
     public GameObject KeyboardPanel;
 
-    public TMP_InputField UserInputField;
-
     private float todayGoal = 200;
 
     private void Start()
     {
         ChatManager.OnPanelUpdated -= ShowPanel;
         ChatManager.OnPanelUpdated += ShowPanel;
+        ServerManager.OnReplyUpdate -= SubWaitReply;
+        ServerManager.OnReplyUpdate += SubWaitReply;
+    }
+
+    private void OnDestroy()
+    {
+        ChatManager.OnPanelUpdated -= ShowPanel;
+        ServerManager.OnReplyUpdate -= SubWaitReply;
+    }
+
+    private void SubWaitReply(bool beActive)
+    {
+        WaitReplyPanel.SetActive(beActive);
     }
 
     #region 대화 시작하겠습니까?
@@ -48,6 +60,7 @@ public class ConvoUI : MonoBehaviour
         ConvoPanel.SetActive(true);
         ActivateDealBtn(false);
         EndPanel.SetActive(false);
+        WaitReplyPanel.SetActive(false);
         TalkOrNotPanel.SetActive(false);
         Managers.UI.InitiateInputMode();
     }
