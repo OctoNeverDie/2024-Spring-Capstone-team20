@@ -10,6 +10,7 @@ public class ChatManager : MonoBehaviour
     private ChatStateMachine _chatStateMachine;
     public ReplySubManager ReplyManager = new ReplySubManager();
     public EvalSubManager EvalManager = new EvalSubManager();
+    public NpcSupplyManager npcSupplyManager = new NpcSupplyManager();
 
     public static event Action<SendChatType, EndType> OnPanelUpdated;
     public void Init()

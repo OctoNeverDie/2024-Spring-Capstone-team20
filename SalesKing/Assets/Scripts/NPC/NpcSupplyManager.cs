@@ -3,17 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //NPC list 랜덤으로 섞고, 마주칠 때마다 Queue로 NPC 뺌
-public class NpcSupplyManager : MonoBehaviour
+public class NpcSupplyManager
 {
-    void Start()
-    {
-        InitQueue();
-    }
-
     private List<NpcInfo> npcSuffledList;
     private Queue<NpcInfo> npcQueue;
 
-    private void InitQueue()
+    public void InitQueue()
     {
         //TODO : SO로 바꾸기
         npcSuffledList = Managers.Data.npcList;
@@ -26,6 +21,7 @@ public class NpcSupplyManager : MonoBehaviour
         }
 
         npcQueue = new Queue<NpcInfo>(npcSuffledList);
+        PrintNpcQueue();
     }
 
     public NpcInfo GetNextNpc()
@@ -41,4 +37,28 @@ public class NpcSupplyManager : MonoBehaviour
             return null;
         }
     }
+
+    public void PrintNpcQueue()
+    {
+        if (npcQueue.Count == 0)
+        {
+            Debug.Log("NPC Queue is empty.");
+            return;
+        }
+
+        int index = 1;
+        foreach (NpcInfo npc in npcQueue)
+        {
+            Debug.Log($"NPC {index}: " +
+                      $"ID = {npc.NpcID}, " +
+                      $"Name = {npc.NpcName}, " +
+                      $"Sex = {npc.NpcSex}, " +
+                      $"Age = {npc.NpcAge}, " +
+                      $"Situation = {npc.Situation_Description}, " +
+                      $"Personality = {npc.Personality}, " +
+                      $"Dialogue Style = {npc.Dialogue_Style}");
+            index++;
+        }
+    }
+
 }
