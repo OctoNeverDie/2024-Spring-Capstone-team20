@@ -86,7 +86,7 @@ public class VariableCheck : MonoBehaviour
             case nameof(EvalManager.itemInfo):
                 //chatbargain -> success : item이 user 지갑 주머니에 들어와있을 때
                 Debug.Log($"5 판가격,아이템 업데이트{npcEvalDict.item}, {npcEvalDict.price}");
-                Managers.Inven.RemoveFromInventory(npcEvalDict.itemID);
+                //Managers.Inven.RemoveFromInventory(npcEvalDict.itemID);
                 Managers.Cash.AddCash(npcEvalDict.price);
                 break;            
         }
