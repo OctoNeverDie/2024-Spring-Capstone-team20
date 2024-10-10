@@ -14,7 +14,7 @@ public class UserInputManager : MonoBehaviour
     {
         myPlayer = Managers.Player.MyPlayer.GetComponent<Player>();
         CurInputMode = DefaultMode;
-        Managers.UI.InitiateInputMode();
+        if(Managers.Scene.curScene==Define.SceneMode.CityMap) Managers.UI.InitiateInputMode();
     }
 
     void Update()
@@ -24,8 +24,12 @@ public class UserInputManager : MonoBehaviour
             if(myPlayer == null)
             {
                 myPlayer = Managers.Player.MyPlayer.GetComponent<Player>();
-            } 
-
+            }
+            if (myPlayer.ui == null)
+            {
+                Debug.LogError("myPlayer.ui is null! Cannot proceed.");
+                return; // ui가 null이면 리턴
+            }
             if (myPlayer.ui.RaycastHitObj.activeSelf)
             {
                 switch (myPlayer.ui.curInteractable)
@@ -45,6 +49,8 @@ public class UserInputManager : MonoBehaviour
 
                     case Define.Interactables.Office_Secretary:
                         Debug.Log("비서한테 말걸기");
+                        Secretary thisSecretary = myPlayer.RaycastCollider.GetComponent<Secretary>();
+                        thisSecretary.ShowPanel();
                         break;
 
                     default: break;

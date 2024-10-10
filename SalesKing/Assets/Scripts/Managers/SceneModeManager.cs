@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneModeManager : MonoBehaviour
 {
+    public Define.SceneMode curScene;
+
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -17,8 +19,8 @@ public class SceneModeManager : MonoBehaviour
         switch (scene.name)
         {
             //case "Start": Awake_StartScene(); break;
-            case "CityMap": Awake_CityScene(); break;
-            case "OfficeMap": Awake_OfficeScene(); break;
+            case "CityMap": Awake_CityScene(); curScene = Define.SceneMode.CityMap; break;
+            case "OfficeMap": Awake_OfficeScene(); curScene = Define.SceneMode.OfficeMap; break;
             default: break;
         }
     }

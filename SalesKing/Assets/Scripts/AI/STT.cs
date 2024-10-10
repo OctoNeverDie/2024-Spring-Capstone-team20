@@ -116,7 +116,7 @@ public class STT : MonoBehaviour
     }
 
     // 사용할 언어(Kor)를 맨 뒤에 붙임
-    String url = "https://naveropenapi.apigw.ntruss.com/recog/v1/stt?lang=Kor";
+    //string url = "https://naveropenapi.apigw.ntruss.com/recog/v1/stt?lang=Kor";
 
     private IEnumerator PostVoice(string url, byte[] data)
     {

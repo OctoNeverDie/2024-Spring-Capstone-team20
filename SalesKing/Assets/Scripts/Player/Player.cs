@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     public CinemachineVirtualCamera Camera2;
     public GameObject PlayerBody;
 
-    public float rayDistance = 2f;  // 레이캐스트 거리
+    public float rayDistance = 3f;  // 레이캐스트 거리
     public bool isRaycast = true;
     private GameObject previousTarget = null; // 이전에 Raycast가 감지한 오브젝트
     public GameObject RaycastCollider;
@@ -65,6 +65,7 @@ public class Player : MonoBehaviour
                 {
                     ui.ShowCurInteractableIcon(Define.Interactables.Office_Door_Out);
                     ui.CrosshairTriggersButton(true);
+                    RaycastCollider = hit.collider.gameObject;
                 }
                 else if (hit.collider.CompareTag("NPC"))
                 {
@@ -80,6 +81,7 @@ public class Player : MonoBehaviour
                 {
                     ui.ShowCurInteractableIcon(Define.Interactables.Office_Secretary);
                     ui.CrosshairTriggersButton(true);
+                    RaycastCollider = hit.collider.gameObject;
                 }
 
                 // 이전 타겟 업데이트
