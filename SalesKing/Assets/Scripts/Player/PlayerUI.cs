@@ -25,6 +25,9 @@ public class PlayerUI : MonoBehaviour
         {
             InteractableIcons[entry.interactable] = entry.gameObject;
         }
+
+        Player myPlayer = Managers.Player.MyPlayer.GetComponent<Player>();
+        RaycastHitObj.SetActive(false);
     }
 
     public void ShowCurInteractableIcon(Define.Interactables index)
