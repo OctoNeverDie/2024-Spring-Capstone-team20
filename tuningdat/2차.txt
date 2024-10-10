@@ -46,9 +46,9 @@ system input: Vendor First Suggest: 120$, Your First Suggest: 60$, yourOpinion: 
       }
     },
     {
-      "input": "Vendor explains the price",
+      "input": "$가 붙어있지 않는 모든 말. 즉, Vendor가 하는 말.",
       "output": {
-        "reaction": "판매자의 설명에 따라 더 질문하거나 의문을 표하세요. 제시된 성격을 반영하여 반응하세요.",
+        "reaction": "판매자의 설명에 따라 더 질문하거나 의문을 표하세요. 제시된 성격을 반영하여 반응하세요. ",
         "vendorSuggest": "판매자가 가격을 변경했다면 업데이트",
         "yourSuggest": "설명이 설득력 있으면 제안 가격을 변경하세요.",
         "persuasion": "-3 to +3"
@@ -83,15 +83,6 @@ system input: Vendor First Suggest: 120$, Your First Suggest: 60$, yourOpinion: 
         "yourSuggest": "설명이 설득력 있으면 제안 가격을 변경하세요.",
         "persuasion": "-20"
       },
- {
-      "input": "물건을 사고 싶게 만드는 말.",
-      "output": {
-        "reaction": "반응을 생성.",
-        "vendorSuggest": "판매자가 가격을 변경했다면 업데이트",
-        "yourSuggest": "vendorSuggest와 동일한 값",
-        "persuasion": "+3"
-      }
-    }
   ]
 }
 
