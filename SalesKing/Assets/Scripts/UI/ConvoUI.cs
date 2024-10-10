@@ -32,7 +32,7 @@ public class ConvoUI : MonoBehaviour
     public GameObject RecordPanel;
     public GameObject KeyboardPanel;
 
-    private float todayGoal = 200;
+    private float todayGoal = 150;
 
     private void Awake()
     {
@@ -120,8 +120,15 @@ public class ConvoUI : MonoBehaviour
                 btnText.text = "우...";
             }
 
-            EndPanel.SetActive(true);
+            StartCoroutine(ShowEndPanelAfterDelay());
         }
+    }
+
+    private IEnumerator ShowEndPanelAfterDelay()
+    {
+        // 3초 대기
+        yield return new WaitForSecondsRealtime(3f);
+        EndPanel.SetActive(true);
     }
 
     public void OnClickSelectItemBtn(GameObject priceTab)
