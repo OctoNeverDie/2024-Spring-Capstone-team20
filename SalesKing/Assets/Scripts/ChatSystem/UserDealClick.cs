@@ -8,7 +8,9 @@ public class UserDealClick : MonoBehaviour
     //Deal 버튼 누르면
     public void OnClickYesFSM()
     {
+        Managers.Chat.EvalManager.AddItemPriceSold();
         ServerManager.Instance.GetGPTReply("$buy", SendChatType.Endpoint);
+        //go to template recieve
         this.gameObject.SetActive(false);
     }
 
