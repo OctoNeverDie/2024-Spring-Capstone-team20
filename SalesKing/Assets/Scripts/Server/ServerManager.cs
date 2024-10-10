@@ -45,7 +45,6 @@ public class ServerManager : ServerBase
         this._userInput = userInput;
 
         ServerManager.OnReplyUpdate?.Invoke(true);
-        Debug.Log($"왜 {sendChatTypeFrom}단계에서는 왜 패널이 안 나옴?");
         StartCoroutine(GetGPTCo());
     }
 

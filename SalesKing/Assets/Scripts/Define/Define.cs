@@ -46,6 +46,7 @@ public class Define
     {
         None,
         Fail,
+        clear,
         Success,
         Leave
     }

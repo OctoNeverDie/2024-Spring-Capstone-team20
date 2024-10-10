@@ -18,9 +18,13 @@ public class ConvoManager : MonoBehaviour
     {
         Managers.Time.StopAndRestartTime(false);
         Managers.Player.MyPlayer.GetComponent<Player>().PlayerExitConvo();
-        Managers.NPC.curTalkingNPC.GetComponent<NPC>().currentTalkable = NPCDefine.Talkable.Not;
-        Managers.NPC.curTalkingNPC.GetComponent<NPC>().myCanvas.SetActive(false);
-        Managers.NPC.curTalkingNPC = null;
+        if (Managers.NPC.curTalkingNPC != null)
+        {
+            Debug.Log("널처리 필요");
+            Managers.NPC.curTalkingNPC.GetComponent<NPC>().currentTalkable = NPCDefine.Talkable.Not;
+            Managers.NPC.curTalkingNPC.GetComponent<NPC>().myCanvas.SetActive(false);
+            Managers.NPC.curTalkingNPC = null;
+        }
         Managers.Cam.SwitchToFirstPersonCam();
         Managers.Player.MyPlayer.GetComponent<Player>().PlayerBody.SetActive(true);
         Managers.Turn.AddTurnAndCheckTalkTurn();

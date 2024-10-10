@@ -20267,7 +20267,6 @@ RectTransform:
   - {fileID: 1031164966}
   - {fileID: 1879252946}
   - {fileID: 1891669950}
-  - {fileID: 654485462}
   m_Father: {fileID: 805719249}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -25170,14 +25169,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 654485461}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1514061751}
   - {fileID: 1440912745}
-  m_Father: {fileID: 538708287}
+  m_Father: {fileID: 805719249}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -31649,6 +31648,7 @@ RectTransform:
   - {fileID: 830839848}
   - {fileID: 538708287}
   - {fileID: 2108009902}
+  - {fileID: 654485462}
   - {fileID: 1838085332}
   - {fileID: 1191314738}
   m_Father: {fileID: 0}
@@ -55413,8 +55413,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

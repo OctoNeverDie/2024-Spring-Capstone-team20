@@ -36,6 +36,7 @@ public class EndPointState : ChatBaseState
             return;
 
         ConcatReply(gpt_output);
+        Debug.Log("EndPointState");
         Managers.Chat.EvalManager.AddEvaluation(_gptResult.evaluation);
     }
 
