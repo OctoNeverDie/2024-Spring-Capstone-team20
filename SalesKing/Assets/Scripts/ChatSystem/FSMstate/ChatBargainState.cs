@@ -11,7 +11,7 @@ using static IVariableChat;
 public class ChatBargainState : ChatBaseState, IVariableChat
 {
     const int TurnInit = 8;
-    private bool lastChance =false;
+    
     State isState = State.Wait;
 
     private enum State
@@ -97,8 +97,6 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         string priceOpinion = Managers.Chat.RatePrice(_gptResult._userSuggest);
         string user_template = user_send + $"\n vendor Suggest: {_gptResult._userSuggest}"
                                 + $" npc Suggest: {_gptResult._npcSuggest} price Opinion: {priceOpinion}";
-        if (lastChance)
-            user_template = "$" + user_template;
 
         return user_template;
     }
@@ -141,28 +139,17 @@ public class ChatBargainState : ChatBaseState, IVariableChat
 
     private State CheckState()
     {
+        if (_gptResult._userSuggest <= _gptResult._npcSuggest)
+        {
+            return State.Succes;
+        }
         //persuasion 해도 턴이 남았을 때
         if (_gptResult._turn >=1)
         {
             //받고, 업데이트 했으니 이제 플레이어가 보내야하는 상황의 턴이 나옴
             _gptResult._turn = Math.Max(_gptResult._turn - 1, 0);//턴 하나 빼기
-
-            if (_gptResult._turn == 1)
-            {
-                lastChance = true;
-            }
-
             return State.Wait;//다음 대화
         }
-
-        //만약 마지막 턴이었을 때(persuasion 무시됨)vendor랑 npc랑 비교
-        if (lastChance && (_gptResult._userSuggest <= _gptResult._npcSuggest))
-        {
-            //성공
-            lastChance = false;
-            return State.Succes;
-        }
-
         return State.Fail;
     }
 

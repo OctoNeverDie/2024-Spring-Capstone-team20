@@ -70,11 +70,17 @@ public class EvalSubManager
         OnItemInit?.Invoke(userSuggest, itemInfo);
     }
 
-    public void AddItemPriceSold(float price)
+    public void AddItemPriceSold(float price= -1f)
     {
+        if (price == -1f)
+        {
+            price = NpcEvalDict[currentNpcId].price;
+        }
+
         NpcEvalDict[currentNpcId].item = itemInfo.ObjName;
         NpcEvalDict[currentNpcId].itemID = itemInfo.ObjID;
         NpcEvalDict[currentNpcId].price = price;
+        Debug.Log($"아이템 팔렸습니다 {price}");
         OnChatDataUpdated?.Invoke(nameof(itemInfo));
     }
 

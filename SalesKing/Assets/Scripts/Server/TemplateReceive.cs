@@ -38,7 +38,7 @@ public class TemplateReceive : MonoBehaviour
                 return true;
 
             case SendChatType.Endpoint:
-                if (resultData == "$clear")
+                if (resultData == "$clear")//npc가 chat sale에서 no 했을 때, 따로 summary 필요 없음
                     return false;
                 return true;
 
