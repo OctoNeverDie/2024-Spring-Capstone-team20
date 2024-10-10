@@ -56,7 +56,7 @@ public class ConvoUI : MonoBehaviour
     #region 대화 시작하겠습니까?
     public void OnClickYesTalkBtn()
     {
-        TutorialManager.Instance.OnRecord();
+        Managers.Tutorial.OnRecord();
         ConvoPanel.SetActive(true);
         ActivateDealBtn(false);
         EndPanel.SetActive(false);

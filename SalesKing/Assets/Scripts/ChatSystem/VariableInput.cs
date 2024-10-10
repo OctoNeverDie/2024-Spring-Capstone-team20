@@ -17,7 +17,7 @@ public class VariableInput : MonoBehaviour
             return;
         }
         _userInput = text.text;
-        TutorialManager.Instance.OnPersuadeToCustomer();
+        Managers.Tutorial.OnPersuadeToCustomer();
         //TODO : 현재 단계가 chatSaleState나, ChatBargain 단계 아니면 작성하지 못하게 하기.
         Managers.Chat.ReplyManager.UserAnswer = _userInput;
         text.text = "";
