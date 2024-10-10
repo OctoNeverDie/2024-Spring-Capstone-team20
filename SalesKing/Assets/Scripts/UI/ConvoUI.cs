@@ -32,7 +32,7 @@ public class ConvoUI : MonoBehaviour
     public GameObject RecordPanel;
     public GameObject KeyboardPanel;
 
-    private float todayGoal = 200;
+    private float todayGoal = 150;
 
     private void Awake()
     {

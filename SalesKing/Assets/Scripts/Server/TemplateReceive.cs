@@ -53,7 +53,7 @@ public class TemplateReceive : MonoBehaviour
 
         if (sendChatType == SendChatType.ChatSale)
         {
-            pattern = @"\""yourReply\"": \""(.*?)\""";
+            pattern = @"\""yourReply\"":\s*\""(.*?)\""";
             Match match = Regex.Match(GPTanswer, pattern);
 
             if (match.Success)
@@ -61,7 +61,7 @@ public class TemplateReceive : MonoBehaviour
         }
         else if ((sendChatType == SendChatType.ChatBargain) || (sendChatType == SendChatType.Endpoint))
         {
-            pattern = @"\""reaction\"": \""(.*?)\""";
+            pattern = @"\""reaction\"":\s*\""(.*?)\""";
             Match match = Regex.Match(GPTanswer, pattern);
 
             if (match.Success)
