@@ -2,10 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class VariableCheck : MonoBehaviour
 {
-    
+    [SerializeField]
+    TextMeshProUGUI userSuggestText;
+    [SerializeField]
+    TextMeshProUGUI npcSuggestText;
+    [SerializeField]
+    TextMeshProUGUI sellingItemText;
+    [SerializeField]
+    TextMeshProUGUI sellingItemFirstCostText;
+
     void Awake()
     {
         //variables = this.GetComponentsInChildren<TextMeshProUGUI>();
@@ -27,6 +36,8 @@ public class VariableCheck : MonoBehaviour
     private void UpdateTurnSuggest(int turn, float userSuggest, float npcSuggest)
     {
         Debug.Log($"1 Turn 업데이트 {turn} {userSuggest}  {npcSuggest}");
+        userSuggestText.text = userSuggest.ToString();
+        npcSuggestText.text = npcSuggest.ToString();
     }
 
     //Action : ReplySubManager.OnReplyUpdated
@@ -56,6 +67,8 @@ public class VariableCheck : MonoBehaviour
         //item init -> chatbargain : 패널에 보여줄 때
         Debug.Log($"7 사고픈물건 업데이트{Managers.Chat.EvalManager.ThingToBuy}");
         Debug.Log($"5 팔가격,아이템 업데이트{userSuggest}, {itemInfo.ObjName}");
+        sellingItemText.text = Managers.Chat.EvalManager.ThingToBuy.ToString();
+        sellingItemFirstCostText.text = itemInfo.defaultPrice.ToString();
     }
 
     //Action : EvalSubManager.OnChatDataUpdated, (npcinit)currentNpcId/(evaluation)NpcEvalDict/(bought item)itemInfo
