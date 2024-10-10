@@ -25,11 +25,7 @@ public class UserInputManager : MonoBehaviour
             {
                 myPlayer = Managers.Player.MyPlayer.GetComponent<Player>();
             }
-            if (myPlayer.ui == null)
-            {
-                Debug.LogError("myPlayer.ui is null! Cannot proceed.");
-                return; // ui가 null이면 리턴
-            }
+
             if (myPlayer.ui.RaycastHitObj.activeSelf)
             {
                 switch (myPlayer.ui.curInteractable)
