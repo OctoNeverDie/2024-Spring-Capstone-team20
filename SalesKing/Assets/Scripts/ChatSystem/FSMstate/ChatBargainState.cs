@@ -49,8 +49,11 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         UnSubScribeAction();
     }
 
-    public void UserInput(string user_input)
+    public void UserInput(string type, string user_input)
     {
+        if (type != nameof(Managers.Chat.ReplyManager.UserAnswer))
+            return;
+
         string user_send;
         user_send = MakeAnswer(user_input);
 
@@ -58,8 +61,11 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         ServerManager.Instance.GetGPTReply(user_input, _sendChatType);
     }
 
-    public void GptOutput(string gpt_output)
+    public void GptOutput(string type, string gpt_output)
     {
+        if (type != nameof(Managers.Chat.ReplyManager.GptAnswer))
+            return;
+
         ConcatReply(gpt_output);
 
         if(isState != State.Fail)
@@ -174,16 +180,15 @@ public class ChatBargainState : ChatBaseState, IVariableChat
 
     private void SubScribeAction()
     {
-        ReplySubManager.OnUserReplyUpdated -= UserInput;
-        ReplySubManager.OnGptReplyUpdated -= GptOutput;
-        
+        ReplySubManager.OnReplyUpdated -= UserInput;
+        ReplySubManager.OnReplyUpdated -= GptOutput;
 
-        ReplySubManager.OnUserReplyUpdated += UserInput;
-        ReplySubManager.OnGptReplyUpdated += GptOutput;
+        ReplySubManager.OnReplyUpdated += UserInput;
+        ReplySubManager.OnReplyUpdated += GptOutput;
     }
     private void UnSubScribeAction()
     {
-        ReplySubManager.OnUserReplyUpdated -= UserInput;
-        ReplySubManager.OnGptReplyUpdated -= GptOutput;
+        ReplySubManager.OnReplyUpdated -= UserInput;
+        ReplySubManager.OnReplyUpdated -= GptOutput;
     }
 }

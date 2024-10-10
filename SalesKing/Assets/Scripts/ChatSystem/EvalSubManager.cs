@@ -1,10 +1,13 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EvalSubManager
 {
+
+    public static event Action<string> OnChatDataUpdated;
+    public static event Action<float, ItemInfo> OnItemInit;
+
     public class NpcEvaluation
     {
         public int npcID;
@@ -12,6 +15,7 @@ public class EvalSubManager
         public int npcAge;
         public bool npcSex; //female is true
         public string item;
+        public int itemID;
         public float price;
         public string npcEvaluation;
     }
@@ -29,6 +33,7 @@ public class EvalSubManager
             npcAge = npcAge,
             npcSex = npcSex,
             item = string.Empty,
+            itemID = 0,
             price = 0.0f,
             npcEvaluation = string.Empty
         };
@@ -43,26 +48,22 @@ public class EvalSubManager
         {
             NpcEvalDict.Add(currentNpcId, _npcEvaluation);
         }
-    }
 
-    public void InitializeNpcEvaluations()
-    {
-        // 임시 데이터 추가
-        NpcEvalDict.Clear();  // 기존 데이터 초기화
-        NpcEvalDict.Add(1, new NpcEvaluation { npcID = 1, npcName = "김철수", npcAge = 25, npcSex = false, npcEvaluation = "친절하고 상냥해요." });
-        NpcEvalDict.Add(2, new NpcEvaluation { npcID = 2, npcName = "이영희", npcAge = 30, npcSex = true, npcEvaluation = "활발하고 재미있어요." });
-        NpcEvalDict.Add(3, new NpcEvaluation { npcID = 3, npcName = "박민수", npcAge = 22, npcSex = false, npcEvaluation = "조용하고 신중해요." });
+        OnChatDataUpdated?.Invoke(nameof(currentNpcId));
     }
 
     public void AddEvaluation(string npcEvaluation)
     {
         NpcEvalDict[currentNpcId].npcEvaluation = npcEvaluation;
+
+        OnChatDataUpdated?.Invoke(nameof(NpcEvalDict));
     }
 
     //--------------------------------------------------
-    public static event Action<float, ItemInfo> OnItemInit;
     public ItemInfo itemInfo { get; set; }
     public string ThingToBuy { get; set; }
+    
+    //아이템 맨처음 고르고, user의 첫 제시가 나옴
     public void InitItem(float userSuggest, ItemInfo itemInfo)
     {
         this.itemInfo = itemInfo;
@@ -72,7 +73,9 @@ public class EvalSubManager
     public void AddItemPriceSold(float price)
     {
         NpcEvalDict[currentNpcId].item = itemInfo.ObjName;
+        NpcEvalDict[currentNpcId].itemID = itemInfo.ObjID;
         NpcEvalDict[currentNpcId].price = price;
+        OnChatDataUpdated?.Invoke(nameof(itemInfo));
     }
 
     public void PrintDictionary()

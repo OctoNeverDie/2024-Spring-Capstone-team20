@@ -11,8 +11,8 @@ public class EndPointState : ChatBaseState
     {
         _sendChatType = Define.SendChatType.Endpoint;
 
-        ReplySubManager.OnGptReplyUpdated -= GptOutput;
-        ReplySubManager.OnGptReplyUpdated += GptOutput;
+        ReplySubManager.OnReplyUpdated -= GptOutput;
+        ReplySubManager.OnReplyUpdated += GptOutput;
 
         this._endType = Managers.Chat._endType;
         string input = "$"+_endType.ToString();
@@ -24,14 +24,17 @@ public class EndPointState : ChatBaseState
 
     public override void Exit()
     {
-        ReplySubManager.OnGptReplyUpdated -= GptOutput;
+        ReplySubManager.OnReplyUpdated -= GptOutput;
 
         _gptResult = new GptResult();
         Managers.Chat.Clear();
     }
 
-    private void GptOutput(string gpt_output)
+    private void GptOutput(string type, string gpt_output)
     {
+        if (type != nameof(Managers.Chat.ReplyManager.GptAnswer))
+            return;
+
         ConcatReply(gpt_output);
         Managers.Chat.EvalManager.AddEvaluation(_gptResult.evaluation);
     }
