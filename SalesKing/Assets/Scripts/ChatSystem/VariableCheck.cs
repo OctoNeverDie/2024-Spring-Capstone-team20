@@ -35,7 +35,6 @@ public class VariableCheck : MonoBehaviour
 
     private void UserLog(string user_input)
     {
-        Debug.Log($"2 유저인풋 업데이트{user_input}");
         //variables[3].text = $"userReact : {user_input}";
         Managers.UI.SetUserAnswerText(user_input);
     }

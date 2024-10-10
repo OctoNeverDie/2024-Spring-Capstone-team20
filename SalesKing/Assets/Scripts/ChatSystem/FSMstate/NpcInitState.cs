@@ -25,7 +25,7 @@ public class NpcInitState : ChatBaseState
           $"Situation = {npc.Situation_Description}, " +
           $"Personality = {npc.Personality}, " +
           $"Dialogue Style = {npc.Dialogue_Style}");
-        Debug.Log($"{npc.NpcSex == "female"}");
+        
         Managers.Chat.EvalManager.InitNpcDict(npc.NpcID, npc.NpcName, npc.NpcAge, npc.NpcSex == "female");
 
         _sendChatType = SendChatType.NpcInit;

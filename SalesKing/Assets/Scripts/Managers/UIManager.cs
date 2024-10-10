@@ -44,7 +44,6 @@ public class UIManager : MonoBehaviour
 
     public void SetUserAnswerText(string text)
     {
-        Debug.Log("유저 입력창 띄우기: " + text);
         ui.UserSpeechText.text = text;
         ui.UserSpeechBubble.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         ui.UserSpeechBubble.transform.DOScale(1f, 0.5f).SetEase(Ease.InOutBounce).SetUpdate(true);
