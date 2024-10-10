@@ -17,9 +17,8 @@ public class OfficeManager : MonoBehaviour
     {
         myPlayer = Managers.Player.MyPlayer.GetComponent<Player>();
         myPlayer.FreezeAndUnFreezePlayer(true);
-        officeUI = GameObject.Find("Canvas").GetComponent<OfficeUI>();
-
-        firstPersonCam = myPlayer.Camera1;
+        officeUI = GameObject.FindWithTag("Office_UI").GetComponent<OfficeUI>();
+            firstPersonCam = myPlayer.Camera1;
         Destroy(myPlayer.Camera2.gameObject);
         WelcomeCam = GameObject.Find("WelcomeCamera").GetComponent<CinemachineVirtualCamera>();
         MyPCCamera = GameObject.Find("MyPCCamera").GetComponent<CinemachineVirtualCamera>();
