@@ -139,7 +139,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
 
     private State CheckState()
     {
-        if (_gptResult._userSuggest <= _gptResult._npcSuggest)
+        if (_gptResult._userSuggest!=0 && _gptResult._userSuggest <= _gptResult._npcSuggest)
         {
             return State.Succes;
         }
@@ -156,6 +156,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     private void UpdateAndActivate()//마지막으로 갱신됨
     {
         UpdateTurn();
+        float smaller = (_gptResult._npcSuggest > _gptResult._userSuggest) ? _gptResult._userSuggest : _gptResult._npcSuggest;
         //최종값 올림
         Managers.Chat.EvalManager.AddItemPriceSold(_gptResult._npcSuggest);
     }

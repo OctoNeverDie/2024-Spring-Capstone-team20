@@ -75,6 +75,7 @@ public class EvalSubManager
         if (price == -1f)
         {
             price = NpcEvalDict[currentNpcId].price;
+            Debug.Log($"딜버튼 : 아이템 팔렸습니다 {price}");
         }
 
         NpcEvalDict[currentNpcId].item = itemInfo.ObjName;
@@ -83,7 +84,10 @@ public class EvalSubManager
         Debug.Log($"아이템 팔렸습니다 {price}");
         OnChatDataUpdated?.Invoke(nameof(itemInfo));
     }
-
+    public void UpdateSuggestInEval(float suggest)
+    {
+        NpcEvalDict[currentNpcId].price = suggest;
+    }
     public void PrintDictionary()
     {
         foreach (var kvp in NpcEvalDict)

@@ -58,6 +58,9 @@ public class ChatManager : MonoBehaviour
         if(userSuggest != -1.37f)
             _userSuggest = userSuggest;
 
+        float smaller = (_npcSuggest > _userSuggest) ? _userSuggest : _npcSuggest;
+        EvalManager.UpdateSuggestInEval(smaller);
+
         OnNumberUpdated?.Invoke(_turn, _npcSuggest, _userSuggest);
         //TODO : Panel에 남은 turn 수 출력, 서로 제시한 거 출력
     }

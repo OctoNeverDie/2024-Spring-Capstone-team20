@@ -34,7 +34,7 @@ public class ConvoUI : MonoBehaviour
 
     private float todayGoal = 200;
 
-    private void Start()
+    private void Awake()
     {
         ChatManager.OnPanelUpdated -= ShowPanel;
         ChatManager.OnPanelUpdated += ShowPanel;
@@ -47,6 +47,23 @@ public class ConvoUI : MonoBehaviour
         ChatManager.OnPanelUpdated -= ShowPanel;
         ServerManager.OnReplyUpdate -= SubWaitReply;
     }
+    /*
+    private void DealBtnActivate(bool beActive)
+    {
+        // DealBtn 컴포넌트를 자식에서 찾음
+        DealBtn dealBtnComponent = this.GetComponentInChildren<DealBtn>();
+
+        if (dealBtnComponent != null)
+        {
+            Button dealBtnButton = dealBtnComponent.GetComponent<Button>();
+            if (dealBtnButton != null)
+            {
+                dealBtnButton.interactable = beActive;
+            }
+        }
+    }
+    */
+
 
     private void SubWaitReply(bool beActive)
     {
@@ -132,6 +149,7 @@ public class ConvoUI : MonoBehaviour
         ConvoPanel.SetActive(false);
 
         Managers.Convo.ConvoFinished();
+        EndPanel.SetActive(false);
     }
     #endregion
   
@@ -143,7 +161,7 @@ public class ConvoUI : MonoBehaviour
     public void OnClickExitNPCBtn()
     {
         Managers.Convo.ConvoFinished();
-
+        EndPanel.SetActive(false);
         ConvoPanel.SetActive(false);
     }
 

@@ -11,6 +11,8 @@ public class VariableCheck : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI npcSuggestText;
     [SerializeField]
+    TextMeshProUGUI itemYouSaid;
+    [SerializeField]
     TextMeshProUGUI sellingItemText;
     [SerializeField]
     TextMeshProUGUI sellingItemFirstCostText;
@@ -67,8 +69,13 @@ public class VariableCheck : MonoBehaviour
         //item init -> chatbargain : 패널에 보여줄 때
         Debug.Log($"7 사고픈물건 업데이트{Managers.Chat.EvalManager.ThingToBuy}");
         Debug.Log($"5 팔가격,아이템 업데이트{userSuggest}, {itemInfo.ObjName}");
-        sellingItemText.text = Managers.Chat.EvalManager.ThingToBuy.ToString();
+        //판매할 물건이랑, 판매하는 물건 두개 알려줘야혀................
+        //1차 프롬프트에서 사탕 팔게요~ 하는데 item init에서 캣타워. 선택하면 애매해잖아
+        //그래서 사고픈물건은 사탕, 내가 실제로 인벤에서 선택한 물건은 캣타워.라고 출려갷야해
+        sellingItemText.text = itemInfo.ObjName;
         sellingItemFirstCostText.text = itemInfo.defaultPrice.ToString();
+        if(Managers.Chat.EvalManager.ThingToBuy != null)
+            itemYouSaid.text = Managers.Chat.EvalManager.ThingToBuy.ToString();
     }
 
     //Action : EvalSubManager.OnChatDataUpdated, (npcinit)currentNpcId/(evaluation)NpcEvalDict/(bought item)itemInfo
