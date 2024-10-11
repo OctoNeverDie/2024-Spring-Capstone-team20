@@ -47,7 +47,7 @@ public class Define
         None,
         Fail,
         Success,
-        Clear
+        clear
     }
 
     public enum Interactables

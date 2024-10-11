@@ -114,7 +114,7 @@ public class ConvoUI : MonoBehaviour
                 text.text = "물건 판매 성공~!";
                 btnText.text = "짱~!";
             }
-            else if (endType == Define.EndType.Fail || endType == Define.EndType.Leave)
+            else if (endType == Define.EndType.Fail || endType == Define.EndType.clear)
             {
                 text.text = "물건 판매 실패...";
                 btnText.text = "우...";
@@ -168,8 +168,6 @@ public class ConvoUI : MonoBehaviour
 
     public void OnClickExitNPCBtn()
     {
-        Debug.Log($"OnClickExitNPCBtn");
-        Managers.Chat._endType = EndType.Leave;
         Managers.Convo.ConvoFinished();
         EndPanel.SetActive(false);
         ConvoPanel.SetActive(false);

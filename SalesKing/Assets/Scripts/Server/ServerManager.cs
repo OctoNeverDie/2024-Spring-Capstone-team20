@@ -47,9 +47,6 @@ public class ServerManager : ServerBase
             return;
         }
 
-        //if (_sendChatType == SendChatType.Endpoint && sendChatTypeFrom != SendChatType.NpcInit)
-        //    return;
-
         Debug.Log($"User답++++++++++{userInput}, {sendChatTypeFrom}");
 
         SaveToJson("UserInput", userInput);

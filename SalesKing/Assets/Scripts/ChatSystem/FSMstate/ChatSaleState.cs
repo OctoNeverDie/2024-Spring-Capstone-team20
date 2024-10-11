@@ -74,7 +74,7 @@ public class ChatSaleState : ChatBaseState, IVariableChat
         }
         else if (!_gptResult._yesIsTrue)
         {
-            Managers.Chat._endType = EndType.Clear;
+            Managers.Chat._endType = EndType.clear;
             Managers.Chat.TransitionToState(SendChatType.Endpoint);
         }
     }

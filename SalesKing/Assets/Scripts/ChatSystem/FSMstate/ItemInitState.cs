@@ -12,7 +12,6 @@ public class ItemInitState : ChatBaseState
         EvalSubManager.OnItemInit += MakeAnswer;
 
         _sendChatType = SendChatType.ItemInit;
-        Debug.Log($"ItemInitState에서 보냄1 {_sendChatType}");
         Managers.Chat.ActivatePanel(_sendChatType);
     }
 
@@ -30,7 +29,7 @@ public class ItemInitState : ChatBaseState
         + $"Your First Suggest: {itemInfo.defaultPrice} credit"
         + $"yourOpinion: {expensiveRate}";
 
-        Debug.Log($"ItemInitState에서 보냄2 {_sendChatType}");
+        Debug.Log($"ItemInitState에서 보냄 {_sendChatType}");
         ServerManager.Instance.GetGPTReply(_userSend, _sendChatType);
     }
 }

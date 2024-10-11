@@ -14,7 +14,7 @@ public class EndPointState : ChatBaseState
         ReplySubManager.OnReplyUpdated += GptOutput;
 
         _sendChatType = Define.SendChatType.Endpoint;
-        _endType = Managers.Chat._endType;
+        _endType = Managers.Chat._endType;//None, Fail, Success, Clear
         string input = "$"+_endType.ToString();
 
         Debug.Log($"EndPointState에서 보냄 {_sendChatType}, {input}");
@@ -32,18 +32,14 @@ public class EndPointState : ChatBaseState
         if (type != nameof(Managers.Chat.ReplyManager.GptAnswer))
             return;
 
+        if (_endType == EndType.clear)
+            return;
+
         string evaluation = ConcatReply(gpt_output);
         Debug.Log("EndPointState");
         Managers.Chat.EvalManager.AddEvaluation(evaluation);
     }
 
-    private struct GptResult
-    {
-        public string reaction;
-        public string evaluation;
-    }
-
-    
     private string ConcatReply(string GPTanswer)
     {
         string pattern = @"\""summary\"":\s*\""(.*?)\""";

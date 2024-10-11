@@ -55,17 +55,11 @@ public class ChatManager : MonoBehaviour
         float smaller = (_npcSuggest > _userSuggest) ? _userSuggest : _npcSuggest;
         EvalManager.UpdateSuggestInEval(smaller);
 
+        //Panel에 남은 turn 수 출력, 서로 제시한 거 출력
         OnNumberUpdated?.Invoke(_turn, _npcSuggest, _userSuggest);
-        //TODO : Panel에 남은 turn 수 출력, 서로 제시한 거 출력
     }
 
     public EndType _endType { get; set; }
-
-    public void CheckTurnEndpoint(EndType endType)
-    {
-        _endType = endType;
-        TransitionToState(SendChatType.Endpoint);
-    }
 
     public void Clear()
     {
