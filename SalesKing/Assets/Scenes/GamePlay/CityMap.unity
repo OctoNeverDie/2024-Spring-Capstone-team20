@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8027,6 +8027,7 @@ GameObject:
   - component: {fileID: 196950044}
   - component: {fileID: 196950043}
   - component: {fileID: 196950042}
+  - component: {fileID: 196950045}
   m_Layer: 5
   m_Name: Talk
   m_TagString: Untagged
@@ -8051,7 +8052,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -540}
+  m_AnchoredPosition: {x: 480, y: -1647.1064}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &196950042
@@ -8110,6 +8111,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 196950045}
+        m_TargetAssemblyTypeName: FSMBtn, Assembly-CSharp
+        m_MethodName: OnClickYesTalkFSM
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &196950043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8148,6 +8161,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 196950040}
   m_CullTransparentMesh: 1
+--- !u!114 &196950045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 196950040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ead47529d88ea1409d6502e815b4be9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &205677436
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39737,18 +39762,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1031164970}
-        m_TargetAssemblyTypeName: UserDealClick, Assembly-CSharp
-        m_MethodName: OnLeaveClickFSM
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 805719250}
         m_TargetAssemblyTypeName: ConvoUI, Assembly-CSharp
         m_MethodName: OnClickExitNPCBtn
@@ -39761,9 +39774,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 805719250}
-        m_TargetAssemblyTypeName: ConvoUI, Assembly-CSharp
-        m_MethodName: OnChatLeave
+      - m_Target: {fileID: 1031164970}
+        m_TargetAssemblyTypeName: FSMBtn, Assembly-CSharp
+        m_MethodName: OnLeaveClickFSM
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -39820,7 +39833,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1031164965}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f56d33530a8b5c047b7e995276cf450c, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ead47529d88ea1409d6502e815b4be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1034046159
@@ -75054,8 +75067,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1879252951}
-        m_TargetAssemblyTypeName: UserDealClick, Assembly-CSharp
-        m_MethodName: OnClickYesFSM
+        m_TargetAssemblyTypeName: FSMBtn, Assembly-CSharp
+        m_MethodName: OnClickDealFSM
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -75112,7 +75125,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1879252945}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f56d33530a8b5c047b7e995276cf450c, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ead47529d88ea1409d6502e815b4be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1881243763
@@ -76333,7 +76346,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1440, y: -540}
+  m_AnchoredPosition: {x: 1440, y: -1647.1064}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1900457096
