@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using static Define;
 
 public class ChatManager : MonoBehaviour
@@ -44,12 +41,12 @@ public class ChatManager : MonoBehaviour
 
     public static event Action<int, float, float> OnNumberUpdated;
 
-    public void UpdateTurn(int turn, float npcSuggest = -1.37f, float userSuggest = -1.37f)
+    public void UpdateTurn(int turn, float npcSuggest = -1f, float userSuggest = -1.37f)
     { 
         _turn = turn;
-        if (npcSuggest != -1.37f)
-            _npcSuggest = npcSuggest;
-        if(userSuggest != -1.37f)
+        if (npcSuggest != -1f)
+            _npcSuggest = EvalManager.itemInfo.defaultPrice;
+        if(userSuggest != -1f)
             _userSuggest = userSuggest;
 
         float smaller = (_npcSuggest > _userSuggest) ? _userSuggest : _npcSuggest;

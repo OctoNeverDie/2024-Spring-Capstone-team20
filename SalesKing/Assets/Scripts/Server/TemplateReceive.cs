@@ -13,11 +13,6 @@ public class TemplateReceive : MonoBehaviour
             string GptAnswer = GptReply(sendTypeData, resultData);
             Managers.Chat.ReplyManager.GptReaction = GptAnswer;//이건 리액션만 따로
         }
-
-        if (sendTypeData == SendChatType.Endpoint)
-        {
-            Managers.Chat.ActivatePanel(SendChatType.Endpoint);
-        }
     }
 
     private bool UpdateGptReply(SendChatType sendChatType, string resultData)

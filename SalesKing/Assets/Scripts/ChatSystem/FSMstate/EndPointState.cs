@@ -14,9 +14,10 @@ public class EndPointState : ChatBaseState
         ReplySubManager.OnReplyUpdated += GptOutput;
 
         _sendChatType = Define.SendChatType.Endpoint;
-        _endType = Managers.Chat._endType;//None, Fail, Success, Clear
-        string input = "$"+_endType.ToString();
+        Managers.Chat.ActivatePanel(_sendChatType);
 
+        _endType = Managers.Chat._endType;//None, buy, reject, clear
+        string input = "$"+_endType.ToString();
         Debug.Log($"EndPointState에서 보냄 {_sendChatType}, {input}");
         ServerManager.Instance.GetGPTReply(input, _sendChatType);
     }
@@ -36,7 +37,6 @@ public class EndPointState : ChatBaseState
             return;
 
         string evaluation = ConcatReply(gpt_output);
-        Debug.Log("EndPointState");
         Managers.Chat.EvalManager.AddEvaluation(evaluation);
     }
 
