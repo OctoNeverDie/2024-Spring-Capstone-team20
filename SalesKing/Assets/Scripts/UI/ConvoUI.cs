@@ -84,7 +84,6 @@ public class ConvoUI : MonoBehaviour
 
     public void OnClickNoTalkBtn()
     {
-        Debug.Log($"OnClickNoTalkBtn");
         Managers.Convo.ConvoFinished();
         TalkOrNotPanel.SetActive(false);
         EndPanel.SetActive(false);
@@ -143,11 +142,6 @@ public class ConvoUI : MonoBehaviour
     public void OnClickBuy()//딜 버튼 누름
     {
         ShowPanel(Define.SendChatType.Endpoint, Define.EndType.Success);
-    }
-
-    public void OnChatLeave()
-    {
-        //OnEndChat();
     }
 
     public void OnEndChat()
