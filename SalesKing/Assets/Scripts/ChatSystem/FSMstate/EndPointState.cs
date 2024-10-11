@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using static Define;
 
@@ -9,17 +10,15 @@ public class EndPointState : ChatBaseState
     Define.EndType _endType = EndType.None;
     public override void Enter()
     {
-        _sendChatType = Define.SendChatType.Endpoint;
-
         ReplySubManager.OnReplyUpdated -= GptOutput;
         ReplySubManager.OnReplyUpdated += GptOutput;
 
-        this._endType = Managers.Chat._endType;
+        _sendChatType = Define.SendChatType.Endpoint;
+        _endType = Managers.Chat._endType;
         string input = "$"+_endType.ToString();
 
         Debug.Log($"EndPointState에서 보냄 {_sendChatType}, {input}");
         ServerManager.Instance.GetGPTReply(input, _sendChatType);
-
     }
 
     public override void Exit()
@@ -35,9 +34,9 @@ public class EndPointState : ChatBaseState
         if (type != nameof(Managers.Chat.ReplyManager.GptAnswer))
             return;
 
-        ConcatReply(gpt_output);
+        string evaluation = ConcatReply(gpt_output);
         Debug.Log("EndPointState");
-        Managers.Chat.EvalManager.AddEvaluation(_gptResult.evaluation);
+        Managers.Chat.EvalManager.AddEvaluation(evaluation);
     }
 
     private struct GptResult
@@ -46,15 +45,10 @@ public class EndPointState : ChatBaseState
         public string evaluation;
     }
 
-    GptResult _gptResult = new GptResult();
-    private void ConcatReply(string gptAnswer)
+    
+    private string ConcatReply(string GPTanswer)
     {
-        string[] sections = gptAnswer.Split(new string[] { "reaction", "summary" }, StringSplitOptions.None);
-
-        if (sections.Length > 2)
-        {
-            _gptResult.reaction = sections[1];
-            _gptResult.evaluation = sections[2];
-        }
+        string pattern = @"\""summary\"":\s*\""(.*?)\""";
+        return Util.Concat(pattern, GPTanswer);
     }
 }

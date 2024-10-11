@@ -14,9 +14,6 @@ public class ServerManager : ServerBase
     private static ServerManager instance = null;
     public static ServerManager Instance => instance;
 
-    private TemplateReceive templateReceive;
-    private string _userInput = "";
-    private SendChatType _sendChatType;
     private void Init()
     { templateReceive = Util.GetOrAddComponent<TemplateReceive>(this.gameObject);  }
     private void Awake()
@@ -34,14 +31,18 @@ public class ServerManager : ServerBase
         }
     }
 
-    public static event Action<bool> OnReplyUpdate;
+    public static event Action<bool> OnSendReplyUpdate;
+
+    private TemplateReceive templateReceive;
+    private string _userInput = "";
+    private SendChatType _sendChatType;
 
     public void GetGPTReply(string userInput, SendChatType sendChatTypeFrom)
     {
         if (_sendChatType == SendChatType.Endpoint && sendChatTypeFrom != SendChatType.NpcInit)
             return;
 
-        Debug.Log($"User답++++++++++{userInput}, {sendChatTypeFrom.ToString()}");
+        Debug.Log($"User답++++++++++{userInput}, {sendChatTypeFrom}");
 
         SaveToJson("UserInput", userInput);
         SaveToJson("ChatType", sendChatTypeFrom.ToString());
@@ -49,7 +50,7 @@ public class ServerManager : ServerBase
         this._sendChatType = sendChatTypeFrom;
         this._userInput = userInput;
 
-        ServerManager.OnReplyUpdate?.Invoke(true);
+        ServerManager.OnSendReplyUpdate?.Invoke(true);
         StartCoroutine(GetGPTCo());
     }
 
@@ -77,14 +78,13 @@ public class ServerManager : ServerBase
         Action<ResultInfo> bringGPTReply = (result) =>
         {
             var resultData = JObject.Parse(result.Json)["reply"].ToString();
-            //var sendTypeData = JObject.Parse(result.Json)["sendType"].ToString();  // JSON에서 string 값 가져옴
             Debug.Log($"Gpt 답+++++++++++++++ {resultData}, {_sendChatType.ToString()}");
 
-                // 공통 함수 호출하여 GPT 답변 저장
-    SaveToJson("GptAnswer", resultData);
-    SaveToJson("ChatType", _sendChatType.ToString());
+             // 공통 함수 호출하여 GPT 답변 저장
+            SaveToJson("GptAnswer", resultData);
+            SaveToJson("ChatType", _sendChatType.ToString());
 
-            ServerManager.OnReplyUpdate?.Invoke(false);
+            ServerManager.OnSendReplyUpdate?.Invoke(false);
             templateReceive.GetGptAnswer(resultData, _sendChatType);
 
         };

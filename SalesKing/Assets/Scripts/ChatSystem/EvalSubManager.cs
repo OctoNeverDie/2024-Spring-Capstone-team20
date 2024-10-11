@@ -60,8 +60,7 @@ public class EvalSubManager
     public void AddEvaluation(string npcEvaluation)
     {
         NpcEvalDict[currentNpcId].npcEvaluation = npcEvaluation;
-
-        OnChatDataUpdated?.Invoke(nameof(NpcEvalDict));
+        Debug.Log($"Eval 2. 평가 업데이트 {npcEvaluation}");
     }
 
     //--------------------------------------------------

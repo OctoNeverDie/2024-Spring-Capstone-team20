@@ -112,10 +112,6 @@ public class VariableCheck : MonoBehaviour
                     $"{npcEvalDict.npcSex}");
                 break;
 
-            case nameof(EvalManager.NpcEvalDict):
-                Debug.Log($"Eval 2. 평가 업데이트 {npcEvalDict.npcEvaluation}");
-                break;
-
             case nameof(EvalManager.itemInfo):
                 //chatbargain -> success : item이 user 지갑 주머니에 들어와있을 때
                 Debug.Log($"5 판가격,아이템 업데이트{npcEvalDict.item}, {npcEvalDict.price}");

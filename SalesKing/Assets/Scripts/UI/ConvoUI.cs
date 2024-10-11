@@ -38,14 +38,14 @@ public class ConvoUI : MonoBehaviour
     {
         ChatManager.OnPanelUpdated -= ShowPanel;
         ChatManager.OnPanelUpdated += ShowPanel;
-        ServerManager.OnReplyUpdate -= SubWaitReply;
-        ServerManager.OnReplyUpdate += SubWaitReply;
+        ServerManager.OnSendReplyUpdate -= SubWaitReply;
+        ServerManager.OnSendReplyUpdate += SubWaitReply;
     }
 
     private void OnDestroy()
     {
         ChatManager.OnPanelUpdated -= ShowPanel;
-        ServerManager.OnReplyUpdate -= SubWaitReply;
+        ServerManager.OnSendReplyUpdate -= SubWaitReply;
     }
     /*
     private void DealBtnActivate(bool beActive)

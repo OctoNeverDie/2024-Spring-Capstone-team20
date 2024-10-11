@@ -32,4 +32,13 @@ public class Util
         }
         return default;
     }
+
+    public static string Concat(string pattern, string gptAnswer)
+    {
+        Match match = Regex.Match(gptAnswer, pattern);
+
+        if (match.Success)
+            return match.Groups[1].Value;
+        return string.Empty;
+    }
 }

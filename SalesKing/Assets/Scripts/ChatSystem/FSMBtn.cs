@@ -5,6 +5,20 @@ using static Define;
 
 public class FSMBtn : MonoBehaviour
 {
+    //말을 건다 버튼 누르면
+    public void OnClickYesTalkFSM()
+    {
+        //start fsm
+        Managers.Chat.Init();
+    }
+
+    //떠나기 버튼 누르면
+    public void OnLeaveClickFSM()
+    {
+        Managers.Chat._endType = EndType.Leave;
+        Managers.Chat.TransitionToState(SendChatType.Endpoint);
+    }
+
     //Deal 버튼 누르면
     public void OnClickDealFSM()
     {
@@ -12,24 +26,5 @@ public class FSMBtn : MonoBehaviour
         ServerManager.Instance.GetGPTReply("$buy", SendChatType.Endpoint);
         //go to template recieve
         this.gameObject.SetActive(false);
-    }
-
-    //말을 건다 버튼 누르면
-    public void OnClickYesTalkFSM()
-    {
-        Managers.Chat.Init();
-    }
-
-
-    //떠나기 버튼 누르면
-    public void OnLeaveClickFSM()
-    {
-        Managers.Chat._endType = EndType.Leave;
-        OnEndChatFSM();
-    }
-    //endpanel 확인버튼 누르면
-    public void OnEndChatFSM()
-    {
-        Managers.Chat.TransitionToState(SendChatType.Endpoint);
     }
 }

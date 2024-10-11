@@ -11,15 +11,7 @@ public class NpcInitState : ChatBaseState
         NpcInfo npc= Managers.Chat.npcSupplyManager.GetNextNpc();
 
         string _userSend= MakeAnswer(npc);
-
-        Debug.Log($"NPC"+
-          $"ID = {npc.NpcID}, " +
-          $"Name = {npc.NpcName}, " +
-          $"Sex = {npc.NpcSex}, " +
-          $"Age = {npc.NpcAge}, " +
-          $"Situation = {npc.Situation_Description}, " +
-          $"Personality = {npc.Personality}, " +
-          $"Dialogue Style = {npc.Dialogue_Style}");
+        Debug.Log($"npcinitstate : {_userSend}");
         
         Managers.Chat.EvalManager.InitNpcDict(npc.NpcID, npc.NpcName, npc.NpcAge, npc.NpcSex == "female");
 

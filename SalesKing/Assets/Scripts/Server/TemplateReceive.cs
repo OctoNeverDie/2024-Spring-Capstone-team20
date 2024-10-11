@@ -8,11 +8,14 @@ public class TemplateReceive : MonoBehaviour
     public void GetGptAnswer(string resultData, SendChatType sendTypeData)
     {
         Managers.Chat.ReplyManager.GptAnswer = resultData;//이건 쌩
+
+        //reaction 할 건가?
         if (UpdateGptReply(sendTypeData, resultData))
         {
             string GptAnswer = GptReply(sendTypeData, resultData);
             Managers.Chat.ReplyManager.GptReaction = GptAnswer;//이건 리액션만 따로
         }
+
         if (sendTypeData == SendChatType.Endpoint)
         {
             Managers.Chat.ActivatePanel(SendChatType.Endpoint);
@@ -38,9 +41,7 @@ public class TemplateReceive : MonoBehaviour
                 return true;
 
             case SendChatType.Endpoint:
-                if (resultData == "$clear")//npc가 chat sale에서 no 했을 때, 따로 summary 필요 없음
-                    return false;
-                return true;
+                return false;
 
             default:
                 return false;
@@ -54,22 +55,14 @@ public class TemplateReceive : MonoBehaviour
         if (sendChatType == SendChatType.ChatSale)
         {
             pattern = @"\""yourReply\"":\s*\""(.*?)\""";
-            Match match = Regex.Match(GPTanswer, pattern);
-
-            if (match.Success)
-                return match.Groups[1].Value;
+            return Util.Concat(pattern, GPTanswer);
         }
         else if ((sendChatType == SendChatType.ChatBargain) || (sendChatType == SendChatType.Endpoint))
         {
-            pattern = @"\""reaction\"":\s*\""(.*?)\""";
-            Match match = Regex.Match(GPTanswer, pattern);
-
-            if (match.Success)
-                return match.Groups[1].Value;
+            pattern = @"\""reaction\"":\s*\""(.*?)\"""; 
+            return Util.Concat(pattern, GPTanswer);
         }
 
         return GPTanswer;
     }
-
-
 }
