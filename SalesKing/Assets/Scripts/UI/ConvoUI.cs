@@ -34,18 +34,38 @@ public class ConvoUI : MonoBehaviour
 
     private float todayGoal = 150;
 
+    public GameObject OkayBtn;
+
+    public void PopOkayBtn()
+    {
+        OkayBtn.SetActive(true);
+    }
+
+    public void OnOkayBtn()
+    {
+        OkayBtn.SetActive(false);
+        Managers.Chat.EvalManager.ThingToBuy = "케이크";
+        Managers.Chat.TransitionToState(SendChatType.ItemInit);
+    }
+
+
     private void Awake()
     {
         ChatManager.OnPanelUpdated -= ShowPanel;
         ChatManager.OnPanelUpdated += ShowPanel;
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
         ServerManager.OnSendReplyUpdate += SubWaitReply;
+
+        ChatSaleState.popupBtnInventory -= PopOkayBtn;
+        ChatSaleState.popupBtnInventory += PopOkayBtn;
     }
 
     private void OnDestroy()
     {
         ChatManager.OnPanelUpdated -= ShowPanel;
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
+
+        ChatSaleState.popupBtnInventory -= PopOkayBtn;
     }
     /*
     private void DealBtnActivate(bool beActive)

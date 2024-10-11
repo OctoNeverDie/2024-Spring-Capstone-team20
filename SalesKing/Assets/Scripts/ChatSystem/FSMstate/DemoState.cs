@@ -1,15 +1,30 @@
 using UnityEngine;
 using static Define;
 
-public class ItemInitState : ChatBaseState
+public class DemoState : ChatBaseState
 {
     public override void Enter()
     {
+        NpcInfo npc = Managers.Chat.npcSupplyManager.GetNextNpc();
+        string _userSend = MakeAnswer(npc);
+        Managers.Chat.EvalManager.InitNpcDict(npc.NpcID, npc.NpcName, npc.NpcAge, npc.NpcSex == "female");
+
         EvalSubManager.OnItemInit -= MakeAnswer;
         EvalSubManager.OnItemInit += MakeAnswer;
 
         _sendChatType = SendChatType.ItemInit;
         Managers.Chat.ActivatePanel(_sendChatType);
+    }
+
+    protected string MakeAnswer(NpcInfo user_send)
+    {
+        string initData = $"\n Name: {user_send.NpcName}, Age : {user_send.NpcAge}, Sex : {user_send.NpcSex}\n"
+            + $"Situation_Description: {user_send.Situation_Description}\n"
+            + $"Personality: {user_send.Personality}\n"
+            + $"Dialogue_Style: {user_send.Dialogue_Style}." 
+            +$"System : You first have to talk about your situation in korean\n";
+
+        return initData;
     }
 
     public override void Exit()
