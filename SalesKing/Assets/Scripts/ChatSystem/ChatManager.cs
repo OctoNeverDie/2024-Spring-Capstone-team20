@@ -19,12 +19,6 @@ public class ChatManager : MonoBehaviour
         _chatStateMachine.SetState(new NpcInitState());
     }
 
-    private void Update()
-    {
-        _chatStateMachine?.UpdateState();
-    }
-
-
     public void ActivatePanel(SendChatType chatState)
     {
         if (chatState == (SendChatType.ItemInit))
@@ -76,6 +70,7 @@ public class ChatManager : MonoBehaviour
     public void Clear()
     {
         ReplyManager.ClearReplyData();
+        OnNumberUpdated?.Invoke(0, 0, 0);
         Debug.Log($"지워 : ++++여기 들어가면 대화 끝났다고 보면 돼!!!!");
     }
 

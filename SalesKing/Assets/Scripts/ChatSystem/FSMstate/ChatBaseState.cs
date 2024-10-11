@@ -11,7 +11,6 @@ public abstract class ChatBaseState
     protected SendChatType _sendChatType = SendChatType.None;
 
     public abstract void Enter();
-    public virtual void Update() { }
     public virtual void Exit() { }
 
     protected virtual string MakeAnswer(string user_send = ""){ return user_send; }

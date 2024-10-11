@@ -1,14 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
 public class NpcInitState : ChatBaseState
 {
-    int NpcID;
-
-    //말을 거시겠습니까? 클릭하면 일어남.
+    //말을 건다 버튼 클릭하면 일어남.
     public override void Enter()
     {
         Managers.Chat.Clear();

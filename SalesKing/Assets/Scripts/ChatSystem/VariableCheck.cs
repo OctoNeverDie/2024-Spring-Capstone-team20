@@ -37,9 +37,22 @@ public class VariableCheck : MonoBehaviour
     //Action : ChatManager.OnNumberUpdated
     private void UpdateTurnSuggest(int turn, float userSuggest, float npcSuggest)
     {
-        Debug.Log($"1 Turn 업데이트 {turn} {userSuggest}  {npcSuggest}");
+        if(turn <= 0)
+        {
+            Clear();
+            return;
+        }
         userSuggestText.text = userSuggest.ToString();
         npcSuggestText.text = npcSuggest.ToString();
+    }
+
+    private void Clear()
+    {
+        itemYouSaid.text = "";
+        sellingItemText.text = "";
+        sellingItemFirstCostText.text = "";
+        userSuggestText.text = "";
+        npcSuggestText.text = "";
     }
 
     //Action : ReplySubManager.OnReplyUpdated
