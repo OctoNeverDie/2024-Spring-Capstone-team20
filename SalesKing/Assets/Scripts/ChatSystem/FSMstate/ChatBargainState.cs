@@ -81,7 +81,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     private State CheckState()
     {
         if (_gptResult._userSuggest!=0 && _gptResult._userSuggest <= _gptResult._npcSuggest)
-        {
+        { 
             return State.Succes;
         }
         //persuasion 해도 턴이 남았을 때
@@ -94,19 +94,19 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         return State.Fail;
     }
 
+    public static Action<bool, float> ChatBargainReactState;
     private void ReactToState()
     {
         Debug.Log($"ChatBargainState에서 보냄 {isState}");
         if (isState == State.Fail)
         {
-            Managers.Chat._endType = EndType.reject;
-            Managers.Chat.TransitionToState(SendChatType.Endpoint);
+            ChatBargainReactState?.Invoke(false, 0);
         }
         else if (isState == State.Succes)
         {
-            UpdateAndActivate();
-            Managers.Chat._endType = EndType.buy;
-            Managers.Chat.TransitionToState(SendChatType.Endpoint);
+            float smaller = (_gptResult._npcSuggest > _gptResult._userSuggest) ? _gptResult._userSuggest : _gptResult._npcSuggest;
+            ChatBargainReactState?.Invoke(true, smaller);
+            //UpdateAndActivate();
         }
     }
 
@@ -114,7 +114,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     {
         float smaller = (_gptResult._npcSuggest > _gptResult._userSuggest) ? _gptResult._userSuggest : _gptResult._npcSuggest;
         //최종값 올림
-        Managers.Chat.EvalManager.AddItemPriceSold(_gptResult._npcSuggest);
+        Managers.Chat.EvalManager.AddItemPriceSold(smaller);
     }
 
     private void UpdateTurn()
@@ -137,6 +137,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
             {
                 isState = State.Fail ;
                 _gptResult._turn = 0;
+                Managers.Chat.ReplyManager.GptReaction = "음, 싫어요.";
                 return;
             }
 

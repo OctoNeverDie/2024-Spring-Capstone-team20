@@ -6,6 +6,7 @@ using TMPro;
 using static Define;
 using DG.Tweening; // DoTween 네임스페이스 추가
 using UnityEngine.SceneManagement;
+using UnityEngine.Profiling;
 
 
 public class ConvoUI : MonoBehaviour
@@ -35,6 +36,7 @@ public class ConvoUI : MonoBehaviour
     private float todayGoal = 150;
 
     public GameObject OkayBtn;
+    public GameObject OkayBtn2;
 
     public void PopOkayBtn()
     {
@@ -48,6 +50,30 @@ public class ConvoUI : MonoBehaviour
         Managers.Chat.TransitionToState(SendChatType.ItemInit);
     }
 
+    bool isSuccess;
+    float smaller;
+    public void SeeReaction(bool isSuccess, float price)
+    {
+        this.isSuccess = isSuccess;
+        this.smaller = price;
+        OkayBtn2.SetActive(true);
+    }
+
+    public void OnOkayBtn2()
+    {
+        OkayBtn2.SetActive(false);
+        if (isSuccess)
+        {
+            Managers.Chat.EvalManager.AddItemPriceSold(smaller);
+            Managers.Chat._endType = EndType.buy;
+            Managers.Chat.TransitionToState(SendChatType.Endpoint);
+        }
+        else
+        {
+            Managers.Chat._endType = EndType.reject;
+            Managers.Chat.TransitionToState(SendChatType.Endpoint);
+        }
+    }
 
     private void Awake()
     {
@@ -58,6 +84,8 @@ public class ConvoUI : MonoBehaviour
 
         ChatSaleState.popupBtnInventory -= PopOkayBtn;
         ChatSaleState.popupBtnInventory += PopOkayBtn;
+        ChatBargainState.ChatBargainReactState -= SeeReaction;
+        ChatBargainState.ChatBargainReactState += SeeReaction;
     }
 
     private void OnDestroy()
@@ -66,6 +94,7 @@ public class ConvoUI : MonoBehaviour
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
 
         ChatSaleState.popupBtnInventory -= PopOkayBtn;
+        ChatBargainState.ChatBargainReactState -= SeeReaction;
     }
     /*
     private void DealBtnActivate(bool beActive)
