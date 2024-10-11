@@ -37,16 +37,9 @@ public class ServerManager : ServerBase
     private TemplateReceive templateReceive;
     private string _userInput = "";
     private SendChatType _sendChatType;
-    private bool isGotReply = true;
-
+    
     public void GetGPTReply(string userInput, SendChatType sendChatTypeFrom)
     {
-        if (!isGotReply)
-        {
-            Debug.Log("아직 전 답 안 옴");
-            return;
-        }
-
         Debug.Log($"User답++++++++++{userInput}, {sendChatTypeFrom}");
 
         SaveToJson("UserInput", userInput);
@@ -56,7 +49,6 @@ public class ServerManager : ServerBase
         this._userInput = userInput;
 
         ServerManager.OnSendReplyUpdate?.Invoke(true);
-        isGotReply = false;
         StartCoroutine(GetGPTCo());
     }
 
@@ -83,8 +75,6 @@ public class ServerManager : ServerBase
 
         Action<ResultInfo> bringGPTReply = (result) =>
         {
-            isGotReply = true;
-
             var resultData = JObject.Parse(result.Json)["reply"].ToString();
             Debug.Log($"Gpt 답+++++++++++++++ {resultData}, {_sendChatType}");
 
