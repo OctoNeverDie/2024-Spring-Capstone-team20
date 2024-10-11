@@ -31,16 +31,24 @@ public class ServerManager : ServerBase
         }
     }
 
+    //loading panel
     public static event Action<bool> OnSendReplyUpdate;
 
     private TemplateReceive templateReceive;
     private string _userInput = "";
     private SendChatType _sendChatType;
+    private bool isGotReply = true;
 
     public void GetGPTReply(string userInput, SendChatType sendChatTypeFrom)
     {
-        if (_sendChatType == SendChatType.Endpoint && sendChatTypeFrom != SendChatType.NpcInit)
+        if (!isGotReply)
+        {
+            Debug.Log("아직 전 답 안 옴");
             return;
+        }
+
+        //if (_sendChatType == SendChatType.Endpoint && sendChatTypeFrom != SendChatType.NpcInit)
+        //    return;
 
         Debug.Log($"User답++++++++++{userInput}, {sendChatTypeFrom}");
 
@@ -51,6 +59,7 @@ public class ServerManager : ServerBase
         this._userInput = userInput;
 
         ServerManager.OnSendReplyUpdate?.Invoke(true);
+        isGotReply = false;
         StartCoroutine(GetGPTCo());
     }
 
@@ -77,6 +86,8 @@ public class ServerManager : ServerBase
 
         Action<ResultInfo> bringGPTReply = (result) =>
         {
+            isGotReply = true;
+
             var resultData = JObject.Parse(result.Json)["reply"].ToString();
             Debug.Log($"Gpt 답+++++++++++++++ {resultData}, {_sendChatType.ToString()}");
 
@@ -86,7 +97,6 @@ public class ServerManager : ServerBase
 
             ServerManager.OnSendReplyUpdate?.Invoke(false);
             templateReceive.GetGptAnswer(resultData, _sendChatType);
-
         };
 
         Action<ResultInfo> failTest = (result) =>

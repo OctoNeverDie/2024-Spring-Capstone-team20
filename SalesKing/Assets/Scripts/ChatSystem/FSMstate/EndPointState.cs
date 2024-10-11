@@ -23,9 +23,7 @@ public class EndPointState : ChatBaseState
 
     public override void Exit()
     {
-        ReplySubManager.OnReplyUpdated -= GptOutput;
-
-        _gptResult = new GptResult();
+        ReplySubManager.OnReplyUpdated -= GptOutput;        
         Managers.Chat.Clear();
     }
 

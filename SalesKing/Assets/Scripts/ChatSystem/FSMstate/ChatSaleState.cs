@@ -16,7 +16,7 @@ public class ChatSaleState : ChatBaseState, IVariableChat
     }
 
     GptResult _gptResult = new GptResult();
-    bool isEndHere = false;
+
     public override void Enter()
     {
         _sendChatType = SendChatType.ChatSale;
@@ -30,13 +30,6 @@ public class ChatSaleState : ChatBaseState, IVariableChat
         UnSubScribeAction();
         _gptResult = new GptResult();
         //save evaluation
-
-        if (isEndHere)
-        {
-            isEndHere = false;
-            Managers.Chat._endType = EndType.Fail;
-            ServerManager.Instance.GetGPTReply("$clear", SendChatType.Endpoint);
-        }
     }
 
     //유저가 입력할 때 : 
@@ -44,6 +37,7 @@ public class ChatSaleState : ChatBaseState, IVariableChat
     {//그대로 보낸다
         if (type != nameof(Managers.Chat.ReplyManager.UserAnswer))
             return;
+
         Debug.Log($"ChatSaleState에서 보냄 {_sendChatType}");
         ServerManager.Instance.GetGPTReply(user_input, _sendChatType);
     }
@@ -53,11 +47,13 @@ public class ChatSaleState : ChatBaseState, IVariableChat
     {
         if (type != nameof(Managers.Chat.ReplyManager.GptAnswer))
             return;
+
         CheckYesOrNo(gpt_output);//yes,no 왔는지 체크
         ConcatReply(gpt_output);//gpt 답변 _gptResult에 업데이트
 
         Debug.Log($"지워 :_gptResult._thingToBuy {_gptResult._thingToBuy}+_gptResult._reaction{_gptResult._reaction}+_gptResult._evaluation{_gptResult._evaluation}");
         Debug.Log($"지워: _gptResult._yesOrNo {_gptResult._isYesNo} _gptResult._yesIsTrue {_gptResult._yesIsTrue}");
+
         CheckChangeState();//다음 행동
     }
 
@@ -67,18 +63,19 @@ public class ChatSaleState : ChatBaseState, IVariableChat
         {
             return;
         }
+
         Debug.Log("ChatSaleState");
         Managers.Chat.EvalManager.AddEvaluation(_gptResult._evaluation);
-        Managers.Chat.EvalManager.ThingToBuy = _gptResult._thingToBuy;
 
         if (_gptResult._yesIsTrue)
         {
+            Managers.Chat.EvalManager.ThingToBuy = _gptResult._thingToBuy;
             Managers.Chat.TransitionToState(SendChatType.ItemInit);
         }
         else if (!_gptResult._yesIsTrue)
         {
-            isEndHere = true;
-            Exit();
+            Managers.Chat._endType = EndType.Clear;
+            Managers.Chat.TransitionToState(SendChatType.Endpoint);
         }
     }
     private void CheckYesOrNo(string gptAnswer)
@@ -120,7 +117,6 @@ public class ChatSaleState : ChatBaseState, IVariableChat
         else if (sections.Length > 1)
         {
             _gptResult._reaction = sections[1];//later : Trim()
-
         }
     }
 
