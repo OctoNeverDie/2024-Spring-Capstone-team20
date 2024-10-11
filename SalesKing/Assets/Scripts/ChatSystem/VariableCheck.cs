@@ -35,7 +35,7 @@ public class VariableCheck : MonoBehaviour
     }
 
     //Action : ChatManager.OnNumberUpdated
-    private void UpdateTurnSuggest(int turn, float userSuggest, float npcSuggest)
+    private void UpdateTurnSuggest(int turn, float npcSuggest, float userSuggest)
     {
         if(turn <= 0)
         {
@@ -67,7 +67,7 @@ public class VariableCheck : MonoBehaviour
                 break;
 
             case nameof(ReplyManager.GptAnswer):
-                Managers.UI.SetNPCAnswerText(input);
+                Managers.UI.SetNPCAnswerText("?");
                 break;
 
             case nameof(ReplyManager.GptReaction):
@@ -83,7 +83,9 @@ public class VariableCheck : MonoBehaviour
         //판매할 물건, 판매하는 물건, 원가, 유저 첫 제시가
         sellingItemText.text = itemInfo.ObjName;
         sellingItemFirstCostText.text = itemInfo.defaultPrice.ToString();
-        if(Managers.Chat.EvalManager.ThingToBuy != null)
+        userSuggestText.text = userSuggest.ToString();
+        npcSuggestText.text = "?";
+        if (Managers.Chat.EvalManager.ThingToBuy != null)
             itemYouSaid.text = Managers.Chat.EvalManager.ThingToBuy.ToString();
     }
 

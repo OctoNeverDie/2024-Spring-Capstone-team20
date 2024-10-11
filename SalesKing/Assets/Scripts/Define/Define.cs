@@ -45,8 +45,8 @@ public class Define
     public enum EndType
     {
         None,
-        Fail,
-        Success,
+        reject,
+        buy,
         clear
     }
 

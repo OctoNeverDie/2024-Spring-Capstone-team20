@@ -76,9 +76,9 @@ system input: Vendor First Suggest: 120$, Your First Suggest: 60$, yourOpinion: 
       }
     },
     {
-      "input": "무례한 표현",
+      "input": "욕설 혹은 거래에 대한 예의가 없는 무례한 표현",
       "output": {
-        "reaction": "반응을 생성.",
+        "reaction": "무례한 표현에 대한 반응을 생성 및 거래 거절 의사",
         "vendorSuggest": "판매자가 가격을 변경했다면 업데이트",
         "yourSuggest": "설명이 설득력 있으면 제안 가격을 변경하세요.",
         "persuasion": "-20"

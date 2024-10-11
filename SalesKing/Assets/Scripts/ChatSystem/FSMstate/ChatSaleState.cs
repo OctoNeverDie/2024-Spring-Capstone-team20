@@ -1,8 +1,7 @@
 using System;
 using UnityEngine;
-using UnityEngine.Windows;
 using static Define;
-using static IVariableChat;
+
 
 public class ChatSaleState : ChatBaseState, IVariableChat
 {

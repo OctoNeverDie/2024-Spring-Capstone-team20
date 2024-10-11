@@ -108,12 +108,12 @@ public class ConvoUI : MonoBehaviour
             TextMeshProUGUI text = EndPanel.GetComponentInChildren<TextMeshProUGUI>();
             TextMeshProUGUI btnText = EndPanel.GetComponentInChildren<Button>().GetComponentInChildren<TextMeshProUGUI>();
 
-            if (endType == Define.EndType.Success)
+            if (endType == Define.EndType.buy)
             {
                 text.text = "물건 판매 성공~!";
                 btnText.text = "짱~!";
             }
-            else if (endType == Define.EndType.Fail || endType == Define.EndType.clear)
+            else if (endType == Define.EndType.reject || endType == Define.EndType.clear)
             {
                 text.text = "물건 판매 실패...";
                 btnText.text = "우...";
@@ -141,7 +141,7 @@ public class ConvoUI : MonoBehaviour
     #region 물건 사기
     public void OnClickBuy()//딜 버튼 누름
     {
-        ShowPanel(Define.SendChatType.Endpoint, Define.EndType.Success);
+        ShowPanel(Define.SendChatType.Endpoint, Define.EndType.buy);
     }
 
     public void OnEndChat()
@@ -149,7 +149,6 @@ public class ConvoUI : MonoBehaviour
         EndPanel.SetActive(true);
         ConvoPanel.SetActive(false);
 
-        Debug.Log($"OnEndChat");
         Managers.Convo.ConvoFinished();
         EndPanel.SetActive(false);
     }

@@ -27,6 +27,5 @@ public class ConvoManager : MonoBehaviour
         }
         Managers.Cam.SwitchToFirstPersonCam();
         Managers.Player.MyPlayer.GetComponent<Player>().PlayerBody.SetActive(true);
-        Managers.Turn.AddTurnAndCheckTalkTurn();
     }
 }
