@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using UnityEngine;
 using static Define;
 
@@ -24,7 +20,8 @@ public class EndPointState : ChatBaseState
 
     public override void Exit()
     {
-        ReplySubManager.OnReplyUpdated -= GptOutput;        
+        ReplySubManager.OnReplyUpdated -= GptOutput;
+        Managers.Turn.AddTurnAndCheckTalkTurn();
         Managers.Chat.Clear();
     }
 
@@ -38,6 +35,7 @@ public class EndPointState : ChatBaseState
 
         string evaluation = ConcatReply(gpt_output);
         Managers.Chat.EvalManager.AddEvaluation(evaluation);
+        Exit();
     }
 
     private string ConcatReply(string GPTanswer)
