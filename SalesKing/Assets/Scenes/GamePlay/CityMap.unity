@@ -1721,7 +1721,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uAD6C\uB9E4\uD55C \uAC00\uACA9"
+  m_text: "\uC6D0\uAC00"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea19d02ef06bb494496484e58bb47d42, type: 2}
   m_sharedMaterial: {fileID: -6765461674992963274, guid: ea19d02ef06bb494496484e58bb47d42, type: 2}
@@ -6622,8 +6622,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e30116204f87c3a4185efbacb6fecda4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  userSuggestText: {fileID: 1214768698}
-  npcSuggestText: {fileID: 1660437805}
+  userSuggestText: {fileID: 1660437805}
+  npcSuggestText: {fileID: 1214768698}
   itemYouSaid: {fileID: 1414333790}
   sellingItemText: {fileID: 219604694}
   sellingItemFirstCostText: {fileID: 1989142821}
@@ -8449,7 +8449,7 @@ GameObject:
   - component: {fileID: 219604695}
   - component: {fileID: 219604694}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: 'Text (TMP) : selling item'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17803,7 +17803,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC81C\uC548\uD55C \uAC00\uACA9"
+  m_text: "\uC81C\uC548\uAC00"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea19d02ef06bb494496484e58bb47d42, type: 2}
   m_sharedMaterial: {fileID: -6765461674992963274, guid: ea19d02ef06bb494496484e58bb47d42, type: 2}
@@ -29812,7 +29812,7 @@ GameObject:
   - component: {fileID: 761518296}
   - component: {fileID: 761518297}
   m_Layer: 5
-  m_Name: TextLayout (3)
+  m_Name: 'TextLayout (3) : userSuggest'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45032,7 +45032,7 @@ GameObject:
   - component: {fileID: 1159275576}
   - component: {fileID: 1159275577}
   m_Layer: 5
-  m_Name: TextLayout (2)
+  m_Name: 'TextLayout (2) : npcSuggest'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47399,7 +47399,7 @@ GameObject:
   - component: {fileID: 1214768699}
   - component: {fileID: 1214768698}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: 'Text (TMP)  : npcSuggest'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55354,7 +55354,7 @@ GameObject:
   - component: {fileID: 1414333791}
   - component: {fileID: 1414333790}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: 'Text (TMP)  : itemYouSaid'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61200,7 +61200,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uD310\uB9E4\uD558\uACA0\uB2E4\uACE0 \uD55C \uBB3C\uAC74 "
+  m_text: "\uD310\uB9E4\uD55C\uB2E4\uD588\uB358\uAC83"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea19d02ef06bb494496484e58bb47d42, type: 2}
   m_sharedMaterial: {fileID: -6765461674992963274, guid: ea19d02ef06bb494496484e58bb47d42, type: 2}
@@ -65551,7 +65551,7 @@ GameObject:
   - component: {fileID: 1660437806}
   - component: {fileID: 1660437805}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: 'Text (TMP) : userSuggest'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69140,7 +69140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC81C\uC2DC\uBC1B\uC740 \uAC00\uACA9"
+  m_text: "\uD310\uB9E4\uAC00"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea19d02ef06bb494496484e58bb47d42, type: 2}
   m_sharedMaterial: {fileID: -6765461674992963274, guid: ea19d02ef06bb494496484e58bb47d42, type: 2}
@@ -80777,7 +80777,7 @@ GameObject:
   - component: {fileID: 1989142822}
   - component: {fileID: 1989142821}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: 'Text (TMP): sold price'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

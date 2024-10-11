@@ -5,7 +5,6 @@ using static Define;
 
 public class ItemInitState : ChatBaseState
 {
-    string _userSend;
     public override void Enter()
     {
         EvalSubManager.OnItemInit -= MakeAnswer;
@@ -19,17 +18,23 @@ public class ItemInitState : ChatBaseState
     {
         EvalSubManager.OnItemInit -= MakeAnswer;
     }
+
+    private void SendAnswer(string _userSend)
+    {
+        Debug.Log($"ItemInitState에서 보냄 {_sendChatType}");
+        ServerManager.Instance.GetGPTReply(_userSend, _sendChatType);
+    }
+
     private void MakeAnswer(float userSuggest, ItemInfo itemInfo)
     {
         string expensiveRate = Managers.Chat.RatePrice(userSuggest, itemInfo);
 
-        _userSend = $"\nThe thing you want to buy: {Managers.Chat.EvalManager.ThingToBuy}"
+        string _userSend = $"\nThe thing you want to buy: {Managers.Chat.EvalManager.ThingToBuy}"
         + $"\nThe thing vendor is selling to you: {itemInfo.ObjName}"
         + $"\nvendor First Suggest: {userSuggest} credit,"
         + $"Your First Suggest: {itemInfo.defaultPrice} credit"
         + $"yourOpinion: {expensiveRate}";
 
-        Debug.Log($"ItemInitState에서 보냄 {_sendChatType}");
-        ServerManager.Instance.GetGPTReply(_userSend, _sendChatType);
+        SendAnswer(_userSend);
     }
 }

@@ -45,7 +45,7 @@ public class ChatManager : MonoBehaviour
     { 
         _turn = turn;
         if (npcSuggest != -1f)
-            _npcSuggest = EvalManager.itemInfo.defaultPrice;
+            _npcSuggest = npcSuggest;
         if(userSuggest != -1f)
             _userSuggest = userSuggest;
 
@@ -53,6 +53,10 @@ public class ChatManager : MonoBehaviour
         EvalManager.UpdateSuggestInEval(smaller);
 
         //Panel에 남은 turn 수 출력, 서로 제시한 거 출력
+        if (npcSuggest <= 0f && userSuggest <= 0f)
+            return;
+
+        Debug.Log($"{_turn}+{_npcSuggest}+{_userSuggest}");
         OnNumberUpdated?.Invoke(_turn, _npcSuggest, _userSuggest);
     }
 

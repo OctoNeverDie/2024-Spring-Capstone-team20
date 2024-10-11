@@ -149,7 +149,6 @@ public class ConvoUI : MonoBehaviour
         EndPanel.SetActive(true);
         ConvoPanel.SetActive(false);
 
-        Debug.Log($"OnEndChat");
         Managers.Convo.ConvoFinished();
         EndPanel.SetActive(false);
     }

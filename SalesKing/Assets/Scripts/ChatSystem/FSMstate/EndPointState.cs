@@ -16,6 +16,9 @@ public class EndPointState : ChatBaseState
         string input = "$"+_endType.ToString();
         Debug.Log($"EndPointState에서 보냄 {_sendChatType}, {input}");
         ServerManager.Instance.GetGPTReply(input, _sendChatType);
+
+        if(_endType == EndType.clear)
+            Exit();
     }
 
     public override void Exit()

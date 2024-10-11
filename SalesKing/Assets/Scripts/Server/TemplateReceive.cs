@@ -53,7 +53,8 @@ public class TemplateReceive : MonoBehaviour
         else if ((sendChatType == SendChatType.ChatBargain) || (sendChatType == SendChatType.Endpoint))
         {
             pattern = @"\""reaction\"":\s*\""(.*?)\"""; 
-            return Util.Concat(pattern, GPTanswer);
+            if(Util.Concat(pattern, GPTanswer) != string.Empty)
+                return Util.Concat(pattern, GPTanswer);
         }
 
         return GPTanswer;

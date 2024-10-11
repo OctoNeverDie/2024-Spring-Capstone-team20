@@ -86,7 +86,7 @@ public class ServerManager : ServerBase
             isGotReply = true;
 
             var resultData = JObject.Parse(result.Json)["reply"].ToString();
-            Debug.Log($"Gpt 답+++++++++++++++ {resultData}, {_sendChatType.ToString()}");
+            Debug.Log($"Gpt 답+++++++++++++++ {resultData}, {_sendChatType}");
 
              // 공통 함수 호출하여 GPT 답변 저장
             SaveToJson("GptAnswer", resultData);
