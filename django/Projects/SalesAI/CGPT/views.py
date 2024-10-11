@@ -74,7 +74,7 @@ def get_completion(input, sendType):
         system_message_content = read_system_message('CGPT/bargain_system.txt')
 
     query = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-4o",
         messages=[
             {"role": "system", "content": system_message_content},
             {"role": "user", "content": input}
