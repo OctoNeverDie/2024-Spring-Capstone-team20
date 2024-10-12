@@ -23,6 +23,7 @@ public class FSMBtn : MonoBehaviour
     {
         Managers.Chat.EvalManager.AddItemPriceSold();
 
+        Managers.Chat.reason = 4;
         Managers.Chat._endType = EndType.buy;
         Managers.Chat.TransitionToState(SendChatType.Endpoint);
         //go to template recieve

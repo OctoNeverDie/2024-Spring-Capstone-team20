@@ -38,6 +38,11 @@ public class ChatManager : MonoBehaviour
     public int _turn;
     public float _npcSuggest =0;
     public float _userSuggest =0;
+    public int reason =0;
+    //1 :NPC 기분이 나빠서 Fail
+    //2: 대화 에너지 다 해서 Fail
+    //3 : 제시가가 판매가보다 낮아서 Success
+    //4 : 이대로 받기를 선택해서 Success
 
     public static event Action<int, float, float> OnNumberUpdated;
 
