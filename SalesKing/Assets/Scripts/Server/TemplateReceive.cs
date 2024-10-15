@@ -8,45 +8,18 @@ public class TemplateReceive : MonoBehaviour
         Managers.Chat.ReplyManager.GptAnswer = resultData;//이건 쌩
 
         //reaction 할 건가?
-        if (UpdateGptReply(sendTypeData, resultData))
+        if (resultData !="$clear")//reaction, summary가 없이 끝난 경우 빼고
         {
             string GptAnswer = GptReply(sendTypeData, resultData);
             Managers.Chat.ReplyManager.GptReaction = GptAnswer;//이건 리액션만 따로
         }
     }
 
-    private bool UpdateGptReply(SendChatType sendChatType, string resultData)
-    {
-        switch (sendChatType) 
-        {
-            case SendChatType.NpcInit:
-                return true;
-
-            case SendChatType.ItemInit:
-                Managers.Chat.TransitionToState(SendChatType.ChatBargain);
-                return true;
-
-            case SendChatType.ChatBargain:
-                return true;
-
-            case SendChatType.Endpoint:
-                return false;
-
-            default:
-                return false;
-        }
-
-    }
     private string GptReply(SendChatType sendChatType, string GPTanswer)
     {
         string pattern;
 
-        if (sendChatType == SendChatType.NpcInit)
-        {
-            pattern = @"\""yourReply\"":\s*\""(.*?)\""";
-            return Util.Concat(pattern, GPTanswer);
-        }
-        else if ((sendChatType == SendChatType.ChatBargain) || (sendChatType == SendChatType.Endpoint))
+        if (sendChatType != SendChatType.NpcInit) //Npcinit 제외 모두 정제 필요
         {
             pattern = @"\""reaction\"":\s*\""(.*?)\"""; 
             if(Util.Concat(pattern, GPTanswer) != string.Empty)

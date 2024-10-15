@@ -11,7 +11,6 @@ public class FSMBtn : MonoBehaviour
         Managers.Chat.Init();
     }
 
-
     //NpcInit 고민 okay 버튼 누르면
     public void OnClickNpcInitFSM()
     {

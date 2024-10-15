@@ -103,12 +103,11 @@ public class ChatManager : MonoBehaviour
         if (userSuggest < itemInfo.defaultPrice)
             expensiveRate = "Affordable";
         else if (userSuggest < itemInfo.expensive)
-            expensiveRate = "Soso, Not that Cheap, not that Expensive";
+            expensiveRate = "Soso, Not that Cheap, not that Expensive. 시장가다.";
         else if (userSuggest < itemInfo.tooExpensive)
-            expensiveRate = "Expensive, little bit upset about the price";
+            expensiveRate = "Expensive, 시장가보다 조금 비싼 가격이다.";
         else
-            expensiveRate = "Too Expensive, you are angry about the price.";
-
+            expensiveRate = "Too Expensive, 시장가보다 많이 비싼 가격이다.";
         return expensiveRate;
     }
 }
