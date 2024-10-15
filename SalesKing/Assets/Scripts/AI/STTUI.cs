@@ -92,4 +92,10 @@ public class STTUI : MonoBehaviour
         myInputField.text = null;
 
     }
+
+    public void OnClickEnter()
+    {
+        recordingSlider.gameObject.SetActive(true);
+        myInputField.gameObject.SetActive(false);
+    }
 }
