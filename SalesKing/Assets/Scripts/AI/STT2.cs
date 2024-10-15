@@ -4,30 +4,27 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
-using TMPro;
 using OpenAI_API;
-using UnityEngine.UI;
+
 
 public class STT2 : MonoBehaviour
 {
-    private string _microphoneID = null;
+    public string _microphoneID = null;
     private AudioClip _recording = null;
-    private int _recordingLengthSec = 15;
     private int _recordingHZ = 22050;
-
-    public TMP_InputField myInputField;
-    public Slider recordingSlider;  // 슬라이더를 public으로 받아옴
-
-    private float currentRecordingTime = 0f;
-    private Coroutine recordingCoroutine;
+    public int _recordingLengthSec = 15;
 
     // Naver Clova API URL 및 인증 키
     private string apiURL = "https://naveropenapi.apigw.ntruss.com/recog/v1/stt?lang=Kor";
     private string apiKeyID;
     private string apiKey;
 
+    private STTUI ui;
+
     void Start()
     {
+        ui = GetComponent<STTUI>();
+
         // 마이크 초기화
         if (Microphone.devices.Length > 0)
         {
@@ -41,26 +38,6 @@ public class STT2 : MonoBehaviour
         // 요청 헤더 설정
         apiKeyID = Environment.GetEnvironmentVariable("X_NCP_APIGW_API_KEY_ID", EnvironmentVariableTarget.User);
         apiKey = Environment.GetEnvironmentVariable("X_NCP_APIGW_API_KEY", EnvironmentVariableTarget.User);
-
-        recordingSlider.maxValue = _recordingLengthSec; // 슬라이더 최대값을 녹음 시간으로 설정
-        recordingSlider.value = _recordingLengthSec;
-    }
-
-    void Update()
-    {
-        if(Managers.Input.CurInputMode == Define.UserInputMode.Voice )
-        {
-            Debug.Log("cur mode is "+ Managers.Input.CurInputMode);
-            if (Input.GetButtonDown("STT"))
-            {
-                StartRecording();
-            }
-            if (Input.GetButtonUp("STT"))
-            {
-                StopRecording();
-            }
-        }
-
     }
 
     public void StartRecording()
@@ -73,25 +50,14 @@ public class STT2 : MonoBehaviour
         Debug.Log("녹음 시작");
         _recording = Microphone.Start(_microphoneID, true, _recordingLengthSec, _recordingHZ);
 
-        UpdateRecordingSlider();
-
-        currentRecordingTime = 0f;
-        recordingSlider.value = _recordingLengthSec;  // 슬라이더를 다시 채움
-
-        // Coroutine으로 슬라이더 업데이트 시작
-        if (recordingCoroutine != null)
-        {
-            StopCoroutine(recordingCoroutine);
-        }
-        recordingCoroutine = StartCoroutine(UpdateRecordingSlider());
+        ui.StartRecordingUI();
     }
 
     public void StopRecording()
     {
         if (Microphone.IsRecording(_microphoneID))
         {
-            recordingSlider.value = _recordingLengthSec;
-
+            ui.StopRecordingUI();
             Microphone.End(_microphoneID);
             Debug.Log("녹음 종료");
 
@@ -106,24 +72,6 @@ public class STT2 : MonoBehaviour
 
             // API 서버로 오디오 데이터 전송
             StartCoroutine(PostVoiceToAPI(byteData));
-        }
-    }
-
-    private IEnumerator UpdateRecordingSlider()
-    {
-        while (Microphone.IsRecording(_microphoneID))
-        {
-            currentRecordingTime += Time.fixedDeltaTime;  // 시간이 지남에 따라 증가
-            recordingSlider.value = _recordingLengthSec - currentRecordingTime; // 슬라이더 값 감소
-
-            // 녹음 시간이 다 되면 녹음 중지
-            if (currentRecordingTime >= _recordingLengthSec)
-            {
-                StopRecording();
-                yield break;
-            }
-
-            yield return null;  // 한 프레임 대기
         }
     }
 
@@ -158,7 +106,8 @@ public class STT2 : MonoBehaviour
 
             // JSON 파싱하여 결과 출력
             VoiceRecognize voiceRecognize = JsonUtility.FromJson<VoiceRecognize>(responseText);
-            myInputField.text += voiceRecognize.text;
+
+            ui.SetSTTText(voiceRecognize.text);
         }
     }
 

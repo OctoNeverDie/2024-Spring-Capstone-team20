@@ -8,12 +8,14 @@ public class ChatManager : MonoBehaviour
     public ReplySubManager ReplyManager = new ReplySubManager();
     public EvalSubManager EvalManager = new EvalSubManager();
     public NpcSupplyManager npcSupplyManager = new NpcSupplyManager();
-    
+
     public static event Action<SendChatType, EndType> OnPanelUpdated;
     public void Init()
     {
         _chatStateMachine = new ChatStateMachine();
         _chatStateMachine.SetState(new NpcInitState());
+
+        _variableInput = FindObjectOfType<VariableInput>();
     }
 
     public void ActivatePanel(SendChatType chatState)
@@ -35,14 +37,30 @@ public class ChatManager : MonoBehaviour
         }
     }
 
+    [HideInInspector]
     public int _turn;
+    [HideInInspector]
     public float _npcSuggest =0;
+    [HideInInspector]
     public float _userSuggest =0;
+    [HideInInspector]
     public int reason =0;
     //1 :NPC 기분이 나빠서 Fail
     //2: 대화 에너지 다 해서 Fail
     //3 : 제시가가 판매가보다 낮아서 Success
     //4 : 이대로 받기를 선택해서 Success
+
+    private VariableInput _variableInput;
+    public void GetInputKey()
+    {
+        if (_variableInput == null)
+        {
+            Debug.Log("Null exception : variableInput이 비었습니다. ");
+            _variableInput = FindObjectOfType<VariableInput>();
+        }
+        _variableInput.OnClick();
+    }
+
 
     public static event Action<int, float, float> OnNumberUpdated;
 

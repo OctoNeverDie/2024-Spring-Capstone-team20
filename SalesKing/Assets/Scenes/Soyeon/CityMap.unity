@@ -79239,8 +79239,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20382af62a9deca4d87a76fe0842be1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myInputField: {fileID: 658069264}
-  recordingSlider: {fileID: 1682002013}
+  _microphoneID: 
+  _recordingLengthSec: 15
 --- !u!1 &1900457094
 GameObject:
   m_ObjectHideFlags: 0
