@@ -14,7 +14,6 @@ public class STTUI : MonoBehaviour
     private float currentRecordingTime = 0f;
     private Coroutine recordingCoroutine;
 
-    // Start is called before the first frame update
     void Start()
     {
         stt = GetComponent<STT2>();
@@ -23,7 +22,6 @@ public class STTUI : MonoBehaviour
         recordingSlider.value = stt._recordingLengthSec;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Managers.Input.CurInputMode == Define.UserInputMode.Voice)
@@ -58,6 +56,9 @@ public class STTUI : MonoBehaviour
     public void StopRecordingUI()
     {
         recordingSlider.value = stt._recordingLengthSec;
+        recordingSlider.gameObject.SetActive(false);
+        myInputField.gameObject.SetActive(true);
+        ClearSTTText();
     }
 
     private IEnumerator UpdateRecordingSlider()
@@ -80,11 +81,11 @@ public class STTUI : MonoBehaviour
 
     public void SetSTTText(string newText)
     {
-
+        myInputField.text += newText;
     }
 
     public void ClearSTTText()
     {
-
+        myInputField.text = null;
     }
 }
