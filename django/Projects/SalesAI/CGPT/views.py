@@ -24,53 +24,77 @@ def overwrite_system_message(file_path, original_prompt):
 
 # endregion
 
-# region Data Manager
+# region Init
 def init_npc(npc_data, request):  
     global original_decide_prompt
     global original_bargain_prompt
+    
     original_decide_prompt = read_system_message('CGPT/decide_system_original.txt')
     original_bargain_prompt = read_system_message('CGPT/bargain_system_original.txt')
+    print("나들어왔어요"+original_decide_prompt)
 
     clear_everything(request)
 
     append_system_message('CGPT/decide_system.txt', npc_data)
     append_system_message('CGPT/bargain_system.txt', npc_data)
-    return JsonResponse({'reply': '@ Npc Attached.'})
+    print({'reply': '@ Npc Attached.'})
+    return
 
-def init_item(item_data):
+def init_item(item_data, request):
     append_system_message('CGPT/bargain_system.txt', item_data)
-    return JsonResponse({'reply': '@ Item Attached.'})  
+    if 'concern' in request.session and request.session['concern']:
+        first_concern = request.session['concern'][0] 
+        lastConversation = "#Last Conversation:\n" + str(first_concern)
+    else:
+        lastConversation = "#Last Conversation:\n"  # 값이 없을 때 기본값
+    append_system_message('CGPT/bargain_system.txt', lastConversation)
+    print({'reply': '@ Item Attached.'})  
+    return
+# endregion
 
+# region history manage
 def clear_everything(request):
     clear_prompt()
-    clear_chatHistory(request)
+    clear_session(request)
     return JsonResponse({'reply': '@ Data cleared.'})
 
 def clear_prompt():
-    overwrite_system_message('CGPT/decide_system.txt', original_decide_prompt)
-    overwrite_system_message('CGPT/bargain_system.txt', original_bargain_prompt)
+    global original_decide_prompt
+    global original_bargain_prompt
     
-def clear_chatHistory(request):
+    if 'original_decide_prompt' not in globals() or 'original_bargain_prompt' not in globals():
+        print("init_npc 함수가 호출되지 않아 초기화되지 않았습니다.")
+        return
+    
+    if original_decide_prompt is not None:
+        overwrite_system_message('CGPT/decide_system.txt', original_decide_prompt)
+
+    if original_bargain_prompt is not None:
+        overwrite_system_message('CGPT/bargain_system.txt', original_bargain_prompt)
+    
+def clear_session(request):
+    print("clear session")
     if 'chat_history' in request.session and request.session['chat_history']:
         request.session['chat_history'] = []
-        #return JsonResponse({'reply': 'Chat history cleared.'})
-    #else:
-        #return JsonResponse({'reply': 'No chat history to clear.'})
+    if 'concern' in request.session and request.session['concern']:
+        request.session['concern']=[]
 
-def update_history(prompt, request):
-    if 'chat_history' not in request.session:
-        request.session['chat_history'] = []
+    request.session.modified = True
 
-    chat_history = request.session['chat_history']
-    chat_history.append({"role": "user", "content": prompt})
-    request.session['chat_history'] = chat_history
-    return chat_history
+def update_history(prompt, request, role, sessionKey):
+    if sessionKey not in request.session:
+        request.session[sessionKey] = []
+
+    sessionLog = request.session[sessionKey]
+    sessionLog.append({"role": role, "content": prompt})
+    request.session[sessionKey] = sessionLog
+    return sessionLog
 # endregion
 
 def get_completion(input, sendType):
-    if(sendType == "ChatSale"): 
+    if(sendType == "NpcInit"): 
         system_message_content = read_system_message('CGPT/decide_system.txt')
-    elif(sendType in ["ChatBargain", "Endpoint"]):
+    elif(sendType in ["ItemInit", "ChatBargain", "Endpoint"]):
         system_message_content = read_system_message('CGPT/bargain_system.txt')
 
     query = client.chat.completions.create(
@@ -94,30 +118,39 @@ def query_view(request):
             data = json.loads(request.body)
             prompt = data.get('Request')
             sendType = data.get('SendType')
-            print(prompt)
-            print(sendType)
+            initData = data.get('InitData')
 
             if sendType == "NpcInit":
-                return init_npc(prompt, request)
+                init_npc(initData, request)
+                response = get_completion(prompt, sendType)
+                update_history(response, request, "assistant", "concern")
+                
+                print("npcInit")
+                print(request.session['concern'])
+                return JsonResponse({'reply': response})
             
             elif sendType == "ItemInit":
-                clear_chatHistory(request)
-                return init_item(prompt)
+                request.session.modified = True
+                print("ItemInit")
+                print(request.session['concern'])
+                init_item(initData, request)
+                response = get_completion(prompt, sendType)
+                update_history(response, request, "assistant", "chat_history")
+                return JsonResponse({'reply': response})
             
-            elif sendType in ["ChatSale", "ChatBargain"]:
-                messages = update_history(prompt, request)
+            elif sendType == "ChatBargain":
+                messages = update_history(prompt, request, "user", "chat_history")
 
                 if isinstance(messages, list):
                     str_messages = str(messages)
                     response = get_completion(str_messages, sendType)
-                    
                     request.session['chat_history'].append({"role": "assistant", "content": response})
                     return JsonResponse({'reply': response})
 
             elif sendType == "Endpoint" :#prompt : $buy, $reject, $leave, $clear
                 response = "$clear"
                 if prompt.strip() != "$clear":
-                    response = get_completion(prompt ,sendType)
+                    response = get_completion(prompt, sendType)
                 clear_everything(request)
                 return JsonResponse({'reply': response})
 
