@@ -58,6 +58,9 @@ public class STTUI : MonoBehaviour
     public void StopRecordingUI()
     {
         recordingSlider.value = stt._recordingLengthSec;
+        recordingSlider.gameObject.SetActive(false);
+        myInputField.gameObject.SetActive(true);
+        ClearSTTText();
     }
 
     private IEnumerator UpdateRecordingSlider()
@@ -80,11 +83,13 @@ public class STTUI : MonoBehaviour
 
     public void SetSTTText(string newText)
     {
+        myInputField.text += newText;
 
     }
 
     public void ClearSTTText()
     {
+        myInputField.text = null;
 
     }
 }
