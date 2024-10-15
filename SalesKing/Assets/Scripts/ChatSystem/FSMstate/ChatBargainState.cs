@@ -29,13 +29,11 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     {
         SubScribeAction();
 
-        _gptResult._turn = TurnInit;
-
-        _sendChatType = SendChatType.ChatBargain;
-        ServerManager.Instance.GetGPTReply("$start", _sendChatType);
-        
         //맨 처음 시작할 때, convo ui 나와야한다.
         Managers.Chat.ActivatePanel(_sendChatType);
+
+        _gptResult._turn = TurnInit;
+        _sendChatType = SendChatType.ChatBargain;
     }
 
     public override void Exit()
@@ -121,7 +119,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
 
     private void ConcatReply(string gptAnswer)
     {
-        string[] sections = gptAnswer.Split(new string[] { "reaction", "vendorSuggest", "yourSuggest", "persuasion" }, StringSplitOptions.None);
+        string[] sections = gptAnswer.Split(new string[] { "reaction", "vendorSuggest", "yourSuggest", "persuasion", "tag" }, StringSplitOptions.None);
 
         if (sections.Length > 4)
         {
