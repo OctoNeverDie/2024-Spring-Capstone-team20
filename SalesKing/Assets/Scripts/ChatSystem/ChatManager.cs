@@ -8,12 +8,14 @@ public class ChatManager : MonoBehaviour
     public ReplySubManager ReplyManager = new ReplySubManager();
     public EvalSubManager EvalManager = new EvalSubManager();
     public NpcSupplyManager npcSupplyManager = new NpcSupplyManager();
-    
+
     public static event Action<SendChatType, EndType> OnPanelUpdated;
     public void Init()
     {
         _chatStateMachine = new ChatStateMachine();
         _chatStateMachine.SetState(new NpcInitState());
+
+        _variableInput = FindObjectOfType<VariableInput>();
     }
 
     public void ActivatePanel(SendChatType chatState)
@@ -48,16 +50,15 @@ public class ChatManager : MonoBehaviour
     //3 : 제시가가 판매가보다 낮아서 Success
     //4 : 이대로 받기를 선택해서 Success
 
-    [SerializeField]
-    public VariableInput variableInput;
+    private VariableInput _variableInput;
     public void GetInputKey()
     {
-        if (variableInput == null)
+        if (_variableInput == null)
         {
             Debug.Log("Null exception : variableInput이 비었습니다. ");
-            variableInput = FindObjectOfType<VariableInput>();
+            _variableInput = FindObjectOfType<VariableInput>();
         }
-        variableInput.OnClick();
+        _variableInput.OnClick();
     }
 
 
