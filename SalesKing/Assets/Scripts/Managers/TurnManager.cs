@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class TurnManager : MonoBehaviour
@@ -23,8 +24,12 @@ public class TurnManager : MonoBehaviour
         if (todayTurn >= talkLimit)
         {
             Debug.Log("대화 횟수 소진, 엔딩 호출 (위치: TurnManager)");
-            Managers.UI.ShowSummaryPanel();
+            StartCoroutine(ShowSummaryPanelWithDelay(3f));
         }
     }
-
+    private IEnumerator ShowSummaryPanelWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Managers.UI.ShowSummaryPanel();
+    }
 }

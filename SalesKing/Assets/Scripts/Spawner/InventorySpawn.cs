@@ -57,12 +57,12 @@ public class InventorySpawn : MonoBehaviour
     // 가격 확인 메서드
     public void ConfirmPrice()
     {
-        OnPriceClick(priceInputField, selectedItem); // PriceHandler의 메서드 호출
+       OnPriceClick(priceInputField, selectedItem); // PriceHandler의 메서드 호출
     }
 
     public void OnPriceClick(TMP_InputField inputFieldGO, ItemInfo selectedItem)
     {
-        float inputPrice;
+        float inputPrice = 0;
 
         if (float.TryParse(inputFieldGO.text, out inputPrice))
         {
@@ -70,7 +70,7 @@ public class InventorySpawn : MonoBehaviour
         }
         else
         {
-            Debug.LogError("It's not float type");
+            Managers.Chat.EvalManager.InitItem(inputPrice, selectedItem);
         }
     }
 

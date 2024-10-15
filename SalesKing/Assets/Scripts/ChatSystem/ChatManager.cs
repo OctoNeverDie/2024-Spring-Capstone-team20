@@ -35,9 +35,31 @@ public class ChatManager : MonoBehaviour
         }
     }
 
+    [HideInInspector]
     public int _turn;
+    [HideInInspector]
     public float _npcSuggest =0;
+    [HideInInspector]
     public float _userSuggest =0;
+    [HideInInspector]
+    public int reason =0;
+    //1 :NPC 기분이 나빠서 Fail
+    //2: 대화 에너지 다 해서 Fail
+    //3 : 제시가가 판매가보다 낮아서 Success
+    //4 : 이대로 받기를 선택해서 Success
+
+    [SerializeField]
+    public VariableInput variableInput;
+    public void GetInputKey()
+    {
+        if (variableInput == null)
+        {
+            Debug.Log("Null exception : variableInput이 비었습니다. ");
+            variableInput = FindObjectOfType<VariableInput>();
+        }
+        variableInput.OnClick();
+    }
+
 
     public static event Action<int, float, float> OnNumberUpdated;
 

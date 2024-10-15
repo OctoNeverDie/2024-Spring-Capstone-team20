@@ -6,6 +6,7 @@ using TMPro;
 using static Define;
 using DG.Tweening; // DoTween 네임스페이스 추가
 using UnityEngine.SceneManagement;
+using UnityEngine.Profiling;
 
 
 public class ConvoUI : MonoBehaviour
@@ -34,36 +35,72 @@ public class ConvoUI : MonoBehaviour
 
     private float todayGoal = 150;
 
+    public GameObject OkayBtn;
+
+    bool isSuccess;
+    float smaller;
+    public void SeeReaction(bool isSuccess, float price)
+    {
+        this.isSuccess = isSuccess;
+        this.smaller = price;
+        isBtn1 = false;
+        OkayBtn.SetActive(true);
+    }
+
+    bool isBtn1 = false;
+    public void PopOkayBtn()
+    {
+        isBtn1 = true;
+        OkayBtn.SetActive(true);
+    }
+
+    public void OnOkayBtn()
+    {
+        if (isBtn1)
+        {
+            OkayBtn.SetActive(false);
+            Managers.Chat.EvalManager.ThingToBuy = "";
+            Managers.Chat.TransitionToState(SendChatType.ItemInit);
+        }
+        else if (!isBtn1)
+        {
+            OkayBtn.SetActive(false);
+            if (isSuccess)
+            {
+                Managers.Chat.EvalManager.AddItemPriceSold(smaller);
+                Managers.Chat._endType = EndType.buy;
+                Managers.Chat.TransitionToState(SendChatType.Endpoint);
+            }
+            else
+            {
+                Managers.Chat._endType = EndType.reject;
+                Managers.Chat.TransitionToState(SendChatType.Endpoint);
+            }
+        }
+        
+    }
+
     private void Awake()
     {
         ChatManager.OnPanelUpdated -= ShowPanel;
         ChatManager.OnPanelUpdated += ShowPanel;
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
         ServerManager.OnSendReplyUpdate += SubWaitReply;
+
+        ChatSaleState.popupBtnInventory -= PopOkayBtn;
+        ChatSaleState.popupBtnInventory += PopOkayBtn;
+        ChatBargainState.ChatBargainReactState -= SeeReaction;
+        ChatBargainState.ChatBargainReactState += SeeReaction;
     }
 
     private void OnDestroy()
     {
         ChatManager.OnPanelUpdated -= ShowPanel;
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
-    }
-    /*
-    private void DealBtnActivate(bool beActive)
-    {
-        // DealBtn 컴포넌트를 자식에서 찾음
-        DealBtn dealBtnComponent = this.GetComponentInChildren<DealBtn>();
 
-        if (dealBtnComponent != null)
-        {
-            Button dealBtnButton = dealBtnComponent.GetComponent<Button>();
-            if (dealBtnButton != null)
-            {
-                dealBtnButton.interactable = beActive;
-            }
-        }
+        ChatSaleState.popupBtnInventory -= PopOkayBtn;
+        ChatBargainState.ChatBargainReactState -= SeeReaction;
     }
-    */
-
 
     private void SubWaitReply(bool beActive)
     {
@@ -112,11 +149,19 @@ public class ConvoUI : MonoBehaviour
             {
                 text.text = "물건 판매 성공~!";
                 btnText.text = "짱~!";
+                if (Managers.Chat.reason == 3)
+                    text.text = "제시가가 판매가보다 낮아서\n" + text.text;
+                else if (Managers.Chat.reason == 4)
+                    text.text = "판매가대로\n" + text.text;
             }
             else if (endType == Define.EndType.reject || endType == Define.EndType.clear)
             {
                 text.text = "물건 판매 실패...";
                 btnText.text = "우...";
+                if (Managers.Chat.reason == 1)
+                    text.text = "상대 기분이 나빠짐...\n" + text.text;
+                else if(Managers.Chat.reason ==2)
+                    text.text = "대화 에너지 다함...\n" + text.text;
             }
 
             StartCoroutine(ShowEndPanelAfterDelay());
@@ -126,7 +171,7 @@ public class ConvoUI : MonoBehaviour
     private IEnumerator ShowEndPanelAfterDelay()
     {
         // 3초 대기
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(1f);
         EndPanel.SetActive(true);
     }
 

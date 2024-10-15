@@ -82,39 +82,36 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     {
         if (_gptResult._userSuggest!=0 && _gptResult._userSuggest <= _gptResult._npcSuggest)
         {
+            Managers.Chat.reason = 3;
             return State.Succes;
         }
         //persuasion 해도 턴이 남았을 때
-        if (_gptResult._turn >=1)
+        if (_gptResult._turn >=2)
         {
             //받고, 업데이트 했으니 이제 플레이어가 보내야하는 상황의 턴이 나옴
             _gptResult._turn = Math.Max(_gptResult._turn - 1, 0);//턴 하나 빼기
             return State.Wait;//다음 대화
         }
+        _gptResult._turn = 0;
+        Managers.Chat.ReplyManager.GptReaction = "음, 싫어요.";
+        Managers.Chat.reason = 2;
         return State.Fail;
     }
 
+    public static Action<bool, float> ChatBargainReactState;
     private void ReactToState()
     {
         Debug.Log($"ChatBargainState에서 보냄 {isState}");
         if (isState == State.Fail)
         {
-            Managers.Chat._endType = EndType.reject;
-            Managers.Chat.TransitionToState(SendChatType.Endpoint);
+            ChatBargainReactState?.Invoke(false, 0);
         }
         else if (isState == State.Succes)
         {
-            UpdateAndActivate();
-            Managers.Chat._endType = EndType.buy;
-            Managers.Chat.TransitionToState(SendChatType.Endpoint);
+            float smaller = (_gptResult._npcSuggest > _gptResult._userSuggest) ? _gptResult._userSuggest : _gptResult._npcSuggest;
+            ChatBargainReactState?.Invoke(true, smaller);
+            //UpdateAndActivate();
         }
-    }
-
-    private void UpdateAndActivate()//마지막으로 갱신됨
-    {
-        float smaller = (_gptResult._npcSuggest > _gptResult._userSuggest) ? _gptResult._userSuggest : _gptResult._npcSuggest;
-        //최종값 올림
-        Managers.Chat.EvalManager.AddItemPriceSold(_gptResult._npcSuggest);
     }
 
     private void UpdateTurn()
@@ -137,6 +134,8 @@ public class ChatBargainState : ChatBaseState, IVariableChat
             {
                 isState = State.Fail ;
                 _gptResult._turn = 0;
+                Managers.Chat.reason = 1; //NPC 기분이 나빠서 Fail
+                Managers.Chat.ReplyManager.GptReaction = "음, 싫어요.";
                 return;
             }
 

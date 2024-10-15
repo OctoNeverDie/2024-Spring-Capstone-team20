@@ -56,7 +56,7 @@ public class UserInputManager : MonoBehaviour
 
         if (Input.GetButtonDown("Submit"))
         {
-            //VaribleInput.OnClick();
+            Managers.Chat.GetInputKey();
         }
     }
 }

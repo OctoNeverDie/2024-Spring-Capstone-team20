@@ -3,7 +3,7 @@ using UnityEngine;
 using static Define;
 
 
-public class ChatSaleState : ChatBaseState, IVariableChat
+public class ChatSaleState : ChatBaseState
 {
     private struct GptResult
     {
@@ -21,7 +21,20 @@ public class ChatSaleState : ChatBaseState, IVariableChat
         _sendChatType = SendChatType.ChatSale;
         //맨 처음 시작할 때, convo ui 나와야한다.
         Managers.Chat.ActivatePanel(_sendChatType);
+
+        string user_input = "요즘 당신의 고민에 대해서 말씀해보세요.";
+        ServerManager.Instance.GetGPTReply(user_input, _sendChatType);
         SubScribeAction();
+    }
+
+    public static Action popupBtnInventory;
+    public void GptOutput(string type, string gpt_output)
+    {
+        if (type != nameof(Managers.Chat.ReplyManager.GptAnswer))
+            return;
+
+        //요즘 내 고민은 이거에요... 하고 답이 오면 inventory 보여주기
+        popupBtnInventory?.Invoke();
     }
 
     public override void Exit()
@@ -31,105 +44,15 @@ public class ChatSaleState : ChatBaseState, IVariableChat
         //save evaluation
     }
 
-    //유저가 입력할 때 : 
-    public void UserInput(string type, string user_input)
-    {//그대로 보낸다
-        if (type != nameof(Managers.Chat.ReplyManager.UserAnswer))
-            return;
-
-        Debug.Log($"ChatSaleState에서 보냄 {_sendChatType}");
-        ServerManager.Instance.GetGPTReply(user_input, _sendChatType);
-    }
-
-    //GPT 답 돌아왔을 때: 
-    public void GptOutput(string type, string gpt_output)
-    {
-        if (type != nameof(Managers.Chat.ReplyManager.GptAnswer))
-            return;
-
-        CheckYesOrNo(gpt_output);//yes,no 왔는지 체크
-        ConcatReply(gpt_output);//gpt 답변 _gptResult에 업데이트
-
-        Debug.Log($"지워 :_gptResult._thingToBuy {_gptResult._thingToBuy}+_gptResult._reaction{_gptResult._reaction}+_gptResult._evaluation{_gptResult._evaluation}");
-        Debug.Log($"지워: _gptResult._yesOrNo {_gptResult._isYesNo} _gptResult._yesIsTrue {_gptResult._yesIsTrue}");
-
-        CheckChangeState();//다음 행동
-    }
-
-    private void CheckChangeState()
-    {
-        if (!_gptResult._isYesNo)
-        {
-            return;
-        }
-
-        Debug.Log("ChatSaleState");
-        Managers.Chat.EvalManager.AddEvaluation(_gptResult._evaluation);
-
-        if (_gptResult._yesIsTrue)
-        {
-            Managers.Chat.EvalManager.ThingToBuy = _gptResult._thingToBuy;
-            Managers.Chat.TransitionToState(SendChatType.ItemInit);
-        }
-        else if (!_gptResult._yesIsTrue)
-        {
-            Managers.Chat._endType = EndType.clear;
-            Managers.Chat.TransitionToState(SendChatType.Endpoint);
-        }
-    }
-    private void CheckYesOrNo(string gptAnswer)
-    {
-        _gptResult._isYesNo = false;
-        _gptResult._yesIsTrue = false;
-
-        string[] markers = { "yes", "no" };
-        
-        foreach (string marker in markers)
-        {
-            int index = gptAnswer.IndexOf(marker, StringComparison.OrdinalIgnoreCase);
-            if (index >= 0)
-            {
-                _gptResult._isYesNo = true;
-                _gptResult._yesIsTrue = marker.Equals("yes", StringComparison.OrdinalIgnoreCase);
-                break;
-            }
-        }
-    }
-
-    private void ConcatReply(string gptAnswer)
-    {
-        string[] sections = gptAnswer.Split(new string[] { "ThingToBuy", "yourReply", "summary" }, StringSplitOptions.None);
-
-        if (sections.Length > 3)//yes일 때,
-        {
-            _gptResult._thingToBuy = sections[1];
-            _gptResult._reaction = sections[2];
-            _gptResult._evaluation = sections[3];
-        }
-
-        else if (sections.Length > 2)//no일 때,
-        {
-            _gptResult._reaction = sections[1];
-            _gptResult._evaluation = sections[2];
-        }
-
-        else if (sections.Length > 1)
-        {
-            _gptResult._reaction = sections[1];//later : Trim()
-        }
-    }
-
+    
     private void SubScribeAction()
     {
-        ReplySubManager.OnReplyUpdated -= UserInput;
         ReplySubManager.OnReplyUpdated -= GptOutput;
 
-        ReplySubManager.OnReplyUpdated += UserInput;
         ReplySubManager.OnReplyUpdated += GptOutput;
     }
     private void UnSubScribeAction()
     {
-        ReplySubManager.OnReplyUpdated -= UserInput;
         ReplySubManager.OnReplyUpdated -= GptOutput;
     }
 }
