@@ -20,14 +20,10 @@ public class TemplateReceive : MonoBehaviour
         switch (sendChatType) 
         {
             case SendChatType.NpcInit:
-                Managers.Chat.TransitionToState(SendChatType.ChatSale);
-                return false;
+                return true;
 
             case SendChatType.ItemInit:
                 Managers.Chat.TransitionToState(SendChatType.ChatBargain);
-                return false;
-
-            case SendChatType.ChatSale:
                 return true;
 
             case SendChatType.ChatBargain:
@@ -45,7 +41,7 @@ public class TemplateReceive : MonoBehaviour
     {
         string pattern;
 
-        if (sendChatType == SendChatType.ChatSale)
+        if (sendChatType == SendChatType.NpcInit)
         {
             pattern = @"\""yourReply\"":\s*\""(.*?)\""";
             return Util.Concat(pattern, GPTanswer);

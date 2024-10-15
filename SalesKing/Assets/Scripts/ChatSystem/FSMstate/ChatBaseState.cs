@@ -4,7 +4,7 @@ using System.Diagnostics.Contracts;
 using UnityEngine;
 using static Define;
 
-public abstract class ChatBaseState
+public abstract class ChatBaseState : MonoBehaviour
 {
     protected ChatStateMachine _chatStateMachine;
 

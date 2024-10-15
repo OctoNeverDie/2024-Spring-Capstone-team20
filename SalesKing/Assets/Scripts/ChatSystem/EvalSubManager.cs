@@ -14,6 +14,7 @@ public class EvalSubManager
         public string npcName;
         public int npcAge;
         public bool npcSex; //female is true
+        public string npcKeyword;
         public string item;
         public int itemID;
         public float price;
@@ -24,7 +25,7 @@ public class EvalSubManager
     public Dictionary<int, NpcEvaluation> NpcEvalDict { get; private set; } = new Dictionary<int, NpcEvaluation>();
 
     public int currentNpcId = 0;
-    public void InitNpcDict(int npcId, string npcName, int npcAge, bool npcSex)
+    public void InitNpcDict(int npcId, string npcName, int npcAge, bool npcSex, string keyWord)
     {
         NpcEvaluation _npcEvaluation = new NpcEvaluation
         {
@@ -32,6 +33,7 @@ public class EvalSubManager
             npcName = npcName,
             npcAge = npcAge,
             npcSex = npcSex,
+            npcKeyword = keyWord,
             item = string.Empty,
             itemID = 0,
             price = 0.0f,

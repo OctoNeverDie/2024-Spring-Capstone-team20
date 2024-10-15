@@ -20,20 +20,14 @@ public class ChatManager : MonoBehaviour
 
     public void ActivatePanel(SendChatType chatState)
     {
-        if (chatState == (SendChatType.ItemInit))
-        {
-            OnPanelUpdated?.Invoke(chatState, EndType.None);
-        }
-        else if (chatState == SendChatType.ChatBargain)
-        {
-            OnPanelUpdated?.Invoke(chatState, EndType.None);
-            //TODO : 2초 뒤에 흥정시작~! panel 나오고 점점 fade out
-            //위에 거 이미 했으면, 한 1초 뒤에 Deal panel 나오게.
-        }
-        else if (chatState == SendChatType.Endpoint)
+        if (chatState == SendChatType.Endpoint)
         {
             //endtype따라 마지막 패널 달라진다!
             OnPanelUpdated?.Invoke(chatState, _endType);
+        }
+        else
+        {
+            OnPanelUpdated?.Invoke(chatState, EndType.None);
         }
     }
 

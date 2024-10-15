@@ -87,8 +87,6 @@ public class ConvoUI : MonoBehaviour
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
         ServerManager.OnSendReplyUpdate += SubWaitReply;
 
-        ChatSaleState.popupBtnInventory -= PopOkayBtn;
-        ChatSaleState.popupBtnInventory += PopOkayBtn;
         ChatBargainState.ChatBargainReactState -= SeeReaction;
         ChatBargainState.ChatBargainReactState += SeeReaction;
     }
@@ -98,7 +96,6 @@ public class ConvoUI : MonoBehaviour
         ChatManager.OnPanelUpdated -= ShowPanel;
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
 
-        ChatSaleState.popupBtnInventory -= PopOkayBtn;
         ChatBargainState.ChatBargainReactState -= SeeReaction;
     }
 
@@ -130,7 +127,11 @@ public class ConvoUI : MonoBehaviour
 
     public void ShowPanel(Define.SendChatType sendChatType, Define.EndType endType)
     {
-        if (sendChatType == Define.SendChatType.ItemInit)
+        if (sendChatType == Define.SendChatType.NpcInit)
+        {
+            PopOkayBtn();
+        }
+        else if (sendChatType == Define.SendChatType.ItemInit)
         {
             EndPanel.SetActive(false);
             ConvoPanel.SetActive(false);
@@ -160,7 +161,7 @@ public class ConvoUI : MonoBehaviour
                 btnText.text = "우...";
                 if (Managers.Chat.reason == 1)
                     text.text = "상대 기분이 나빠짐...\n" + text.text;
-                else if(Managers.Chat.reason ==2)
+                else if (Managers.Chat.reason == 2)
                     text.text = "대화 에너지 다함...\n" + text.text;
             }
 
@@ -199,11 +200,6 @@ public class ConvoUI : MonoBehaviour
     }
     #endregion
   
-    public void OnClickTalkToNPCBtn()
-    {
-
-    }
-
     public void OnClickExitNPCBtn()
     {
         Managers.Convo.ConvoFinished();

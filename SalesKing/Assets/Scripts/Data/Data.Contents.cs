@@ -32,9 +32,11 @@ public class NpcInfo
     public string NpcName;
     public string NpcSex;
     public int NpcAge;
+    public string KeyWord;
     public string Situation_Description;
     public string Personality;
     public string Dialogue_Style;
+    public string Example;
 }
 
 public class NpcData : ILoader<NpcInfo>
