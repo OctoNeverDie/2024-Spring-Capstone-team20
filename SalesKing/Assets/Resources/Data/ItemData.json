@@ -2,7 +2,7 @@
   "items": [
     {
       "ObjID": 1,
-      "ObjName": "pumpkin",
+      "ObjName": "호박",
       "ObjInfo": "큼지막하고 맛있어보이는 호박이다. 다른 호박이랑 다른 점을 모르겠다.",
       "defaultPrice": 24,
       "expensive": 30,
@@ -10,7 +10,7 @@
     },
     {
       "ObjID": 2,
-      "ObjName": "cake",
+      "ObjName": "케이크",
       "ObjInfo": "냉동 딸기 쇼트 케이크. 다른 케이크와 다른 점은 없어 보인다. 케이크가 신선해보이는 건 거짓말이다. 누가봐도 공장에서 나온 케이크다.",
       "defaultPrice": 15,
       "expensive": 20,
@@ -18,7 +18,7 @@
     },
     {
       "ObjID": 3,
-      "ObjName": "door",
+      "ObjName": "문",
       "ObjInfo": "유리창이 있는 하얀색 문",
       "defaultPrice": 65,
       "expensive": 90,
@@ -26,7 +26,7 @@
     },
     {
       "ObjID": 4,
-      "ObjName": "hoodie",
+      "ObjName": "후드티",
       "ObjInfo": "빨간색 후드티. 팔쪽에 흰색과 검은색으로 포인트 디자인이 있다.",
       "defaultPrice": 43,
       "expensive": 80,
@@ -34,7 +34,7 @@
     },
     {
       "ObjID": 5,
-      "ObjName": "cat_tower",
+      "ObjName": "캣타워",
       "ObjInfo": "3단으로 된 캣타워. 핑크색 포인트 색깔이 인상적이다.",
       "defaultPrice": 72,
       "expensive": 100,
@@ -42,7 +42,7 @@
     },
     {
       "ObjID": 6,
-      "ObjName": "piano",
+      "ObjName": "피아노",
       "ObjInfo": "작은 피아노. 원래 피아노가 비싼 편이라 사려면 큰 마음을 먹어야한다.",
       "defaultPrice": 700,
       "expensive": 900,
@@ -50,7 +50,7 @@
     },
     {
       "ObjID": 7,
-      "ObjName": "camera",
+      "ObjName": "카메라",
       "ObjInfo": "디지털 카메라다. 얼마나 비싼지 모르겠다.",
       "defaultPrice": 560,
       "expensive": 780,
@@ -58,7 +58,7 @@
     },
     {
       "ObjID": 8,
-      "ObjName": "potion",
+      "ObjName": "포션",
       "ObjInfo": "수상하게 생긴 포션. 마치 판타지 세상에서 튀어나온 것 같이 생겼다. 얼마인지 모르겠다. 효능에 따라 아무 효능이 없으면 2크레딧, 효능이 있으면 50크레딧정도 할것 같다.",
       "defaultPrice": 20,
       "expensive": 35,
