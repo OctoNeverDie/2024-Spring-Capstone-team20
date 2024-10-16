@@ -149,17 +149,15 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         Managers.Chat.EvalManager.AddEvaluation(_gptResult._summary);
 
         string actionValue = sections2[2].Trim();
-        if (actionValue == "bought")
+        if (actionValue.Contains("bought"))
         {
-            Debug.Log("들어옴 bout1");
             float finalPrice = GetFloat(sections2[3]);
             _gptResult._npcSuggest = finalPrice;
             _gptResult._userSuggest = finalPrice;
             StateFailSuccess(State.Success, 3, EndType.clear);
         }
-        else if (actionValue == "notBought")
+        else if (actionValue.Contains("notBought"))
         {
-            Debug.Log("들어옴 not bout1");
             StateFailSuccess(State.Fail, 1, EndType.clear);
         }
     }
