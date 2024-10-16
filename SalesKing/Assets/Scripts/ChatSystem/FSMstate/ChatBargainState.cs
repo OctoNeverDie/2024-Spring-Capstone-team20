@@ -52,7 +52,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         user_send = MakeAnswer(user_input);
 
         Debug.Log($"ChatBargainState에서 보냄 {_sendChatType}");
-        ServerManager.Instance.GetGPTReply(user_input, _sendChatType);
+        ServerManager.Instance.GetGPTReply(user_send, _sendChatType);
     }
 
     public void GptOutput(string type, string gpt_output)
