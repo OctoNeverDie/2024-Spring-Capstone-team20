@@ -42,7 +42,7 @@ public class EvalSubManager
 
         if (currentNpcId != 0)
         {
-            Debug.Log($"+++++++++그 전 애{NpcEvalDict[currentNpcId].npcName} 평가 {NpcEvalDict[currentNpcId].npcEvaluation}");
+        //    Debug.Log($"+++++++++그 전 애{NpcEvalDict[currentNpcId].npcName} 평가 {NpcEvalDict[currentNpcId].npcEvaluation}");
         }
 
         currentNpcId = npcId;

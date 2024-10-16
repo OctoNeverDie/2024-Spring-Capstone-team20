@@ -11,7 +11,7 @@ public class NpcSupplyManager
     {
         //TODO : SO로 바꾸기
         npcSuffledList = Managers.Data.npcList;
-        npcSuffledList = RandList(npcSuffledList);
+        //npcSuffledList = RandList(npcSuffledList);
         npcQueue = new Queue<NpcInfo>(npcSuffledList);
         PrintNpcQueue();
     }

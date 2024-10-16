@@ -40,6 +40,7 @@ public class UserInputManager : MonoBehaviour
 
                     case Define.Interactables.City_NPC:
                         NPC thisNPC = myPlayer.RaycastCollider.GetComponent<NPC>();
+                        Managers.Chat.EvalManager.currentNpcId= thisNPC.NpcID;
                         myPlayer.PlayerEnterConvo(thisNPC.gameObject);
                         thisNPC.NPCEnterConvo(myPlayer.gameObject);
                         break;
