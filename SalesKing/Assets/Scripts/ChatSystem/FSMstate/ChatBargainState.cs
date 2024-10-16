@@ -62,7 +62,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
 
         ConcatReply(gpt_output);
 
-        if (isState != State.Wait)
+        if (isState == State.Wait)
             CheckState();
 
         UpdateTurn();
@@ -117,7 +117,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         Managers.Chat.UpdateTurn(_gptResult._turn, _gptResult._npcSuggest, _gptResult._userSuggest);
     }
 
-    private void ConcatReply(string gptAnswer)
+private void ConcatReply(string gptAnswer)
     {
         if (gptAnswer.Contains("summary"))////npc가 끝냄
         {
@@ -145,12 +145,14 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     private void NpcEnds(string gptAnswer)
     {
         string[] sections2 = gptAnswer.Split(new string[] { "summary", "action", "finalPrice" }, StringSplitOptions.None);
-        _gptResult._summary = sections2[1].Trim();
+        _gptResult._summary = sections2[2].Trim();
         Managers.Chat.EvalManager.AddEvaluation(_gptResult._summary);
-
-        string actionValue = sections2[2].Trim();
+        
+        string actionValue = sections2[3].Trim();
+        Debug.Log("뭐요"+actionValue);
         if (actionValue.Contains("bought"))
         {
+            Debug.Log("샀다구여.");
             float finalPrice = GetFloat(sections2[3]);
             _gptResult._npcSuggest = finalPrice;
             _gptResult._userSuggest = finalPrice;
@@ -158,6 +160,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         }
         else if (actionValue.Contains("notBought"))
         {
+            Debug.Log("안 샀다구여.");
             StateFailSuccess(State.Fail, 1, EndType.clear);
         }
     }
@@ -165,6 +168,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     private void StateFailSuccess(State state, int reason, EndType endType)
     {
         isState = state;
+        Debug.Log("왜 여기서는?"+isState);
         Managers.Chat.reason = reason;
         Managers.Chat._endType = endType;
     }
