@@ -17,10 +17,12 @@ public class VariableInput : MonoBehaviour
         if (Managers.Input.CurInputMode == Define.UserInputMode.Keyboard)
         {
             userText = KeyboardText.text;
+            KeyboardText.text = "";
         }
         else if (Managers.Input.CurInputMode == Define.UserInputMode.Voice)
         {
             userText = STTText.text;
+            STTText.text = "";
         }
 
         if(userText == null)
@@ -34,8 +36,6 @@ public class VariableInput : MonoBehaviour
         TutorialManager.Instance.OnPersuadeToCustomer();
         //TODO : 현재 단계가 chatSaleState나, ChatBargain 단계 아니면 작성하지 못하게 하기.
         Managers.Chat.ReplyManager.UserAnswer = _userInput;
-        KeyboardText.text = "";
-        STTText.text = "";
 
         if(Managers.Input.CurInputMode == Define.UserInputMode.Voice)
         {
