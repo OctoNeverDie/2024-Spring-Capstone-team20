@@ -42,9 +42,9 @@ public class NpcInitState : ChatBaseState
     protected string MakeAnswer(NpcInfo user_send)
     {
         string initData = $"\n Name: {user_send.NpcName}, Age : {user_send.NpcAge}, Sex : {user_send.NpcSex}, Keyword : {user_send.KeyWord}\n"
-            + $"Situation_Description: {user_send.Situation_Description}\n"
+            + $"Situation_Description: {user_send.SituationDescription}\n"
             + $"Personality: {user_send.Personality}\n"
-            + $"Dialogue_Style: {user_send.Dialogue_Style}.\n"
+            + $"Dialogue_Style: {user_send.DialogueStyle}.\n"
             +$"Example : {user_send.Example}";
 
         return initData;

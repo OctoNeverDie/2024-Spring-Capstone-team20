@@ -14,8 +14,6 @@ public class ChatManager : MonoBehaviour
     {
         _chatStateMachine = new ChatStateMachine();
         _chatStateMachine.SetState(new NpcInitState());
-
-        _variableInput = FindObjectOfType<VariableInput>();
     }
 
     public void ActivatePanel(SendChatType chatState)
@@ -43,18 +41,6 @@ public class ChatManager : MonoBehaviour
     //2: 대화 에너지 다 해서 Fail
     //3 : 제시가가 판매가보다 낮아서 Success
     //4 : 이대로 받기를 선택해서 Success
-
-    private VariableInput _variableInput;
-    public void GetInputKey()
-    {
-        if (_variableInput == null)
-        {
-            Debug.Log("Null exception : variableInput이 비었습니다. ");
-            _variableInput = FindObjectOfType<VariableInput>();
-        }
-        _variableInput.OnClick();
-    }
-
 
     public static event Action<int, float, float> OnNumberUpdated;
 

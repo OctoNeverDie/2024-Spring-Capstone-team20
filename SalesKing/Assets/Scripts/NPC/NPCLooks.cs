@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class NPCLooks : MonoBehaviour
 {
-    public Dictionary<NPCDefine.MeshType, GameObject> thisMesh = new Dictionary<NPCDefine.MeshType, GameObject>(); // ªı∑”∞‘ ¿˚øÎ«“ ∏ﬁΩ¨
+    public Dictionary<NPCDefine.MeshType, GameObject> thisMesh = new Dictionary<NPCDefine.MeshType, GameObject>(); // ÏÉàÎ°≠Í≤å Ï†ÅÏö©Ìï† Î©îÏâ¨
 
     void Awake()
     {
@@ -19,6 +19,7 @@ public class NPCLooks : MonoBehaviour
 
     private void SetNPCBody()
     {
+        /*
         GameObject meshTransform = transform.Find("Mesh").gameObject;
         //Debug.Log(meshTransform.ToString());
         foreach (NPCDefine.MeshType category in System.Enum.GetValues(typeof(NPCDefine.MeshType)))
@@ -32,17 +33,19 @@ public class NPCLooks : MonoBehaviour
                 }
             }
         }
+        */
     }
 
     public void AssignCustomMesh(NPCDefine.MeshType type, NPCDefine.LookState look)
     {
+        /*
         if (look == NPCDefine.LookState.Normal)
         {
             int options = Managers.NPC.Mesh.NPCMeshDictionary_norm[type].Count;
             int index = Random.Range(0, options);
             if (options <= 0) index = -1;
 
-            // normal¿Ã∂Û∏È... ∞°πÊ, ¿Â∞©, µÓµÓµÓ... æ¯æ÷±‚
+            // normalÏù¥ÎùºÎ©¥... Í∞ÄÎ∞©, Ïû•Í∞ë, Îì±Îì±Îì±... ÏóÜÏï†Í∏∞
             if(type == NPCDefine.MeshType.Backpack) index = -1;
             if(type == NPCDefine.MeshType.Glove) index = -1;
             if(type == NPCDefine.MeshType.Hat) index = -1;
@@ -75,6 +78,7 @@ public class NPCLooks : MonoBehaviour
                 meshRenderer.sharedMesh = Managers.NPC.Mesh.NPCMeshDictionary[type][index];
             }
         }
+        */
         
     }
 }

@@ -8,6 +8,7 @@ using System;
 [System.Serializable]
 public class GameData
 {
+    public float mouseSpeed = 0;
     public int day = 0;    
 
     public List<MyItem> itemList = new List<MyItem>();

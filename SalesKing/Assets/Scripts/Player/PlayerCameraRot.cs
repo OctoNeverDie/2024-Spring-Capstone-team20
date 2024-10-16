@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class PlayerCameraRot : MonoBehaviour
 {
-    [SerializeField] private float mouseSpeed = 8f; //È¸Àü¼Óµµ
-    private float mouseY = 0f; //À§¾Æ·¡ È¸Àü°ªÀ» ´ãÀ» º¯¼ö
+    [SerializeField] private float mouseSpeed = 5f; //íšŒì „ì†ë„
+    private float mouseY = 0f; //ìœ„ì•„ë˜ íšŒì „ê°’ì„ ë‹´ì„ ë³€ìˆ˜
 
     public bool isCameraLocked;
+
+    void Awake()
+    {
+        mouseSpeed = DataController.Instance.gameData.mouseSpeed;
+    }
 
     void Update()
     {
