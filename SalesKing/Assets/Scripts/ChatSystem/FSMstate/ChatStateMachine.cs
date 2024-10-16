@@ -19,7 +19,7 @@ public class ChatStateMachine
 
     public void TransitionToState(SendChatType sendChatType)
     {
-        ChatBaseState chatState = new NpcInitState();
+        ChatBaseState chatState;
         switch (sendChatType)
         {
             case SendChatType.NpcInit:

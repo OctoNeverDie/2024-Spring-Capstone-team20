@@ -60,9 +60,9 @@ public class NpcSupplyManager
                       $"Sex = {npc.NpcSex}, " +
                       $"Age = {npc.NpcAge}, " +
                       $"KeyWord ={npc.KeyWord},"+
-                      $"Situation = {npc.Situation_Description}, " +
+                      $"Situation = {npc.SituationDescription}, " +
                       $"Personality = {npc.Personality}, " +
-                      $"Dialogue Style = {npc.Dialogue_Style},"+
+                      $"Dialogue Style = {npc.DialogueStyle},"+
                       $"Example = {npc.Example}");
             index++;
         }
