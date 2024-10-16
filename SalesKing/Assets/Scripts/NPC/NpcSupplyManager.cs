@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +11,13 @@ public class NpcSupplyManager
     {
         //TODO : SO로 바꾸기
         npcSuffledList = Managers.Data.npcList;
+        npcSuffledList = RandList(npcSuffledList);
+        npcQueue = new Queue<NpcInfo>(npcSuffledList);
+        PrintNpcQueue();
+    }
+
+    private List<NpcInfo> RandList(List<NpcInfo> npcSuffledList)
+    {
         for (int i = 0; i < npcSuffledList.Count; i++)
         {
             NpcInfo temp = npcSuffledList[i];
@@ -20,8 +26,7 @@ public class NpcSupplyManager
             npcSuffledList[randomIdx] = temp;
         }
 
-        npcQueue = new Queue<NpcInfo>(npcSuffledList);
-        PrintNpcQueue();
+        return npcSuffledList;
     }
 
     public NpcInfo GetNextNpc()
@@ -54,9 +59,11 @@ public class NpcSupplyManager
                       $"Name = {npc.NpcName}, " +
                       $"Sex = {npc.NpcSex}, " +
                       $"Age = {npc.NpcAge}, " +
+                      $"KeyWord ={npc.KeyWord},"+
                       $"Situation = {npc.Situation_Description}, " +
                       $"Personality = {npc.Personality}, " +
-                      $"Dialogue Style = {npc.Dialogue_Style}");
+                      $"Dialogue Style = {npc.Dialogue_Style},"+
+                      $"Example = {npc.Example}");
             index++;
         }
     }

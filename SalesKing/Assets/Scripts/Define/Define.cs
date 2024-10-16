@@ -35,7 +35,6 @@ public class Define
     {
         None,
         NpcInit,
-        ChatSale,
         ItemInit,
         ChatBargain,
         Endpoint,
@@ -47,6 +46,7 @@ public class Define
         None,
         reject,
         buy,
+        leave,
         clear
     }
 

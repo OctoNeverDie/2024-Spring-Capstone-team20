@@ -11,7 +11,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     private enum State
     { 
         Wait,
-        Succes,
+        Success,
         Fail
     }
     private struct GptResult
@@ -20,6 +20,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         public string _npcReaction;
         public float _userSuggest;
         public float _npcSuggest;
+        public string _summary;
     }
 
     GptResult _gptResult = new GptResult();
@@ -29,13 +30,11 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     {
         SubScribeAction();
 
-        _gptResult._turn = TurnInit;
-
-        _sendChatType = SendChatType.ChatBargain;
-        ServerManager.Instance.GetGPTReply("$start", _sendChatType);
-        
         //맨 처음 시작할 때, convo ui 나와야한다.
         Managers.Chat.ActivatePanel(_sendChatType);
+
+        _gptResult._turn = TurnInit;
+        _sendChatType = SendChatType.ChatBargain;
     }
 
     public override void Exit()
@@ -62,8 +61,8 @@ public class ChatBargainState : ChatBaseState, IVariableChat
 
         ConcatReply(gpt_output);
 
-        if (isState != State.Fail)
-            isState = CheckState();
+        if (isState != State.Success)
+            CheckState();
 
         UpdateTurn();
         ReactToState();
@@ -73,44 +72,42 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     {
         string priceOpinion = Managers.Chat.RatePrice(_gptResult._userSuggest);
         string user_template = user_send + $"\n vendor Suggest: {_gptResult._userSuggest}"
-                                + $" npc Suggest: {_gptResult._npcSuggest} price Opinion: {priceOpinion}";
+                                + $" npc Suggest: {_gptResult._npcSuggest}\n price Opinion: {priceOpinion}\nturn : {_gptResult._turn}";
 
         return user_template;
     }
 
-    private State CheckState()
+    private void CheckState()
     {
         if (_gptResult._userSuggest!=0 && _gptResult._userSuggest <= _gptResult._npcSuggest)
         {
-            Managers.Chat.reason = 3;
-            return State.Succes;
+            StateFailSuccess(State.Success, 3, EndType.buy);
         }
         //persuasion 해도 턴이 남았을 때
-        if (_gptResult._turn >=2)
+        if (_gptResult._turn >=1)
         {
             //받고, 업데이트 했으니 이제 플레이어가 보내야하는 상황의 턴이 나옴
             _gptResult._turn = Math.Max(_gptResult._turn - 1, 0);//턴 하나 빼기
-            return State.Wait;//다음 대화
+            StateFailSuccess(State.Wait, 0, EndType.None);
         }
-        _gptResult._turn = 0;
-        Managers.Chat.ReplyManager.GptReaction = "음, 싫어요.";
-        Managers.Chat.reason = 2;
-        return State.Fail;
+        else //(_gptResult._turn <=0)
+        {
+            StateFailSuccess(State.Fail, 2, EndType.reject);
+        }
     }
 
-    public static Action<bool, float> ChatBargainReactState;
     private void ReactToState()
     {
-        Debug.Log($"ChatBargainState에서 보냄 {isState}");
-        if (isState == State.Fail)
-        {
-            ChatBargainReactState?.Invoke(false, 0);
-        }
-        else if (isState == State.Succes)
+        if (isState == State.Success)
         {
             float smaller = (_gptResult._npcSuggest > _gptResult._userSuggest) ? _gptResult._userSuggest : _gptResult._npcSuggest;
-            ChatBargainReactState?.Invoke(true, smaller);
-            //UpdateAndActivate();
+            Managers.Chat.EvalManager.UpdateSuggestInEval(smaller);
+            Managers.Chat.EvalManager.AddItemPriceSold();
+        }
+
+        if (isState != State.Wait)
+        {
+            Managers.Chat.TransitionToState(SendChatType.Endpoint);
         }
     }
 
@@ -121,6 +118,13 @@ public class ChatBargainState : ChatBaseState, IVariableChat
 
     private void ConcatReply(string gptAnswer)
     {
+        if (gptAnswer.Contains("summary"))////npc가 끝냄
+        {
+            NpcEnds(gptAnswer);
+            return;
+        }
+
+        //일반
         string[] sections = gptAnswer.Split(new string[] { "reaction", "vendorSuggest", "yourSuggest", "persuasion" }, StringSplitOptions.None);
 
         if (sections.Length > 4)
@@ -128,17 +132,6 @@ public class ChatBargainState : ChatBaseState, IVariableChat
             _gptResult._npcReaction = sections[1];
             _gptResult._userSuggest = GetFloat(sections[2]);
             _gptResult._npcSuggest = GetFloat(sections[3]);
-            int persuasion = (int)GetFloat(sections[4]);
-
-            if (persuasion <= -20)
-            {
-                isState = State.Fail ;
-                _gptResult._turn = 0;
-                Managers.Chat.reason = 1; //NPC 기분이 나빠서 Fail
-                Managers.Chat.ReplyManager.GptReaction = "음, 싫어요.";
-                return;
-            }
-
             _gptResult._turn += (int)GetFloat(sections[4]);
         }
         else if (sections.Length > 1)//맨 처음
@@ -148,6 +141,33 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         }
     }
 
+    private void NpcEnds(string gptAnswer)
+    {
+        string[] sections2 = gptAnswer.Split(new string[] { "summary", "action", "finalPrice" }, StringSplitOptions.None);
+        _gptResult._summary = sections2[1].Trim();
+        Managers.Chat.EvalManager.AddEvaluation(_gptResult._summary);
+
+        string actionValue = sections2[2].Trim();
+        if (actionValue == "bought")
+        {
+            float finalPrice = GetFloat(sections2[3]);
+            _gptResult._npcSuggest = finalPrice;
+            _gptResult._userSuggest = finalPrice;
+            StateFailSuccess(State.Success, 3, EndType.clear);
+        }
+        else if (actionValue == "notBought")
+        {
+            StateFailSuccess(State.Fail, 1, EndType.clear);
+        }
+    }
+
+    private void StateFailSuccess(State state, int reason, EndType endType)
+    {
+        isState = state;
+        Managers.Chat.reason = reason;
+        Managers.Chat._endType = endType;
+    }
+
     private float GetFloat(string text)
     {
         Match match = Regex.Match(text, @"-?\d+(\.\d+)?");
@@ -155,7 +175,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         {
             return float.Parse(match.Value, CultureInfo.InvariantCulture);
         }
-        return -1.37f;
+        return -1f;
 
     }
 

@@ -20,20 +20,14 @@ public class ChatManager : MonoBehaviour
 
     public void ActivatePanel(SendChatType chatState)
     {
-        if (chatState == (SendChatType.ItemInit))
-        {
-            OnPanelUpdated?.Invoke(chatState, EndType.None);
-        }
-        else if (chatState == SendChatType.ChatBargain)
-        {
-            OnPanelUpdated?.Invoke(chatState, EndType.None);
-            //TODO : 2초 뒤에 흥정시작~! panel 나오고 점점 fade out
-            //위에 거 이미 했으면, 한 1초 뒤에 Deal panel 나오게.
-        }
-        else if (chatState == SendChatType.Endpoint)
+        if (chatState == SendChatType.Endpoint)
         {
             //endtype따라 마지막 패널 달라진다!
             OnPanelUpdated?.Invoke(chatState, _endType);
+        }
+        else
+        {
+            OnPanelUpdated?.Invoke(chatState, EndType.None);
         }
     }
 
@@ -64,23 +58,27 @@ public class ChatManager : MonoBehaviour
 
     public static event Action<int, float, float> OnNumberUpdated;
 
-    public void UpdateTurn(int turn, float npcSuggest = -1f, float userSuggest = -1.37f)
+    public void UpdateTurn(int turn, float npcSuggest = -1f, float userSuggest = -1f)
     { 
         _turn = turn;
         if (npcSuggest != -1f)
             _npcSuggest = npcSuggest;
-        if(userSuggest != -1f)
+        if (userSuggest != -1f)
             _userSuggest = userSuggest;
 
         float smaller = (_npcSuggest > _userSuggest) ? _userSuggest : _npcSuggest;
         EvalManager.UpdateSuggestInEval(smaller);
 
         //Panel에 남은 turn 수 출력, 서로 제시한 거 출력
+        Debug.Log($"{_turn}+{_npcSuggest}+{_userSuggest}");
         if (npcSuggest <= 0f && userSuggest <= 0f)
             return;
-
-        Debug.Log($"{_turn}+{_npcSuggest}+{_userSuggest}");
         OnNumberUpdated?.Invoke(_turn, _npcSuggest, _userSuggest);
+    }
+
+    public void EndTurn(int turn)
+    {
+        OnNumberUpdated?.Invoke(turn, _npcSuggest, _userSuggest);
     }
 
     public EndType _endType { get; set; }
@@ -109,12 +107,11 @@ public class ChatManager : MonoBehaviour
         if (userSuggest < itemInfo.defaultPrice)
             expensiveRate = "Affordable";
         else if (userSuggest < itemInfo.expensive)
-            expensiveRate = "Soso, Not that Cheap, not that Expensive";
+            expensiveRate = "Soso, Not that Cheap, not that Expensive. 시장가다.";
         else if (userSuggest < itemInfo.tooExpensive)
-            expensiveRate = "Expensive, little bit upset about the price";
+            expensiveRate = "Expensive, 시장가보다 조금 비싼 가격이다.";
         else
-            expensiveRate = "Too Expensive, you are angry about the price.";
-
+            expensiveRate = "Too Expensive, 시장가보다 많이 비싼 가격이다.";
         return expensiveRate;
     }
 }

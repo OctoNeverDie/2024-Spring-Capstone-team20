@@ -11,10 +11,17 @@ public class FSMBtn : MonoBehaviour
         Managers.Chat.Init();
     }
 
-    //떠나기 버튼 누르면
-    public void OnLeaveClickFSM()
+    //NpcInit 고민 okay 버튼 누르면
+    public void OnClickNpcInitFSM()
     {
-        Managers.Chat._endType = EndType.reject;
+        Managers.Chat.TransitionToState(SendChatType.ItemInit);
+    }
+
+    //떠나기 버튼 누르면
+    public void OnClickLeaveFSM()
+    {
+        Managers.Chat.reason = 5;
+        Managers.Chat._endType = EndType.leave;
         Managers.Chat.TransitionToState(SendChatType.Endpoint);
     }
 
@@ -26,7 +33,11 @@ public class FSMBtn : MonoBehaviour
         Managers.Chat.reason = 4;
         Managers.Chat._endType = EndType.buy;
         Managers.Chat.TransitionToState(SendChatType.Endpoint);
-        //go to template recieve
-        this.gameObject.SetActive(false);
+    }
+
+    //최종 버튼 누르면
+    public void OnClickFinalFSM()
+    {
+        Managers.Turn.AddTurnAndCheckTalkTurn();
     }
 }

@@ -23,8 +23,8 @@ public class TurnManager : MonoBehaviour
         Managers.UI.SetTurnText(todayTurn, talkLimit);
         if (todayTurn >= talkLimit)
         {
-            Debug.Log("대화 횟수 소진, 엔딩 호출 (위치: TurnManager)");
-            StartCoroutine(ShowSummaryPanelWithDelay(3f));
+            Debug.Log("TODO : 버튼 나오게 해야함, 대화 횟수 소진, 엔딩 호출 (위치: TurnManager)");
+            StartCoroutine(ShowSummaryPanelWithDelay(1f));
         }
     }
     private IEnumerator ShowSummaryPanelWithDelay(float delay)
