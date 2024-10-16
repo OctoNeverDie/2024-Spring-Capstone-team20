@@ -140,7 +140,7 @@ private void ConcatReply(string gptAnswer)
         else if (sections.Length > 1)//맨 처음
         {
             _gptResult._npcReaction = sections[1];
-            _gptResult._npcSuggest = -1f;//not yet
+            _gptResult._npcSuggest = _gptResult._userSuggest;
         }
     }
 
@@ -155,7 +155,7 @@ private void ConcatReply(string gptAnswer)
         if (actionValue.Contains("bought"))
         {
             Debug.Log("샀다구여.");
-            float finalPrice = GetFloat(sections2[3]);
+            float finalPrice = GetFloat(sections2[4]);
             _gptResult._npcSuggest = finalPrice;
             _gptResult._userSuggest = finalPrice;
             StateFailSuccess(State.Success, 3, EndType.clear);
@@ -182,8 +182,8 @@ private void ConcatReply(string gptAnswer)
         {
             return float.Parse(match.Value, CultureInfo.InvariantCulture);
         }
+        Debug.Log($"-1이다ㅏㅏㅏㅏㅏㅏㅏ");
         return -1f;
-
     }
 
     private void SubScribeAction()
