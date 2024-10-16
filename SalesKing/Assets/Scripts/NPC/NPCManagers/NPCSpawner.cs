@@ -91,6 +91,7 @@ public class NPCSpawner : MonoBehaviour
 
     private void SpawnNPC(int i)
     {
+        /*
         Transform npcTransform = Managers.NPC.Move.GetUniqueSpawnPoint();
         if (npcTransform == null) return; // 스폰 포인트가 없을 경우 리턴
 
@@ -133,6 +134,7 @@ public class NPCSpawner : MonoBehaviour
                 }
             }
         }
+        */
     }
 
 
