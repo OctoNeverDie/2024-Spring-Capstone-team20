@@ -46,6 +46,7 @@ public class Define
         None,
         reject,
         buy,
+        leave,
         clear
     }
 

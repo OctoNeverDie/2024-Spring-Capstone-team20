@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using static Define;
 using DG.Tweening; // DoTween 네임스페이스 추가
 using UnityEngine.SceneManagement;
-using UnityEngine.Profiling;
 
 
 public class ConvoUI : MonoBehaviour
@@ -37,66 +35,18 @@ public class ConvoUI : MonoBehaviour
 
     public GameObject OkayBtn;
 
-    bool isSuccess;
-    float smaller;
-    public void SeeReaction(bool isSuccess, float price)
-    {
-        this.isSuccess = isSuccess;
-        this.smaller = price;
-        isBtn1 = false;
-        OkayBtn.SetActive(true);
-    }
-
-    bool isBtn1 = false;
-    public void PopOkayBtn()
-    {
-        isBtn1 = true;
-        OkayBtn.SetActive(true);
-    }
-
-    public void OnOkayBtn()
-    {
-        if (isBtn1)
-        {
-            OkayBtn.SetActive(false);
-            Managers.Chat.EvalManager.ThingToBuy = "";
-            Managers.Chat.TransitionToState(SendChatType.ItemInit);
-        }
-        else if (!isBtn1)
-        {
-            OkayBtn.SetActive(false);
-            if (isSuccess)
-            {
-                Managers.Chat.EvalManager.AddItemPriceSold(smaller);
-                Managers.Chat._endType = EndType.buy;
-                Managers.Chat.TransitionToState(SendChatType.Endpoint);
-            }
-            else
-            {
-                Managers.Chat._endType = EndType.reject;
-                Managers.Chat.TransitionToState(SendChatType.Endpoint);
-            }
-        }
-        
-    }
-
     private void Awake()
     {
         ChatManager.OnPanelUpdated -= ShowPanel;
         ChatManager.OnPanelUpdated += ShowPanel;
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
         ServerManager.OnSendReplyUpdate += SubWaitReply;
-
-        ChatBargainState.ChatBargainReactState -= SeeReaction;
-        ChatBargainState.ChatBargainReactState += SeeReaction;
     }
 
     private void OnDestroy()
     {
         ChatManager.OnPanelUpdated -= ShowPanel;
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
-
-        ChatBargainState.ChatBargainReactState -= SeeReaction;
     }
 
     private void SubWaitReply(bool beActive)
@@ -129,7 +79,7 @@ public class ConvoUI : MonoBehaviour
     {
         if (sendChatType == Define.SendChatType.NpcInit)
         {
-            PopOkayBtn();
+            OkayBtn.SetActive(true);
         }
         else if (sendChatType == Define.SendChatType.ItemInit)
         {
@@ -144,25 +94,24 @@ public class ConvoUI : MonoBehaviour
         else if (sendChatType == Define.SendChatType.Endpoint)
         {
             TextMeshProUGUI text = EndPanel.GetComponentInChildren<TextMeshProUGUI>();
-            TextMeshProUGUI btnText = EndPanel.GetComponentInChildren<Button>().GetComponentInChildren<TextMeshProUGUI>();
 
             if (endType == Define.EndType.buy)
             {
-                text.text = "물건 판매 성공~!";
-                btnText.text = "짱~!";
+                text.text = $"대화가 끝났습니다.\n결과 : 물건 판매 성공!\n당신의 수익 : {Managers.Chat.EvalManager.ShowPrice()} 크레딧";
                 if (Managers.Chat.reason == 3)
-                    text.text = "제시가가 판매가보다 낮아서\n" + text.text;
+                    text.text = text.text + "\n이유 : 제시가가 판매가보다 낮아서";
                 else if (Managers.Chat.reason == 4)
-                    text.text = "판매가대로\n" + text.text;
+                    text.text = text.text + "\n이유 : 당신이 딜 버튼 눌러서";
             }
             else if (endType == Define.EndType.reject || endType == Define.EndType.clear)
             {
-                text.text = "물건 판매 실패...";
-                btnText.text = "우...";
+                text.text = "대화가 끝났습니다.\n 결과 : 물건 판매 실패...\n당신의 수익 : 0 크레딧";
                 if (Managers.Chat.reason == 1)
-                    text.text = "상대 기분이 나빠짐...\n" + text.text;
+                    text.text = text.text + "\n이유 : 상대 기분이 나빠짐..";
                 else if (Managers.Chat.reason == 2)
-                    text.text = "대화 에너지 다함...\n" + text.text;
+                    text.text = text.text + "\n이유 : 대화 에너지 다함..";
+                else if (Managers.Chat.reason == 5)
+                    text.text = text.text + "\n 이유 : 당신이 떠남..";
             }
 
             StartCoroutine(ShowEndPanelAfterDelay());
@@ -184,28 +133,15 @@ public class ConvoUI : MonoBehaviour
         EndPanel.SetActive(false);
     }
 
-    #region 물건 사기
-    public void OnClickBuy()//딜 버튼 누름
-    {
-        ShowPanel(Define.SendChatType.Endpoint, Define.EndType.buy);
-    }
+    #region 대화 끝내기
 
     public void OnEndChat()
     {
-        EndPanel.SetActive(true);
-        ConvoPanel.SetActive(false);
-
         Managers.Convo.ConvoFinished();
         EndPanel.SetActive(false);
+        ConvoPanel.SetActive(false);
     }
     #endregion
-  
-    public void OnClickExitNPCBtn()
-    {
-        Managers.Convo.ConvoFinished();
-        EndPanel.SetActive(false);
-        ConvoPanel.SetActive(false);
-    }
 
     public void OnClickSwitchBtn()
     {
