@@ -6,21 +6,36 @@ using UnityEngine.UI;
 
 public class VariableInput : MonoBehaviour
 {
-    [SerializeField] private TMP_InputField text;
+    [SerializeField] private TMP_InputField KeyboardText;
+    [SerializeField] private TMP_InputField STTText;
     private string _userInput="";
 
     public void OnClick()
     {
-        if(text == null)
+        string userText = "";
+
+        if (Managers.Input.CurInputMode == Define.UserInputMode.Keyboard)
+        {
+            userText = KeyboardText.text;
+        }
+        else if (Managers.Input.CurInputMode == Define.UserInputMode.Voice)
+        {
+            userText = STTText.text;
+        }
+
+        if(userText == null)
         {
             Debug.Log("No inputfield");
             return;
         }
-        _userInput = text.text;
+
+        _userInput = userText;
+        
         TutorialManager.Instance.OnPersuadeToCustomer();
         //TODO : 현재 단계가 chatSaleState나, ChatBargain 단계 아니면 작성하지 못하게 하기.
         Managers.Chat.ReplyManager.UserAnswer = _userInput;
-        text.text = "";
+        KeyboardText.text = "";
+        STTText.text = "";
 
         if(Managers.Input.CurInputMode == Define.UserInputMode.Voice)
         {

@@ -14,6 +14,8 @@ public class STTUI : MonoBehaviour
     private float currentRecordingTime = 0f;
     private Coroutine recordingCoroutine;
 
+    private bool isFixingRecord = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +28,7 @@ public class STTUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Managers.Input.CurInputMode == Define.UserInputMode.Voice)
+        if (Managers.Input.CurInputMode == Define.UserInputMode.Voice && !isFixingRecord)
         {
             Debug.Log("cur mode is " + Managers.Input.CurInputMode);
             if (Input.GetButtonDown("STT"))
@@ -60,6 +62,7 @@ public class STTUI : MonoBehaviour
         recordingSlider.value = stt._recordingLengthSec;
         recordingSlider.gameObject.SetActive(false);
         myInputField.gameObject.SetActive(true);
+        isFixingRecord = true;
         ClearSTTText();
     }
 
@@ -97,5 +100,6 @@ public class STTUI : MonoBehaviour
     {
         recordingSlider.gameObject.SetActive(true);
         myInputField.gameObject.SetActive(false);
+        isFixingRecord = false;
     }
 }
