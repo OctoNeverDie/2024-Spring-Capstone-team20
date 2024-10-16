@@ -99,9 +99,9 @@ public class ConvoUI : MonoBehaviour
             {
                 text.text = $"대화가 끝났습니다.\n결과 : 물건 판매 성공!\n당신의 수익 : {Managers.Chat.EvalManager.ShowPrice()} 크레딧";
                 if (Managers.Chat.reason == 3)
-                    text.text = text.text + "\n이유 : 제시가가 판매가보다 낮아서";
+                    text.text = text.text + "\n이유 : 제시가가 판매가 이하라서";
                 else if (Managers.Chat.reason == 4)
-                    text.text = text.text + "\n이유 : 당신이 딜 버튼 눌러서";
+                    text.text = text.text + "\n이유 : 당신이 딜을 받아들여서";
             }
             else if (endType == Define.EndType.reject || endType == Define.EndType.clear || endType == Define.EndType.leave)
             {
