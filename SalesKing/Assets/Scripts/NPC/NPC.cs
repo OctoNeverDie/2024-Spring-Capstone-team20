@@ -44,6 +44,7 @@ public class NPC : MonoBehaviour
 
     void Update()
     {
+        /*
         if (currentState != NPCDefine.MoveState.Talk && curDestination != null)
         {
             agent.SetDestination(curDestination.position);
@@ -54,6 +55,7 @@ public class NPC : MonoBehaviour
                 AssignRandomState();
             }
         }
+        */
     }
 
     /*
@@ -68,6 +70,7 @@ public class NPC : MonoBehaviour
 
     public void AssignRandomState()
     {
+        /*
         int rand = Random.Range(0, 2);
         if (rand == 0)
         {
@@ -81,6 +84,7 @@ public class NPC : MonoBehaviour
             ChooseNextDestination();
             PlayRandomNPCAnim(NPCDefine.AnimType.Moving);
         }
+        */
     }
 
     void AssignRandomLooks()
