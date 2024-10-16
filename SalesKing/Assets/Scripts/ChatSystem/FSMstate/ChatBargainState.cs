@@ -48,10 +48,9 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         if (type != nameof(Managers.Chat.ReplyManager.UserAnswer))
             return;
 
-        string user_send;
-        user_send = MakeAnswer(user_input);
+        string user_send = MakeAnswer(user_input);
 
-        Debug.Log($"ChatBargainState에서 보냄 {_sendChatType}");
+        Debug.Log($"ChatBargainState에서 보냄 {user_send}");
         ServerManager.Instance.GetGPTReply(user_send, _sendChatType);
     }
 
@@ -72,9 +71,8 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     protected override string MakeAnswer(string user_send = "")
     {
         //string priceOpinion = Managers.Chat.RatePrice(_gptResult._userSuggest);
-        string user_template = user_send + $"\n vendor Suggest: {_gptResult._userSuggest}"
-                                + $" npc Suggest: {_gptResult._npcSuggest}\n turn : {_gptResult._turn}";
-
+        string user_template = user_send + $"\n vendor Suggest: {_gptResult._userSuggest}"+ $" npc Suggest: {_gptResult._npcSuggest}\n turn : {_gptResult._turn}";
+        Debug.Log(user_template);
         return user_template;
     }
 
