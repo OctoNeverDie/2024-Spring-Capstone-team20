@@ -20,7 +20,7 @@ public class FSMBtn : MonoBehaviour
     //떠나기 버튼 누르면
     public void OnLeaveClickFSM()
     {
-        Managers.Chat._endType = EndType.reject;
+        Managers.Chat._endType = EndType.leave;
         Managers.Chat.TransitionToState(SendChatType.Endpoint);
     }
 
@@ -34,5 +34,11 @@ public class FSMBtn : MonoBehaviour
         Managers.Chat.TransitionToState(SendChatType.Endpoint);
         //go to template recieve
         this.gameObject.SetActive(false);
+    }
+
+    //최종 버튼 누르면
+    public void OnClickFinalFSM()
+    {
+        Managers.Turn.AddTurnAndCheckTalkTurn();
     }
 }

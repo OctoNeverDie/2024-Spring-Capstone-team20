@@ -37,66 +37,18 @@ public class ConvoUI : MonoBehaviour
 
     public GameObject OkayBtn;
 
-    bool isSuccess;
-    float smaller;
-    public void SeeReaction(bool isSuccess, float price)
-    {
-        this.isSuccess = isSuccess;
-        this.smaller = price;
-        isBtn1 = false;
-        OkayBtn.SetActive(true);
-    }
-
-    bool isBtn1 = false;
-    public void PopOkayBtn()
-    {
-        isBtn1 = true;
-        OkayBtn.SetActive(true);
-    }
-
-    public void OnOkayBtn()
-    {
-        if (isBtn1)
-        {
-            OkayBtn.SetActive(false);
-            Managers.Chat.EvalManager.ThingToBuy = "";
-            Managers.Chat.TransitionToState(SendChatType.ItemInit);
-        }
-        else if (!isBtn1)
-        {
-            OkayBtn.SetActive(false);
-            if (isSuccess)
-            {
-                Managers.Chat.EvalManager.AddItemPriceSold(smaller);
-                Managers.Chat._endType = EndType.buy;
-                Managers.Chat.TransitionToState(SendChatType.Endpoint);
-            }
-            else
-            {
-                Managers.Chat._endType = EndType.reject;
-                Managers.Chat.TransitionToState(SendChatType.Endpoint);
-            }
-        }
-        
-    }
-
     private void Awake()
     {
         ChatManager.OnPanelUpdated -= ShowPanel;
         ChatManager.OnPanelUpdated += ShowPanel;
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
         ServerManager.OnSendReplyUpdate += SubWaitReply;
-
-        ChatBargainState.ChatBargainReactState -= SeeReaction;
-        ChatBargainState.ChatBargainReactState += SeeReaction;
     }
 
     private void OnDestroy()
     {
         ChatManager.OnPanelUpdated -= ShowPanel;
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
-
-        ChatBargainState.ChatBargainReactState -= SeeReaction;
     }
 
     private void SubWaitReply(bool beActive)
@@ -129,7 +81,7 @@ public class ConvoUI : MonoBehaviour
     {
         if (sendChatType == Define.SendChatType.NpcInit)
         {
-            PopOkayBtn();
+            OkayBtn.SetActive(true);
         }
         else if (sendChatType == Define.SendChatType.ItemInit)
         {

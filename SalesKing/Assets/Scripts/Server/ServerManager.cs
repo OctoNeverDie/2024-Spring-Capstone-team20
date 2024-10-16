@@ -45,7 +45,7 @@ public class ServerManager : ServerBase
         this._sendChatType = sendChatTypeFrom;
         this._userInput = userInput;
         this._initData = initData;
-
+        
         ServerManager.OnSendReplyUpdate?.Invoke(true);
         StartCoroutine(GetGPTCo());
     }

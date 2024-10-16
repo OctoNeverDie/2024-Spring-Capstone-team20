@@ -67,7 +67,6 @@ public class EvalSubManager
 
     //--------------------------------------------------
     public ItemInfo itemInfo { get; set; }
-    public string ThingToBuy { get; set; }
     
     //아이템 맨처음 고르고, user의 첫 제시가 나옴
     public void InitItem(float userSuggest, ItemInfo itemInfo)
@@ -76,18 +75,12 @@ public class EvalSubManager
         OnItemInit?.Invoke(userSuggest, itemInfo);
     }
 
-    public void AddItemPriceSold(float price= -1f)
+    public void AddItemPriceSold()
     {
-        if (price == -1f)
-        {
-            price = NpcEvalDict[currentNpcId].price;
-            Debug.Log($"딜버튼 : 아이템 팔렸습니다 {price}");
-        }
-
         NpcEvalDict[currentNpcId].item = itemInfo.ObjName;
         NpcEvalDict[currentNpcId].itemID = itemInfo.ObjID;
-        NpcEvalDict[currentNpcId].price = price;
-        Debug.Log($"아이템 팔렸습니다 {price}");
+        
+        Debug.Log($"아이템 팔렸습니다 {NpcEvalDict[currentNpcId].price}");
         OnChatDataUpdated?.Invoke(nameof(itemInfo));
     }
     public void UpdateSuggestInEval(float suggest)

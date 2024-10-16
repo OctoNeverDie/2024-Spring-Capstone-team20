@@ -58,23 +58,27 @@ public class ChatManager : MonoBehaviour
 
     public static event Action<int, float, float> OnNumberUpdated;
 
-    public void UpdateTurn(int turn, float npcSuggest = -1f, float userSuggest = -1.37f)
+    public void UpdateTurn(int turn, float npcSuggest = -1f, float userSuggest = -1f)
     { 
         _turn = turn;
         if (npcSuggest != -1f)
             _npcSuggest = npcSuggest;
-        if(userSuggest != -1f)
+        if (userSuggest != -1f)
             _userSuggest = userSuggest;
 
         float smaller = (_npcSuggest > _userSuggest) ? _userSuggest : _npcSuggest;
         EvalManager.UpdateSuggestInEval(smaller);
 
         //Panel에 남은 turn 수 출력, 서로 제시한 거 출력
+        Debug.Log($"{_turn}+{_npcSuggest}+{_userSuggest}");
         if (npcSuggest <= 0f && userSuggest <= 0f)
             return;
-
-        Debug.Log($"{_turn}+{_npcSuggest}+{_userSuggest}");
         OnNumberUpdated?.Invoke(_turn, _npcSuggest, _userSuggest);
+    }
+
+    public void EndTurn(int turn)
+    {
+        OnNumberUpdated?.Invoke(turn, _npcSuggest, _userSuggest);
     }
 
     public EndType _endType { get; set; }

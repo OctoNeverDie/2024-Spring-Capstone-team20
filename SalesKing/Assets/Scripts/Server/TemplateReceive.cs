@@ -6,13 +6,9 @@ public class TemplateReceive : MonoBehaviour
     public void GetGptAnswer(string resultData, SendChatType sendTypeData)
     {
         Managers.Chat.ReplyManager.GptAnswer = resultData;//이건 쌩
-
-        //reaction 할 건가?
-        if (resultData !="$clear")//reaction, summary가 없이 끝난 경우 빼고
-        {
-            string GptAnswer = GptReply(sendTypeData, resultData);
-            Managers.Chat.ReplyManager.GptReaction = GptAnswer;//이건 리액션만 따로
-        }
+        
+        string GptAnswer = GptReply(sendTypeData, resultData);
+        Managers.Chat.ReplyManager.GptReaction = GptAnswer;//이건 리액션만 따로
     }
 
     private string GptReply(SendChatType sendChatType, string GPTanswer)

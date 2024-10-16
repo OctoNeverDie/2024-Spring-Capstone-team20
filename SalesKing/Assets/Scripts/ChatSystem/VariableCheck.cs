@@ -11,8 +11,6 @@ public class VariableCheck : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI npcSuggestText;
     [SerializeField]
-    TextMeshProUGUI itemYouSaid;
-    [SerializeField]
     TextMeshProUGUI sellingItemText;
     [SerializeField]
     TextMeshProUGUI sellingItemFirstCostText;
@@ -34,25 +32,23 @@ public class VariableCheck : MonoBehaviour
         EvalSubManager.OnItemInit += NpcInititem;
     }
 
-    //Action : ChatManager.OnNumberUpdated
-    private void UpdateTurnSuggest(int turn, float npcSuggest, float userSuggest)
+    private void OnEnable()
     {
-        if(turn <= 0)
-        {
-            Clear();
-            return;
-        }
+        Clear();
+    }
+    //Action : ChatManager.OnNumberUpdated
+    private void UpdateTurnSuggest(int _, float npcSuggest, float userSuggest)
+    {
         userSuggestText.text = userSuggest.ToString();
         npcSuggestText.text = npcSuggest.ToString();
     }
 
     private void Clear()
     {
-        itemYouSaid.text = "";
-        sellingItemText.text = "";
-        sellingItemFirstCostText.text = "";
-        userSuggestText.text = "";
-        npcSuggestText.text = "";
+        sellingItemText.text = "-";
+        sellingItemFirstCostText.text = "-";
+        userSuggestText.text = "-";
+        npcSuggestText.text = "-";
     }
 
     //Action : ReplySubManager.OnReplyUpdated
@@ -64,10 +60,6 @@ public class VariableCheck : MonoBehaviour
         {
             case nameof(ReplyManager.UserAnswer) :
                 Managers.UI.SetUserAnswerText(input);
-                break;
-
-            case nameof(ReplyManager.GptAnswer):
-                Managers.UI.SetNPCAnswerText("?");
                 break;
 
             case nameof(ReplyManager.GptReaction):
@@ -85,8 +77,6 @@ public class VariableCheck : MonoBehaviour
         sellingItemFirstCostText.text = itemInfo.defaultPrice.ToString();
         userSuggestText.text = userSuggest.ToString();
         npcSuggestText.text = "?";
-        if (Managers.Chat.EvalManager.ThingToBuy != null)
-            itemYouSaid.text = Managers.Chat.EvalManager.ThingToBuy.ToString();
     }
 
     //Action : EvalSubManager.OnChatDataUpdated, (npcinit)currentNpcId/(evaluation)NpcEvalDict/(bought item)itemInfo
