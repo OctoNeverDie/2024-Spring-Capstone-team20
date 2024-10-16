@@ -87,6 +87,11 @@ public class EvalSubManager
     {
         NpcEvalDict[currentNpcId].price = suggest;
     }
+
+    public float ShowPrice()
+    {
+        return NpcEvalDict[currentNpcId].price;
+    }
     /*
     public void PrintDictionary()
     {
