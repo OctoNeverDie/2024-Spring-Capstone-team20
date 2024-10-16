@@ -19,10 +19,6 @@ public class TestGage : MonoBehaviour
 
     private void TurnUpdated(int turn, float _, float __)
     {
-        if (turn <= -20)
-            turn = 0;
-        else if (turn <= 0)
-            turn = 1;
         UpdateSlider(turn, nowSlider);
     }
 

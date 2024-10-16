@@ -9,9 +9,11 @@ public class UserInputManager : MonoBehaviour
 
     public Define.UserInputMode DefaultMode = Define.UserInputMode.Keyboard;
     public Define.UserInputMode CurInputMode;
+    private VariableInput _variableInput;
 
     void Start()
     {
+        _variableInput = FindObjectOfType<VariableInput>();
         myPlayer = Managers.Player.MyPlayer.GetComponent<Player>();
         CurInputMode = DefaultMode;
         if(Managers.Scene.curScene==Define.SceneMode.CityMap) Managers.UI.InitiateInputMode();
@@ -56,7 +58,12 @@ public class UserInputManager : MonoBehaviour
 
         if (Input.GetButtonDown("Submit"))
         {
-            Managers.Chat.GetInputKey();
+            if (_variableInput == null)
+            {
+                Debug.Log("Null exception : variableInput이 비었습니다. ");
+                _variableInput = FindObjectOfType<VariableInput>();
+            }
+            _variableInput.OnClick();
         }
     }
 }

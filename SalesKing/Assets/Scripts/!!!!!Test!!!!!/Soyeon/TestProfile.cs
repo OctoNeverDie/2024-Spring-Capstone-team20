@@ -31,7 +31,7 @@ public class TestProfile : MonoBehaviour
             npcName.text = eval.NpcEvalDict[eval.currentNpcId].npcName;
             npcAge.text = eval.NpcEvalDict[eval.currentNpcId].npcAge.ToString();
             npcSex.text = eval.NpcEvalDict[eval.currentNpcId].npcSex ? "Female" : "Male";
-            npcPersonality.text = "#순진한 #무속신앙믿는";
+            npcPersonality.text = eval.NpcEvalDict[eval.currentNpcId].npcKeyword;
         }
     }
 }
