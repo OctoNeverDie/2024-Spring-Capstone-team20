@@ -30,11 +30,12 @@ public class ChatBargainState : ChatBaseState, IVariableChat
     {
         SubScribeAction();
 
+        _gptResult._turn = TurnInit;
+        _sendChatType = SendChatType.ChatBargain;
+
         //맨 처음 시작할 때, convo ui 나와야한다.
         Managers.Chat.ActivatePanel(_sendChatType);
 
-        _gptResult._turn = TurnInit;
-        _sendChatType = SendChatType.ChatBargain;
     }
 
     public override void Exit()
@@ -61,7 +62,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
 
         ConcatReply(gpt_output);
 
-        if (isState != State.Success)
+        if (isState != State.Wait)
             CheckState();
 
         UpdateTurn();
@@ -125,7 +126,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         }
 
         //일반
-        string[] sections = gptAnswer.Split(new string[] { "reaction", "vendorSuggest", "yourSuggest", "persuasion" }, StringSplitOptions.None);
+        string[] sections = gptAnswer.Split(new string[] { "reaction", "vendorSuggest", "customerSuggest", "persuasion" }, StringSplitOptions.None);
 
         if (sections.Length > 4)
         {
@@ -148,14 +149,14 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         Managers.Chat.EvalManager.AddEvaluation(_gptResult._summary);
 
         string actionValue = sections2[2].Trim();
-        if (actionValue == "bought")
+        if (actionValue.Contains("bought"))
         {
             float finalPrice = GetFloat(sections2[3]);
             _gptResult._npcSuggest = finalPrice;
             _gptResult._userSuggest = finalPrice;
             StateFailSuccess(State.Success, 3, EndType.clear);
         }
-        else if (actionValue == "notBought")
+        else if (actionValue.Contains("notBought"))
         {
             StateFailSuccess(State.Fail, 1, EndType.clear);
         }

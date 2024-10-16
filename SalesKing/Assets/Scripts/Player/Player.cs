@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        FreezeAndUnFreezePlayer(false);
+        FreezeAndUnFreezePlayer(true);
     }
 
     void Update()
@@ -105,7 +105,8 @@ public class Player : MonoBehaviour
         move.isMovementLocked = isFreeze;
         cam.isCameraLocked = isFreeze;
         isRaycast = !isFreeze;
-        ui.CrosshairTriggersButton(!isFreeze);
+        if(isFreeze) ui.CrosshairTriggersButton(false);
+        //ui.CrosshairTriggersButton(!isFreeze);
     }
 
     public void PlayerEnterConvo(GameObject npc)

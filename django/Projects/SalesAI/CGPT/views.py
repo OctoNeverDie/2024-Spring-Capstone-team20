@@ -31,7 +31,7 @@ def init_npc(npc_data, request):
     
     original_decide_prompt = read_system_message('CGPT/decide_system_original.txt')
     original_bargain_prompt = read_system_message('CGPT/bargain_system_original.txt')
-    print("나들어왔어요"+original_decide_prompt)
+
 
     clear_everything(request)
 
@@ -118,24 +118,33 @@ def query_view(request):
             data = json.loads(request.body)
             prompt = data.get('Request')
             sendType = data.get('SendType')
-            initData = data.get('InitData')
-
+            dataInit = data.get('DataInit')
+            print("Input")
+            print(prompt)
+            print(sendType)
+            print(dataInit)
+            print("End")
             if sendType == "NpcInit":
-                init_npc(initData, request)
+                init_npc(dataInit, request)
                 response = get_completion(prompt, sendType)
                 update_history(response, request, "assistant", "concern")
                 
+                print("Output")
                 print("npcInit")
-                print(request.session['concern'])
+                print(response)
                 return JsonResponse({'reply': response})
             
             elif sendType == "ItemInit":
                 request.session.modified = True
                 print("ItemInit")
                 print(request.session['concern'])
-                init_item(initData, request)
+                init_item(dataInit, request)
                 response = get_completion(prompt, sendType)
                 update_history(response, request, "assistant", "chat_history")
+
+                print("Output")
+                print("ItemInit")
+                print(response)
                 return JsonResponse({'reply': response})
             
             elif sendType == "ChatBargain":
@@ -145,6 +154,10 @@ def query_view(request):
                     str_messages = str(messages)
                     response = get_completion(str_messages, sendType)
                     request.session['chat_history'].append({"role": "assistant", "content": response})
+
+                    print("Output")
+                    print("ChatBargain")
+                    print(response)
                     return JsonResponse({'reply': response})
 
             elif sendType == "Endpoint" :#prompt : $buy, $reject, $leave, $clear
@@ -152,6 +165,9 @@ def query_view(request):
                 if prompt.strip() != "$clear":
                     response = get_completion(prompt, sendType)
                 clear_everything(request)
+                print("Output")
+                print("Endpoint")
+                print(response)
                 return JsonResponse({'reply': response})
 
             else:

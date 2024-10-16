@@ -33,9 +33,9 @@ public class NpcInfo
     public string NpcSex;
     public int NpcAge;
     public string KeyWord;
-    public string Situation_Description;
+    public string SituationDescription;
     public string Personality;
-    public string Dialogue_Style;
+    public string DialogueStyle;
     public string Example;
 }
 

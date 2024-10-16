@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class NPCMeshManager : MonoBehaviour
 {
-    private static readonly string basePath = "Meshes/NPC";
+    private static readonly string basePath = "Meshes/NPC_Parts";
 
-    // ¸ğµç °É ÇÕÄ£
+    // ëª¨ë“  ê±¸ í•©ì¹œ
     public Dictionary<NPCDefine.MeshType, List<Mesh>> NPCMeshDictionary = new Dictionary<NPCDefine.MeshType, List<Mesh>>();
-    // Á¤»óÀÎ°Í¸¸ ÀúÀåÇÏ´Â
+    // ì •ìƒì¸ê²ƒë§Œ ì €ì¥í•˜ëŠ”
     public Dictionary<NPCDefine.MeshType, List<Mesh>> NPCMeshDictionary_norm = new Dictionary<NPCDefine.MeshType, List<Mesh>>();
 
     private void Awake()

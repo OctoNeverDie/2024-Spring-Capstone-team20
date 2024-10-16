@@ -103,7 +103,7 @@ public class ConvoUI : MonoBehaviour
                 else if (Managers.Chat.reason == 4)
                     text.text = text.text + "\n이유 : 당신이 딜 버튼 눌러서";
             }
-            else if (endType == Define.EndType.reject || endType == Define.EndType.clear)
+            else if (endType == Define.EndType.reject || endType == Define.EndType.clear || endType == Define.EndType.leave)
             {
                 text.text = "대화가 끝났습니다.\n 결과 : 물건 판매 실패...\n당신의 수익 : 0 크레딧";
                 if (Managers.Chat.reason == 1)
@@ -225,6 +225,12 @@ public class ConvoUI : MonoBehaviour
     public void OnClickFail()
     {
         SceneManager.LoadScene("Last");
+    }
+
+    // 물건을 ~~ 파시면 됩니다 패널 ok 눌렀을 때
+    public void OnClickOKStartPanel()
+    {
+        Managers.Player.MyPlayer.GetComponent<Player>().FreezeAndUnFreezePlayer(false);
     }
 
 }

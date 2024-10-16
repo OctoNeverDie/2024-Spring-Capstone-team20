@@ -37,15 +37,14 @@ public class ServerManager : ServerBase
     
     public void GetGPTReply(string userInput, SendChatType sendChatTypeFrom, string initData = "")
     {
-        Debug.Log($"User답++++++++++{userInput}, {sendChatTypeFrom}");
-
         SaveToJson("UserInput", userInput);
         SaveToJson("ChatType", sendChatTypeFrom.ToString());
 
         this._sendChatType = sendChatTypeFrom;
         this._userInput = userInput;
         this._initData = initData;
-        
+
+        Debug.Log($"User답++++++++++{_userInput}, {_sendChatType}, {_initData}");
         ServerManager.OnSendReplyUpdate?.Invoke(true);
         StartCoroutine(GetGPTCo());
     }
@@ -67,7 +66,7 @@ public class ServerManager : ServerBase
                                 Action<ResultInfo> onFailed = null,
                                 Action<ResultInfo> onNetworkFailed = null)
     {
-        string url = "https://salesai-ljy.azurewebsites.net/";// "https://salesai-khm.azurewebsites.net/";//"https://salesai-jsy333.azurewebsites.net/";//"https://salesai-jsy2.azurewebsites.net/"; //"http://127.0.0.1:8000/";
+        string url = "https://salesai-ljy.azurewebsites.net/"; //"http://127.0.0.1:8000/";// "https://salesai-khm.azurewebsites.net/";//"https://salesai-jsy333.azurewebsites.net/";//"https://salesai-jsy2.azurewebsites.net/";
 
         JObject jobj = new JObject();
         jobj = AddJobjBySendType(jobj, _sendChatType);
@@ -106,7 +105,6 @@ public class ServerManager : ServerBase
     {
         // 파일 경로 설정 (예: Application.persistentDataPath)
         string filePath = Path.Combine(Application.persistentDataPath, "ChatLog.json");
-        Debug.Log($"File path: {filePath}");
 
 
         // 기존 JSON 파일이 있으면 불러옴

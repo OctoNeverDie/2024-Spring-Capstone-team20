@@ -4,11 +4,11 @@ using System.Diagnostics.Contracts;
 using UnityEngine;
 using static Define;
 
-public abstract class ChatBaseState : MonoBehaviour
+public abstract class ChatBaseState
 {
     protected ChatStateMachine _chatStateMachine;
 
-    protected SendChatType _sendChatType = SendChatType.None;
+    protected SendChatType _sendChatType;
 
     public abstract void Enter();
     public virtual void Exit() { }
