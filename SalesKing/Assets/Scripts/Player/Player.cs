@@ -105,6 +105,7 @@ public class Player : MonoBehaviour
         move.isMovementLocked = isFreeze;
         cam.isCameraLocked = isFreeze;
         isRaycast = !isFreeze;
+        if(isFreeze) ui.CrosshairTriggersButton(false);
         //ui.CrosshairTriggersButton(!isFreeze);
     }
 

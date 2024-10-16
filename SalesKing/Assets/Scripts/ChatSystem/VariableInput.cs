@@ -22,7 +22,11 @@ public class VariableInput : MonoBehaviour
         Managers.Chat.ReplyManager.UserAnswer = _userInput;
         text.text = "";
 
-        STTUI _sttUI = FindObjectOfType<STTUI>().GetComponent<STTUI>();
-        _sttUI.OnClickEnter();
+        if(Managers.Input.CurInputMode == Define.UserInputMode.Voice)
+        {
+            STTUI _sttUI = FindObjectOfType<STTUI>().GetComponent<STTUI>();
+            _sttUI.OnClickEnter();
+        }
+
     }
 }
