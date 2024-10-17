@@ -95,24 +95,32 @@ public class ConvoUI : MonoBehaviour
         {
             TextMeshProUGUI text = EndPanel.GetComponentInChildren<TextMeshProUGUI>();
 
-            if (endType == Define.EndType.buy)
+            var reasonMessages = new Dictionary<int, string>
             {
-                text.text = $"대화가 끝났습니다.\n결과 : 물건 판매 성공!\n당신의 수익 : {Managers.Chat.EvalManager.ShowPrice()} 크레딧";
-                if (Managers.Chat.reason == 3)
-                    text.text = text.text + "\n이유 : 제시가가 판매가보다 낮아서";
-                else if (Managers.Chat.reason == 4)
-                    text.text = text.text + "\n이유 : 당신이 딜 버튼 눌러서";
-            }
-            else if (endType == Define.EndType.reject || endType == Define.EndType.clear || endType == Define.EndType.leave)
+                { 1, "\n이유 : 상대 기분이 나빠짐.." },
+                { 2, "\n이유 : 대화 에너지 다함.." },
+                { 3, "\n이유 : 제시가가 판매가 이하라서" },
+                { 4, "\n이유 : 당신이 딜을 받아들여서" },
+                { 5, "\n이유 : 당신이 떠남.." }
+            };
+
+            string baseMessage;
+            string reasonMessage = "";
+
+            if ((endType == Define.EndType.clear && Managers.Chat.reason == 3) || endType == Define.EndType.buy)
             {
-                text.text = "대화가 끝났습니다.\n 결과 : 물건 판매 실패...\n당신의 수익 : 0 크레딧";
-                if (Managers.Chat.reason == 1)
-                    text.text = text.text + "\n이유 : 상대 기분이 나빠짐..";
-                else if (Managers.Chat.reason == 2)
-                    text.text = text.text + "\n이유 : 대화 에너지 다함..";
-                else if (Managers.Chat.reason == 5)
-                    text.text = text.text + "\n 이유 : 당신이 떠남..";
+                baseMessage = $"대화가 끝났습니다.\n결과 : 물건 판매 성공!\n당신의 수익 : {Managers.Chat.EvalManager.ShowPrice()} 크레딧";
             }
+            else
+            {
+                baseMessage = "대화가 끝났습니다.\n결과 : 물건 판매 실패...\n당신의 수익 : 0 크레딧";
+            }
+
+            if (reasonMessages.TryGetValue(Managers.Chat.reason, out string message))
+            {
+                reasonMessage = message;
+            }
+            text.text = baseMessage + reasonMessage;
 
             StartCoroutine(ShowEndPanelAfterDelay());
         }

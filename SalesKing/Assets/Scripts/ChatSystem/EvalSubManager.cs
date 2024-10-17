@@ -42,7 +42,7 @@ public class EvalSubManager
 
         if (currentNpcId != 0)
         {
-            Debug.Log($"+++++++++그 전 애{NpcEvalDict[currentNpcId].npcName} 평가 {NpcEvalDict[currentNpcId].npcEvaluation}");
+        //    Debug.Log($"+++++++++그 전 애{NpcEvalDict[currentNpcId].npcName} 평가 {NpcEvalDict[currentNpcId].npcEvaluation}");
         }
 
         currentNpcId = npcId;
@@ -79,7 +79,7 @@ public class EvalSubManager
     {
         NpcEvalDict[currentNpcId].item = itemInfo.ObjName;
         NpcEvalDict[currentNpcId].itemID = itemInfo.ObjID;
-        
+        Managers.Inven.RemoveFromInventory(itemInfo.ObjID);
         Debug.Log($"아이템 팔렸습니다 {NpcEvalDict[currentNpcId].price}");
         OnChatDataUpdated?.Invoke(nameof(itemInfo));
     }

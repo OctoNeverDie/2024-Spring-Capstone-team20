@@ -24,7 +24,6 @@ public class TestProfile : MonoBehaviour
 
     void show(string name)
     {
-        Debug.Log($"{name} 돼!");
         var eval = Managers.Chat.EvalManager;
         if (name == nameof(eval.currentNpcId))
         {

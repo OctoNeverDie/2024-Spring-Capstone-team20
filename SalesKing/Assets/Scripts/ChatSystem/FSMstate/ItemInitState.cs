@@ -23,8 +23,7 @@ public class ItemInitState : ChatBaseState
         string _initData = $"\n#Initial Values" 
          +$"\nThe thing vendor is selling to you: {itemInfo.ObjName}"
         + $"\nvendor First Suggest: {userSuggest} credit,"
-        + $"Your First Suggest: {itemInfo.defaultPrice} credit"
-        + $"yourOpinion About Vendor's First Suggest: {expensiveRate}";
+        + $"Your First Suggest: {itemInfo.defaultPrice} credit";
 
         SendAnswer(_userSend, _initData);
     }

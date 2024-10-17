@@ -11,7 +11,6 @@ public class InventoryManager : MonoBehaviour
         return inventory;
     }
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -46,13 +45,14 @@ public class InventoryManager : MonoBehaviour
             {
                 // Decrease the quantity
                 inventory[itemId] = (inventory[itemId].itemInfo, inventory[itemId].quantity - 1);
+                Debug.Log("Item removed or quantity decreased. Remaining quantity: " + inventory[itemId].quantity);
             }
             else
             {
                 // Remove the item completely if quantity reaches 0
                 inventory.Remove(itemId);
             }
-            Debug.Log("Item removed or quantity decreased. Remaining quantity: " + inventory[itemId].quantity);
+            
         }
         else
         {

@@ -27,7 +27,7 @@ public class NPC : MonoBehaviour
     public float minStandTime = 10f;
     public float maxStandTime = 30f;
 
-
+    public int NpcID = 0;
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
