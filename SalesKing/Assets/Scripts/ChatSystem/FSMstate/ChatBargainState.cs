@@ -119,7 +119,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
 
 private void ConcatReply(string gptAnswer)
     {
-        if (gptAnswer.Contains("summary"))////npc가 끝냄
+        if (gptAnswer.Contains("summary"))//npc가 끝냄
         {
             NpcEnds(gptAnswer);
             return;
@@ -149,7 +149,7 @@ private void ConcatReply(string gptAnswer)
         Managers.Chat.EvalManager.AddEvaluation(_gptResult._summary);
         
         string actionValue = sections2[3].Trim();
-        Debug.Log("뭐요"+actionValue);
+        
         if (actionValue.Contains("bought"))
         {
             Debug.Log("샀다구여.");
@@ -168,7 +168,7 @@ private void ConcatReply(string gptAnswer)
     private void StateFailSuccess(State state, int reason, EndType endType)
     {
         isState = state;
-        Debug.Log("왜 여기서는?"+isState);
+        
         Managers.Chat.reason = reason;
         Managers.Chat._endType = endType;
     }
@@ -180,7 +180,7 @@ private void ConcatReply(string gptAnswer)
         {
             return float.Parse(match.Value, CultureInfo.InvariantCulture);
         }
-        Debug.Log($"-1이다ㅏㅏㅏㅏㅏㅏㅏ");
+        
         return -1f;
     }
 

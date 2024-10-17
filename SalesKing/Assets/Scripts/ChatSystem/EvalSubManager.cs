@@ -79,7 +79,7 @@ public class EvalSubManager
     {
         NpcEvalDict[currentNpcId].item = itemInfo.ObjName;
         NpcEvalDict[currentNpcId].itemID = itemInfo.ObjID;
-        
+        Managers.Inven.RemoveFromInventory(itemInfo.ObjID);
         Debug.Log($"아이템 팔렸습니다 {NpcEvalDict[currentNpcId].price}");
         OnChatDataUpdated?.Invoke(nameof(itemInfo));
     }

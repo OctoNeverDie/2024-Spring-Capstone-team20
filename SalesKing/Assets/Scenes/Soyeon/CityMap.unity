@@ -77773,8 +77773,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a48c30dac83d53f47b8cbc48fc649950, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myInputField: {fileID: 1341482969}
-  recordingSlider: {fileID: 1682002013}
 --- !u!1001 &1902428174
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -90735,9 +90733,9 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
+    m_Top: 50
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 400, y: 600}
