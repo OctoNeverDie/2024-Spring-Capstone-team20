@@ -47,8 +47,8 @@ public class DataController : MonoBehaviour
     }
     public void LoadGameData()
     {
-        //string filePath = Application.persistentDataPath + "/GameData.json";
-        string filePath = Application.dataPath + "/Scripts/JSON/GameData.json";
+        string filePath = Application.persistentDataPath + "/GameData.json";
+        //string filePath = Application.dataPath + "/Scripts/JSON/GameData.json";
         Debug.Log(filePath);
 
         if (File.Exists(filePath))
@@ -71,8 +71,8 @@ public class DataController : MonoBehaviour
     [ContextMenu("To Game Json")]
     public void ToGameJson()
     {
-        //File.WriteAllText(Application.persistentDataPath + "/GameData.json", JsonUtility.ToJson(gameData, true));
-        File.WriteAllText(Application.dataPath + "/Scripts/JSON/GameData.json", JsonUtility.ToJson(gameData, true));
+        File.WriteAllText(Application.persistentDataPath + "/GameData.json", JsonUtility.ToJson(gameData, true));
+        //File.WriteAllText(Application.dataPath + "/Scripts/JSON/GameData.json", JsonUtility.ToJson(gameData, true));
     }
 
     
@@ -109,8 +109,8 @@ public class DataController : MonoBehaviour
     {
         while (true)
         {
-            //File.WriteAllText(Application.persistentDataPath + "/GameData.json", JsonUtility.ToJson(gameData, true));
-            File.WriteAllText(Application.dataPath + "/Scripts/JSON/GameData.json", JsonUtility.ToJson(gameData, true));
+            File.WriteAllText(Application.persistentDataPath + "/GameData.json", JsonUtility.ToJson(gameData, true));
+            //File.WriteAllText(Application.dataPath + "/Scripts/JSON/GameData.json", JsonUtility.ToJson(gameData, true));
 
             try
             {
