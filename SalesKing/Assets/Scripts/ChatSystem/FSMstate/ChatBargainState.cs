@@ -84,7 +84,7 @@ public class ChatBargainState : ChatBaseState, IVariableChat
             StateFailSuccess(State.Success, 3, EndType.buy);
         }
         //persuasion 해도 턴이 남았을 때
-        else if (_gptResult._turn >=1)
+        else if (_gptResult._turn >=2)
         {
             //받고, 업데이트 했으니 이제 플레이어가 보내야하는 상황의 턴이 나옴
             _gptResult._turn = Math.Max(_gptResult._turn - 1, 0);//턴 하나 빼기
