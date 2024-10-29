@@ -145,7 +145,11 @@ private void ConcatReply(string gptAnswer)
     private void NpcEnds(string gptAnswer)
     {
         string[] sections2 = gptAnswer.Split(new string[] { "summary", "action", "finalPrice" }, StringSplitOptions.None);
-        _gptResult._summary = sections2[2].Trim();
+        if (sections2.Length > 2 && sections2[2] != null)
+        {
+            _gptResult._summary = sections2[2].Trim();
+        }
+        
         Managers.Chat.EvalManager.AddEvaluation(_gptResult._summary);
         
         string actionValue = sections2[3].Trim();

@@ -25,6 +25,10 @@ public class ItemInitState : ChatBaseState
         + $"\nvendor First Suggest: {userSuggest} credit,"
         + $"Your First Suggest: {itemInfo.defaultPrice} credit";
 
+        Debug.Log("For Test -------------");
+        _userSend = "$start";
+        _initData = "네가 사려고 한 물건: 케이크, 판매자가 가져온 물건: 캣타워";
+
         SendAnswer(_userSend, _initData);
     }
 
