@@ -64,4 +64,11 @@ public class Define
         Voice
     }
 
+    public enum Mbti
+    { 
+        emotional,
+        logical,
+        flatter,
+        flirter,
+    }
 }
