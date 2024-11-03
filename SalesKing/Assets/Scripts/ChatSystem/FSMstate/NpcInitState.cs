@@ -21,10 +21,13 @@ public class NpcInitState : ChatBaseState
     {
         Managers.Chat.Clear();
         Debug.Log($"{Managers.Chat.EvalManager.currentNpcId-1}. { Managers.Data.npcList[Managers.Chat.EvalManager.currentNpcId - 1].NpcName}");
+        
         NpcInfo npc = Managers.Data.npcList[Managers.Chat.EvalManager.currentNpcId -1];
+        
         //NpcInfo npc = Managers.Chat.npcSupplyManager.GetNextNpc();
         string _userSend = MakeAnswer(npc);
         Managers.Chat.EvalManager.InitNpcDict(npc.NpcID, npc.NpcName, npc.NpcAge, npc.NpcSex == "female", npc.KeyWord);
+
         _sendChatType = SendChatType.NpcInit;
 
         Debug.Log("For Test -------------");

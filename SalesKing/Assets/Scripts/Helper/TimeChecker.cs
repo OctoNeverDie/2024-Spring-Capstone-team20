@@ -29,12 +29,11 @@ public class TimeChecker
 
     public void EndTimeCheck(CheckerStage stage, float time)
     { 
-        if(StartCheckList)
     }
 
     public void AddTimeCheck(CheckerStage stage, float time)
     {
-        TimeCheckList.Add((stage, time));
+        //TimeCheckList.Add((stage, time));
     }
 
     public void PrintTimes()
@@ -43,7 +42,7 @@ public class TimeChecker
 
         foreach (var times in TimeCheckList)
         {
-            timeDebug += $"\n{times.Item1} 단계에는 {times.Item2}초";
+            //timeDebug += $"\n{times.Item1} 단계에는 {times.Item2}초";
         }
         Debug.Log(timeDebug);
     }

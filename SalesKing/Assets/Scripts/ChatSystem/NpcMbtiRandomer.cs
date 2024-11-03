@@ -2,48 +2,65 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//!!!TODO : 꼭!! 리팩토링 필수!!
+[SerializeField]
+public struct DayMbti
+{
+    public Define.Mbti mbti;
+    public bool isLike;
+
+    public DayMbti(Define.Mbti mbti, bool isLike)
+    {
+        this.mbti = mbti;
+        this.isLike = isLike;
+    }
+}
+
 public class NpcMbtiRandomer
 {
-    // Define.Mbti의 하위 그룹을 미리 정의
-    private List<Define.Mbti> groupA = new List<Define.Mbti> { Define.Mbti.emotional, Define.Mbti.logical };
-    private List<Define.Mbti> groupB = new List<Define.Mbti> { Define.Mbti.flatter, Define.Mbti.flirter };
+    //private List<Define.Mbti> selectedMbtiList;
 
-    public List<Define.Mbti> GetMbti(int day = 0)
+    public List<DayMbti> GetMbti(int day = 0)
     {
-        List<Define.Mbti> selectedMbtiList = new List<Define.Mbti>();
-
-        if (day != 0)
+        //selectedMbtiList = new List<Define.Mbti>();
+        List<DayMbti> dayMbtiList = new List<DayMbti>();
+        switch (day)
         {
-            switch (day)
-            {
-                case 1:
-                    selectedMbtiList = new List<Define.Mbti> { Define.Mbti.emotional, Define.Mbti.logical };
-                    break;
-                case 3:
-                    selectedMbtiList = new List<Define.Mbti> { Define.Mbti.flatter, Define.Mbti.flirter };
-                    break;
-                case 4:
-                    selectedMbtiList = new List<Define.Mbti> { Define.Mbti.emotional, Define.Mbti.logical, Define.Mbti.flatter, Define.Mbti.flirter };
-                    break;
-                default:
-                    Debug.LogWarning("Unhandled day value: " + day);
-                    break;
-            }
-        }
-        else
-        {
-            // day이 0일 때의 기본 로직 (필요시 추가)
-            Debug.Log("day 값이 0입니다.");
-            // 예시로 모든 그룹을 포함
-            selectedMbtiList = new List<Define.Mbti> { Define.Mbti.emotional, Define.Mbti.logical, Define.Mbti.flatter, Define.Mbti.flirter };
+            case 2:
+                dayMbtiList.Add(new DayMbti(Define.Mbti.emotional, true));
+                dayMbtiList.Add(new DayMbti(Define.Mbti.logical, true));
+                dayMbtiList.Add(new DayMbti(Define.Mbti.emotional, false));
+                //selectedMbtiList = new List<Define.Mbti> { Define.Mbti.emotional, Define.Mbti.logical };
+                break;
+            case 3:
+                dayMbtiList.Add(new DayMbti(Define.Mbti.flatter, true));
+                dayMbtiList.Add(new DayMbti(Define.Mbti.flirter, true));
+                dayMbtiList.Add(new DayMbti(Define.Mbti.flatter, false));
+                //selectedMbtiList = new List<Define.Mbti> { Define.Mbti.flatter, Define.Mbti.flirter };
+                break;
+            default:
+                dayMbtiList.Add(new DayMbti(Define.Mbti.flatter, true));
+                dayMbtiList.Add(new DayMbti(Define.Mbti.emotional, true));
+                dayMbtiList.Add(new DayMbti(Define.Mbti.logical, false));
+                //selectedMbtiList = new List<Define.Mbti> { Define.Mbti.emotional, Define.Mbti.logical, Define.Mbti.flatter, Define.Mbti.flirter };
+                break;
         }
 
         // 요구사항에 따라 3개의 DayMbti를 생성
-        List<Define.Mbti> dayMbtiList = GenerateDayMbtiList(selectedMbtiList);
+        //List<Define.Mbti> dayMbtiList = GenerateDayMbtiList(selectedMbtiList);
 
         return dayMbtiList;
     }
 
+    /*
+    private List<Define.Mbti> GetDay2()
+    {
+        //랜덤 1. 꼭 들어가는 거 빼고 나머지 뭐할지
+        //int idx = UnityEngine.Random.Range(0, selectedMbtiList.Count);
+        //랜덤 2. 3번 like, dislike 랜덤
+        //랜덤 3. 랜덤 1 거 순서
+        //return selectedMbtiList;
+    }
     private List<Define.Mbti> GenerateDayMbtiList(List<Define.Mbti> availableMbti)
     {
         List<Define.Mbti> result = new List<Define.Mbti>();
@@ -53,22 +70,9 @@ public class NpcMbtiRandomer
             return result;
         }
 
-        // 최소 두 그룹에서 하나씩 선택하기 위해 그룹을 나눕니다.
-        // 여기서는 groupA와 groupB를 사용
-        List<Define.Mbti> groupAAvailable = new List<Define.Mbti>();
-        List<Define.Mbti> groupBAvailable = new List<Define.Mbti>();
-
-        foreach (var mbti in availableMbti)
-        {
-            if (groupA.Contains(mbti))
-                groupAAvailable.Add(mbti);
-            if (groupB.Contains(mbti))
-                groupBAvailable.Add(mbti);
-        }
-
         // 그룹 A에서 하나, 그룹 B에서 하나 선택
-        Define.Mbti selectedA = groupAAvailable.GetRandomElement();
-        Define.Mbti selectedB = groupBAvailable.GetRandomElement();
+        Define.Mbti selectedA = GetRandomElement(groupAAvailable);
+        Define.Mbti selectedB = GetRandomElement(groupBAvailable);
 
         // flags는 최소 하나 true, 하나 false
         bool flagA = true;
@@ -121,7 +125,7 @@ public class NpcMbtiRandomer
 
         return result;
     }
-
+    */
     // 확장 메서드 대신 클래스 내부에 정의
     private T GetRandomElement<T>(List<T> list)
     {
