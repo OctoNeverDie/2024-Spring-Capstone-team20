@@ -633,6 +633,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1215434521}
   - component: {fileID: 1215434522}
+  - component: {fileID: 1215434523}
   m_Layer: 0
   m_Name: '@Managers'
   m_TagString: Untagged
@@ -668,6 +669,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ManagersGO: {fileID: 0}
+--- !u!114 &1215434523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215434520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b33d0c696a0f4f4e8677e8b63eb53f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameData:
+    mouseSpeed: 0
+    day: 0
+    itemList: []
+  _playData:
+    curStageNum: 0
 --- !u!1 &1552523446
 GameObject:
   m_ObjectHideFlags: 0
