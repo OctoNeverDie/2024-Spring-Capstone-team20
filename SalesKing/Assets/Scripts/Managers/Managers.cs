@@ -102,10 +102,6 @@ public class Managers : MonoBehaviour
         {
             instance._mission = ManagersGO.AddComponent<MissionManager>();
         }
-        if (instance._input == null)
-        {
-            instance._input = ManagersGO.AddComponent<UserInputManager>();
-        }
         if (instance._trans == null)
         {
             instance._trans = ManagersGO.AddComponent<TransitionManager>();
@@ -248,6 +244,18 @@ public class Managers : MonoBehaviour
             instance._turn = turnManager.AddComponent<TurnManager>();
         }
     }
+
+    public void AddUserInputManager()
+    {
+        GameObject inputManager = new GameObject("@UserInputManager");
+        inputManager.transform.parent = transform;
+
+        if (instance._input == null)
+        {
+            instance._input = inputManager.AddComponent<UserInputManager>();
+        }
+    }
+
 
     public void ClearChildManagers()
     {
