@@ -37,6 +37,7 @@ public class NpcInfo
     public string Personality;
     public string DialogueStyle;
     public string Example;
+    public string 
 }
 
 public class NpcData : ILoader<NpcInfo>

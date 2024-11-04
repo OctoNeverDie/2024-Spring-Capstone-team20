@@ -28,6 +28,7 @@ public class EvalSubManager
     public void InitNpcDict(InitData initData)
     {
         NpcInfo npc = Managers.Data.npcList[initData.npcID];
+        ItemInfo item = Managers.Data.itemList[initData.itemID];
 
         NpcEvaluation _npcEvaluation = new NpcEvaluation
         {
@@ -38,7 +39,9 @@ public class EvalSubManager
             npcKeyword = npc.KeyWord,
 
             itemID = initData.itemID,
-            itemName = string.Empty,
+            boughtItemName = item.ObjName,
+            wantItemName = string.Empty,
+            
             summary = string.Empty
         };
 
@@ -70,7 +73,6 @@ public class EvalSubManager
     //--------------------------------------------------
     public ItemInfo itemInfo { get; set; }
     
-    //아이템 맨처음 고르고, user의 첫 제시가 나옴
     public void InitItem(float userSuggest, ItemInfo itemInfo)
     {
         this.itemInfo = itemInfo;
