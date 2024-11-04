@@ -20,6 +20,7 @@ public class SceneModeManager : MonoBehaviour
         {
             //case "Start": Awake_StartScene(); break;
             case "CityMap": Awake_CityScene(); curScene = Define.SceneMode.CityMap; break;
+            case "CityMap_juyeon": Awake_CityScene(); curScene = Define.SceneMode.CityMap; break;
             case "OfficeMap": Awake_OfficeScene(); curScene = Define.SceneMode.OfficeMap; break;
             default: break;
         }
