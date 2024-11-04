@@ -4,40 +4,41 @@ using UnityEngine;
 public class InitData
 {
     public int npcID;
-    public int itemID;
+    public int boughtItemID;
+    public int concernID;
+    public int wantItemID;
+
     public Define.Prefer[] mbtiPrefers = new Define.Prefer[4];
 }
 
 public class DailyInitData : MonoBehaviour
 {
+    [SerializeField] ConcernManager concernManager;
+
     private int day = 0;
     private List<InitData> initDatas = new List<InitData>();
-    private List<int> npcList = new List<int>();
 
-    public void getInitData()
-    { 
-
+    public InitData getInitData() 
+    {
+        InitData initData = initDatas[0];
+        if (initDatas != null && initDatas.Count > 0)
+        {
+            // 첫 번째 요소 제거
+            initDatas.RemoveAt(0);
+        }
+        return initData;
     }
     
     private void Awake()
     {
         initMbtiQueue();
+        initNpcs();
 
         for (int i = 0; i < 3; i++)
             initDatas.Add(makeInitData(i));
     }
 
-    private InitData makeInitData(int i)
-    {
-        InitData initData = new InitData();
-
-        initData.mbtiPrefers = getMbtis();
-        initData.itemID = getItems();
-        initData.npcID = npcList[i];
-
-        return initData;
-    }
-
+    #region init
     private Queue<Define.Prefer[]> mbtiQueue;
     private void initMbtiQueue()
     {
@@ -64,23 +65,7 @@ public class DailyInitData : MonoBehaviour
         }
     }
 
-    private Define.Prefer[] getMbtis()
-    {
-        if (mbtiQueue.Count > 0)
-        {
-            return mbtiQueue.Dequeue();
-        }
-
-        return null;
-    }
-
-
-    private int getItems()
-    {
-        //TODO : 내가 가지고 있는 아이템, 랜덤으로 3개
-        return 0;
-    }
-
+    private List<int> npcList = new List<int>();
     private void initNpcs()
     {
         HashSet<int> npcSet = new HashSet<int>();
@@ -92,5 +77,40 @@ public class DailyInitData : MonoBehaviour
         }
 
         npcList = new List<int>(npcSet);
+    }
+    #endregion
+    private InitData makeInitData(int i)
+    {
+        InitData initData = new InitData();
+
+        initData.npcID = npcList[i];
+        initData.mbtiPrefers = getMbtis();
+        (initData.concernID, initData.wantItemID) = concernManager.GetRandomConcernAndItem();
+        initData.boughtItemID = getItems(initData.wantItemID);
+
+        return initData;
+    }
+
+    private Define.Prefer[] getMbtis()
+    {
+        if (mbtiQueue.Count > 0)
+        {
+            return mbtiQueue.Dequeue();
+        }
+
+        Debug.Log("엠벼 다 씀");
+        return null;
+    }
+
+
+    private int getItems(int wantItemID)
+    {
+        int idx;
+        do
+        {
+            idx = UnityEngine.Random.Range(0, Managers.Data.itemList.Count);
+        } while (wantItemID == idx);
+       
+        return idx;
     }
 }

@@ -1,10 +1,13 @@
 using UnityEngine;
-using static Define;
 
 public class TemplateReceive : MonoBehaviour
 {
-    public void GetGptAnswer(string resultData)
+    public void GetGptAnswer(string resultData, Define.SendChatType sendChatType)
     {
+        if (sendChatType == Define.SendChatType.ChatInit)
+        {
+            Managers.Chat.TransitionToState(Define.SendChatType.Chatting);
+        }
         Managers.Chat.ReplyManager.GptAnswer = resultData;//이건 쌩
         
         string GptAnswer = GptReply(resultData);
