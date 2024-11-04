@@ -20,10 +20,10 @@ public class ItemInitState : ChatBaseState
         string _userSend = $"여기, {itemInfo.ObjName}입니다. {userSuggest}크레딧이에요. 관련해서, 당신의 고민을 더 자세히 들을 수 있을까요? 이 물건이 당신의 고민을 해결해줄지도 모르거든요!";
 
         string expensiveRate = Managers.Chat.RatePrice(userSuggest, itemInfo);
-        string _initData = $"\n#Initial Values" 
-         +$"\nThe thing vendor is selling to you: {itemInfo.ObjName}"
-        + $"\nvendor First Suggest: {userSuggest} credit,"
-        + $"Your First Suggest: {itemInfo.defaultPrice} credit";
+        string _initData = $"\n#Initial Values"
+         + $"\nThe thing vendor is selling to you: {itemInfo.ObjName}"
+        + $"\nvendor First Suggest: {userSuggest} credit,";
+        //+ $"Your First Suggest: {itemInfo.defaultPrice} credit";
 
         SendAnswer(_userSend, _initData);
     }
