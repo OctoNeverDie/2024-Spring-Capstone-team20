@@ -34,6 +34,8 @@ public class Define
     public enum SendChatType
     {
         None,
+        ChatInit,
+        Chatting,
         NpcInit,
         ItemInit,
         ChatBargain,
@@ -70,5 +72,12 @@ public class Define
         logical,
         flatter,
         flirter,
+    }
+
+    public enum Prefer
+    { 
+        norm,
+        like,
+        dislike,
     }
 }

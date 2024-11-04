@@ -3,24 +3,21 @@ using static Define;
 
 public class TemplateReceive : MonoBehaviour
 {
-    public void GetGptAnswer(string resultData, SendChatType sendTypeData)
+    public void GetGptAnswer(string resultData)
     {
         Managers.Chat.ReplyManager.GptAnswer = resultData;//이건 쌩
         
-        string GptAnswer = GptReply(sendTypeData, resultData);
+        string GptAnswer = GptReply(resultData);
         Managers.Chat.ReplyManager.GptReaction = GptAnswer;//이건 리액션만 따로
     }
 
-    private string GptReply(SendChatType sendChatType, string GPTanswer)
+    private string GptReply(string GPTanswer)
     {
         string pattern;
 
-        if (sendChatType != SendChatType.NpcInit) //Npcinit 제외 모두 정제 필요
-        {
-            pattern = @"\""reaction\"":\s*\""(.*?)\"""; 
-            if(Util.Concat(pattern, GPTanswer) != string.Empty)
-                return Util.Concat(pattern, GPTanswer);
-        }
+        pattern = @"\""yourReply\"":\s*\""(.*?)\"""; 
+        if(Util.Concat(pattern, GPTanswer) != string.Empty)
+            return Util.Concat(pattern, GPTanswer);
 
         return GPTanswer;
     }

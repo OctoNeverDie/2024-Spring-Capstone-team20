@@ -78,7 +78,7 @@ def makeMbtiPrompt(data):
         value = mbtiInit.get(dim)
         if value:
             value = value.capitalize()
-            if value in ["Like", "Dislike", "Norm"]:
+            if value in ["like", "dislike", "norm"]:
                 filename = f"{path}{dim}{value}.txt"
                 try:
                     mbtiPrompt.append(read_system_message(filename))

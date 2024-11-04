@@ -4,40 +4,42 @@ using UnityEngine;
 
 public class EvalSubManager
 {
-
     public static event Action<string> OnChatDataUpdated;
     public static event Action<float, ItemInfo> OnItemInit;
 
-    public class NpcEvaluation
-    {
-        public int npcID;
+    public class NpcEvaluation : InitData
+    { //마지막에, 이름, MBTI 타입, 나이, 성별, 키워드, 사고 싶은 물건, 판 물건, 평가
         public string npcName;
         public int npcAge;
-        public bool npcSex; //female is true
+        public bool npcSex;
         public string npcKeyword;
-        public string item;
-        public int itemID;
-        public float price;
-        public string npcEvaluation;
+
+        public bool isSuccess;
+        public string wantItemName;
+        public string boughtItemName;
+
+        public string summary;
     }
 
     // NpcEvaluation 타입을 저장하는 Dictionary를 정의
     public Dictionary<int, NpcEvaluation> NpcEvalDict { get; private set; } = new Dictionary<int, NpcEvaluation>();
 
     public int currentNpcId = 0;
-    public void InitNpcDict(int npcId, string npcName, int npcAge, bool npcSex, string keyWord)
+    public void InitNpcDict(InitData initData)
     {
+        NpcInfo npc = Managers.Data.npcList[initData.npcID];
+
         NpcEvaluation _npcEvaluation = new NpcEvaluation
         {
-            npcID = npcId,
-            npcName = npcName,
-            npcAge = npcAge,
-            npcSex = npcSex,
-            npcKeyword = keyWord,
-            item = string.Empty,
-            itemID = 0,
-            price = 0.0f,
-            npcEvaluation = string.Empty
+            npcID = npc.NpcID,
+            npcName = npc.NpcName,
+            npcAge = npc.NpcAge,
+            npcSex = (npc.NpcSex == "female"),
+            npcKeyword = npc.KeyWord,
+
+            itemID = initData.itemID,
+            itemName = string.Empty,
+            summary = string.Empty
         };
 
         if (currentNpcId != 0)
@@ -83,24 +85,4 @@ public class EvalSubManager
         Debug.Log($"아이템 팔렸습니다 {NpcEvalDict[currentNpcId].price}");
         OnChatDataUpdated?.Invoke(nameof(itemInfo));
     }
-    public void UpdateSuggestInEval(float suggest)
-    {
-        NpcEvalDict[currentNpcId].price = suggest;
-    }
-
-    public float ShowPrice()
-    {
-        return NpcEvalDict[currentNpcId].price;
-    }
-    /*
-    public void PrintDictionary()
-    {
-        foreach (var kvp in NpcEvalDict)
-        {
-            int npcId = kvp.Key;
-            NpcEvaluation npcEval = kvp.Value;
-            Debug.Log($"NPC ID: {npcId}, Details: {npcEval.npcID}+{npcEval.npcEvaluation}");
-        }
-    }
-    */
 }

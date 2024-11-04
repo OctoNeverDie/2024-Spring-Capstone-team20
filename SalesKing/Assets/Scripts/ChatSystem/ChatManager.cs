@@ -5,6 +5,9 @@ using static Define;
 public class ChatManager : MonoBehaviour
 {
     private ChatStateMachine _chatStateMachine;
+    [SerializeField] DailyInitData _dailyInitData;
+    private int npcOrder = 0;
+
     public ReplySubManager ReplyManager = new ReplySubManager();
     public EvalSubManager EvalManager = new EvalSubManager();
     public NpcSupplyManager npcSupplyManager = new NpcSupplyManager();

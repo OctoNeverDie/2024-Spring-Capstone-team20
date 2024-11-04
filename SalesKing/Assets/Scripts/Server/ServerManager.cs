@@ -81,7 +81,7 @@ public class ServerManager : ServerBase
             SaveToJson("ChatType", _sendChatType.ToString());
 
             ServerManager.OnSendReplyUpdate?.Invoke(false);
-            templateReceive.GetGptAnswer(resultData, _sendChatType);
+            templateReceive.GetGptAnswer(resultData);
         };
 
         Action<ResultInfo> failTest = (result) =>

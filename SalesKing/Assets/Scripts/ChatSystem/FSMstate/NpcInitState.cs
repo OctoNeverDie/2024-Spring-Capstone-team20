@@ -20,6 +20,7 @@ public class NpcInitState : ChatBaseState
     private void InitData()
     {
         Managers.Chat.Clear();
+
         Debug.Log($"{Managers.Chat.EvalManager.currentNpcId-1}. { Managers.Data.npcList[Managers.Chat.EvalManager.currentNpcId - 1].NpcName}");
         NpcInfo npc = Managers.Data.npcList[Managers.Chat.EvalManager.currentNpcId -1];
         //NpcInfo npc = Managers.Chat.npcSupplyManager.GetNextNpc();
