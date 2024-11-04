@@ -8,6 +8,7 @@ public class Define
     public enum SceneMode
     {
         Start,
+        StageSelect,
         CityMap, 
         OfficeMap
     }

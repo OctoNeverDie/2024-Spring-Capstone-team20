@@ -17,7 +17,7 @@ public class DataController : MonoBehaviour
     }
 
     static DataController _instance;
-    public static DataController Instance                                                   //해당 스크립트를 어디에서든 불러올 수 있게끔 하는 함수 
+    public static DataController Instance
     {
         get
         {
@@ -45,8 +45,23 @@ public class DataController : MonoBehaviour
             return _gameData;
         }
     }
-    public void LoadGameData()
+
+    public PlayData _playData;
+
+    public PlayData playData
     {
+        get
+        {
+            if (_playData == null)
+            {
+                _playData = new PlayData();
+            }
+            return _playData;
+        }
+    }
+
+    public void LoadGameData()
+    { 
         string filePath = Application.persistentDataPath + "/GameData.json";
         //string filePath = Application.dataPath + "/Scripts/JSON/GameData.json";
         Debug.Log(filePath);
@@ -64,7 +79,6 @@ public class DataController : MonoBehaviour
             ToGameJson(); // 생성된 GameData를 JSON 파일로 저장
         }
     }
-
 
     System.IO.StreamWriter SW = null;
 
