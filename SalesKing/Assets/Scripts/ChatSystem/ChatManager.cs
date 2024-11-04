@@ -90,7 +90,7 @@ public class ChatManager : MonoBehaviour
         {
             itemInfo = EvalManager.itemInfo;
         }
-
+        /*
         string expensiveRate;
 
         if (userSuggest < itemInfo.defaultPrice)
@@ -101,6 +101,8 @@ public class ChatManager : MonoBehaviour
             expensiveRate = "Expensive, 시장가보다 조금 비싼 가격이다.";
         else
             expensiveRate = "Too Expensive, 시장가보다 많이 비싼 가격이다.";
-        return expensiveRate;
+        return expensiveRate;*/
+        return "임시";
     }
+
 }

@@ -74,7 +74,7 @@ public class VariableCheck : MonoBehaviour
         //item init -> chatbargain : 패널에 보여줄 때
         //판매할 물건, 판매하는 물건, 원가, 유저 첫 제시가
         sellingItemText.text = itemInfo.ObjName;
-        sellingItemFirstCostText.text = itemInfo.defaultPrice.ToString();
+        //sellingItemFirstCostText.text = itemInfo.defaultPrice.ToString();
         userSuggestText.text = userSuggest.ToString();
         npcSuggestText.text = "?";
     }
