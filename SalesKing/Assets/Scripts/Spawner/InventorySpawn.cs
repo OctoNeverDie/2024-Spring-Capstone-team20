@@ -52,7 +52,7 @@ public class InventorySpawn : MonoBehaviour
                 GameObject newItem = Instantiate(itemPrefab, gridParent);
 
                 newItem.transform.Find("ItemName").GetComponent<TextMeshProUGUI>().text = item.ObjName;
-                newItem.transform.Find("PriceText").GetComponent<TextMeshProUGUI>().text = item.defaultPrice.ToString() + "$";
+                //newItem.transform.Find("PriceText").GetComponent<TextMeshProUGUI>().text = item.defaultPrice.ToString() + "$";
                 newItem.transform.Find("QuantityText").GetComponent<TextMeshProUGUI>().text = "수량:" + quantity;
 
                 Button itemButton = newItem.GetComponent<Button>();

@@ -15,7 +15,7 @@ public class ItemList : MonoBehaviour
         itemList = Managers.Data.itemList;
         foreach (var item in itemList)
         {
-            Debug.Log($"{item.ObjID}, {item.ObjName}, {item.ObjInfo}, {item.defaultPrice}");
+            Debug.Log($"{item.ObjID}, {item.ObjName}, {item.ObjInfo}, {item.Category}");
         }
     }
 }

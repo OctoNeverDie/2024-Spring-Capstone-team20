@@ -11,9 +11,7 @@ public class ItemInfo
     public int ObjID;
     public string ObjName;
     public string ObjInfo;
-    public int defaultPrice;
-    public int expensive;
-    public int tooExpensive;
+    public string Category;
 }
 
 public class ItemData : ILoader<ItemInfo>
@@ -22,6 +20,24 @@ public class ItemData : ILoader<ItemInfo>
     public List<ItemInfo> GetList()
     => items;
 }
+#endregion
+
+#region concern
+[Serializable]
+public class ConcernInfo
+{
+    public int ConcernID;
+    public string Concern;
+    public string Category;
+}
+public class ConcernData : ILoader<ConcernInfo>
+{
+    public List<ConcernInfo> concerns = new List<ConcernInfo>();
+    public List<ConcernInfo> GetList()
+    => concerns;
+}
+
+
 #endregion
 
 #region NPC

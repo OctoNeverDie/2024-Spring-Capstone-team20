@@ -1,0 +1,286 @@
+{
+  "items": [
+    {
+      "ObjID": 1,
+      "ObjName": "탕후루",
+      "ObjInfo": "",
+      "Category": "디저트"
+    },
+    {
+      "ObjID": 2,
+      "ObjName": "케이크",
+      "ObjInfo": "냉동 딸기 쇼트 케이크. 다른 케이크와 다른 점은 없어 보인다. 케이크가 신선해보이는 건 거짓말이다. 누가봐도 공장에서 나온 케이크다.",
+      "Category": "디저트"
+    },
+    {
+      "ObjID": 3,
+      "ObjName": "두바이 초콜릿",
+      "ObjInfo": "",
+      "Category": "디저트"
+    },
+    {
+      "ObjID": 4,
+      "ObjName": "티라미수 밤 케이크",
+      "ObjInfo": "",
+      "Category": "디저트"
+    },
+    {
+      "ObjID": 5,
+      "ObjName": "마카롱",
+      "ObjInfo": "",
+      "Category":"디저트"
+    },
+    {
+      "ObjID": 6,
+      "ObjName": "크렘 브륄레",
+      "ObjInfo": "",
+      "Category": "디저트"
+    },
+    {
+      "ObjID": 7,
+      "ObjName": "치즈케이크",
+      "ObjInfo": "",
+      "Category": "디저트"
+    },
+    {
+      "ObjID": 8,
+      "ObjName": "약과",
+      "ObjInfo": "",
+      "Category": "디저트"
+    },
+    {
+      "ObjID": 9,
+      "ObjName": "의자",
+      "ObjInfo": "",
+      "Category": "가구"
+    },
+    {
+      "ObjID": 10,
+      "ObjName": "침대",
+      "ObjInfo": "",
+      "Category": "가구"
+    },
+    {
+      "ObjID": 11,
+      "ObjName": "옷장",
+      "ObjInfo": "",
+      "Category": "가구"
+    },
+    {
+      "ObjID": 12,
+      "ObjName": "조명 스탠드",
+      "ObjInfo": "",
+      "Category": "가구"
+    },
+    {
+      "ObjID": 13,
+      "ObjName": "나무 테이블",
+      "ObjInfo": "",
+      "Category": "가구"
+    },
+    {
+      "ObjID": 14,
+      "ObjName": "소파",
+      "ObjInfo": "",
+      "Category": "가구"
+    },
+    {
+      "ObjID": 15,
+      "ObjName": "TV",
+      "ObjInfo": "",
+      "Category": "가구"
+    },
+    {
+      "ObjID": 16,
+      "ObjName": "책장",
+      "ObjInfo": "",
+      "Category": "가구"
+    },
+    {
+      "ObjID": 17,
+      "ObjName": "게이밍 헤드셋",
+      "ObjInfo": "",
+      "Category": "게임"
+    },
+    {
+      "ObjID": 18,
+      "ObjName": "게이밍 노트북",
+      "ObjInfo": "",
+      "Category": "게임"
+    },
+    {
+      "ObjID": 19,
+      "ObjName": "그래픽 카드",
+      "ObjInfo": "",
+      "Category": "게임"
+    },
+    {
+      "ObjID": 20,
+      "ObjName": "게이밍 모니터",
+      "ObjInfo": "",
+      "Category": "게임"
+    },
+    {
+      "ObjID": 21,
+      "ObjName": "게이밍 마우스",
+      "ObjInfo": "",
+      "Category": "게임"
+    },
+    {
+      "ObjID": 22,
+      "ObjName": "보드게임",
+      "ObjInfo": "",
+      "Category": "게임"
+    },
+    {
+      "ObjID": 23,
+      "ObjName": "게이밍 키보드",
+      "ObjInfo": "",
+      "Category": "게임"
+    },
+    {
+      "ObjID": 24,
+      "ObjName": "닌텐도 스위치",
+      "ObjInfo": "",
+      "Category": "게임"
+    },
+    {
+      "ObjID": 25,
+      "ObjName": "프로그래밍 서적",
+      "ObjInfo": "",
+      "Category": "자기개발"
+    },
+    {
+      "ObjID": 27,
+      "ObjName": "요리 레시피 책",
+      "ObjInfo": "",
+      "Category": "자기개발"
+    },
+    {
+      "ObjID": 28,
+      "ObjName": "요가 기구",
+      "ObjInfo": "",
+      "Category": "자기개발"
+    },
+    {
+      "ObjID": 29,
+      "ObjName": "자전거",
+      "ObjInfo": "",
+      "Category": "자기개발"
+    },
+    {
+      "ObjID": 30,
+      "ObjName": "등산화",
+      "ObjInfo": "",
+      "Category": "자기개발"
+    },
+    {
+      "ObjID": 31,
+      "ObjName": "자기개발서",
+      "ObjInfo": "",
+      "Category": "자기개발"
+    },
+    {
+      "ObjID": 32,
+      "ObjName": "아크릴 물감",
+      "ObjInfo": "",
+      "Category": "자기개발"
+    },
+    {
+      "ObjID": 33,
+      "ObjName": "티셔츠",
+      "ObjInfo": "",
+      "Category": "의류"
+    },
+    {
+      "ObjID": 34,
+      "ObjName": "원피스",
+      "ObjInfo": "",
+      "Category": "의류"
+    },
+    {
+      "ObjID": 35,
+      "ObjName": "정장 바지",
+      "ObjInfo": "",
+      "Category": "의류"
+    },
+    {
+      "ObjID": 36,
+      "ObjName": "자켓",
+      "ObjInfo": "",
+      "Category": "의류"
+    },
+    {
+      "ObjID": 37,
+      "ObjName": "운동복",
+      "ObjInfo": "",
+      "Category": "의류"
+    },
+    {
+      "ObjID": 38,
+      "ObjName": "신발",
+      "ObjInfo": "",
+      "Category": "의류"
+    },
+    {
+      "ObjID": 39,
+      "ObjName": "모자",
+      "ObjInfo": "",
+      "Category": "의류"
+    },
+    {
+      "ObjID": 40,
+      "ObjName": "립스틱",
+      "ObjInfo": "",
+      "Category": "의류"
+    },
+    {
+      "ObjID": 41,
+      "ObjName": "향수",
+      "ObjInfo": "",
+      "Category": "화장품"
+    },
+    {
+      "ObjID": 42,
+      "ObjName": "수분 크림",
+      "ObjInfo": "",
+      "Category": "화장품"
+    },
+    {
+      "ObjID": 43,
+      "ObjName": "클렌징 오일",
+      "ObjInfo": "",
+      "Category": "화장품"
+    },
+    {
+      "ObjID": 44,
+      "ObjName": "마스크 팩",
+      "ObjInfo": "",
+      "Category": "화장품"
+    },
+    {
+      "ObjID": 45,
+      "ObjName": "립밤",
+      "ObjInfo": "",
+      "Category": "화장품"
+    },
+    {
+      "ObjID": 46,
+      "ObjName": "선크림",
+      "ObjInfo": "",
+      "Category": "화장품"
+    },
+    {
+      "ObjID": 47,
+      "ObjName": "블러셔",
+      "ObjInfo": "",
+      "Category": "화장품"
+    },
+    {
+      "ObjID": 48,
+      "ObjName": "아이섀도우",
+      "ObjInfo": "",
+      "Category": "화장품"
+    }
+  ]
+}
