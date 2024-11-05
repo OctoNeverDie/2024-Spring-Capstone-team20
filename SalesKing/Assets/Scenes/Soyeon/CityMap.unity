@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -14942,6 +14942,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 398631705}
   m_CullTransparentMesh: 1
+--- !u!1 &401118105 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4668707554046821373, guid: d5be1abc8c16b9d4f8a99fafc99b0084, type: 3}
+  m_PrefabInstance: {fileID: 5963116246712831775}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &402067757
 GameObject:
   m_ObjectHideFlags: 0
@@ -31731,6 +31736,7 @@ MonoBehaviour:
   TurnText: {fileID: 1281594858}
   RecordPanel: {fileID: 1645688448}
   KeyboardPanel: {fileID: 658069262}
+  PhonePanel: {fileID: 401118105}
   OkayBtn: {fileID: 4398599148372524927}
 --- !u!1001 &812538121
 PrefabInstance:
@@ -55296,9 +55302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 173aeb84553948246bee9fd19c6fcf33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guidePanel: {fileID: 505951691}
-  endPanel: {fileID: 0}
-  missionText: {fileID: 1540983182}
+  tutorials: []
 --- !u!1001 &1383667569
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -91159,6 +91163,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 805719249}
     m_Modifications:
+    - target: {fileID: 745074507449261461, guid: d5be1abc8c16b9d4f8a99fafc99b0084, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 41
+      objectReference: {fileID: 0}
     - target: {fileID: 922071953900517439, guid: d5be1abc8c16b9d4f8a99fafc99b0084, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -91221,7 +91229,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 922071953900517439, guid: d5be1abc8c16b9d4f8a99fafc99b0084, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1920
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922071953900517439, guid: d5be1abc8c16b9d4f8a99fafc99b0084, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -91238,6 +91246,26 @@ PrefabInstance:
     - target: {fileID: 922071953900517439, guid: d5be1abc8c16b9d4f8a99fafc99b0084, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 981455228678535815, guid: d5be1abc8c16b9d4f8a99fafc99b0084, type: 3}
+      propertyPath: m_margin.w
+      value: -26.153381
+      objectReference: {fileID: 0}
+    - target: {fileID: 1672451563193045231, guid: d5be1abc8c16b9d4f8a99fafc99b0084, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369853239091657412, guid: d5be1abc8c16b9d4f8a99fafc99b0084, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1381.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369853239091657412, guid: d5be1abc8c16b9d4f8a99fafc99b0084, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 728.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 3909747102386193366, guid: d5be1abc8c16b9d4f8a99fafc99b0084, type: 3}
+      propertyPath: m_margin.z
+      value: -478.17285
       objectReference: {fileID: 0}
     - target: {fileID: 4668707554046821373, guid: d5be1abc8c16b9d4f8a99fafc99b0084, type: 3}
       propertyPath: m_Name
