@@ -23,11 +23,6 @@ public class ConvoUI : MonoBehaviour
     public TextMeshProUGUI UserSpeechText;
     public TextMeshProUGUI todayCashText;
 
-
-    public TextMeshProUGUI TimeText;
-    public TextMeshProUGUI CashText;
-    public TextMeshProUGUI TurnText;
-
     public GameObject RecordPanel;
     public GameObject KeyboardPanel;
 

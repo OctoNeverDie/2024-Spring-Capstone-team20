@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UIManager_old : MonoBehaviour
 {
+    /*
     GameObject myCanvas;
     public ConvoUI ui;
 
@@ -44,6 +45,7 @@ public class UIManager_old : MonoBehaviour
         //ui.UserSpeechBubble.transform.DOScale(1f, 0.5f).SetEase(Ease.InOutBounce).SetUpdate(true);
     }
 
+    
     public void SetTimeText()
     {
         int hour = Managers.Time.Hour;
@@ -64,6 +66,7 @@ public class UIManager_old : MonoBehaviour
 
         ui.TimeText.text = hour_s + " : " + min_s + " " + ampm;
     }
+    
 
     public void SetCashText(string cashAmount)
     {
@@ -94,4 +97,5 @@ public class UIManager_old : MonoBehaviour
             ui.KeyboardPanel.SetActive(false);
         }
     }
+    */
 }
