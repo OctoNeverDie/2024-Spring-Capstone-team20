@@ -7,7 +7,7 @@ public class TutorialDialog : TutorialBase
     [SerializeField]
     private List<string> dialogLines;
     [SerializeField]
-    private gameObject DialogPanel;
+    private GameObject DialogPanel;
     private int currentLineIndex = 0;
     private bool isCompleted = false;
 

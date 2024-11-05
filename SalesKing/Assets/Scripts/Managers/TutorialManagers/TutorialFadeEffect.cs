@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TutorialFadeEffect : TutorialBase
 {
+    
     [SerializeField]
     private TutorialFadeEffect fadeEffect;
     [SerializeField]
@@ -14,11 +15,11 @@ public class TutorialFadeEffect : TutorialBase
     {
         if (isFadeIn == true)
         {
-            fadeEffect.isFadeIn(OnAfterFadeEffect);
+            //fadeEffect.FadeIn(OnAfterFadeEffect);
         }
         else
         {
-            fadeEffect.FadeOut(onAfterFadeEffect);
+            //fadeEffect.FadeOut(onAfterFadeEffect);
         }
     }
 
