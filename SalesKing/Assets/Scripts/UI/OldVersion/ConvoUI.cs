@@ -6,7 +6,6 @@ using TMPro;
 using DG.Tweening; // DoTween 네임스페이스 추가
 using UnityEngine.SceneManagement;
 
-
 public class ConvoUI : MonoBehaviour
 {
     public GameObject TalkOrNotPanel;
@@ -22,11 +21,6 @@ public class ConvoUI : MonoBehaviour
     public GameObject UserSpeechBubble;
     public TextMeshProUGUI UserSpeechText;
     public TextMeshProUGUI todayCashText;
-
-
-    public TextMeshProUGUI TimeText;
-    public TextMeshProUGUI CashText;
-    public TextMeshProUGUI TurnText;
 
     public GameObject RecordPanel;
     public GameObject KeyboardPanel;
@@ -222,6 +216,7 @@ public class ConvoUI : MonoBehaviour
 
     }
 
+    /*
     public void OnClickRestart()
     {
         //첫 장면을 가져오게 된다.
@@ -229,17 +224,16 @@ public class ConvoUI : MonoBehaviour
         //LoadScene을 통해 해당 scene을 실행한다.
         SceneManager.LoadScene("Start");
     }
+    */
 
+    /*
     public void OnClickFail()
     {
         SceneManager.LoadScene("Last");
     }
+    */
 
-    // 물건을 ~~ 파시면 됩니다 패널 ok 눌렀을 때
-    public void OnClickOKStartPanel()
-    {
-        Managers.Player.MyPlayer.GetComponent<Player>().FreezeAndUnFreezePlayer(false);
-    }
+
 
 }
 

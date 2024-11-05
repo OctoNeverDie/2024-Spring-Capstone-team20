@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class City_MainUI : MonoBehaviour
+public class City_TabletUI : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

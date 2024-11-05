@@ -19294,6 +19294,7 @@ GameObject:
   - component: {fileID: 578660555}
   - component: {fileID: 578660554}
   - component: {fileID: 578660553}
+  - component: {fileID: 578660556}
   m_Layer: 5
   m_Name: EndingPanel
   m_TagString: Untagged
@@ -19360,6 +19361,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &578660556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578660552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28b3c34e38b1c4a4494f195150ffb536, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &581833823
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29611,6 +29624,7 @@ GameObject:
   - component: {fileID: 851229205}
   - component: {fileID: 851229207}
   - component: {fileID: 851229206}
+  - component: {fileID: 851229208}
   m_Layer: 5
   m_Name: PopupPanel
   m_TagString: Untagged
@@ -29676,6 +29690,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 851229204}
   m_CullTransparentMesh: 1
+--- !u!114 &851229208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851229204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b233b4c17fc1f64f85b5bc1512600c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &853661592
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40209,7 +40235,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4668707554046821373, guid: d5be1abc8c16b9d4f8a99fafc99b0084, type: 3}
       propertyPath: m_Name
-      value: PhonePanel
+      value: TabletPanel
       objectReference: {fileID: 0}
     - target: {fileID: 4668707554046821373, guid: d5be1abc8c16b9d4f8a99fafc99b0084, type: 3}
       propertyPath: m_IsActive
@@ -40230,13 +40256,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4668707554046821373, guid: d5be1abc8c16b9d4f8a99fafc99b0084, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1124115874}
   m_SourcePrefab: {fileID: 100100000, guid: d5be1abc8c16b9d4f8a99fafc99b0084, type: 3}
 --- !u!224 &1124115872 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 922071953900517439, guid: d5be1abc8c16b9d4f8a99fafc99b0084, type: 3}
   m_PrefabInstance: {fileID: 1124115871}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1124115873 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4668707554046821373, guid: d5be1abc8c16b9d4f8a99fafc99b0084, type: 3}
+  m_PrefabInstance: {fileID: 1124115871}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1124115874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124115873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9adc3bed8d519894395a5de0392891e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1126201888
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58014,9 +58060,6 @@ MonoBehaviour:
   UserSpeechBubble: {fileID: 0}
   UserSpeechText: {fileID: 0}
   todayCashText: {fileID: 0}
-  TimeText: {fileID: 0}
-  CashText: {fileID: 0}
-  TurnText: {fileID: 1436289420}
   RecordPanel: {fileID: 0}
   KeyboardPanel: {fileID: 0}
   OkayBtn: {fileID: 0}
@@ -74462,6 +74505,7 @@ GameObject:
   - component: {fileID: 2050792904}
   - component: {fileID: 2050792906}
   - component: {fileID: 2050792905}
+  - component: {fileID: 2050792907}
   m_Layer: 5
   m_Name: MainPanel
   m_TagString: Untagged
@@ -74527,6 +74571,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2050792903}
   m_CullTransparentMesh: 1
+--- !u!114 &2050792907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050792903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff93d519722338438279ead6cd6049d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TurnText: {fileID: 0}
 --- !u!1001 &2051706115
 PrefabInstance:
   m_ObjectHideFlags: 0

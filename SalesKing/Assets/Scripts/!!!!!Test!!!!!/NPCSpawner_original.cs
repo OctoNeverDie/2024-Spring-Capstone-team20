@@ -8,7 +8,8 @@ public class NPCSpawner_original : MonoBehaviour
     [SerializeField] GameObject NPCPrefab;
     [SerializeField] int NPCCount = 20;
 
-    [SerializeField] int WeirdNPCCount = 0;
+    //[SerializeField] int TalkableNPCCount = 20;
+    //[SerializeField] int WeirdNPCCount = 0;
 
     void Awake()
     {
