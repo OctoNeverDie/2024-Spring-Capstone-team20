@@ -59,7 +59,7 @@ public class SceneModeManager : MonoBehaviour
 
     private void Awake_StageSelectScene()
     {
-        
+        Managers.Instance.AddStageSelectManager();
     }
 
     public void LoadSceneByName(string name)
