@@ -71,6 +71,8 @@ public class Managers : MonoBehaviour
 
     TurnManager _turn;
 
+    StageSelectManager _stage;
+
     public static SceneModeManager Scene { get { return Instance._scene; } }
     public static NPCManager NPC { get { return Instance._npc; } }
     public static UIManager UI { get { return Instance._ui; } }
@@ -87,6 +89,7 @@ public class Managers : MonoBehaviour
     public static UserInputManager Input { get { return Instance._input; } }
     public static TransitionManager Trans { get { return Instance._trans; } }
     public static TurnManager Turn { get { return Instance._turn; } }
+    public static StageSelectManager Stage { get { return Instance._stage; } }
 
 
     void Awake()
@@ -255,7 +258,16 @@ public class Managers : MonoBehaviour
             instance._input = inputManager.AddComponent<UserInputManager>();
         }
     }
+    public void AddStageSelectManager()
+    {
+        GameObject stageManager = new GameObject("@StageSelectManager");
+        stageManager.transform.parent = transform;
 
+        if (instance._stage == null)
+        {
+            instance._stage = stageManager.AddComponent<StageSelectManager>();
+        }
+    }
 
     public void ClearChildManagers()
     {
