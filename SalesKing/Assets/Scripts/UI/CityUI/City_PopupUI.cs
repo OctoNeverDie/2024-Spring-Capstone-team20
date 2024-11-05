@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class City_PopupUI : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject StartPanel;
+    public Button StartPanelOKBtn;
+    
     void Start()
     {
-        
+        StartPanelOKBtn.onClick.AddListener(OnClickStartPanelOKBtn);
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnClickStartPanelOKBtn()
     {
-        
+        Managers.UI.c_popup.OnClickOKStartPanel();
     }
 }
