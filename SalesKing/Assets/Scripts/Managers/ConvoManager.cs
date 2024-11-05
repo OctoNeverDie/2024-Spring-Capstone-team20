@@ -11,7 +11,7 @@ public class ConvoManager : MonoBehaviour
     {
         Managers.Time.StopAndRestartTime(true);
         Managers.Cam.SwitchToDialogueCam();
-        Managers.UI.ShowTalkOrNotPanel();
+        //Managers.UI.ShowTalkOrNotPanel();
     }
 
     public void ConvoFinished()
