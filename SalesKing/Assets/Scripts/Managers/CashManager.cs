@@ -53,6 +53,6 @@ public class CashManager : MonoBehaviour
     // UI 업데이트 (예: TextMeshPro 또는 UI Text 업데이트)
     private void UpdateCashUI()
     {
-        Managers.UI.SetCashText(TotalCash.ToString());
+        //Managers.UI.SetCashText(TotalCash.ToString());
     }
 }

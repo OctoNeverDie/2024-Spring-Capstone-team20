@@ -16,7 +16,7 @@ public class UserInputManager : MonoBehaviour
         _variableInput = FindObjectOfType<VariableInput>();
         myPlayer = Managers.Player.MyPlayer.GetComponent<Player>();
         CurInputMode = DefaultMode;
-        if(Managers.Scene.curScene==Define.SceneMode.CityMap) Managers.UI.InitiateInputMode();
+        //if(Managers.Scene.curScene==Define.SceneMode.CityMap) Managers.UI.InitiateInputMode();
     }
 
     void Update()

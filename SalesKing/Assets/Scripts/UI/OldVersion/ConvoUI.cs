@@ -63,7 +63,7 @@ public class ConvoUI : MonoBehaviour
         EndPanel.SetActive(false);
         WaitReplyPanel.SetActive(false);
         TalkOrNotPanel.SetActive(false);
-        Managers.UI.InitiateInputMode();
+        //Managers.UI.InitiateInputMode();
     }
 
     public void OnClickNoTalkBtn()
