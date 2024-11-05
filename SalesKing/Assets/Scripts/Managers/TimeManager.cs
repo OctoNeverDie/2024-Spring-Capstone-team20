@@ -107,8 +107,8 @@ public class TimeManager : MonoBehaviour
 
     public void StopAndRestartTime(bool isStop)
     {
-        if(isStop) Time.timeScale = 0f;
-        else Time.timeScale = 1f;
+        //if(isStop) Time.timeScale = 0f;
+        //else Time.timeScale = 1f;
     }
 
     private void LoadSkyboxes()
