@@ -28,8 +28,7 @@ public class FSMBtn : MonoBehaviour
     //Deal 버튼 누르면
     public void OnClickDealFSM()
     {
-        Managers.Chat.EvalManager.AddItemPriceSold();
-
+        //Managers.Chat.EvalManager.AddItemPriceSold();
         Managers.Chat.reason = 4;
         Managers.Chat._endType = EndType.buy;
         Managers.Chat.TransitionToState(SendChatType.Endpoint);

@@ -15,13 +15,11 @@ public class Define
 
     public enum Emotion
     {
-        Neutral,
-        SlightlyPositive,
-        Positive,
-        VeryPositive,
-        SlightlyNegative,
-        Negative,
-        VeryNegative
+        worst,
+        bad,
+        normal,
+        good,
+        best
     }
 
     public enum Skybox

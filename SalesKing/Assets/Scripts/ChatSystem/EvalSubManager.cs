@@ -5,7 +5,6 @@ using UnityEngine;
 public class EvalSubManager
 {
     public static event Action<string> OnChatDataUpdated;
-    public static event Action<float, ItemInfo> OnItemInit;
 
     public class NpcEvaluation : InitData
     { //마지막에, 이름, MBTI 타입, 나이, 성별, 키워드, 사고 싶은 물건, 판 물건, 평가
@@ -19,6 +18,8 @@ public class EvalSubManager
         public string boughtItemName;
         public string concern;
 
+        public Define.Emotion emotion;
+        public string reason;
         public string summary;
     }
 
@@ -61,10 +62,22 @@ public class EvalSubManager
 
         OnChatDataUpdated?.Invoke(nameof(currentNpcId));
     }
-
-    public void AddEvaluation(string npcEvaluation)
+    public void UpdateNpcDict(Define.Emotion emotion, string reason = "")
     {
-        NpcEvalDict[currentNpcId].summary = npcEvaluation;
-        Debug.Log($"Eval 평가 업데이트 {npcEvaluation}");
+        if (reason != "")
+        {
+            _npcEvaluation.reason = reason;
+        }
+        _npcEvaluation.emotion = emotion;
+        OnChatDataUpdated?.Invoke(nameof(Define.Emotion));
+
+        Debug.Log($"Eval 이유 업데이트 {reason}");
+    }
+    public void AddEvaluation(string summary, bool isBuy)
+    {
+        NpcEvalDict[currentNpcId].summary = summary;
+        NpcEvalDict[currentNpcId].isSuccess = isBuy;
+
+        Debug.Log($"Eval 평가 업데이트 {summary}");
     }
 }

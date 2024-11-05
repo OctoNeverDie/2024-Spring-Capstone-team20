@@ -25,7 +25,7 @@ public class SummarySpawner : MonoBehaviour
             newNpc.transform.Find("NpcAge").GetComponent<TextMeshProUGUI>().text = "나이: " + npcEval.npcAge.ToString() + "세";
 
             // 요약 정보 표시
-            newNpc.transform.Find("Summary").GetComponent<TextMeshProUGUI>().text = npcEval.npcEvaluation;  // 평가 정보 표시
+            newNpc.transform.Find("Summary").GetComponent<TextMeshProUGUI>().text = npcEval.summary;  // 평가 정보 표시
         }
     }
 

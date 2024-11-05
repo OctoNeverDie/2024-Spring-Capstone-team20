@@ -219,7 +219,7 @@ public class Managers : MonoBehaviour
         if (instance._chat == null)
         {
             instance._chat = chatManager.AddComponent<ChatManager>();
-            instance._chat.npcSupplyManager.InitQueue();
+            //instance._chat.npcSupplyManager.InitQueue();
         }
     }
 

@@ -109,11 +109,11 @@ public class ConvoUI : MonoBehaviour
 
             if ((endType == Define.EndType.clear && Managers.Chat.reason == 3) || endType == Define.EndType.buy)
             {
-                baseMessage = $"대화가 끝났습니다.\n결과 : 물건 판매 성공!\n당신의 수익 : {Managers.Chat.EvalManager.ShowPrice()} 크레딧";
+                baseMessage = "판매 성공!";
             }
             else
             {
-                baseMessage = "대화가 끝났습니다.\n결과 : 물건 판매 실패...\n당신의 수익 : 0 크레딧";
+                baseMessage = "판매 실패...";
             }
 
             if (reasonMessages.TryGetValue(Managers.Chat.reason, out string message))

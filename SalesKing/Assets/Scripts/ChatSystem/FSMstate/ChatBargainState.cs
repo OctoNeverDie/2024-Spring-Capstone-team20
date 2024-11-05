@@ -102,8 +102,6 @@ public class ChatBargainState : ChatBaseState, IVariableChat
         {
             Debug.Log($"npcSugget : {_gptResult._npcSuggest}");
             float smaller = _gptResult._npcSuggest;
-            Managers.Chat.EvalManager.UpdateSuggestInEval(smaller);
-            Managers.Chat.EvalManager.AddItemPriceSold();
         }
 
         if (isState != State.Wait)
@@ -149,8 +147,6 @@ private void ConcatReply(string gptAnswer)
         {
             _gptResult._summary = sections2[2].Trim();
         }
-        
-        Managers.Chat.EvalManager.AddEvaluation(_gptResult._summary);
         
         string actionValue = sections2[3].Trim();
         

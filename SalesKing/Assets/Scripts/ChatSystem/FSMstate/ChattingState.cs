@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static Define;
 
 public class ChattingState : ChatBaseState, IVariableChat
 {
@@ -26,11 +23,14 @@ public class ChattingState : ChatBaseState, IVariableChat
 
         ConcatReply(gpt_output);
 
-        if (isState == State.Wait)
-            CheckState();
-
-        UpdateTurn();
-        ReactToState();
+        if (gptResult.decision == Decision.wait)
+        {
+            Managers.Chat.EvalManager.UpdateNpcDict(gptResult.emotion, gptResult.reason);
+        }
+        else
+        { 
+            //값 업데이트 하기, UI 팝업
+        }
     }
 
 
@@ -58,35 +58,99 @@ public class ChattingState : ChatBaseState, IVariableChat
     {
         if (isEnd)
         {
-            string[] sections = gptAnswer.Split(new string[] { "decision", "yourReply", "summary" }, StringSplitOptions.None);
-            if (sections.Length > 2)
+            // 'decision', 'yourReply', 'summary' 키워드 사이의 값을 추출합니다.
+            string decisionValue = GetValueBetween(gptAnswer, "decision", "yourReply");
+            string yourReplyValue = GetValueBetween(gptAnswer, "yourReply", "summary");
+            string summaryValue = GetValueAfter(gptAnswer, "summary");
+
+            if (string.IsNullOrEmpty(decisionValue) || string.IsNullOrEmpty(summaryValue))
             {
-                string decisionStr = sections[0].Trim();
-                gptResult.summary = sections[2].Trim();
+                Debug.Log("Not enough elements");
+                return;
+            }
+
+            gptResult.summary = summaryValue.Trim();
+            Debug.Log($"gptResult decision {gptResult.decision}");
+
+            if (decisionValue.Contains("yes"))
+                Managers.Chat.EvalManager.AddEvaluation(gptResult.summary, true);
+            else
+                Managers.Chat.EvalManager.AddEvaluation(gptResult.summary, false);
+
+            return;
+        }
+        else
+        {
+            // 'persuasion', 'reason', 'emotion' 키워드 사이의 값을 추출합니다.
+            string persuasionValue = GetValueBetween(gptAnswer, "persuasion", "reason");
+            string reasonValue = null;
+            string emotionValue = null;
+
+            if (gptAnswer.Contains("emotion"))
+            {
+                reasonValue = GetValueBetween(gptAnswer, "reason", "emotion");
+                emotionValue = GetValueAfter(gptAnswer, "emotion");
             }
             else
-                Debug.Log("Some Summary is 누락");
-
-            Managers.Chat.EvalManager.AddEvaluation(gptResult.summary);
-
-            string actionValue = sections2[3].Trim();
-
-            if (actionValue.Contains("bought"))
             {
-                Debug.Log("샀다구여.");
-                float finalPrice = GetFloat(sections2[4]);
-                _gptResult._npcSuggest = finalPrice;
-                _gptResult._userSuggest = finalPrice;
-                StateFailSuccess(State.Success, 3, EndType.clear);
+                emotionValue = GetValueAfter(gptAnswer, "reason");
             }
-            else if (actionValue.Contains("notBought"))
+
+            if (string.IsNullOrEmpty(persuasionValue) || string.IsNullOrEmpty(emotionValue))
             {
-                Debug.Log("안 샀다구여.");
-                StateFailSuccess(State.Fail, 1, EndType.clear);
+                Debug.Log("Not enough elements");
+                return;
             }
+
+            gptResult.decision = Decision.wait;
+
+            int persuasion;
+            if (int.TryParse(persuasionValue, out persuasion))
+            {
+                gptResult.persuasion = persuasion;
+            }
+            else
+            {
+                Debug.Log("Failed to parse persuasion value");
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(reasonValue))
+            {
+                gptResult.reason = reasonValue.Trim();
+            }
+
+            gptResult.emotion = (Define.Emotion)Enum.Parse(typeof(Define.Emotion), emotionValue.Trim(), true);
+
+            return;
         }
     }
 
+    // 문자열에서 두 키워드 사이의 값을 추출하는 헬퍼 메서드
+    private string GetValueBetween(string source, string start, string end)
+    {
+        int startIndex = source.IndexOf(start);
+        if (startIndex == -1)
+            return null;
+
+        startIndex += start.Length;
+        int endIndex = source.IndexOf(end, startIndex);
+        if (endIndex == -1)
+            return null;
+
+        return source.Substring(startIndex, endIndex - startIndex).Trim();
+    }
+
+    // 문자열에서 특정 키워드 이후의 값을 추출하는 헬퍼 메서드
+    private string GetValueAfter(string source, string start)
+    {
+        int startIndex = source.IndexOf(start);
+        if (startIndex == -1)
+            return null;
+
+        startIndex += start.Length;
+        return source.Substring(startIndex).Trim();
+    }
 
     private void SubScribeAction()
     {
@@ -102,15 +166,6 @@ public class ChattingState : ChatBaseState, IVariableChat
         ReplySubManager.OnReplyUpdated -= GptOutput;
     }
 
-    private enum Emotion
-    {
-        worst,
-        bad,
-        normal,
-        good,
-        best
-    }
-
     private enum Decision
     {
         wait,
@@ -123,15 +178,17 @@ public class ChattingState : ChatBaseState, IVariableChat
         public Decision decision;
 
         public int persuasion;
-        public Emotion emotion;
+        public Define.Emotion emotion;
 
+        public string reason;
         public string summary;
 
         public GptResult()
         { 
             decision = Decision.wait;
             persuasion = 0;
-            emotion = Emotion.normal;
+            emotion = Define.Emotion.normal;
+            reason = "";
             summary = "";
         }
     }
