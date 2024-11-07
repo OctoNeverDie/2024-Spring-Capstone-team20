@@ -20,7 +20,7 @@ public class TurnManager : MonoBehaviour
     public void AddTurnAndCheckTalkTurn()
     {
         todayTurn++;
-        Managers.UI.SetTurnText(todayTurn, talkLimit);
+        
         if (todayTurn >= talkLimit)
         {
             Debug.Log("TODO : 버튼 나오게 해야함, 대화 횟수 소진, 엔딩 호출 (위치: TurnManager)");
