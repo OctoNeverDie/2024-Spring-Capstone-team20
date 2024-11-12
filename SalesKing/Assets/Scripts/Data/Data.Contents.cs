@@ -11,7 +11,7 @@ public class ItemInfo
     public int ObjID;
     public string ObjName;
     public string ObjInfo;
-    public string Category;
+    public Define.ItemCategory Category;
 }
 
 public class ItemData : ILoader<ItemInfo>
@@ -20,24 +20,6 @@ public class ItemData : ILoader<ItemInfo>
     public List<ItemInfo> GetList()
     => items;
 }
-#endregion
-
-#region concern
-[Serializable]
-public class ConcernInfo
-{
-    public int ConcernID;
-    public string Concern;
-    public string Category;
-}
-public class ConcernData : ILoader<ConcernInfo>
-{
-    public List<ConcernInfo> concerns = new List<ConcernInfo>();
-    public List<ConcernInfo> GetList()
-    => concerns;
-}
-
-
 #endregion
 
 #region NPC
@@ -49,10 +31,32 @@ public class NpcInfo
     public string NpcSex;
     public int NpcAge;
     public string KeyWord;
+    public string Concern;
+    public string WantItem;
+    public Define.ItemCategory ItemCategory;
+    public int [] Mbtis;
+
+    //prompt needed
     public string SituationDescription;
     public string Personality;
     public string DialogueStyle;
     public string Example;
+
+    public NpcInfo(int npcID, string npcName, string npcSex, int npcAge, string keyWord, string concern, string wantItem, int[] mbtis, string situationDescription, string personality, string dialogueStyle, string example)
+    {
+        NpcID = npcID;
+        NpcName = npcName;
+        NpcSex = npcSex;
+        NpcAge = npcAge;
+        KeyWord = keyWord;
+        Concern = concern;
+        WantItem = wantItem;
+        Mbtis = mbtis;
+        SituationDescription = situationDescription;
+        Personality = personality;
+        DialogueStyle = dialogueStyle;
+        Example = example;
+    }
 }
 
 public class NpcData : ILoader<NpcInfo>

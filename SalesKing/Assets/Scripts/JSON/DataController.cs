@@ -7,6 +7,7 @@ using System;
 
 public class DataController : MonoBehaviour
 {
+    #region SingleTon
     private static DataController instance;
     public static DataController Instance
     {
@@ -23,20 +24,16 @@ public class DataController : MonoBehaviour
                     singleton.name = typeof(DataController).ToString() + " (Singleton)";
 
                     DontDestroyOnLoad(singleton);
-
-
                 }
             }
             return instance;
         }
     }
-
-    public GameObject DataControllerGO;
+    #endregion
 
     void Awake()
     {
         Init();
-        DataControllerGO = transform.gameObject;
     }
 
     void Init()

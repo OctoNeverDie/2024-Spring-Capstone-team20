@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
@@ -14,9 +15,13 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                 if (instance == null)
                 {
                     GameObject singletonObject = new GameObject();
-                    instance = singletonObject.AddComponent<T>();
                     singletonObject.name = typeof(T).ToString() + " (Singleton)";
-                    DontDestroyOnLoad(singletonObject);
+                    instance = singletonObject.AddComponent<T>();
+                }
+
+                if (instance is ISingletonSettings settings && settings.ShouldNotDestroyOnLoad)
+                {
+                    DontDestroyOnLoad(instance.gameObject);
                 }
             }
             return instance;
@@ -28,7 +33,6 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         if (instance == null)
         {
             instance = this as T;
-            DontDestroyOnLoad(gameObject);
         }
         else if (instance != this)
         {

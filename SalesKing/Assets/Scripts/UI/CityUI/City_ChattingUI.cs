@@ -5,31 +5,6 @@ using UnityEngine;
 
 public class City_ChattingUI : MonoBehaviour
 {
-    [SerializeField] private GameObject NpcSpeechBubble;
-
-    public void SetNpcAnswerText(string text)
-    {
-        TextMeshProUGUI NpcSpeechText = NpcSpeechBubble.GetComponentInChildren<TextMeshProUGUI>();
-        NpcSpeechText.text = text;
-        NpcSpeechBubble.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-        NpcSpeechBubble.transform.DOScale(1f, 0.5f).SetEase(Ease.InOutBounce).SetUpdate(true);
-    }
-
-    [SerializeField] private GameObject WaitReplyPanel;
-    private void SubWaitReply(bool beActive)
-    {
-        WaitReplyPanel.SetActive(beActive);
-    }
-
-    [SerializeField] GameObject ConvoPanel;
-    [SerializeField] GameObject SummaryPanel;
-    [SerializeField] GameObject EndPanel;
-
-    [SerializeField] GameObject RecordPanel;
-    [SerializeField] GameObject KeyboardPanel;
-
-    [SerializeField] GameObject OkayBtn;
-
     private void Awake()
     {
         ChatManager.OnPanelUpdated -= ShowPanel;
@@ -43,6 +18,33 @@ public class City_ChattingUI : MonoBehaviour
         ChatManager.OnPanelUpdated -= ShowPanel;
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
     }
+
+
+    [SerializeField] private GameObject WaitReplyPanel;
+    private void SubWaitReply(bool beActive)
+    {
+        WaitReplyPanel.SetActive(beActive);
+    }
+
+    [SerializeField] private GameObject NpcSpeechBubble;
+
+    public void SetNpcAnswerText(string text)
+    {
+        TextMeshProUGUI NpcSpeechText = NpcSpeechBubble.GetComponentInChildren<TextMeshProUGUI>();
+        NpcSpeechText.text = text;
+        NpcSpeechBubble.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        NpcSpeechBubble.transform.DOScale(1f, 0.5f).SetEase(Ease.InOutBounce).SetUpdate(true);
+    }
+
+
+    [SerializeField] GameObject ConvoPanel;
+    [SerializeField] GameObject SummaryPanel;
+    [SerializeField] GameObject EndPanel;
+
+    [SerializeField] GameObject RecordPanel;
+    [SerializeField] GameObject KeyboardPanel;
+
+    [SerializeField] GameObject OkayBtn;
 
     #region 대화 시작하겠습니까?
     public void OnClickYesTalkBtn()

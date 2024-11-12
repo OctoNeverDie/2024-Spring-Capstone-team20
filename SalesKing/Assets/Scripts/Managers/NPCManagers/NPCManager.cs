@@ -4,8 +4,10 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-public class NPCManager : Singleton<NPCManager>
+public class NPCManager : Singleton<NPCManager>, ISingletonSettings
 {
+    public bool ShouldNotDestroyOnLoad => true;
+
     public NPCMeshManager Mesh;
     public NPCSpawner Spawner;
     public NPCAnimationManager Anim;
