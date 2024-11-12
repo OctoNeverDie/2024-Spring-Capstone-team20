@@ -22,7 +22,8 @@ public class SceneModeManager : MonoBehaviour
             case "CityMap": Awake_CityScene(); curScene = Define.SceneMode.CityMap; break;
             case "CityMap_juyeon": Awake_CityScene(); curScene = Define.SceneMode.CityMap; break;
             case "OfficeMap": Awake_OfficeScene(); curScene = Define.SceneMode.OfficeMap; break;
-            case "StageSelect": Awake_StageSelectScene(); curScene = Define.SceneMode.StageSelect; break;
+            //case "StageSelect": Awake_StageSelectScene(); curScene = Define.SceneMode.StageSelect; break;
+            case "SaveFile": Awake_SaveFileScene(); curScene = Define.SceneMode.SaveFile; break;
             default: break;
         }
     }
@@ -57,10 +58,12 @@ public class SceneModeManager : MonoBehaviour
         
     }
 
+    /*
     private void Awake_StageSelectScene()
     {
         Managers.Instance.AddStageSelectManager();
     }
+    */
 
     private void Awake_SaveFileScene()
     {

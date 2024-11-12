@@ -61,7 +61,6 @@ public class Managers : MonoBehaviour
     //인벤토리 관련
     InventoryManager _inven;
 
-    MissionManager _mission;
     //대화 관련
     ChatManager _chat;
 
@@ -71,7 +70,9 @@ public class Managers : MonoBehaviour
 
     TurnManager _turn;
 
-    StageSelectManager _stage;
+    //StageSelectManager _stage;
+
+    SaveFileManager _file;
 
     public static SceneModeManager Scene { get { return Instance._scene; } }
     public static NPCManager NPC { get { return Instance._npc; } }
@@ -84,12 +85,12 @@ public class Managers : MonoBehaviour
     public static ConvoManager Convo { get { return Instance._convo; } }
     public static CashManager Cash { get { return Instance._cash; } }
     public static InventoryManager Inven { get { return Instance._inven; } }
-    public static MissionManager Mission { get { return Instance._mission; } }
     public static ChatManager Chat { get { return Instance._chat; } }
     public static UserInputManager Input { get { return Instance._input; } }
     public static TransitionManager Trans { get { return Instance._trans; } }
     public static TurnManager Turn { get { return Instance._turn; } }
-    public static StageSelectManager Stage { get { return Instance._stage; } }
+    //public static StageSelectManager Stage { get { return Instance._stage; } }
+    public static SaveFileManager File { get { return Instance._file; } }
 
 
     void Awake()
@@ -100,10 +101,6 @@ public class Managers : MonoBehaviour
         if (instance._scene == null)
         {
             instance._scene = ManagersGO.AddComponent<SceneModeManager>();
-        }
-        if (instance._mission == null)
-        {
-            instance._mission = ManagersGO.AddComponent<MissionManager>();
         }
         if (instance._trans == null)
         {
@@ -258,6 +255,7 @@ public class Managers : MonoBehaviour
             instance._input = inputManager.AddComponent<UserInputManager>();
         }
     }
+    /*
     public void AddStageSelectManager()
     {
         GameObject stageManager = new GameObject("@StageSelectManager");
@@ -268,10 +266,16 @@ public class Managers : MonoBehaviour
             instance._stage = stageManager.AddComponent<StageSelectManager>();
         }
     }
-
+    */
     public void AddSaveFileManager()
     {
+        GameObject saveFileManager = new GameObject("@SaveFileManager");
+        saveFileManager.transform.parent = transform;
 
+        if (instance._file == null)
+        {
+            instance._file = saveFileManager.AddComponent<SaveFileManager>();
+        }
     }
 
     public void ClearChildManagers()

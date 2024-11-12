@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using System.IO;
 using System;
 
@@ -40,148 +39,119 @@ public class DataController : MonoBehaviour
             if (_gameData == null)
             {
                 LoadGameData();
-                ToGameJson();
+                SaveGameData();
             }
             return _gameData;
         }
     }
 
-    public PlayData _playData;
+    private Dictionary<string, PlayData> playDataCache = new Dictionary<string, PlayData>();
 
-    public PlayData playData
+    public PlayData GetPlayDataById(string playDataId)
     {
-        get
+        if (!playDataCache.TryGetValue(playDataId, out PlayData playData))
         {
-            if (_playData == null)
-            {
-                LoadPlayData();
-                ToPlayJson();
-            }
-            return _playData;
+            playData = LoadPlayData(playDataId);
+            playDataCache[playDataId] = playData;
+        }
+        return playData;
+    }
+
+    public void CreatePlayData(string playDataId)
+    {
+        if (!playDataCache.ContainsKey(playDataId))
+        {
+            var newPlayData = new PlayData();
+            playDataCache[playDataId] = newPlayData;
+            SavePlayData(playDataId, newPlayData);
+            UpdateGameDataWithPlayDataId(playDataId);
         }
     }
 
-    System.IO.StreamWriter SW = null;
+    public void DeletePlayData(string playDataId)
+    {
+        string filePath = GetPlayDataFilePath(playDataId);
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+            playDataCache.Remove(playDataId);
+            RemovePlayDataIdFromGameData(playDataId);
+        }
+    }
+
+    private PlayData LoadPlayData(string playDataId)
+    {
+        string filePath = GetPlayDataFilePath(playDataId);
+        if (File.Exists(filePath))
+        {
+            string json = File.ReadAllText(filePath);
+            return JsonUtility.FromJson<PlayData>(json);
+        }
+        else
+        {
+            Debug.LogWarning($"PlayData file '{filePath}' not found, creating new data.");
+            return new PlayData();
+        }
+    }
+
+    private void SavePlayData(string playDataId, PlayData playData)
+    {
+        string filePath = GetPlayDataFilePath(playDataId);
+        File.WriteAllText(filePath, JsonUtility.ToJson(playData, true));
+    }
+
+    private string GetPlayDataFilePath(string playDataId)
+    {
+        return Application.persistentDataPath + $"/{playDataId}.json";
+    }
+
+    private void UpdateGameDataWithPlayDataId(string playDataId)
+    {
+        if (!gameData.save_files_IDs.Contains(playDataId))
+        {
+            gameData.save_files_IDs.Add(playDataId);
+            SaveGameData();
+        }
+    }
+
+    private void RemovePlayDataIdFromGameData(string playDataId)
+    {
+        if (gameData.save_files_IDs.Contains(playDataId))
+        {
+            gameData.save_files_IDs.Remove(playDataId);
+            SaveGameData();
+        }
+    }
 
     public void LoadGameData()
     {
         string filePath = Application.persistentDataPath + "/GameData.json";
-        //string filePath = Application.dataPath + "/Scripts/JSON/GameData.json";
         Debug.Log(filePath);
 
         if (File.Exists(filePath))
         {
-            print(filePath);
-            string FromJsonData = File.ReadAllText(filePath);
-            _gameData = JsonUtility.FromJson<GameData>(FromJsonData);
+            string fromJsonData = File.ReadAllText(filePath);
+            _gameData = JsonUtility.FromJson<GameData>(fromJsonData);
         }
         else
         {
-            // 새 파일이 없을 경우, 새로운 GameData 객체 생성
             _gameData = new GameData();  // 기본 GameData 객체 생성
-            ToGameJson(); // 생성된 GameData를 JSON 파일로 저장
+            SaveGameData();
         }
     }
 
-
-    [ContextMenu("To Game Json")]
-    public void ToGameJson()
+    public void SaveGameData()
     {
-        File.WriteAllText(Application.persistentDataPath + "/GameData.json", JsonUtility.ToJson(gameData, true));
-        //File.WriteAllText(Application.dataPath + "/Scripts/JSON/GameData.json", JsonUtility.ToJson(gameData, true));
+        string filePath = Application.persistentDataPath + "/GameData.json";
+        File.WriteAllText(filePath, JsonUtility.ToJson(gameData, true));
     }
 
-
-    public void LoadPlayData()
-    { 
-        string filePath = Application.persistentDataPath + "/PlayData.json";
-        //string filePath = Application.dataPath + "/Scripts/JSON/PlayData.json";
-        Debug.Log(filePath);
-
-        if (File.Exists(filePath))
-        {
-            print(filePath);
-            string FromJsonData = File.ReadAllText(filePath);
-            _playData = JsonUtility.FromJson<PlayData>(FromJsonData);
-        }
-        else
-        {
-            // 새 파일이 없을 경우, 새로운 PlayData 객체 생성
-            _playData = new PlayData();  // 기본 PlayData 객체 생성
-            ToPlayJson(); // 생성된 PlayData를 JSON 파일로 저장
-        }
-    }
-
-    [ContextMenu("To Play Json")]
-    public void ToPlayJson()
-    {
-        File.WriteAllText(Application.persistentDataPath + "/PlayData.json", JsonUtility.ToJson(playData, true));
-        //File.WriteAllText(Application.dataPath + "/Scripts/JSON/PlayData.json", JsonUtility.ToJson(playData, true));
-    }
-
-    
     void OnApplicationQuit()
     {
-        ToGameJson();
-        ToPlayJson();//종료할때 있어야함
-    }
-
-    IEnumerator SaveGameData()
-    {
-        while (true)
+        SaveGameData();
+        foreach (var kvp in playDataCache)
         {
-            File.WriteAllText(Application.persistentDataPath + "/GameData.json", JsonUtility.ToJson(gameData, true));
-            //File.WriteAllText(Application.dataPath + "/Scripts/JSON/GameData.json", JsonUtility.ToJson(gameData, true));
-
-            try
-            {
-                //SW = new System.IO.StreamWriter(Application.persistentDataPath + "/GameData.json");
-                SW = new System.IO.StreamWriter(Application.dataPath + "/Scripts/JSON/GameData.json");
-            }
-            catch (Exception exp)
-            {
-                UnityEngine.Debug.Log(exp);
-            }
-            finally
-            {
-                if (SW != null)
-                {
-                    SW.Close();
-                }
-            }
-
-            yield return new WaitForSeconds(0.5f);
+            SavePlayData(kvp.Key, kvp.Value);
         }
-
     }
-
-    IEnumerator SavePlayData()
-    {
-        while (true)
-        {
-            File.WriteAllText(Application.persistentDataPath + "/PlayData.json", JsonUtility.ToJson(playData, true));
-            //File.WriteAllText(Application.dataPath + "/Scripts/JSON/PlayData.json", JsonUtility.ToJson(playData, true));
-
-            try
-            {
-                //SW = new System.IO.StreamWriter(Application.persistentDataPath + "/PlayData.json");
-                SW = new System.IO.StreamWriter(Application.dataPath + "/Scripts/JSON/PlayData.json");
-            }
-            catch (Exception exp)
-            {
-                UnityEngine.Debug.Log(exp);
-            }
-            finally
-            {
-                if (SW != null)
-                {
-                    SW.Close();
-                }
-            }
-
-            yield return new WaitForSeconds(0.5f);
-        }
-
-    }
-
 }
