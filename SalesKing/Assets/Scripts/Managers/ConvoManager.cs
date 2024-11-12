@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System.Linq;
 public class ConvoManager : MonoBehaviour
 {
+    /*
     public void ConvoStarted()
     {
         Managers.Time.StopAndRestartTime(true);
@@ -28,4 +29,5 @@ public class ConvoManager : MonoBehaviour
         Managers.Cam.SwitchToFirstPersonCam();
         Managers.Player.MyPlayer.GetComponent<Player>().PlayerBody.SetActive(true);
     }
+    */
 }

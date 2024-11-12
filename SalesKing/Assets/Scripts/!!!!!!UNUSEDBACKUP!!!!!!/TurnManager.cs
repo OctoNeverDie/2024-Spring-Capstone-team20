@@ -30,6 +30,6 @@ public class TurnManager : MonoBehaviour
     private IEnumerator ShowSummaryPanelWithDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        Managers.UI.c_summary.ShowSummaryPanel();
+        //Managers.UI.c_summary.ShowSummaryPanel();
     }
 }

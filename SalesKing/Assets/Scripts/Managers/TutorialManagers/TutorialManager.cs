@@ -56,6 +56,7 @@ public class RecordingState : ITutorialState
 
     public void Update()
     {
+        /*
         if (Managers.Input.CurInputMode == Define.UserInputMode.Voice)
         {
             if (Input.GetButtonDown("STT"))
@@ -67,7 +68,7 @@ public class RecordingState : ITutorialState
                 missionText.text = "대화 전송 버튼을 눌러 전송하세요.";  // 대화 전송 안내 텍스트 업데이트
             }
         }
-
+        */
     }
 }
 
