@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using System;
+using OpenAI_API.Files;
 
 public class DataController : MonoBehaviour
 {
@@ -54,14 +55,15 @@ public class DataController : MonoBehaviour
         {
             if (_playData == null)
             {
-                _playData = new PlayData();
+                LoadPlayData();
+                ToPlayJson();
             }
             return _playData;
         }
     }
 
     public void LoadGameData()
-    { 
+    {
         string filePath = Application.persistentDataPath + "/GameData.json";
         //string filePath = Application.dataPath + "/Scripts/JSON/GameData.json";
         Debug.Log(filePath);
@@ -89,10 +91,41 @@ public class DataController : MonoBehaviour
         //File.WriteAllText(Application.dataPath + "/Scripts/JSON/GameData.json", JsonUtility.ToJson(gameData, true));
     }
 
+
+    public void LoadPlayData()
+    { 
+        string filePath = Application.persistentDataPath + "/PlayData.json";
+        //string filePath = Application.dataPath + "/Scripts/JSON/PlayData.json";
+        Debug.Log(filePath);
+
+        if (File.Exists(filePath))
+        {
+            print(filePath);
+            string FromJsonData = File.ReadAllText(filePath);
+            _playData = JsonUtility.FromJson<PlayData>(FromJsonData);
+        }
+        else
+        {
+            // 새 파일이 없을 경우, 새로운 PlayData 객체 생성
+            _playData = new PlayData();  // 기본 PlayData 객체 생성
+            ToPlayJson(); // 생성된 PlayData를 JSON 파일로 저장
+        }
+    }
+
+    System.IO.StreamWriter SW = null;
+
+    [ContextMenu("To Play Json")]
+    public void ToPlayJson()
+    {
+        File.WriteAllText(Application.persistentDataPath + "/PlayData.json", JsonUtility.ToJson(playData, true));
+        //File.WriteAllText(Application.dataPath + "/Scripts/JSON/PlayData.json", JsonUtility.ToJson(playData, true));
+    }
+
     
     void OnApplicationQuit()
     {
-        ToGameJson();//종료할때 있어야함
+        ToGameJson();
+        ToPlayJson();//종료할때 있어야함
     }
 
     IEnumerator SaveGameData()
@@ -106,6 +139,35 @@ public class DataController : MonoBehaviour
             {
                 //SW = new System.IO.StreamWriter(Application.persistentDataPath + "/GameData.json");
                 SW = new System.IO.StreamWriter(Application.dataPath + "/Scripts/JSON/GameData.json");
+            }
+            catch (Exception exp)
+            {
+                UnityEngine.Debug.Log(exp);
+            }
+            finally
+            {
+                if (SW != null)
+                {
+                    SW.Close();
+                }
+            }
+
+            yield return new WaitForSeconds(0.5f);
+        }
+
+    }
+
+    IEnumerator SavePlayData()
+    {
+        while (true)
+        {
+            File.WriteAllText(Application.persistentDataPath + "/PlayData.json", JsonUtility.ToJson(playData, true));
+            //File.WriteAllText(Application.dataPath + "/Scripts/JSON/PlayData.json", JsonUtility.ToJson(playData, true));
+
+            try
+            {
+                //SW = new System.IO.StreamWriter(Application.persistentDataPath + "/PlayData.json");
+                SW = new System.IO.StreamWriter(Application.dataPath + "/Scripts/JSON/PlayData.json");
             }
             catch (Exception exp)
             {
