@@ -640,7 +640,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 998361af3f9791a47b09227d22adcb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SaveFilePanel: {fileID: 3657480170144960551, guid: c5b108c3e8122134086192ff28fbd1c0, type: 3}
+  SaveFilePanelPrefab: {fileID: 3657480170144960551, guid: c5b108c3e8122134086192ff28fbd1c0, type: 3}
+  VerticalLayoutPanel: {fileID: 476900904}
   SaveFiles: []
   SaveFileButtons: []
   DeleteButtons: []

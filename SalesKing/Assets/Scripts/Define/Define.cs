@@ -8,9 +8,10 @@ public class Define
     public enum SceneMode
     {
         Start,
-        StageSelect,
+        //StageSelect,
         CityMap, 
-        OfficeMap
+        OfficeMap, 
+        SaveFile
     }
 
     public enum Emotion

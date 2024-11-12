@@ -11,6 +11,7 @@ public class StageSelectUI : MonoBehaviour
     public Button RightBtn;
     public Button StartBtn;
 
+    /*
     void Start()
     {
         for(int i=0; i<StagePanelsHolder.transform.childCount; i++)
@@ -38,4 +39,6 @@ public class StageSelectUI : MonoBehaviour
     {
         Managers.Stage.StartStage();
     }
+    */
+
 }

@@ -9,7 +9,7 @@ public class MouseSpeedUI : MonoBehaviour
     public Slider slider;
     public TextMeshProUGUI sliderText;
 
-    void Start()
+    /*void Start()
     {
         slider.value = DataController.Instance.gameData.mouseSpeed;
         sliderText.text = DataController.Instance.gameData.mouseSpeed.ToString();
@@ -21,5 +21,5 @@ public class MouseSpeedUI : MonoBehaviour
         DataController.Instance.ToGameJson();
         sliderText.text = slider.value.ToString();
     }
-
+    */
 }
