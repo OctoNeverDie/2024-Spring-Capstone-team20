@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using System;
-using OpenAI_API.Files;
 
 public class DataController : MonoBehaviour
 {
@@ -62,6 +61,8 @@ public class DataController : MonoBehaviour
         }
     }
 
+    System.IO.StreamWriter SW = null;
+
     public void LoadGameData()
     {
         string filePath = Application.persistentDataPath + "/GameData.json";
@@ -82,7 +83,6 @@ public class DataController : MonoBehaviour
         }
     }
 
-    System.IO.StreamWriter SW = null;
 
     [ContextMenu("To Game Json")]
     public void ToGameJson()
@@ -111,8 +111,6 @@ public class DataController : MonoBehaviour
             ToPlayJson(); // 생성된 PlayData를 JSON 파일로 저장
         }
     }
-
-    System.IO.StreamWriter SW = null;
 
     [ContextMenu("To Play Json")]
     public void ToPlayJson()
