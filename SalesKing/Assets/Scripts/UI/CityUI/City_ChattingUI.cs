@@ -1,14 +1,37 @@
 using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
 public class City_ChattingUI : MonoBehaviour
 {
+    [SerializeField] private GameObject NpcSpeechBubble;
+
+    public void SetNpcAnswerText(string text)
+    {
+        TextMeshProUGUI NpcSpeechText = NpcSpeechBubble.GetComponentInChildren<TextMeshProUGUI>();
+        NpcSpeechText.text = text;
+        NpcSpeechBubble.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        NpcSpeechBubble.transform.DOScale(1f, 0.5f).SetEase(Ease.InOutBounce).SetUpdate(true);
+    }
+
+    [SerializeField] private GameObject WaitReplyPanel;
+    private void SubWaitReply(bool beActive)
+    {
+        WaitReplyPanel.SetActive(beActive);
+    }
+
+    [SerializeField] GameObject ConvoPanel;
+    [SerializeField] GameObject SummaryPanel;
+    [SerializeField] GameObject EndPanel;
+
+    [SerializeField] GameObject RecordPanel;
+    [SerializeField] GameObject KeyboardPanel;
+
+    [SerializeField] GameObject OkayBtn;
+
     private void Awake()
     {
-
         ChatManager.OnPanelUpdated -= ShowPanel;
         ChatManager.OnPanelUpdated += ShowPanel;
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
@@ -21,59 +44,31 @@ public class City_ChattingUI : MonoBehaviour
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
     }
 
-    [SerializeField] private GameObject NpcSpeechBubble;
-    [SerializeField] private GameObject UserSpeechBubble;
-    public void SetAnswerText(string text, bool isNpc)
-    {
-        GameObject go;
-        if (isNpc) { go = NpcSpeechBubble; }
-        else { go = UserSpeechBubble;  }
-
-        TextMeshProUGUI SpeechText = go.GetComponentInChildren<TextMeshProUGUI>();
-        SpeechText.text = text;
-        go.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-        go.transform.DOScale(1f, 0.5f).SetEase(Ease.InOutBounce).SetUpdate(true);
-    }
-
-    [SerializeField] private GameObject WaitReplyPanel;
-    private void SubWaitReply(bool beActive)
-    {
-        WaitReplyPanel.SetActive(beActive);
-    }
-
-    [SerializeField] private GameObject RecordPanel;
-    [SerializeField] private GameObject KeyboardPanel;
-    public void OnClickSwitchBtn()
-    {
-        // switch to voice
-        if (Managers.Input.CurInputMode == Define.UserInputMode.Keyboard)
-        {
-            RecordPanel.SetActive(true);
-            KeyboardPanel.SetActive(false);
-            Managers.Input.CurInputMode = Define.UserInputMode.Voice;
-        }
-        else if (Managers.Input.CurInputMode == Define.UserInputMode.Voice)
-        {
-            RecordPanel.SetActive(false);
-            KeyboardPanel.SetActive(true);
-            Managers.Input.CurInputMode = Define.UserInputMode.Keyboard;
-        }
-    }
-
-    public GameObject ConvoPanel;
-    public GameObject SummaryPanel;
-    public GameObject EndPanel;
-
-
-    public GameObject OkayBtn;
-
     #region 대화 시작하겠습니까?
     public void OnClickYesTalkBtn()
     {
+        TutorialManager.Instance.OnRecord();
         ConvoPanel.SetActive(true);
         EndPanel.SetActive(false);
         WaitReplyPanel.SetActive(false);
         InitiateInputMode();
+    }
+
+    public void InitiateInputMode()
+    {
+        Define.UserInputMode defaultMode = Managers.Input.CurInputMode;
+
+        if (defaultMode == Define.UserInputMode.Keyboard)
+        {
+            Debug.Log("키보드 인풋 모드로 초기화");
+            RecordPanel.SetActive(false);
+            KeyboardPanel.SetActive(true);
+        }
+        else if (defaultMode == Define.UserInputMode.Voice)
+        {
+            RecordPanel.SetActive(true);
+            KeyboardPanel.SetActive(false);
+        }
     }
 
     public void OnClickNoTalkBtn()
@@ -99,7 +94,6 @@ public class City_ChattingUI : MonoBehaviour
 
     private IEnumerator ShowEndPanelAfterDelay()
     {
-        // 3초 대기
         yield return new WaitForSecondsRealtime(1f);
         EndPanel.SetActive(true);
     }
@@ -113,4 +107,22 @@ public class City_ChattingUI : MonoBehaviour
         ConvoPanel.SetActive(false);
     }
     #endregion
+
+    public void OnClickSwitchBtn()
+    {
+        // switch to voice
+        if (Managers.Input.CurInputMode == Define.UserInputMode.Keyboard)
+        {
+            RecordPanel.SetActive(true);
+            KeyboardPanel.SetActive(false);
+            Managers.Input.CurInputMode = Define.UserInputMode.Voice;
+        }
+        else if (Managers.Input.CurInputMode == Define.UserInputMode.Voice)
+        {
+            RecordPanel.SetActive(false);
+            KeyboardPanel.SetActive(true);
+            Managers.Input.CurInputMode = Define.UserInputMode.Keyboard;
+
+        }
+    }
 }

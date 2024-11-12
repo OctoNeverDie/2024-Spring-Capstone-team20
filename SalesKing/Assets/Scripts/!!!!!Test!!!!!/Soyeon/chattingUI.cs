@@ -7,7 +7,7 @@ using DG.Tweening;
 public class chattingUI : MonoBehaviour
 {
     [SerializeField] private GameObject NpcSpeechBubble;
-    [SerializeField] private GameObject UserSpeechBubble;
+
     public void SetNpcAnswerText(string text)
     {
         TextMeshProUGUI NpcSpeechText = NpcSpeechBubble.GetComponentInChildren<TextMeshProUGUI>();
@@ -16,28 +16,20 @@ public class chattingUI : MonoBehaviour
         NpcSpeechBubble.transform.DOScale(1f, 0.5f).SetEase(Ease.InOutBounce).SetUpdate(true);
     }
 
-    public void SetUserAnswerText(string text)
-    {
-        TextMeshProUGUI UserSpeechText = UserSpeechBubble.GetComponentInChildren<TextMeshProUGUI>();
-        UserSpeechText.text = text;
-        UserSpeechBubble.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-        UserSpeechBubble.transform.DOScale(1f, 0.5f).SetEase(Ease.InOutBounce).SetUpdate(true);
-    }
-
     [SerializeField] private GameObject WaitReplyPanel;
     private void SubWaitReply(bool beActive)
     {
         WaitReplyPanel.SetActive(beActive);
     }
 
-    public GameObject ConvoPanel;
-    public GameObject SummaryPanel;
-    public GameObject EndPanel;
+    [SerializeField] GameObject ConvoPanel;
+    [SerializeField] GameObject SummaryPanel;
+    [SerializeField] GameObject EndPanel;
 
-    public GameObject RecordPanel;
-    public GameObject KeyboardPanel;
+    [SerializeField] GameObject RecordPanel;
+    [SerializeField] GameObject KeyboardPanel;
 
-    public GameObject OkayBtn;
+    [SerializeField] GameObject OkayBtn;
 
     private void Awake()
     {
@@ -60,7 +52,7 @@ public class chattingUI : MonoBehaviour
         ConvoPanel.SetActive(true);
         EndPanel.SetActive(false);
         WaitReplyPanel.SetActive(false);
-        Managers.UI.InitiateInputMode();
+        InitiateInputMode();
     }
 
     public void InitiateInputMode()
@@ -70,16 +62,13 @@ public class chattingUI : MonoBehaviour
         if (defaultMode == Define.UserInputMode.Keyboard)
         {
             Debug.Log("키보드 인풋 모드로 초기화");
-            if (ui != null)
-            {
-                ui.RecordPanel.SetActive(false);
-                ui.KeyboardPanel.SetActive(true);
-            }
+            RecordPanel.SetActive(false);
+            KeyboardPanel.SetActive(true);
         }
         else if (defaultMode == Define.UserInputMode.Voice)
         {
-            ui.RecordPanel.SetActive(true);
-            ui.KeyboardPanel.SetActive(false);
+            RecordPanel.SetActive(true);
+            KeyboardPanel.SetActive(false);
         }
     }
 
@@ -106,7 +95,6 @@ public class chattingUI : MonoBehaviour
 
     private IEnumerator ShowEndPanelAfterDelay()
     {
-        // 3초 대기
         yield return new WaitForSecondsRealtime(1f);
         EndPanel.SetActive(true);
     }

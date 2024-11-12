@@ -56,11 +56,13 @@ public class VariableCheck : MonoBehaviour
         switch (type)
         {
             case nameof(ReplyManager.UserAnswer) :
-                Managers..SetUserAnswerText(input);
+                //UIManager.ui_chatting.SetUserAnswerText(input);
+                Debug.Log($"네 대답 잘 감{input}");
                 break;
 
             case nameof(ReplyManager.GptReaction):
-                //Managers.UI.SetNPCAnswerText(ReplyManager.GptReaction);
+                Debug.Log($"걔 대답 잘 옴{input}");
+                //UIManager.ui_chatting.SetNPCAnswerText(ReplyManager.GptReaction);
                 break;
         }
     }
