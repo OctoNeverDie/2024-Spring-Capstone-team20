@@ -95,30 +95,6 @@ public class DataController : MonoBehaviour
         ToGameJson();//종료할때 있어야함
     }
 
-
-    void Start()
-    {
-        /*
-        if (PlayerPrefs.HasKey("key") == true)
-        {
-            if (gameObject.name == "DataControllerF")
-                GameObject.Find("DataControllerF").SetActive(false);
-        }
-
-        if (PlayerPrefs.HasKey("key") == false) // 최초실행이면
-        {
-            PlayerPrefs.SetInt("key", PlayerPrefs.GetInt("key", 0)); //최초실행시 여기 저장...
-            //Debug.Log("최초실행");
-
-            ToGameJson(); //이걸 먼저해야됨. 그리고 다른 데이터컨트롤러 인스턴스가 실행되는 스크립트가 메인씬에 없어야함
-
-            if (gameObject.name == "DataControllerF")
-                GameObject.Find("DataControllerF").SetActive(false);
-        }
-        */
-
-    }
-
     IEnumerator SaveGameData()
     {
         while (true)
