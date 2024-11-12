@@ -5,9 +5,11 @@ using static Define;
 public class ChatManager : MonoBehaviour
 {
     private ChatStateMachine _chatStateMachine;
+    [SerializeField] public DailyInitData dailyInitData;
+
     public ReplySubManager ReplyManager = new ReplySubManager();
     public EvalSubManager EvalManager = new EvalSubManager();
-    public NpcSupplyManager npcSupplyManager = new NpcSupplyManager();
+    //public NpcSupplyManager npcSupplyManager = new NpcSupplyManager();
 
     public static event Action<SendChatType, EndType> OnPanelUpdated;
     public void Init()
@@ -46,20 +48,6 @@ public class ChatManager : MonoBehaviour
 
     public void UpdateTurn(int turn, float npcSuggest = -1f, float userSuggest = -1f)
     { 
-        _turn = turn;
-        if (npcSuggest != -1f)
-            _npcSuggest = npcSuggest;
-        if (userSuggest != -1f)
-            _userSuggest = userSuggest;
-
-        float smaller = (_npcSuggest > _userSuggest) ? _userSuggest : _npcSuggest;
-        EvalManager.UpdateSuggestInEval(smaller);
-
-        //Panel에 남은 turn 수 출력, 서로 제시한 거 출력
-        Debug.Log($"{_turn}+{_npcSuggest}+{_userSuggest}");
-        if (npcSuggest <= 0f && userSuggest <= 0f)
-            return;
-        OnNumberUpdated?.Invoke(_turn, _npcSuggest, _userSuggest);
     }
 
     public void EndTurn(int turn)
@@ -83,22 +71,6 @@ public class ChatManager : MonoBehaviour
 
     public string RatePrice(float userSuggest, ItemInfo itemInfo=null)
     {
-        if (itemInfo == null)
-        {
-            itemInfo = EvalManager.itemInfo;
-        }
-        /*
-        string expensiveRate;
-
-        if (userSuggest < itemInfo.defaultPrice)
-            expensiveRate = "Affordable";
-        else if (userSuggest < itemInfo.expensive)
-            expensiveRate = "Soso, Not that Cheap, not that Expensive. 시장가다.";
-        else if (userSuggest < itemInfo.tooExpensive)
-            expensiveRate = "Expensive, 시장가보다 조금 비싼 가격이다.";
-        else
-            expensiveRate = "Too Expensive, 시장가보다 많이 비싼 가격이다.";
-        return expensiveRate;*/
         return "임시";
     }
 

@@ -93,11 +93,11 @@ public class InventorySpawn : MonoBehaviour
 
         if (float.TryParse(inputFieldGO.text, out inputPrice))
         {
-            Managers.Chat.EvalManager.InitItem(inputPrice, selectedItem);
+            //Managers.Chat.EvalManager.InitItem(inputPrice, selectedItem);
         }
         else
         {
-            Managers.Chat.EvalManager.InitItem(inputPrice, selectedItem);
+            //Managers.Chat.EvalManager.InitItem(inputPrice, selectedItem);
         }
     }
 

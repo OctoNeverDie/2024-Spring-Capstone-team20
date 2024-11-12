@@ -1,9 +1,10 @@
 using System.Collections;
-using DG.Tweening;
-using TMPro;
 using UnityEngine;
+using TMPro;
+using DG.Tweening;
 
-public class City_ChattingUI : MonoBehaviour
+
+public class chattingUI : MonoBehaviour
 {
     [SerializeField] private GameObject NpcSpeechBubble;
 
@@ -82,10 +83,10 @@ public class City_ChattingUI : MonoBehaviour
     public void ShowPanel(Define.SendChatType sendChatType, Define.EndType endType)
     {
         TextMeshProUGUI text = EndPanel.GetComponentInChildren<TextMeshProUGUI>();
-
+            
         if ((endType == Define.EndType.clear && Managers.Chat.reason == 3) || endType == Define.EndType.buy)
             text.text = "판매 성공!";
-
+            
         else
             text.text = "판매 실패...";
 
@@ -126,3 +127,4 @@ public class City_ChattingUI : MonoBehaviour
         }
     }
 }
+

@@ -1,12 +1,4 @@
-using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using System.Resources;
-using TMPro;
-//using TMPro.EditorUtilities;
-//using UnityEditor.EditorTools;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Managers : MonoBehaviour
 {
@@ -219,7 +211,7 @@ public class Managers : MonoBehaviour
         if (instance._chat == null)
         {
             instance._chat = chatManager.AddComponent<ChatManager>();
-            instance._chat.npcSupplyManager.InitQueue();
+            //instance._chat.npcSupplyManager.InitQueue();
         }
     }
 

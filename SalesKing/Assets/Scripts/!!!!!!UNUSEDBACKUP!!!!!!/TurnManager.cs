@@ -20,7 +20,7 @@ public class TurnManager : MonoBehaviour
     public void AddTurnAndCheckTalkTurn()
     {
         todayTurn++;
-        //Managers.UI.SetTurnText(todayTurn, talkLimit);
+        
         if (todayTurn >= talkLimit)
         {
             Debug.Log("TODO : 버튼 나오게 해야함, 대화 횟수 소진, 엔딩 호출 (위치: TurnManager)");
@@ -30,6 +30,6 @@ public class TurnManager : MonoBehaviour
     private IEnumerator ShowSummaryPanelWithDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        //Managers.UI.ShowSummaryPanel();
+        Managers.UI.c_summary.ShowSummaryPanel();
     }
 }
