@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class City_TabletAction : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public bool isTablet = false;
     void Start()
     {
-        
+        isTablet = false;
+        Managers.UI.ui_tablet.InitTablet();
     }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetButtonDown("Tab"))
+        {
+            if (isTablet)
+            {
+                Managers.UI.ui_tablet.OnClickHideTablet();
+                isTablet = false;
+            }
+            else
+            {
+                Managers.UI.ui_tablet.OnClickShowTablet();
+                isTablet = true;
+            }
+            
+        }
     }
 }

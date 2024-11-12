@@ -261,6 +261,11 @@ public class Managers : MonoBehaviour
         }
     }
 
+    public void AddSaveFileManager()
+    {
+
+    }
+
     public void ClearChildManagers()
     {
         foreach (Transform child in transform)

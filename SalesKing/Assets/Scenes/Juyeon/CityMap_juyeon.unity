@@ -40285,6 +40285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9adc3bed8d519894395a5de0392891e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Tablet: {fileID: 1124115873}
 --- !u!1001 &1126201888
 PrefabInstance:
   m_ObjectHideFlags: 0

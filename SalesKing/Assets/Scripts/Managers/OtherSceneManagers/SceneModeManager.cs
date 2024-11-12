@@ -62,6 +62,11 @@ public class SceneModeManager : MonoBehaviour
         Managers.Instance.AddStageSelectManager();
     }
 
+    private void Awake_SaveFileScene()
+    {
+        Managers.Instance.AddSaveFileManager();
+    }
+
     public void LoadSceneByName(string name)
     {
         Managers.Instance.ClearChildManagers();
