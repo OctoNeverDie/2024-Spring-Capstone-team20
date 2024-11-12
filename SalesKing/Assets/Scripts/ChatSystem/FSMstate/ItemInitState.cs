@@ -5,15 +5,12 @@ public class ItemInitState : ChatBaseState
 {
     public override void Enter()
     {
-        SubScribeAction();
-
         _sendChatType = SendChatType.ItemInit;
         Managers.Chat.ActivatePanel(_sendChatType);
     }
 
     public override void Exit()
     { 
-        UnSubScribeAction();
     }
     private void MakeAnswer(float userSuggest, ItemInfo itemInfo)
     {
@@ -24,6 +21,10 @@ public class ItemInitState : ChatBaseState
          + $"\nThe thing vendor is selling to you: {itemInfo.ObjName}"
         + $"\nvendor First Suggest: {userSuggest} credit,";
         //+ $"Your First Suggest: {itemInfo.defaultPrice} credit";
+
+        Debug.Log("For Test -------------");
+        _userSend = "$start";
+        _initData = "네가 사려고 한 물건: 케이크, 판매자가 가져온 물건: 캣타워";
 
         SendAnswer(_userSend, _initData);
     }
@@ -36,14 +37,4 @@ public class ItemInitState : ChatBaseState
         ServerManager.Instance.GetGPTReply(_userSend, SendChatType.ItemInit, _initData);
     }
 
-
-    private void SubScribeAction()
-    {
-        EvalSubManager.OnItemInit -= MakeAnswer;
-        EvalSubManager.OnItemInit += MakeAnswer;
-    }
-    private void UnSubScribeAction()
-    {
-        EvalSubManager.OnItemInit -= MakeAnswer;
-    }
 }

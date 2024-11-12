@@ -16,13 +16,11 @@ public class Define
 
     public enum Emotion
     {
-        Neutral,
-        SlightlyPositive,
-        Positive,
-        VeryPositive,
-        SlightlyNegative,
-        Negative,
-        VeryNegative
+        worst,
+        bad,
+        normal,
+        good,
+        best
     }
 
     public enum Skybox
@@ -36,6 +34,8 @@ public class Define
     public enum SendChatType
     {
         None,
+        ChatInit,
+        Chatting,
         NpcInit,
         ItemInit,
         ChatBargain,
@@ -66,4 +66,18 @@ public class Define
         Voice
     }
 
+    public enum Mbti
+    { 
+        emotional,
+        logical,
+        flatter,
+        flirter,
+    }
+
+    public enum Prefer
+    { 
+        norm,
+        like,
+        dislike,
+    }
 }

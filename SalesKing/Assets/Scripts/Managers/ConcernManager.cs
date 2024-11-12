@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class ConcernManager : MonoBehaviour
 
     private HashSet<int> usedConcernIDs = new HashSet<int>();
 
-    public string GetRandomConcernAndItem()
+    public (int firstValue, int secondValue) GetRandomConcernAndItem()
     {
         concerns = Managers.Data.concernList;
         items = Managers.Data.itemList;
@@ -17,11 +18,12 @@ public class ConcernManager : MonoBehaviour
         // Check if concerns list is empty
         if (concerns.Count == 0)
         {
-            return "No concerns available.";
+            Debug.Log("No concerns available.");
+            return (0, 0);
         }
 
         // Randomly select a concern
-        var randomConcern = concerns[Random.Range(0, concerns.Count)];
+        var randomConcern = concerns[UnityEngine.Random.Range(0, concerns.Count)];
 
         // Get the corresponding category
         string category = randomConcern.Category;
@@ -31,14 +33,15 @@ public class ConcernManager : MonoBehaviour
 
         if (itemsInCategory.Count == 0)
         {
-            return "No items available in the selected category.";
+            Debug.Log("No items available in the selected category.");
+            return (0, 0);
         }
 
         // Randomly select an item
-        var randomItem = itemsInCategory[Random.Range(0, itemsInCategory.Count)];
+        var randomItem = itemsInCategory[UnityEngine.Random.Range(0, itemsInCategory.Count)];
 
         // Return the formatted result
-        return $"고민: {randomConcern.Concern} \n구매자가 사고자 하는 물건: {randomItem.ObjName}";
+        return (randomConcern.ConcernID, randomItem.ObjID);
     }
 
 }

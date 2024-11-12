@@ -27,9 +27,6 @@ public class VariableCheck : MonoBehaviour
 
         EvalSubManager.OnChatDataUpdated -= NpcEval;
         EvalSubManager.OnChatDataUpdated += NpcEval;
-
-        EvalSubManager.OnItemInit -= NpcInititem;
-        EvalSubManager.OnItemInit += NpcInititem;
     }
 
     private void OnEnable()
@@ -59,11 +56,13 @@ public class VariableCheck : MonoBehaviour
         switch (type)
         {
             case nameof(ReplyManager.UserAnswer) :
-                //Managers.UI.SetUserAnswerText(input);
+                //UIManager.ui_chatting.SetUserAnswerText(input);
+                Debug.Log($"네 대답 잘 감{input}");
                 break;
 
             case nameof(ReplyManager.GptReaction):
-                //Managers.UI.SetNPCAnswerText(ReplyManager.GptReaction);
+                Debug.Log($"걔 대답 잘 옴{input}");
+                //UIManager.ui_chatting.SetNPCAnswerText(ReplyManager.GptReaction);
                 break;
         }
     }
@@ -99,13 +98,6 @@ public class VariableCheck : MonoBehaviour
                     $"{npcEvalDict.npcAge}+" +
                     $"{npcEvalDict.npcSex}");
                 break;
-
-            case nameof(EvalManager.itemInfo):
-                //chatbargain -> success : item이 user 지갑 주머니에 들어와있을 때
-                Debug.Log($"5 판가격,아이템 업데이트{npcEvalDict.item}, {npcEvalDict.price}");
-                //Managers.Inven.RemoveFromInventory(npcEvalDict.itemID);
-                Managers.Cash.AddCash(npcEvalDict.price);
-                break;            
         }
     }
 }

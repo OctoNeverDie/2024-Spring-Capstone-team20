@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using static Define;
 
@@ -8,56 +6,47 @@ public class NpcInitState : ChatBaseState
     //말을 건다 버튼 클릭하면 일어남.
     public override void Enter()
     {
-        SubScribeAction();
         InitData();
     }
 
     public override void Exit()
     {
-        UnSubScribeAction();
     }
 
     private void InitData()
     {
+        _sendChatType = SendChatType.ChatInit;
+
         Managers.Chat.Clear();
-        Debug.Log($"{Managers.Chat.EvalManager.currentNpcId-1}. { Managers.Data.npcList[Managers.Chat.EvalManager.currentNpcId - 1].NpcName}");
-        NpcInfo npc = Managers.Data.npcList[Managers.Chat.EvalManager.currentNpcId -1];
-        //NpcInfo npc = Managers.Chat.npcSupplyManager.GetNextNpc();
-        string _userSend = MakeAnswer(npc);
-        Managers.Chat.EvalManager.InitNpcDict(npc.NpcID, npc.NpcName, npc.NpcAge, npc.NpcSex == "female", npc.KeyWord);
-        _sendChatType = SendChatType.NpcInit;
+        InitData initData = Managers.Chat.dailyInitData.getInitData();
+        NpcInfo npc = Managers.Data.npcList[initData.npcID];
+        Managers.Chat.EvalManager.InitNpcDict(initData, npc);
 
-        Debug.Log($"NpcInitState에서 보냄 {_sendChatType}. {_userSend}");
-        ServerManager.Instance.GetGPTReply("", _sendChatType, _userSend);
+        string _userSend = MakeUserSend(npc);
+        string[] _mbtis = MakeMbtiSend(initData.mbtiPrefers);
+
+        Debug.Log($"NpcInitState에서 보냄 {_sendChatType}. {_userSend}, {_mbtis}");
+        ServerManager.Instance.GetGPTReply("", _sendChatType, _userSend, _mbtis);
     }
 
-    private void GptOutput(string type, string gpt_output)
+    private string[] MakeMbtiSend(Define.Prefer[] mbtiPrefers)
     {
-        if (type != nameof(Managers.Chat.ReplyManager.GptAnswer))
-            return;
-
-        //요즘 내 고민은 이거에요... 하고 답이 오면 inventory 보여주기, ConvoUI에 있다.
-        Managers.Chat.ActivatePanel(_sendChatType);
+        string[] mbtis = new string[4];
+        for (int i = 0; i < mbtiPrefers.Length; i++)
+        {
+            mbtis[i] = mbtiPrefers[i].ToString();
+        }
+        return mbtis;
     }
 
-    protected string MakeAnswer(NpcInfo user_send)
+    private string MakeUserSend(NpcInfo npc)
     {
-        string initData = $"\n Name: {user_send.NpcName}, Age : {user_send.NpcAge}, Sex : {user_send.NpcSex}, Keyword : {user_send.KeyWord}\n"
-            + $"Situation_Description: {user_send.SituationDescription}\n"
-            + $"Personality: {user_send.Personality}\n"
-            + $"Dialogue_Style: {user_send.DialogueStyle}.\n"
-            +$"Example : {user_send.Example}";
+        var eval = Managers.Chat.EvalManager._npcEvaluation;
 
-        return initData;
-    }
+        string user_send = $"\n NpcName : {eval.npcName}, NpcSex : {eval.npcSex}, NpcAge : {eval.npcAge} "
+            + $" KeyWord : {eval.npcKeyword}, \nPersonailty : {npc.Personality}\nDialogue Style: {npc.DialogueStyle}\nExample: {npc.Example}"
+            + $"당근에 올린 글: {eval.concern}\n네가 사려고 한 물건: {eval.wantItemName}, 판매자가 가져온 물건: {eval.boughtItemName} ";
 
-    private void SubScribeAction()
-    {
-        ReplySubManager.OnReplyUpdated -= GptOutput;
-        ReplySubManager.OnReplyUpdated += GptOutput;
-    }
-    private void UnSubScribeAction()
-    {
-        ReplySubManager.OnReplyUpdated -= GptOutput;
+        return user_send;
     }
 }

@@ -34,7 +34,19 @@ public class ServerManager : ServerBase
     private string _userInput = "";
     private string _initData = "";
     private SendChatType _sendChatType;
-    
+    private string[] _mbtis;
+    public void GetGPTReply(string userInput, SendChatType sendChatTypeFrom, string initData, string[] mbtis)
+    { 
+        this._sendChatType = sendChatTypeFrom;
+        this._userInput = userInput;
+        this._initData = initData;
+        this._mbtis = mbtis;
+
+        Debug.Log($"User답++++++++++{_userInput}, {_sendChatType}, {_initData}");
+        ServerManager.OnSendReplyUpdate?.Invoke(true);
+        StartCoroutine(GetGPTCo());
+    }
+
     public void GetGPTReply(string userInput, SendChatType sendChatTypeFrom, string initData = "")
     {
         SaveToJson("UserInput", userInput);
@@ -58,15 +70,22 @@ public class ServerManager : ServerBase
     {
         jobj.Add("Request", _userInput);
         jobj.Add("SendType", sendChatType.ToString());
-        jobj.Add("DataInit", _initData);
-        
+        jobj.Add("NpcInit", _initData);
+        if (sendChatType == Define.SendChatType.ChatInit)
+        {
+            jobj.Add("emotional", _mbtis[0]);
+            jobj.Add("logical", _mbtis[1]);
+            jobj.Add("flirter", _mbtis[2]);
+            jobj.Add("flatter", _mbtis[3]);
+        }
+
         return jobj;
     }
     private Coroutine CoGetGPT( Action<ResultInfo> onSucceed = null,
                                 Action<ResultInfo> onFailed = null,
                                 Action<ResultInfo> onNetworkFailed = null)
     {
-        string url = "https://salesai-khm.azurewebsites.net/"; //"https://salesai-ljy.azurewebsites.net/"//"https://salesai-jsy333.azurewebsites.net/";//"https://salesai-jsy2.azurewebsites.net/";"http://127.0.0.1:8000/";
+        string url = "http://127.0.0.1:8000/"; //"https://salesai-khm.azurewebsites.net/"; //"https://salesai-ljy.azurewebsites.net/"//"https://salesai-jsy333.azurewebsites.net/";//"https://salesai-jsy2.azurewebsites.net/";//
 
         JObject jobj = new JObject();
         jobj = AddJobjBySendType(jobj, _sendChatType);
