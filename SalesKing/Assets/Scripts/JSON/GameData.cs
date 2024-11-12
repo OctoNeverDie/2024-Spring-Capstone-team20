@@ -9,20 +9,6 @@ using System;
 public class GameData
 {
     public float mouseSpeed = 0;
-    public int day = 0;    
-
-    public List<MyItem> itemList = new List<MyItem>();
+    public List<int> save_files_list = new List<int>();
 }
 
-
-[System.Serializable]
-public class MyItem
-{
-    public MyItem(int _index)
-    {
-        index = _index;
-    }
-
-    public int index;
-
-}
