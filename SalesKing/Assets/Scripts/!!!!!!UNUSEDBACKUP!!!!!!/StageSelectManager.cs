@@ -54,7 +54,7 @@ public class StageSelectManager : MonoBehaviour
 
     public void StartStage()
     {
-        DataController.Instance.playData.curStageNum = curstage;
+        //DataController.Instance.playData.curStageNum = curstage;
         Managers.Scene.LoadSceneByName("CityMap");
     }
 
