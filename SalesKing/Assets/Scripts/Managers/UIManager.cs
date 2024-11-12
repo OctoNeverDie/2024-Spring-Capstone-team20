@@ -6,7 +6,7 @@ using System;
 using DG.Tweening;
 using Newtonsoft.Json.Bson;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<NPCManager>
 {
     public City_MainAction c_main;
     public City_PopupAction c_popup;
@@ -22,8 +22,9 @@ public class UIManager : MonoBehaviour
     public City_TabletUI ui_tablet;
     public City_EndingUI ui_ending;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         Init();
     }
 

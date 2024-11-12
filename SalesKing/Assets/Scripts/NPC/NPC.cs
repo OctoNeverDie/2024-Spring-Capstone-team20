@@ -105,13 +105,13 @@ public class NPC : MonoBehaviour
 
     public void PlayRandomNPCAnim(NPCDefine.AnimType type)
     {
-        int randAnimIndex = Random.Range(0, Managers.NPC.Anim.NPCAnimDictionary[type].Count);
-        animator.Play(Managers.NPC.Anim.NPCAnimDictionary[type][randAnimIndex].name);
+        int randAnimIndex = Random.Range(0, NPCManager.Instance.Anim.NPCAnimDictionary[type].Count);
+        animator.Play(NPCManager.Instance.Anim.NPCAnimDictionary[type][randAnimIndex].name);
     }
 
     public void ChooseNextDestination()
     {
-        Transform thisTransform = Managers.NPC.Move.GetUniqueSpawnPoint();
+        Transform thisTransform = NPCManager.Instance.Move.GetUniqueSpawnPoint();
         if (thisTransform != null) curDestination = thisTransform;
         else curDestination = this.transform;
     }
@@ -127,10 +127,10 @@ public class NPC : MonoBehaviour
     {
         animator.updateMode = AnimatorUpdateMode.UnscaledTime;
         transform.DOLookAt(player.transform.position, 1f, AxisConstraint.None, null).SetUpdate(true);
-        Managers.NPC.curTalkingNPC = transform.gameObject;
+        NPCManager.Instance.curTalkingNPC = transform.gameObject;
         currentState = NPCDefine.MoveState.Talk;
         agent.isStopped = true;
-        animator.Play(Managers.NPC.Anim.NPCAnimDictionary[NPCDefine.AnimType.Standing][0].name);
+        animator.Play(NPCManager.Instance.Anim.NPCAnimDictionary[NPCDefine.AnimType.Standing][0].name);
     }
 
     public void NPCExitConvo()

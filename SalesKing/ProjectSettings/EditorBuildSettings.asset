@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Soyeon/CityMap.unity
+    path: Assets/Scenes/GamePlay/CityMap.unity
     guid: ae6646ad2126ae348a0b759b4f2f4d8d
   - enabled: 1
     path: Assets/Scenes/GamePlay/Start.unity
     guid: 957e449d977e95441b1688b5ed6417e7
   - enabled: 1
-    path: Assets/Scenes/GamePlay/OfficeMap.unity
+    path: Assets/Scenes/hyunmin/OfficeMap.unity
     guid: 187d849dc2276284d9a04d79687675a7
   - enabled: 1
     path: Assets/Scenes/GamePlay/Last.unity

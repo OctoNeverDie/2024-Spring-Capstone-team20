@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Secretary : MonoBehaviour
 {
+    /*
     public GameObject Neck;
     public GameObject Panel;
 
@@ -23,4 +24,5 @@ public class Secretary : MonoBehaviour
         yield return new WaitForSeconds(delay); // delay만큼 대기
         Panel.SetActive(false); // 패널 비활성화
     }
+    */
 }

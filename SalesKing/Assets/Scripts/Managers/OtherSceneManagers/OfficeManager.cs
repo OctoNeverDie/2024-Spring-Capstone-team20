@@ -6,6 +6,7 @@ using TMPro.Examples;
 
 public class OfficeManager : MonoBehaviour
 {
+    /*
     public Player myPlayer;
     public OfficeUI officeUI;
 
@@ -46,4 +47,5 @@ public class OfficeManager : MonoBehaviour
         WelcomeCam.Priority = 5;
         MyPCCamera.Priority = 10;
     }
+    */
 }

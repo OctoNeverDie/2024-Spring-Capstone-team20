@@ -5,28 +5,28 @@ using Cinemachine;
 
 public class CameraManager : MonoBehaviour
 {
-    public CinemachineVirtualCamera firstPersonCam; // 1ÀÎÄª ½ÃÁ¡ °¡»ó Ä«¸Ş¶ó
-    public CinemachineVirtualCamera dialogueCam; // ´ëÈ­ ½ÃÁ¡ °¡»ó Ä«¸Ş¶ó
+    public CinemachineVirtualCamera firstPersonCam; // 1ì¸ì¹­ ì‹œì  ê°€ìƒ ì¹´ë©”ë¼
+    public CinemachineVirtualCamera dialogueCam; // ëŒ€í™” ì‹œì  ê°€ìƒ ì¹´ë©”ë¼
 
-    public Transform player; // ÇÃ·¹ÀÌ¾î À§Ä¡
-    public Transform npc; // NPC À§Ä¡
+    public Transform player; // í”Œë ˆì´ì–´ ìœ„ì¹˜
+    public Transform npc; // NPC ìœ„ì¹˜
 
-    public float transitionSpeed = 3f; // Ä«¸Ş¶ó ÀüÈ¯ ¼Óµµ
+    public float transitionSpeed = 3f; // ì¹´ë©”ë¼ ì „í™˜ ì†ë„
 
-    //private bool isInDialogue = false; // ´ëÈ­ ÁßÀÎÁö Ã¼Å©
+    //private bool isInDialogue = false; // ëŒ€í™” ì¤‘ì¸ì§€ ì²´í¬
 
     void Start()
     {
-        firstPersonCam = Managers.Player.MyPlayer.GetComponent<Player>().Camera1;
-        dialogueCam = Managers.Player.MyPlayer.GetComponent<Player>().Camera2;
+        firstPersonCam = PlayerManager.Instance.MyPlayer.GetComponent<Player>().Camera1;
+        dialogueCam = PlayerManager.Instance.MyPlayer.GetComponent<Player>().Camera2;
         SwitchToFirstPersonCam();
     }
 
     public void SwitchToFirstPersonCam()
     {
-        // Ã³À½¿¡´Â 1ÀÎÄª Ä«¸Ş¶ó¸¸ È°¼ºÈ­
-        firstPersonCam.Priority = 10; // ³ôÀº ¿ì¼±¼øÀ§·Î ¼³Á¤ÇÏ¿© 1ÀÎÄª Ä«¸Ş¶ó°¡ ±âº»°ªÀÌ µÇµµ·Ï
-        dialogueCam.Priority = 5; // ³·Àº ¿ì¼±¼øÀ§·Î ¼³Á¤
+        // ì²˜ìŒì—ëŠ” 1ì¸ì¹­ ì¹´ë©”ë¼ë§Œ í™œì„±í™”
+        firstPersonCam.Priority = 10; // ë†’ì€ ìš°ì„ ìˆœìœ„ë¡œ ì„¤ì •í•˜ì—¬ 1ì¸ì¹­ ì¹´ë©”ë¼ê°€ ê¸°ë³¸ê°’ì´ ë˜ë„ë¡
+        dialogueCam.Priority = 5; // ë‚®ì€ ìš°ì„ ìˆœìœ„ë¡œ ì„¤ì •
     }
 
     public void SwitchToDialogueCam()

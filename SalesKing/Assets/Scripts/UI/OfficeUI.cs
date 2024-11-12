@@ -7,6 +7,7 @@ using DG.Tweening; // DOTween 사용
 
 public class OfficeUI : MonoBehaviour
 {
+    /*
     public GameObject MainPanel;
     public GameObject WelcomePanel;
     public GameObject ShoppingPanel;
@@ -50,5 +51,5 @@ public class OfficeUI : MonoBehaviour
         Managers.Trans.ui.StartFadeInFadeOut(0.5f);
         //myPlayer.isRaycast = true;
     }
-
+    */
 }

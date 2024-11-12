@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class InventorySpawn : MonoBehaviour
 {
+    /*
     [SerializeField] private GameObject itemPrefab;  // UI 아이템 프리팹
     [SerializeField] private Transform gridParent;   // UI 아이템의 부모 Transform
     [SerializeField] private GameObject choosePricePanel; // 가격 입력 패널
@@ -100,5 +101,5 @@ public class InventorySpawn : MonoBehaviour
             //Managers.Chat.EvalManager.InitItem(inputPrice, selectedItem);
         }
     }
-
+    */
 }

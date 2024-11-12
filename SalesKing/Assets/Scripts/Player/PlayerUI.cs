@@ -26,7 +26,7 @@ public class PlayerUI : MonoBehaviour
             InteractableIcons[entry.interactable] = entry.gameObject;
         }
 
-        Player myPlayer = Managers.Player.MyPlayer.GetComponent<Player>();
+        Player myPlayer = PlayerManager.Instance.MyPlayer.GetComponent<Player>();
         RaycastHitObj.SetActive(false);
     }
 
