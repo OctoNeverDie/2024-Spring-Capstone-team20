@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-public class NPCManager : MonoBehaviour
+public class NPCManager : Singleton<NPCManager>
 {
     public NPCMeshManager Mesh;
     public NPCSpawner Spawner;
@@ -15,8 +15,9 @@ public class NPCManager : MonoBehaviour
     public GameObject NPCHolder;
     public GameObject curTalkingNPC;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         Init();
         NPCHolder = new GameObject("NPCHolder");
     }

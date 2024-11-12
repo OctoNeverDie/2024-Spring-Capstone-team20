@@ -25,32 +25,33 @@ public class UserInputManager : MonoBehaviour
         {
             if(myPlayer == null)
             {
-                myPlayer = Managers.Player.MyPlayer.GetComponent<Player>();
+                myPlayer = PlayerManager.Instance.MyPlayer.GetComponent<Player>();
             }
 
             if (myPlayer.ui.RaycastHitObj.activeSelf)
             {
                 switch (myPlayer.ui.curInteractable)
                 {
-                    case Define.Interactables.Office_MyPC: Managers.Office.officeUI.OnClickMyPC(); break;
+                    //case Define.Interactables.Office_MyPC: Managers.Office.officeUI.OnClickMyPC(); break;
+                    /*
                     case Define.Interactables.Office_Door_Out:
-                        Managers.Trans.ui.StartFadeInFadeOut(1f);
+                        //Managers.Trans.ui.StartFadeInFadeOut(1f);
                         DOVirtual.DelayedCall(Managers.Trans.ui.FadeTime, () => Managers.Scene.LoadSceneByName("CityMap"));
                         break;
-
+                    */
                     case Define.Interactables.City_NPC:
                         NPC thisNPC = myPlayer.RaycastCollider.GetComponent<NPC>();
-                        Managers.Chat.EvalManager.currentNpcId= thisNPC.NpcID;
+                        //Managers.Chat.EvalManager.currentNpcId= thisNPC.NpcID;
                         myPlayer.PlayerEnterConvo(thisNPC.gameObject);
                         thisNPC.NPCEnterConvo(myPlayer.gameObject);
                         break;
-
+                        /*
                     case Define.Interactables.Office_Secretary:
                         Debug.Log("비서한테 말걸기");
                         Secretary thisSecretary = myPlayer.RaycastCollider.GetComponent<Secretary>();
                         thisSecretary.ShowPanel();
                         break;
-
+                        */
                     default: break;
                 }
 

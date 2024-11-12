@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : Singleton<PlayerManager>
 {
     [SerializeField] GameObject PlayerPrefab;
     public GameObject MyPlayer;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         SpawnPlayer();
         //Managers.Input.myPlayer = MyPlayer.GetComponent<Player>();
     }

@@ -2,21 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro; 
 
 public class SaveFilePanelUI : MonoBehaviour
 {
+    public string fileID;
     public Button file_button;
     public Button delete_button;
+    public TextMeshProUGUI file_button_text;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        file_button.onClick.AddListener(OnClickSaveFileButton);
+        delete_button.onClick.AddListener(OnClickDeleteButton);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnClickSaveFileButton()
     {
-        
+        SaveFileManager.Instance.LoadCitySceneBySaveFile(fileID);
+    }
+
+    public void OnClickDeleteButton()
+    {
+        SaveFileManager.Instance.DeleteSaveFile(fileID, this.gameObject);
     }
 }
