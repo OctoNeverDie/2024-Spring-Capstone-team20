@@ -11,15 +11,7 @@ public class PlayerCameraRot : MonoBehaviour
 
     void Awake()
     {
-        if (DataController.Instance == null || DataController.Instance.gameData.mouseSpeed <= 0)
-        {
-            mouseSpeed = 3f;
-        }
-        else
-        {
-            mouseSpeed = DataController.Instance.gameData.mouseSpeed;
-        }
-
+        mouseSpeed = 3f;
     }
 
     void Update()

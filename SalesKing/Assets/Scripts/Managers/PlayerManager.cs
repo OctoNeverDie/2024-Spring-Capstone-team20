@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : Singleton<PlayerManager>, ISingletonSettings
 {
     [SerializeField] GameObject PlayerPrefab;
     public GameObject MyPlayer;
 
-    void Awake()
+    public bool ShouldNotDestroyOnLoad => true;
+
+    protected override void Awake()
     {
+        base.Awake();
         SpawnPlayer();
         //Managers.Input.myPlayer = MyPlayer.GetComponent<Player>();
     }

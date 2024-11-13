@@ -29,6 +29,7 @@ public class TimeChecker
 
     public void EndTimeCheck(CheckerStage stage, float time)
     { 
+        //if(StartCheckList)
     }
 
     public void AddTimeCheck(CheckerStage stage, float time)

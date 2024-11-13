@@ -11,9 +11,7 @@ public class ItemInfo
     public int ObjID;
     public string ObjName;
     public string ObjInfo;
-    public int defaultPrice;
-    public int expensive;
-    public int tooExpensive;
+    public Define.ItemCategory Category;
 }
 
 public class ItemData : ILoader<ItemInfo>
@@ -33,10 +31,32 @@ public class NpcInfo
     public string NpcSex;
     public int NpcAge;
     public string KeyWord;
+    public string Concern;
+    public string WantItem;
+    public Define.ItemCategory ItemCategory;
+    public int [] Mbtis;
+
+    //prompt needed
     public string SituationDescription;
     public string Personality;
     public string DialogueStyle;
     public string Example;
+
+    public NpcInfo(int npcID, string npcName, string npcSex, int npcAge, string keyWord, string concern, string wantItem, int[] mbtis, string situationDescription, string personality, string dialogueStyle, string example)
+    {
+        NpcID = npcID;
+        NpcName = npcName;
+        NpcSex = npcSex;
+        NpcAge = npcAge;
+        KeyWord = keyWord;
+        Concern = concern;
+        WantItem = wantItem;
+        Mbtis = mbtis;
+        SituationDescription = situationDescription;
+        Personality = personality;
+        DialogueStyle = dialogueStyle;
+        Example = example;
+    }
 }
 
 public class NpcData : ILoader<NpcInfo>

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class InventorySpawn : MonoBehaviour
 {
+    /*
     [SerializeField] private GameObject itemPrefab;  // UI 아이템 프리팹
     [SerializeField] private Transform gridParent;   // UI 아이템의 부모 Transform
     [SerializeField] private GameObject choosePricePanel; // 가격 입력 패널
@@ -52,7 +53,7 @@ public class InventorySpawn : MonoBehaviour
                 GameObject newItem = Instantiate(itemPrefab, gridParent);
 
                 newItem.transform.Find("ItemName").GetComponent<TextMeshProUGUI>().text = item.ObjName;
-                newItem.transform.Find("PriceText").GetComponent<TextMeshProUGUI>().text = item.defaultPrice.ToString() + "$";
+                //newItem.transform.Find("PriceText").GetComponent<TextMeshProUGUI>().text = item.defaultPrice.ToString() + "$";
                 newItem.transform.Find("QuantityText").GetComponent<TextMeshProUGUI>().text = "수량:" + quantity;
 
                 Button itemButton = newItem.GetComponent<Button>();
@@ -93,12 +94,12 @@ public class InventorySpawn : MonoBehaviour
 
         if (float.TryParse(inputFieldGO.text, out inputPrice))
         {
-            Managers.Chat.EvalManager.InitItem(inputPrice, selectedItem);
+            //Managers.Chat.EvalManager.InitItem(inputPrice, selectedItem);
         }
         else
         {
-            Managers.Chat.EvalManager.InitItem(inputPrice, selectedItem);
+            //Managers.Chat.EvalManager.InitItem(inputPrice, selectedItem);
         }
     }
-
+    */
 }

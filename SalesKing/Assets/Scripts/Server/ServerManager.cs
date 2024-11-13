@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
-using System.IO;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 using static Define;
 
 public class ServerManager : ServerBase
 {
+    #region singleton
     private static ServerManager instance = null;
     public static ServerManager Instance => instance;
 
@@ -26,6 +26,7 @@ public class ServerManager : ServerBase
             Destroy(this.gameObject);
         }
     }
+    #endregion
 
     //loading panel
     public static event Action<bool> OnSendReplyUpdate;
@@ -34,18 +35,19 @@ public class ServerManager : ServerBase
     private string _userInput = "";
     private string _initData = "";
     private SendChatType _sendChatType;
-    
-    public void GetGPTReply(string userInput, SendChatType sendChatTypeFrom, string initData = "")
-    {
-        SaveToJson("UserInput", userInput);
-        SaveToJson("ChatType", sendChatTypeFrom.ToString());
-
+    private string[] _mbtis;
+    public void GetGPTReply(string userInput, SendChatType sendChatTypeFrom, string initData="", string[] mbtis = null)
+    { 
         this._sendChatType = sendChatTypeFrom;
         this._userInput = userInput;
-        this._initData = initData;
+        if (sendChatTypeFrom == SendChatType.ChatInit)
+        {
+            this._initData = initData;
+            this._mbtis = mbtis;
+        }
 
         Debug.Log($"User답++++++++++{_userInput}, {_sendChatType}, {_initData}");
-        ServerManager.OnSendReplyUpdate?.Invoke(true);
+        OnSendReplyUpdate?.Invoke(true);
         StartCoroutine(GetGPTCo());
     }
 
@@ -58,8 +60,15 @@ public class ServerManager : ServerBase
     {
         jobj.Add("Request", _userInput);
         jobj.Add("SendType", sendChatType.ToString());
-        jobj.Add("DataInit", _initData);
-        
+        if (sendChatType == Define.SendChatType.ChatInit)
+        {
+            jobj.Add("NpcInit", _initData);
+            jobj.Add("emotional", _mbtis[0]);
+            jobj.Add("logical", _mbtis[1]);
+            jobj.Add("flirter", _mbtis[2]);
+            jobj.Add("flatter", _mbtis[3]);
+        }
+
         return jobj;
     }
     private Coroutine CoGetGPT( Action<ResultInfo> onSucceed = null,
@@ -76,11 +85,7 @@ public class ServerManager : ServerBase
             var resultData = JObject.Parse(result.Json)["reply"].ToString();
             Debug.Log($"Gpt 답+++++++++++++++ {resultData}, {_sendChatType}");
 
-             // 공통 함수 호출하여 GPT 답변 저장
-            SaveToJson("GptAnswer", resultData);
-            SaveToJson("ChatType", _sendChatType.ToString());
-
-            ServerManager.OnSendReplyUpdate?.Invoke(false);
+            OnSendReplyUpdate?.Invoke(false);
             templateReceive.GetGptAnswer(resultData, _sendChatType);
         };
 
@@ -99,26 +104,5 @@ public class ServerManager : ServerBase
         onNetworkFailed += networkTest;
 
         return StartCoroutine(SendRequest(url, SendType.POST, jobj, onSucceed, onFailed, onNetworkFailed));
-    }
-
-    private void SaveToJson(string key, string value)
-    {
-        // 파일 경로 설정 (예: Application.persistentDataPath)
-        string filePath = Path.Combine(Application.persistentDataPath, "ChatLog.json");
-
-
-        // 기존 JSON 파일이 있으면 불러옴
-        JObject logData = new JObject();
-        if (System.IO.File.Exists(filePath))
-        {
-            var existingData = System.IO.File.ReadAllText(filePath);
-            logData = JObject.Parse(existingData);
-        }
-
-        // 새로운 데이터를 추가
-        logData[key] = value;
-
-        // 파일에 쓰기
-        System.IO.File.WriteAllText(filePath, logData.ToString());
     }
 }

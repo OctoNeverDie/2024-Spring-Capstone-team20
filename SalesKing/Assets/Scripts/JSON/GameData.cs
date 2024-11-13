@@ -8,21 +8,12 @@ using System;
 [System.Serializable]
 public class GameData
 {
-    public float mouseSpeed = 0;
-    public int day = 0;    
+    public float bgm_volume = 0;
+    public float sfx_volume = 0;
+    // save_files_IDs의 현재 인덱스
+    public string cur_save_file_ID = null;
 
-    public List<MyItem> itemList = new List<MyItem>();
+    // json file들의 리스트 저장
+    public List<string> save_files_IDs = new List<string>();
 }
 
-
-[System.Serializable]
-public class MyItem
-{
-    public MyItem(int _index)
-    {
-        index = _index;
-    }
-
-    public int index;
-
-}

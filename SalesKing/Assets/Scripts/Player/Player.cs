@@ -112,7 +112,7 @@ public class Player : MonoBehaviour
     public void PlayerEnterConvo(GameObject npc)
     {
         FreezeAndUnFreezePlayer(true);
-        Managers.Convo.ConvoStarted();
+        //Managers.Convo.ConvoStarted();
         transform.DOLookAt(npc.transform.position, 1f, AxisConstraint.None, null).
             SetUpdate(true);
         PlayerBody.SetActive(true);

@@ -1,106 +1,38 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class EvalSubManager
 {
-
     public static event Action<string> OnChatDataUpdated;
-    public static event Action<float, ItemInfo> OnItemInit;
 
     public class NpcEvaluation
-    {
+    { //마지막에, 이름, MBTI 타입, 나이, 성별, 키워드, 사고 싶은 물건, 판 물건, 평가
         public int npcID;
-        public string npcName;
-        public int npcAge;
-        public bool npcSex; //female is true
-        public string npcKeyword;
-        public string item;
-        public int itemID;
-        public float price;
-        public string npcEvaluation;
-    }
+        public int boughtItemID;
 
-    // NpcEvaluation 타입을 저장하는 Dictionary를 정의
+        public bool isSuccess;
+        public string reason;
+        public string summary;
+    }
     public Dictionary<int, NpcEvaluation> NpcEvalDict { get; private set; } = new Dictionary<int, NpcEvaluation>();
 
     public int currentNpcId = 0;
-    public void InitNpcDict(int npcId, string npcName, int npcAge, bool npcSex, string keyWord)
+    public NpcEvaluation _npcEvaluation;
+
+    public void InitEvalDictNpc(int npcID, int playerItemIdx)
     {
-        NpcEvaluation _npcEvaluation = new NpcEvaluation
-        {
-            npcID = npcId,
-            npcName = npcName,
-            npcAge = npcAge,
-            npcSex = npcSex,
-            npcKeyword = keyWord,
-            item = string.Empty,
-            itemID = 0,
-            price = 0.0f,
-            npcEvaluation = string.Empty
-        };
+        _npcEvaluation = new NpcEvaluation();
+        _npcEvaluation.npcID = npcID;
+        _npcEvaluation.boughtItemID = playerItemIdx;
+        
+        NpcEvalDict.Add(npcID, _npcEvaluation);
 
-        if (currentNpcId != 0)
-        {
-        //    Debug.Log($"+++++++++그 전 애{NpcEvalDict[currentNpcId].npcName} 평가 {NpcEvalDict[currentNpcId].npcEvaluation}");
-        }
-
-        currentNpcId = npcId;
-
-        if (NpcEvalDict.ContainsKey(currentNpcId))
-        {
-            NpcEvalDict[currentNpcId] = _npcEvaluation;
-        }
-        else
-        {
-            NpcEvalDict.Add(currentNpcId, _npcEvaluation);
-        }
-
-        OnChatDataUpdated?.Invoke(nameof(currentNpcId));
+        currentNpcId = _npcEvaluation.npcID;
     }
 
-    public void AddEvaluation(string npcEvaluation)
+    public void AddEvaluation(string summary, bool isBuy)
     {
-        NpcEvalDict[currentNpcId].npcEvaluation = npcEvaluation;
-        Debug.Log($"Eval 2. 평가 업데이트 {npcEvaluation}");
+        NpcEvalDict[currentNpcId].summary = summary;
+        NpcEvalDict[currentNpcId].isSuccess = isBuy;
     }
-
-    //--------------------------------------------------
-    public ItemInfo itemInfo { get; set; }
-    
-    //아이템 맨처음 고르고, user의 첫 제시가 나옴
-    public void InitItem(float userSuggest, ItemInfo itemInfo)
-    {
-        this.itemInfo = itemInfo;
-        OnItemInit?.Invoke(userSuggest, itemInfo);
-    }
-
-    public void AddItemPriceSold()
-    {
-        NpcEvalDict[currentNpcId].item = itemInfo.ObjName;
-        NpcEvalDict[currentNpcId].itemID = itemInfo.ObjID;
-        Managers.Inven.RemoveFromInventory(itemInfo.ObjID);
-        Debug.Log($"아이템 팔렸습니다 {NpcEvalDict[currentNpcId].price}");
-        OnChatDataUpdated?.Invoke(nameof(itemInfo));
-    }
-    public void UpdateSuggestInEval(float suggest)
-    {
-        NpcEvalDict[currentNpcId].price = suggest;
-    }
-
-    public float ShowPrice()
-    {
-        return NpcEvalDict[currentNpcId].price;
-    }
-    /*
-    public void PrintDictionary()
-    {
-        foreach (var kvp in NpcEvalDict)
-        {
-            int npcId = kvp.Key;
-            NpcEvaluation npcEval = kvp.Value;
-            Debug.Log($"NPC ID: {npcId}, Details: {npcEval.npcID}+{npcEval.npcEvaluation}");
-        }
-    }
-    */
 }

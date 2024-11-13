@@ -8,19 +8,19 @@ public class Define
     public enum SceneMode
     {
         Start,
+        //StageSelect,
         CityMap, 
-        OfficeMap
+        OfficeMap, 
+        SaveFile
     }
 
     public enum Emotion
     {
-        Neutral,
-        SlightlyPositive,
-        Positive,
-        VeryPositive,
-        SlightlyNegative,
-        Negative,
-        VeryNegative
+        worst,
+        bad,
+        normal,
+        good,
+        best
     }
 
     public enum Skybox
@@ -34,9 +34,8 @@ public class Define
     public enum SendChatType
     {
         None,
-        NpcInit,
-        ItemInit,
-        ChatBargain,
+        ChatInit,
+        Chatting,
         Endpoint,
         MaxCnt
     }
@@ -64,11 +63,11 @@ public class Define
         Voice
     }
 
-    public enum Mbti
+    public enum ItemCategory
     { 
-        emotional,
-        logical,
-        flatter,
-        flirter,
+        Default,
+        Food,
+        Clothes,
+        MaxCnt
     }
 }
