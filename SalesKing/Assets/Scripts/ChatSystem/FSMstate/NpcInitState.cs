@@ -11,10 +11,9 @@ public class NpcInitState : ChatBaseState
     private ItemInfo playerItem;
 
     public override void Enter()
-    {   
-        ChatManager.Instance.Clear();//data, front 모두
-
-        npc = ChatManager.Instance.ThisNpc;
+    {
+        _sendChatType = SendChatType.ChatInit;
+        npc = DataGetter.Instance.NpcList[Chat.ThisNpcID];
         playerItem = GetRandItem();
 
         ShowFront();
@@ -22,25 +21,20 @@ public class NpcInitState : ChatBaseState
     }
     public override void Exit()
     {
-        SaveData();
+        UpdateEvaluation();
     }
-    private void SaveData()
+    private void UpdateEvaluation()
     {
-        ChatManager.Instance.Eval.InitEvalDictNpc(npc.NpcID, playerItem.ObjID);
+        Chat.Eval.InitEvalDictNpc(npc.NpcID, playerItem.ObjID);
     }
 
     private void ShowFront()
     {
-        //show npc : npc name
-        //show tablet : npc name ~ npc want item
-        //npc item 룰렛 : 돌리기 until item 정해지기까지 : 2f
-        //show item random
+        Chat.ActivatePanel(_sendChatType, playerItem);
     }
 
     private void SendBack()
     {
-        _sendChatType = SendChatType.ChatInit;
-
         string _userSend = MakeUserSend(npc);
         string[] _mbtis = MakeMbtiSend(npc.Mbtis);
 
@@ -54,7 +48,6 @@ public class NpcInitState : ChatBaseState
         int randomIdx = Random.Range(0, categorizedList.Count);
         return categorizedList[randomIdx];
     }
-
 
     private string[] MakeMbtiSend(int[] mbtiPrefers)
     {

@@ -1,51 +1,82 @@
 using UnityEngine;
 using static Define;
-
+/// <summary>
+/// 1. turn 3번인지 확인
+/// 2. summary pop up
+/// 3. save 파일에 전부 저장
+/// </summary>
 public class EndPointState : ChatBaseState
 {
-    Define.EndType _endType = EndType.None;
+    private string summary;
+
     public override void Enter()
     {
-        ReplySubManager.OnReplyUpdated -= GptOutput;
-        ReplySubManager.OnReplyUpdated += GptOutput;
-
+        SubScribeAction();
         _sendChatType = SendChatType.Endpoint;
-        _endType = Managers.Chat._endType;
+        Chat.NpcCountUp();
 
-        if (_endType == EndType.clear)
+        if (Chat.isEndByUser) { EndByUser(); }
+        else { Exit(); }
+
+        if (Chat.npcNum >= 3)
         {
-            Exit();
-            return;
+            SaveData();
         }
-       
-        string input = "$"+_endType.ToString();// buy, reject, leave
-
-        Debug.Log($"EndPointState에서 보냄 {_sendChatType}, {input}");
-        ServerManager.Instance.GetGPTReply(input, _sendChatType);
     }
 
     public override void Exit()
     {
-        ReplySubManager.OnReplyUpdated -= GptOutput;
-
-        if(Managers.Chat.reason == 2)//gage 닳아서 2가 됐다면, gage가 0 됐다는 거 명시적으로 보여주기.
-            Managers.Chat.EndTurn(-20);
-        Managers.Chat.ActivatePanel(_sendChatType);
-        Managers.Chat.Clear();
+        ShowFront();
+        UnSubScribeAction();
     }
 
-    private void GptOutput(string type, string gpt_output)
+    private void SaveData()
     {
-        if (type != nameof(Managers.Chat.ReplyManager.GptAnswer))
+        Chat.Eval.SaveEvaluation();
+    }
+
+    private void ShowFront()
+    {
+        Chat.ActivatePanel(_sendChatType);
+    }
+
+    private void EndByUser()
+    {
+        string user_input = "is_buy = false, 왜냐하면 상대가 나를 무시하고 갔기 때문.";
+        Debug.Log($"Endpoint에서 보냄 {user_input}");
+        ServerManager.Instance.GetGPTReply(user_input, _sendChatType);
+    }
+
+    private void GptOutput(string type, string gpt_output)//유저가 end btn 눌렀을 때만
+    {
+        if (type != nameof(Chat.Reply.GptAnswer))
             return;
 
-        string evaluation = ConcatReply(gpt_output);
+        ConcatReply(gpt_output);
+        UpdateEvaluation();
+
         Exit();
     }
 
-    private string ConcatReply(string GPTanswer)
+    private void ConcatReply(string GPTanswer)
     {
         string pattern = @"\""summary\"":\s*\""(.*?)\""";
-        return Util.Concat(pattern, GPTanswer);
+        summary = Util.Concat(pattern, GPTanswer);
+    }
+
+    private void UpdateEvaluation()
+    {
+        Chat.Eval.AddEvaluation(summary, false);
+    }
+
+    private void SubScribeAction()
+    {
+        ReplySubManager.OnReplyUpdated -= GptOutput;
+        ReplySubManager.OnReplyUpdated += GptOutput;
+    }
+
+    private void UnSubScribeAction()
+    {
+        ReplySubManager.OnReplyUpdated -= GptOutput;
     }
 }

@@ -6,13 +6,13 @@ public class ChattingState : ChatBaseState, IVariableChat
 {
     const int persuMaxLimit = 9;
     const int persuMinLimit = -3;
-    private enum Decision
+    public enum Decision
     {
         wait,
         no,
         yes
     }
-    private class GptResult
+    public class GptResult
     {
         public Decision decision;
         public string reaction;
@@ -66,19 +66,15 @@ public class ChattingState : ChatBaseState, IVariableChat
 
         UpdateReplyVariables(gpt_output);
         ShowFront();
-        SaveData();
+        UpdateEvaluation();
     }
 
     private void ShowFront()
     {
-        //emotion에 따른 애니메이션 넣어주고
-        //reply도 보여주고
-        //persuasion에 따른 reason에 대한 ++, -- 보여주기
-
-        //만약 decision이 wait이 아니라면 panel로 막기
+        Chat.ActivatePanel(_sendChatType, gptResult);
     }
 
-    private void SaveData()
+    private void UpdateEvaluation()
     {
         if (gptResult.decision != Decision.wait)
         {

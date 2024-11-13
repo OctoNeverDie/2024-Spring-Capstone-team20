@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class City_SummaryUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public void UpdateItemData(ItemInfo randItem)
+    { 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void UpdateEvaluationData(int npcID, string summary)
+    { 
+    }
+
+    public void ShowSummary()
+    { 
     }
 }

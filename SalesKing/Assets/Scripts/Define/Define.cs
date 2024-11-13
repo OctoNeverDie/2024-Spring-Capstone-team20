@@ -40,15 +40,6 @@ public class Define
         MaxCnt
     }
 
-    public enum EndType
-    {
-        None,
-        reject,
-        buy,
-        leave,
-        clear
-    }
-
     public enum Interactables
     {
         Office_MyPC,

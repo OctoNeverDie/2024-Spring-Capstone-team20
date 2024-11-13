@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class EvalSubManager
 {
@@ -22,17 +23,29 @@ public class EvalSubManager
     public void InitEvalDictNpc(int npcID, int playerItemIdx)
     {
         _npcEvaluation = new NpcEvaluation();
-        _npcEvaluation.npcID = npcID;
         _npcEvaluation.boughtItemID = playerItemIdx;
-        
-        NpcEvalDict.Add(npcID, _npcEvaluation);
-
+        _npcEvaluation.npcID = npcID;
         currentNpcId = _npcEvaluation.npcID;
+
+        if (NpcEvalDict.ContainsKey(npcID))
+        {
+            NpcEvalDict.Add(npcID, _npcEvaluation);
+        }
+        else
+        { 
+            Debug.Log("중복된 캐릭터 ID");
+            NpcEvalDict[npcID] = _npcEvaluation;
+        }        
     }
 
     public void AddEvaluation(string summary, bool isBuy)
     {
         NpcEvalDict[currentNpcId].summary = summary;
         NpcEvalDict[currentNpcId].isSuccess = isBuy;
+    }
+
+    public void SaveEvaluation()
+    { 
+        //DataController로 지금 npc 평가 save 하기
     }
 }

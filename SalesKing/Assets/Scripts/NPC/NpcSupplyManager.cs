@@ -10,7 +10,7 @@ public class NpcSupplyManager
     public void InitQueue()
     {
         //TODO : SO로 바꾸기
-        npcSuffledList = Managers.Data.npcList;
+        npcSuffledList = DataGetter.Instance.NpcList;
         //npcSuffledList = RandList(npcSuffledList);
         npcQueue = new Queue<NpcInfo>(npcSuffledList);
         PrintNpcQueue();

@@ -27,13 +27,13 @@ public class TestProfile : MonoBehaviour
 
     void show(string name)
     {
-        var eval = chatManager.EvalManager;
+        var eval = chatManager.Eval;
         if (name == nameof(eval.currentNpcId))
         {
-            npcName.text = eval.NpcEvalDict[eval.currentNpcId].npcName;
-            npcAge.text = eval.NpcEvalDict[eval.currentNpcId].npcAge.ToString();
-            npcSex.text = eval.NpcEvalDict[eval.currentNpcId].npcSex ? "Female" : "Male";
-            npcPersonality.text = eval.NpcEvalDict[eval.currentNpcId].npcKeyword;
+        //    npcName.text = eval.NpcEvalDict[eval.currentNpcId].npcName;
+        //    npcAge.text = eval.NpcEvalDict[eval.currentNpcId].npcAge.ToString();
+        //    npcSex.text = eval.NpcEvalDict[eval.currentNpcId].npcSex ? "Female" : "Male";
+        //    npcPersonality.text = eval.NpcEvalDict[eval.currentNpcId].npcKeyword;
         }
     }
 }

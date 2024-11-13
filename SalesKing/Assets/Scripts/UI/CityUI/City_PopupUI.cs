@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +13,6 @@ public class City_PopupUI : MonoBehaviour
 
     void OnClickStartPanelOKBtn()
     {
-        Managers.UI.c_popup.OnClickOKStartPanel();
+        //Managers.UI.c_popup.OnClickOKStartPanel();
     }
 }

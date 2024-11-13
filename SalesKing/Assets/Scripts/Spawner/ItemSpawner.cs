@@ -18,7 +18,7 @@ public class ItemSpawner : MonoBehaviour
 
     void SpawnEntities()
     {
-        makeItemList = Managers.Data.itemList;
+        makeItemList = DataGetter.Instance.ItemList;
       
         foreach (var item in makeItemList)
         {

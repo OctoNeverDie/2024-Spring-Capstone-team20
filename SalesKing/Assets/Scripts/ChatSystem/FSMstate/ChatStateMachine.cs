@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using static Define;
 
@@ -22,16 +19,12 @@ public class ChatStateMachine
         ChatBaseState chatState;
         switch (sendChatType)
         {
-            case SendChatType.NpcInit:
+            case SendChatType.ChatInit:
                 chatState = new NpcInitState();
                 break;
 
-            case SendChatType.ItemInit:
-                chatState = new ItemInitState();
-                break;
-
-            case SendChatType.ChatBargain:
-                chatState = new ChatBargainState();
+            case SendChatType.Chatting:
+                chatState = new ChattingState();
                 break;
 
             case SendChatType.Endpoint:

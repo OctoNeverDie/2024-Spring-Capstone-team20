@@ -57,6 +57,27 @@ public class NpcInfo
         DialogueStyle = dialogueStyle;
         Example = example;
     }
+
+    public NpcInfo(NpcInfo other)
+    {
+        if (other == null)
+            throw new ArgumentNullException(nameof(other));
+
+        NpcID = other.NpcID;
+        NpcName = other.NpcName;
+        NpcSex = other.NpcSex;
+        NpcAge = other.NpcAge;
+        KeyWord = other.KeyWord;
+        Concern = other.Concern;
+        WantItem = other.WantItem;
+        ItemCategory = other.ItemCategory;
+        Mbtis = other.Mbtis != null ? (int[])other.Mbtis.Clone() : null;
+
+        SituationDescription = other.SituationDescription;
+        Personality = other.Personality;
+        DialogueStyle = other.DialogueStyle;
+        Example = other.Example;
+    }
 }
 
 public class NpcData : ILoader<NpcInfo>
