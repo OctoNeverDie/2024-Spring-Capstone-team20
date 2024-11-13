@@ -8,7 +8,7 @@ public class City_TabletAction : MonoBehaviour
     void Start()
     {
         isTablet = false;
-        Managers.UI.ui_tablet.InitTablet();
+        //Managers.UI.ui_tablet.InitTablet();
     }
     void Update()
     {
@@ -16,12 +16,12 @@ public class City_TabletAction : MonoBehaviour
         {
             if (isTablet)
             {
-                Managers.UI.ui_tablet.OnClickHideTablet();
+                //Managers.UI.ui_tablet.OnClickHideTablet();
                 isTablet = false;
             }
             else
             {
-                Managers.UI.ui_tablet.OnClickShowTablet();
+                //Managers.UI.ui_tablet.OnClickShowTablet();
                 isTablet = true;
             }
             

@@ -2,10 +2,58 @@ using System.Collections;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class City_ChattingUI : MonoBehaviour
 {
-    [SerializeField] private GameObject NpcSpeechBubble;
+    [SerializeField] GameObject WaitReplyPanel;//server waiting panel
+    [SerializeField] GameObject NpcSpeechBubble;//user answer panel
+    [SerializeField] TMP_InputField UserInputText;//user Input text
+    [SerializeField] GameObject EndPanel;
+    [SerializeField] GameObject ConvoPanel;
+    [SerializeField] GameObject RandItemPanel;
+
+    [SerializeField] GameObject RecordPanel;
+    [SerializeField] GameObject KeyboardPanel;
+
+    [SerializeField] GameObject SummaryPanel;
+
+    [SerializeField] Button UserEndBtn; //end conversation
+    [SerializeField] Button DealBtn; //deal ended
+    private void Awake()
+    {
+        ServerManager.OnSendReplyUpdate -= SubWaitReply;
+        ServerManager.OnSendReplyUpdate += SubWaitReply;
+
+        UserEndBtn.onClick.AddListener(OnClickLeaveFSM);
+        DealBtn.onClick.AddListener(OnClickFinal);
+    }
+
+    private void OnDestroy()
+    {
+        ServerManager.OnSendReplyUpdate -= SubWaitReply;
+    }
+
+    private void SubWaitReply(bool beActive)
+    {
+        WaitReplyPanel.SetActive(beActive);
+    }
+
+    private void OnClickLeaveFSM()
+    {
+        ChatManager.Instance.EndByUser();
+    }
+
+    public void OnClickFinal()
+    {
+        EndPanel.SetActive(false);
+        ConvoPanel.SetActive(false);
+
+        if (ChatManager.Instance.npcNum >= 3)
+        {
+            SummaryPanel.SetActive(true);
+        }
+    }
 
     public void SetNpcAnswerText(string text)
     {
@@ -15,114 +63,38 @@ public class City_ChattingUI : MonoBehaviour
         NpcSpeechBubble.transform.DOScale(1f, 0.5f).SetEase(Ease.InOutBounce).SetUpdate(true);
     }
 
-    [SerializeField] private GameObject WaitReplyPanel;
-    private void SubWaitReply(bool beActive)
+    public void ShowPanel(Define.SendChatType sendChatType, object additionalData = null, bool isEndByUser=false)
     {
-        WaitReplyPanel.SetActive(beActive);
-    }
-
-    [SerializeField] GameObject ConvoPanel;
-    [SerializeField] GameObject SummaryPanel;
-    [SerializeField] GameObject EndPanel;
-
-    [SerializeField] GameObject RecordPanel;
-    [SerializeField] GameObject KeyboardPanel;
-
-    [SerializeField] GameObject OkayBtn;
-
-    private void Awake()
-    {
-        ChatManager.OnPanelUpdated -= ShowPanel;
-        ChatManager.OnPanelUpdated += ShowPanel;
-        ServerManager.OnSendReplyUpdate -= SubWaitReply;
-        ServerManager.OnSendReplyUpdate += SubWaitReply;
-    }
-
-    private void OnDestroy()
-    {
-        ChatManager.OnPanelUpdated -= ShowPanel;
-        ServerManager.OnSendReplyUpdate -= SubWaitReply;
-    }
-
-    #region 대화 시작하겠습니까?
-    public void OnClickYesTalkBtn()
-    {
-        TutorialManager.Instance.OnRecord();
-        ConvoPanel.SetActive(true);
-        EndPanel.SetActive(false);
-        WaitReplyPanel.SetActive(false);
-        InitiateInputMode();
-    }
-
-    public void InitiateInputMode()
-    {
-        Define.UserInputMode defaultMode = Managers.Input.CurInputMode;
-
-        if (defaultMode == Define.UserInputMode.Keyboard)
+        if (sendChatType == Define.SendChatType.ChatInit)
         {
-            Debug.Log("키보드 인풋 모드로 초기화");
-            RecordPanel.SetActive(false);
-            KeyboardPanel.SetActive(true);
+            ConvoPanel.SetActive(true);// show convo: npc name, 
+            //TODO :ItemInfo randItem, npc item 룰렛
         }
-        else if (defaultMode == Define.UserInputMode.Voice)
+
+        else if (sendChatType == Define.SendChatType.Chatting)
         {
-            RecordPanel.SetActive(true);
-            KeyboardPanel.SetActive(false);
+            if (additionalData is ChattingState.GptResult gptResult)
+            {
+                SetNpcAnswerText(gptResult.reaction);//reply 보여줌
+                if (gptResult.persuasion >= 3)
+                { //TODO : ++ 효과, 초록색, gptResult.reason 뒤에 따라옴.
+                }
+                else if (gptResult.persuasion <= -3)
+                { //TODO : -- 효과, 빨간색, gptResult.reason 뒤에 따라옴.
+                }
+            }
         }
-    }
 
-    public void OnClickNoTalkBtn()
-    {
-        Managers.Convo.ConvoFinished();
-        EndPanel.SetActive(false);
-        ConvoPanel.SetActive(false);
-    }
-    #endregion
-
-    public void ShowPanel(Define.SendChatType sendChatType, Define.EndType endType)
-    {
-        TextMeshProUGUI text = EndPanel.GetComponentInChildren<TextMeshProUGUI>();
-
-        if ((endType == Define.EndType.clear && Managers.Chat.reason == 3) || endType == Define.EndType.buy)
-            text.text = "판매 성공!";
-
-        else
-            text.text = "판매 실패...";
-
-        StartCoroutine(ShowEndPanelAfterDelay());
+        else if (sendChatType == Define.SendChatType.Endpoint)
+        {
+            ConvoManager.Instance.ConvoFinished();
+            StartCoroutine(ShowEndPanelAfterDelay());
+        }
     }
 
     private IEnumerator ShowEndPanelAfterDelay()
     {
         yield return new WaitForSecondsRealtime(1f);
         EndPanel.SetActive(true);
-    }
-
-    #region 대화 끝내기
-
-    public void OnEndChat()
-    {
-        Managers.Convo.ConvoFinished();
-        EndPanel.SetActive(false);
-        ConvoPanel.SetActive(false);
-    }
-    #endregion
-
-    public void OnClickSwitchBtn()
-    {
-        // switch to voice
-        if (Managers.Input.CurInputMode == Define.UserInputMode.Keyboard)
-        {
-            RecordPanel.SetActive(true);
-            KeyboardPanel.SetActive(false);
-            Managers.Input.CurInputMode = Define.UserInputMode.Voice;
-        }
-        else if (Managers.Input.CurInputMode == Define.UserInputMode.Voice)
-        {
-            RecordPanel.SetActive(false);
-            KeyboardPanel.SetActive(true);
-            Managers.Input.CurInputMode = Define.UserInputMode.Keyboard;
-
-        }
     }
 }

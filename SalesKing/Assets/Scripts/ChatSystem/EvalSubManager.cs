@@ -6,78 +6,46 @@ public class EvalSubManager
 {
     public static event Action<string> OnChatDataUpdated;
 
-    public class NpcEvaluation : InitData
+    public class NpcEvaluation
     { //마지막에, 이름, MBTI 타입, 나이, 성별, 키워드, 사고 싶은 물건, 판 물건, 평가
-        public string npcName;
-        public int npcAge;
-        public bool npcSex;
-        public string npcKeyword;
+        public int npcID;
+        public int boughtItemID;
 
         public bool isSuccess;
-        public string wantItemName;
-        public string boughtItemName;
-        public string concern;
-
-        public Define.Emotion emotion;
         public string reason;
         public string summary;
     }
-
-    // NpcEvaluation 타입을 저장하는 Dictionary를 정의
     public Dictionary<int, NpcEvaluation> NpcEvalDict { get; private set; } = new Dictionary<int, NpcEvaluation>();
 
     public int currentNpcId = 0;
     public NpcEvaluation _npcEvaluation;
-    public void InitNpcDict(InitData initData, NpcInfo npc)
+
+    public void InitEvalDictNpc(int npcID, int playerItemIdx)
     {
-        string boughtItemName = Managers.Data.itemList[initData.boughtItemID].ObjName;
-        string wantItemName = Managers.Data.itemList[initData.wantItemID].ObjName;
-        string concern = Managers.Data.concernList[initData.concernID].Concern;
+        _npcEvaluation = new NpcEvaluation();
+        _npcEvaluation.boughtItemID = playerItemIdx;
+        _npcEvaluation.npcID = npcID;
+        currentNpcId = _npcEvaluation.npcID;
 
-        _npcEvaluation = new NpcEvaluation
+        if (NpcEvalDict.ContainsKey(npcID))
         {
-            npcID = npc.NpcID,
-            npcName = npc.NpcName,
-            npcAge = npc.NpcAge,
-            npcSex = (npc.NpcSex == "female"),
-            npcKeyword = npc.KeyWord,
-
-            boughtItemName = boughtItemName,
-            wantItemName = wantItemName,
-            concern = concern,
-            
-            summary = string.Empty
-        };
-
-        currentNpcId = npc.NpcID;
-
-        if (NpcEvalDict.ContainsKey(currentNpcId))
-        {
-            NpcEvalDict[currentNpcId] = _npcEvaluation;
+            NpcEvalDict.Add(npcID, _npcEvaluation);
         }
         else
-        {
-            NpcEvalDict.Add(currentNpcId, _npcEvaluation);
-        }
-
-        OnChatDataUpdated?.Invoke(nameof(currentNpcId));
+        { 
+            Debug.Log("중복된 캐릭터 ID");
+            NpcEvalDict[npcID] = _npcEvaluation;
+        }        
     }
-    public void UpdateNpcDict(Define.Emotion emotion, string reason = "")
-    {
-        if (reason != "")
-        {
-            _npcEvaluation.reason = reason;
-        }
-        _npcEvaluation.emotion = emotion;
-        OnChatDataUpdated?.Invoke(nameof(Define.Emotion));
 
-        Debug.Log($"Eval 이유 업데이트 {reason}");
-    }
     public void AddEvaluation(string summary, bool isBuy)
     {
         NpcEvalDict[currentNpcId].summary = summary;
         NpcEvalDict[currentNpcId].isSuccess = isBuy;
+    }
 
-        Debug.Log($"Eval 평가 업데이트 {summary}");
+    public void SaveEvaluation()
+    { 
+        //DataController로 지금 npc 평가 save 하기
     }
 }

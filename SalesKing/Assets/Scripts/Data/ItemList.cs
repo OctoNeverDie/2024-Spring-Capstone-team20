@@ -12,7 +12,7 @@ public class ItemList : MonoBehaviour
     }
     public void Test()
     {
-        itemList = Managers.Data.itemList;
+        itemList = DataGetter.Instance.ItemList;
         foreach (var item in itemList)
         {
             Debug.Log($"{item.ObjID}, {item.ObjName}, {item.ObjInfo}, {item.Category}");

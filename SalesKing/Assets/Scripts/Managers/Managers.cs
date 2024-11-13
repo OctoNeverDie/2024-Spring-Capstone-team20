@@ -26,11 +26,6 @@ public class Managers : MonoBehaviour
 
     public GameObject ManagersGO;
 
-    DataManager _data = new DataManager();
-
-    public static DataManager Data { get { return Instance._data;  } }
-
-
 
     void Awake()
     {
@@ -49,8 +44,6 @@ public class Managers : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        instance._data.Init();        
     }
 
     

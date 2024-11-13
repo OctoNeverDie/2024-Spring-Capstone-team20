@@ -9,6 +9,7 @@ public abstract class ChatBaseState
     protected ChatStateMachine _chatStateMachine;
 
     protected SendChatType _sendChatType;
+    protected ChatManager Chat = ChatManager.Instance;
 
     public abstract void Enter();
     public virtual void Exit() { }

@@ -1,5 +1,7 @@
 using System;
-
+/// <summary>
+/// 유저 답변, gpt 답변, gpt 답 관리하는 곳
+/// </summary>
 public class ReplySubManager
 {
     public static event Action<string, string> OnReplyUpdated;

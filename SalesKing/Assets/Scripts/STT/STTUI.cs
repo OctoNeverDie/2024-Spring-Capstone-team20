@@ -28,9 +28,9 @@ public class STTUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Managers.Input.CurInputMode == Define.UserInputMode.Voice && !isFixingRecord)
+        if (UserInputManager.Instance.CurInputMode == Define.UserInputMode.Voice && !isFixingRecord)
         {
-            Debug.Log("cur mode is " + Managers.Input.CurInputMode);
+            Debug.Log("cur mode is " + UserInputManager.Instance.CurInputMode);
             if (Input.GetButtonDown("STT"))
             {
                 stt.StartRecording();

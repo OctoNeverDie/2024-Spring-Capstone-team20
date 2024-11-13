@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class VariableCheck : MonoBehaviour
 {
@@ -19,8 +16,6 @@ public class VariableCheck : MonoBehaviour
     {
         //variables = this.GetComponentsInChildren<TextMeshProUGUI>();
         //InitVariables();
-        ChatManager.OnNumberUpdated -= UpdateTurnSuggest;
-        ChatManager.OnNumberUpdated += UpdateTurnSuggest;
 
         ReplySubManager.OnReplyUpdated -= ReplyLog;
         ReplySubManager.OnReplyUpdated += ReplyLog;
@@ -33,13 +28,7 @@ public class VariableCheck : MonoBehaviour
     {
         Clear();
     }
-    //Action : ChatManager.OnNumberUpdated
-    private void UpdateTurnSuggest(int _, float npcSuggest, float userSuggest)
-    {
-        userSuggestText.text = userSuggest.ToString();
-        npcSuggestText.text = npcSuggest.ToString();
-    }
-
+    
     private void Clear()
     {
         sellingItemText.text = "-";
@@ -51,7 +40,7 @@ public class VariableCheck : MonoBehaviour
     //Action : ReplySubManager.OnReplyUpdated
     private void ReplyLog(string type, string input)
     {
-        var ReplyManager = Managers.Chat.ReplyManager;
+        var ReplyManager = ChatManager.Instance.Reply;
 
         switch (type)
         {
@@ -81,7 +70,7 @@ public class VariableCheck : MonoBehaviour
     //Action : EvalSubManager.OnChatDataUpdated, (npcinit)currentNpcId/(evaluation)NpcEvalDict/(bought item)itemInfo
     private void NpcEval(string type)
     {
-        var EvalManager = Managers.Chat.EvalManager;
+        var EvalManager = ChatManager.Instance.Eval;
         
         int DictId = EvalManager.currentNpcId;
 
@@ -90,14 +79,14 @@ public class VariableCheck : MonoBehaviour
 
         var npcEvalDict = EvalManager.NpcEvalDict[DictId];
 
-        switch (type)
-        {
-            case nameof(EvalManager.currentNpcId):
-                Debug.Log("Eval 1. npc 프로필 업데이트"+$"npc: {npcEvalDict.npcID}+" +
-                    $"{npcEvalDict.npcName}+" +
-                    $"{npcEvalDict.npcAge}+" +
-                    $"{npcEvalDict.npcSex}");
-                break;
-        }
+        //switch (type)
+        //{
+        //    case nameof(EvalManager.currentNpcId):
+        //        Debug.Log("Eval 1. npc 프로필 업데이트"+$"npc: {npcEvalDict.npcID}+" +
+        //            $"{npcEvalDict.npcName}+" +
+        //            $"{npcEvalDict.npcAge}+" +
+        //            $"{npcEvalDict.npcSex}");
+        //        break;
+        //}
     }
 }

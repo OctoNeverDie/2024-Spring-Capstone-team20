@@ -36,20 +36,8 @@ public class Define
         None,
         ChatInit,
         Chatting,
-        NpcInit,
-        ItemInit,
-        ChatBargain,
         Endpoint,
         MaxCnt
-    }
-
-    public enum EndType
-    {
-        None,
-        reject,
-        buy,
-        leave,
-        clear
     }
 
     public enum Interactables
@@ -66,18 +54,11 @@ public class Define
         Voice
     }
 
-    public enum Mbti
+    public enum ItemCategory
     { 
-        emotional,
-        logical,
-        flatter,
-        flirter,
-    }
-
-    public enum Prefer
-    { 
-        norm,
-        like,
-        dislike,
+        Default,
+        Food,
+        Clothes,
+        MaxCnt
     }
 }

@@ -4,6 +4,9 @@ using UnityEngine;
 public class TestProfile : MonoBehaviour
 {
     [SerializeField]
+    ChatManager chatManager;
+
+    [SerializeField]
     TextMeshProUGUI npcName;
     [SerializeField]
     TextMeshProUGUI npcAge;
@@ -24,13 +27,13 @@ public class TestProfile : MonoBehaviour
 
     void show(string name)
     {
-        var eval = Managers.Chat.EvalManager;
+        var eval = chatManager.Eval;
         if (name == nameof(eval.currentNpcId))
         {
-            npcName.text = eval.NpcEvalDict[eval.currentNpcId].npcName;
-            npcAge.text = eval.NpcEvalDict[eval.currentNpcId].npcAge.ToString();
-            npcSex.text = eval.NpcEvalDict[eval.currentNpcId].npcSex ? "Female" : "Male";
-            npcPersonality.text = eval.NpcEvalDict[eval.currentNpcId].npcKeyword;
+        //    npcName.text = eval.NpcEvalDict[eval.currentNpcId].npcName;
+        //    npcAge.text = eval.NpcEvalDict[eval.currentNpcId].npcAge.ToString();
+        //    npcSex.text = eval.NpcEvalDict[eval.currentNpcId].npcSex ? "Female" : "Male";
+        //    npcPersonality.text = eval.NpcEvalDict[eval.currentNpcId].npcKeyword;
         }
     }
 }

@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : Singleton<PlayerManager>
+public class PlayerManager : Singleton<PlayerManager>, ISingletonSettings
 {
     [SerializeField] GameObject PlayerPrefab;
     public GameObject MyPlayer;
+
+    public bool ShouldNotDestroyOnLoad => true;
 
     protected override void Awake()
     {
