@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening; // DOTween 사용
 /// <summary>
@@ -11,7 +9,7 @@ public class UserInputManager : Singleton<UserInputManager>, ISingletonSettings
 
     Player myPlayer;
 
-    [SerializeField] Define.UserInputMode DefaultMode = Define.UserInputMode.Keyboard;
+    [SerializeField] Define.UserInputMode DefaultMode = Define.UserInputMode.Voice;
     [SerializeField]
     [HideInInspector]
     public Define.UserInputMode CurInputMode;

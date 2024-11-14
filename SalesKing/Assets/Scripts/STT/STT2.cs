@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.IO;
-using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 using OpenAI_API;
