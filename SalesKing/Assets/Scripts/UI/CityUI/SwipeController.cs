@@ -47,7 +47,6 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
         }
         else//맨 뒤로 가기
         {
-            Debug.Log("맨 뒤로 가기");
             _currentPage = _maxPage;
             _targetPos -= _pageStep / 2;
             MovePage(Ease.InCubic, 1, _tweenTime / 2f);
@@ -64,7 +63,6 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
         }
         else//맨 앞으로 가기
         {
-            Debug.Log("맨 앞으로 가기");
             _currentPage = 1;
             _targetPos += _pageStep / 2;
             MovePage(Ease.InCubic, 2, _tweenTime / 2f);

@@ -459,7 +459,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3600352991821616071}
   m_Layer: 5
-  m_Name: Situations
+  m_Name: Post
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -572,6 +572,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5065834667451115241}
+  - component: {fileID: 7118741319200668761}
   m_Layer: 5
   m_Name: NpcInfo
   m_TagString: Untagged
@@ -599,6 +600,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1386, y: 770}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7118741319200668761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8276553518439867194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c2dcd50891a844cac89226ead9ab52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: {fileID: 6692043083234744819}
+  Persuasion: {fileID: 8098720817626235867}
+  Keyword: {fileID: 3708154829153330958}
+  profileImg: {fileID: 6634075108494720933}
+  concern: {fileID: 8384889500391266055}
+  item: {fileID: 4201178437102560410}
 --- !u!1 &8307954209265612762
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,8 +683,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC124\uB4DD1 \uC720\uD615 : <color=blue>\uAC10\uC131\uC88B\uC544</color>
-    <size=32><color=grey>*\uAC10\uC815\uC801\uC778 \uC124\uB4DD\uC5D0 \uC57D\uD568</color></size>"
+  m_text: "\uC124\uB4DD1 \uC720\uD615 : <color=blue>\uAC10\uC131\uC88B\uC544</color>"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cf4289bd6ee43824797e93dd792189a3, type: 2}
   m_sharedMaterial: {fileID: 1478231744071295158, guid: cf4289bd6ee43824797e93dd792189a3, type: 2}
@@ -836,7 +854,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uACE0\uAC1D \uC815\uBCF4 : \uAE40\uC218\uD55C\uBB34 (18\uC138)"
+  m_text: "\uACE0\uAC1D \uC815\uBCF4 : 1\uBC88 (18\uC138)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cf4289bd6ee43824797e93dd792189a3, type: 2}
   m_sharedMaterial: {fileID: 1478231744071295158, guid: cf4289bd6ee43824797e93dd792189a3, type: 2}
@@ -1051,7 +1069,7 @@ GameObject:
   - component: {fileID: 8163382948415524955}
   - component: {fileID: 8093925521234217346}
   m_Layer: 5
-  m_Name: concern
+  m_Name: concernTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

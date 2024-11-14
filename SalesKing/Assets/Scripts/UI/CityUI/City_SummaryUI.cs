@@ -1,61 +1,36 @@
 using System.Collections.Generic;
-using System.Linq;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
+/// <summary>
+/// initiate the npc summary
+/// </summary>
 public class City_SummaryUI : MonoBehaviour
 {
-    [SerializeField] GameObject[] npcs;
-    private List<NpcUI> npcUIs;
-    private int npcsIdx=0;
-    
-    private class NpcUI
+    [SerializeField] NpcEvalRectrans[] npcs;
+    Dictionary<int, int>IdtoGoIdx = new Dictionary<int, int>();
+
+    public void InitNpc(int i, NpcInfo npc, string coloredMbti, Sprite sprite = null)
     {
-        public int NpcID;
-        public TextMeshProUGUI txtName;
-        public TextMeshProUGUI txtPersuasion;
-        public TextMeshProUGUI txtSummary;
-        public TextMeshProUGUI txtItem;
-        public Image profile;
-    }
-    private void Awake()
-    {
-        Init();
+        IdtoGoIdx.Add(npc.NpcID, i);
+
+        npcs[i].Name.text = npc.NpcName;
+        npcs[i].Persuasion.text = coloredMbti;
+        if(sprite!=null)
+            npcs[i].ProfileImg.sprite = sprite;
+
+        npcs[i].Item.text = "???";
+        npcs[i].Evaluation.text = "";
     }
 
-    private void Init()
+    public void UpdateItemData(string randItem, int thisNpcID)
     {
-        foreach (var npc in npcs)
-        {
-            NpcUI npcUI = new NpcUI();
-            npcUI.txtName = npc.transform.Find("Name")?.GetComponent<TextMeshProUGUI>();
-            npcUI.txtPersuasion = npc.transform.Find("Persuasion")?.GetComponent<TextMeshProUGUI>();
-            npcUI.txtSummary = npc.transform.Find("Evaluation")?.GetComponent<TextMeshProUGUI>();
-            npcUI.txtItem = npc.transform.Find("Item")?.GetComponent<TextMeshProUGUI>();
-            npcUI.profile = npc.transform.Find("Profile")?.GetComponent<Image>();
-            npcUIs.Add(npcUI);
-        }
+        int idx = IdtoGoIdx[thisNpcID];
+        npcs[idx].Item.text = randItem;
     }
 
-    public void UpdateItemData(ItemInfo randItem, int thisNpcID)
+    public void UpdateEvaluationData(string summary, int thisNpcID)
     {
-        if (npcsIdx > npcs.Length)
-        {
-            Debug.Log("4명째임.쓸 수 없는 summary 프로필이 없삼.");
-            return;
-        }
-        npcUIs[npcsIdx].NpcID = thisNpcID;
-        npcUIs[npcsIdx].txtItem.text = randItem.ObjName;
-        npcsIdx++;
-    }
-
-    public void UpdateEvaluationData(int npcID, string summary)
-    {
-        //search where npcUIs[?]'s npcID == npcID,
-        //that thing's txtSummary.text=summary;
-        var npcUI = npcUIs.FirstOrDefault(n => n.NpcID == npcID);
-        npcUI.txtSummary.text = summary;
+        int idx = IdtoGoIdx[thisNpcID];
+        npcs[idx].Evaluation.text = summary;
     }
 }
