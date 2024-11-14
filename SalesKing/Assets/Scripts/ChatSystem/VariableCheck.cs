@@ -20,8 +20,6 @@ public class VariableCheck : MonoBehaviour
         ReplySubManager.OnReplyUpdated -= ReplyLog;
         ReplySubManager.OnReplyUpdated += ReplyLog;
 
-        EvalSubManager.OnChatDataUpdated -= NpcEval;
-        EvalSubManager.OnChatDataUpdated += NpcEval;
     }
 
     private void OnEnable()

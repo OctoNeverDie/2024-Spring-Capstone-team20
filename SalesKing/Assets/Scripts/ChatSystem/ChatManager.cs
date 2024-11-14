@@ -52,7 +52,7 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
                 if (additionalData is ItemInfo randItem)
                 {
                     cityChattingUI.ShowPanel(chatState, randItem, isEndByUser); // show convo: npc name, npc item 룰렛
-                    citySummaryUI.UpdateItemData(randItem); // show tablet: npc name ~ npc want item
+                    citySummaryUI.UpdateItemData(randItem, ThisNpcID); // show tablet: npc name ~ npc want item
                 }
                 break;
 

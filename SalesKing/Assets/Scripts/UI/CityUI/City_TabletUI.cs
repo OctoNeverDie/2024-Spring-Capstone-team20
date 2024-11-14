@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening; // DoTween 네임스페이스 추가
 
 public class City_TabletUI : MonoBehaviour
 {
     public GameObject Tablet;
+
+    [SerializeField] GameObject CustomerInfo;
+    [SerializeField] GameObject CustomerEval;
 
     public void InitTablet()
     {
@@ -26,5 +27,11 @@ public class City_TabletUI : MonoBehaviour
         Tablet.transform.DOLocalMove(new Vector3(-2000, 0, 0), 1f); // 1초 동안 이동
     }
 
+    public void ShowSummary()
+    {
+        CustomerInfo.SetActive(false);
+        CustomerEval.SetActive(true);
+        OnClickShowTablet();
+    }
 
 }
