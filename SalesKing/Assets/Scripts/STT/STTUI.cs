@@ -20,9 +20,11 @@ public class STTUI : MonoBehaviour
     void Start()
     {
         stt = GetComponent<STT2>();
-
-        recordingSlider.maxValue = stt._recordingLengthSec; // 슬라이더 최대값을 녹음 시간으로 설정
-        recordingSlider.value = stt._recordingLengthSec;
+        if (recordingSlider != null)
+        {
+            recordingSlider.maxValue = stt._recordingLengthSec; // 슬라이더 최대값을 녹음 시간으로 설정
+            recordingSlider.value = stt._recordingLengthSec;
+        }
     }
 
     // Update is called once per frame

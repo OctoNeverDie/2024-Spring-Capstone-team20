@@ -1,30 +1,99 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening; // DoTween 네임스페이스 추가
+using DG.Tweening;
+using System.Collections.Generic; // DoTween 네임스페이스 추가
 
 public class City_TabletUI : MonoBehaviour
 {
-    public GameObject Tablet;
+    [SerializeField] City_TabletAction tabletAction;
+    [SerializeField] City_NpcInfoUI npcInfoUI;
+    [SerializeField] City_SummaryUI summaryUI;
 
-    public void InitTablet()
+    private List<int> npcIDs;
+    private void Awake()
     {
-        Tablet.transform.localPosition = new Vector3(-2000, 0, 0);
+        Debug.Log("TODO : Tablet Mock, stage 확인하고, 해당되는 id 넣을 것");
+        npcIDs = new List<int>() { 0, 1, 2 };
+
+        InitNpc();
     }
 
-    public void OnClickShowTablet()
+    private void InitNpc()
     {
-        // Tablet을 -2000,0,0에서 0,0,0으로 이동
-        Tablet.transform.localPosition = new Vector3(-2000, 0, 0);
-        Tablet.transform.DOLocalMove(Vector3.zero, 1f); // 1초 동안 이동
+        for (int i = 0; i < npcIDs.Count; i++)
+        {
+            NpcInfo npc = DataGetter.Instance.NpcList[npcIDs[i]];
+            string colorPersuasion = ColorPersuasion(npc.Mbtis);
+            //npc sprite
+            npcInfoUI.InitNpc(i, npc, colorPersuasion);
+            summaryUI.InitNpc(i, npc, colorPersuasion);
+        }
     }
 
-    public void OnClickHideTablet()
-    {
-        // Tablet을 0,0,0에서 -2000,0,0으로 이동
-        Tablet.transform.localPosition = new Vector3(0, 0, 0);
-        Tablet.transform.DOLocalMove(new Vector3(-2000, 0, 0), 1f); // 1초 동안 이동
+    public void UpdateItemData(ItemInfo randItem, int thisNpcID)
+    { 
+        summaryUI.UpdateItemData(randItem.ObjName, thisNpcID);
+        npcInfoUI.UpdateItemData(randItem.ObjName, thisNpcID);
     }
 
+    public void UpdateEvaluationData(string Evaluation, int thisNpcID)
+    {
+        summaryUI.UpdateEvaluationData(Evaluation, thisNpcID);
+    }
 
+    public void ShowSummary()
+    {
+        npcInfoUI.gameObject.SetActive(false);
+        summaryUI.gameObject.SetActive(true);
+        tabletAction.OnClickShowTablet();
+    }
+
+    private string ColorPersuasion(int[] mbtis)
+    {
+        string persuasionStr = "";
+        for (int i = 0; i < mbtis.Length; i++)
+        {
+            persuasionStr += MakeColor(i, mbtis[i]) + " ";
+        }
+
+        return persuasionStr;
+    }
+
+    private string MakeColor(int mbti, int prefer)
+    {
+        string mbtiType = "";
+        string result = "";
+
+        if (prefer == 0)
+            return "";
+
+        switch (mbti)
+        {
+            case 0:
+                mbtiType = "감성";
+                break;
+            case 1:
+                mbtiType = "논리";
+                break;
+            case 2:
+                mbtiType = "아부";
+                break;
+            case 3:
+                mbtiType = "유혹";
+                break;
+            default: break;
+        }
+
+        switch (prefer)
+        {
+            case -1:
+                result = "<color=blue>" + mbtiType + "싫어" + "</color>";
+                break;
+            case 1:
+                result = "<color=red>" + mbtiType + "좋아" + "</color>";
+                break;
+            default: break;
+        }
+
+        return result;
+    }
 }

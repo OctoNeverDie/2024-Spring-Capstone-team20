@@ -13,9 +13,9 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
 {
     public bool ShouldNotDestroyOnLoad => false;
 
-    [SerializeField] StartChattingMockData mockData;
     [SerializeField] City_ChattingUI cityChattingUI;
-    [SerializeField] City_SummaryUI citySummaryUI;
+    [SerializeField] City_TabletUI cityTabletUI;
+
     public int ThisNpcID { get; private set; }
     public int npcNum { get; private set; } = 0;
     public bool isEndByUser { get; private set; } = false;
@@ -52,7 +52,7 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
                 if (additionalData is ItemInfo randItem)
                 {
                     cityChattingUI.ShowPanel(chatState, randItem, isEndByUser); // show convo: npc name, npc item 룰렛
-                    citySummaryUI.UpdateItemData(randItem); // show tablet: npc name ~ npc want item
+                    cityTabletUI.UpdateItemData(randItem, ThisNpcID); // show tablet: npc name ~ npc want item
                 }
                 break;
 
@@ -66,7 +66,7 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
 
             case SendChatType.Endpoint:
                 cityChattingUI.ShowPanel(chatState); // convo가 끝나 카메라가 돌아가고, end Panel 하나만 띄우기
-                citySummaryUI.UpdateEvaluationData(ThisNpcID, Eval.NpcEvalDict[ThisNpcID].summary);
+                cityTabletUI.UpdateEvaluationData(Eval.NpcEvalDict[ThisNpcID].summary, ThisNpcID);
                 break;
 
             default:

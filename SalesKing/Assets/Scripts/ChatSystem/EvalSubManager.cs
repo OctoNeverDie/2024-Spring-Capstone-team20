@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EvalSubManager
 {
-    public static event Action<string> OnChatDataUpdated;
-
     public class NpcEvaluation
     { //마지막에, 이름, MBTI 타입, 나이, 성별, 키워드, 사고 싶은 물건, 판 물건, 평가
         public int npcID;

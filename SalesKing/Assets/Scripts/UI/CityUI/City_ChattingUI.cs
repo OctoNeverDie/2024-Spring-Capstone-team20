@@ -13,10 +13,7 @@ public class City_ChattingUI : MonoBehaviour
     [SerializeField] GameObject ConvoPanel;
     [SerializeField] GameObject RandItemPanel;
 
-    [SerializeField] GameObject RecordPanel;
-    [SerializeField] GameObject KeyboardPanel;
-
-    [SerializeField] GameObject SummaryPanel;
+    [SerializeField] City_TabletUI Tablet;
 
     [SerializeField] Button UserEndBtn; //end conversation
     [SerializeField] Button DealBtn; //deal ended
@@ -51,7 +48,7 @@ public class City_ChattingUI : MonoBehaviour
 
         if (ChatManager.Instance.npcNum >= 3)
         {
-            SummaryPanel.SetActive(true);
+            Tablet.ShowSummary();
         }
     }
 
@@ -63,7 +60,7 @@ public class City_ChattingUI : MonoBehaviour
         NpcSpeechBubble.transform.DOScale(1f, 0.5f).SetEase(Ease.InOutBounce).SetUpdate(true);
     }
 
-    public void ShowPanel(Define.SendChatType sendChatType, object additionalData = null, bool isEndByUser=false)
+    public void ShowPanel(Define.SendChatType sendChatType, object additionalData = null, bool isEndByUser =false)
     {
         if (sendChatType == Define.SendChatType.ChatInit)
         {

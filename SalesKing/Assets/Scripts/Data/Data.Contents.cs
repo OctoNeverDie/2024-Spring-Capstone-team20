@@ -34,7 +34,7 @@ public class NpcInfo
     public string Concern;
     public string WantItem;
     public Define.ItemCategory ItemCategory;
-    public int [] Mbtis;
+    public int [] Mbtis;// 1 = like, 0 = norm, -1 = dislike
 
     //prompt needed
     public string SituationDescription;
