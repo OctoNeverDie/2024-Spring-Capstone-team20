@@ -1,32 +1,39 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class SwipeController : MonoBehaviour, IEndDragHandler
 {
     [SerializeField] Vector3 _scrollWidth = new Vector3(-1400f, 0, 0);
-    [SerializeField] Vector3 _spacing = new Vector3(-1400, 0, 0);
+    [SerializeField] Vector3 _spacing = new Vector3(-160, 0, 0);
     [SerializeField] RectTransform _npcPagesRect;
-
+    [Header("Effects--------------------")]
     [SerializeField] float _tweenTime = 0.8f;
     [SerializeField] float _ratio = 0.75f;
     [SerializeField] Ease _tweenType = Ease.InCubic;
+    [Header("Buttons--------------------")]
+    [SerializeField] Button Prev;
+    [SerializeField] Button Next;
 
     int _maxPage = 3;
     int _currentPage;
     Vector3 _targetPos;
     Vector3 _pageStep;
-    Vector3 _circularPage;
+    Vector3 _firstVacantPageLocation;
     float _dragThreshold;
     private void Awake()
     {
         _currentPage = 1;
-        _circularPage = _npcPagesRect.localPosition;
-        _pageStep = _scrollWidth + _spacing;
+        _firstVacantPageLocation = _npcPagesRect.localPosition;
+        _pageStep = _scrollWidth+ _spacing;
         _dragThreshold = Screen.width / 10;
 
         _npcPagesRect.localPosition += _pageStep;
         _targetPos = _npcPagesRect.localPosition;
+
+        Prev.onClick.AddListener(Front);
+        Next.onClick.AddListener(Back);
     }
 
     #region Scroll Input
@@ -40,6 +47,7 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
         }
         else//맨 뒤로 가기
         {
+            Debug.Log("맨 뒤로 가기");
             _currentPage = _maxPage;
             _targetPos -= _pageStep / 2;
             MovePage(Ease.InCubic, 1, _tweenTime / 2f);
@@ -56,6 +64,7 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
         }
         else//맨 앞으로 가기
         {
+            Debug.Log("맨 앞으로 가기");
             _currentPage = 1;
             _targetPos += _pageStep / 2;
             MovePage(Ease.InCubic, 2, _tweenTime / 2f);
@@ -88,15 +97,15 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
         _npcPagesRect.DOLocalMove(_targetPos, time).SetEase(_tweenType).OnComplete(() => {
             if (resetAfterMove == 1)
             {
-                _npcPagesRect.localPosition = _circularPage + _pageStep * (_maxPage + _ratio);
+                _npcPagesRect.localPosition = _firstVacantPageLocation + _pageStep * (_maxPage + _ratio);
                 _targetPos = _npcPagesRect.localPosition - _pageStep * _ratio;
                 MovePage(Ease.InCubic, 0, _tweenTime / 1.7f);
             }
 
             else if (resetAfterMove == 2)
             {
-                _npcPagesRect.localPosition = _circularPage + (_pageStep * (1 - _ratio));
-                _targetPos = _circularPage + _pageStep;
+                _npcPagesRect.localPosition = _firstVacantPageLocation + (_pageStep * (1 - _ratio));
+                _targetPos = _firstVacantPageLocation + _pageStep;
                 MovePage(Ease.InCubic, 0, _tweenTime / 1.7f);
             }
         });
