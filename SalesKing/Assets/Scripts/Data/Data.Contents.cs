@@ -42,7 +42,9 @@ public class NpcInfo
     public string DialogueStyle;
     public string Example;
 
-    public NpcInfo(int npcID, string npcName, string npcSex, int npcAge, string keyWord, string concern, string wantItem, int[] mbtis, string situationDescription, string personality, string dialogueStyle, string example)
+    public GameObject NpcLooks;
+
+    public NpcInfo(int npcID, string npcName, string npcSex, int npcAge, string keyWord, string concern, string wantItem, int[] mbtis, string situationDescription, string personality, string dialogueStyle, string example, GameObject npcLooks)
     {
         NpcID = npcID;
         NpcName = npcName;
@@ -56,6 +58,7 @@ public class NpcInfo
         Personality = personality;
         DialogueStyle = dialogueStyle;
         Example = example;
+        NpcLooks = npcLooks;
     }
 
     public NpcInfo(NpcInfo other)
@@ -77,6 +80,7 @@ public class NpcInfo
         Personality = other.Personality;
         DialogueStyle = other.DialogueStyle;
         Example = other.Example;
+        NpcLooks = other.NpcLooks;
     }
 }
 
