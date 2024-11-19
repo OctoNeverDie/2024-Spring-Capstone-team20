@@ -7,23 +7,60 @@ using TMPro;
 public class SaveFilePanelUI : MonoBehaviour
 {
     public string fileID;
+    public bool isCreateFile = false;
+    public bool isNullPanel = false;
+
     public Button file_button;
     public Button delete_button;
     public TextMeshProUGUI file_button_text;
 
     void Start()
     {
-        file_button.onClick.AddListener(OnClickSaveFileButton);
+        file_button.onClick.AddListener(OnClickFileButton);
         delete_button.onClick.AddListener(OnClickDeleteButton);
+        SetSaveFilePanel();
     }
 
-    public void OnClickSaveFileButton()
+    public void SetSaveFilePanel()
     {
-        SaveFileManager.Instance.LoadCitySceneBySaveFile(fileID);
+        if (isCreateFile)
+        {
+            file_button_text.text = "Create New Save File";
+            delete_button.interactable = false;
+        }
+        else if (isNullPanel)
+        {
+            file_button_text.text = "???";
+            file_button.interactable = false;
+            delete_button.interactable = false;
+        }
+        else
+        {
+            file_button_text.text = fileID;
+        }
+            
+    }
+
+    public void OnClickFileButton()
+    {
+        if (isCreateFile)
+        {
+            // 이 패널이 들고 있는 file ID
+            SaveFileManager.Instance.CreateSaveFile();
+        }
+        else if (!isNullPanel)
+        {
+            SaveFileManager.Instance.LoadCitySceneBySaveFile(fileID);
+        }
+            
     }
 
     public void OnClickDeleteButton()
     {
-        SaveFileManager.Instance.DeleteSaveFile(fileID, this.gameObject);
+        if(!isCreateFile && !isNullPanel)
+        {
+            // 이 패널이 들고 있는 file ID
+        }
+
     }
 }
