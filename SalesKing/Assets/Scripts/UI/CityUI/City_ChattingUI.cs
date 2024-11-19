@@ -84,10 +84,10 @@ public class City_ChattingUI : MonoBehaviour
             if (additionalData is ChattingState.GptResult gptResult)
             {
                 SetNpcAnswerText(gptResult.reaction);//reply 보여줌
-                if (gptResult.persuasion >= 3)
+                if (gptResult.Persuasion >= 2)
                 { //TODO : ++ 효과, 초록색, gptResult.reason 뒤에 따라옴.
                 }
-                else if (gptResult.persuasion <= -3)
+                else if (gptResult.Persuasion <= -2)
                 { //TODO : -- 효과, 빨간색, gptResult.reason 뒤에 따라옴.
                 }
             }
