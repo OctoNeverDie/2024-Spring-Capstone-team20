@@ -104,6 +104,7 @@ public class NpcData : ILoader<NpcInfo>
         NpcSO npcSO = ScriptableObject.CreateInstance<NpcSO>();
         npcSO.Initialize(npc);
 
+
 #if UNITY_EDITOR
         //UnityEditor.AssetDatabase.CreateAsset(npcSO, $"{base.basePath}Npcs/{npcSO.npcInfo.NpcName}.asset");
         //UnityEditor.AssetDatabase.SaveAssets();
