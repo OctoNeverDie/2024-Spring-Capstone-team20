@@ -51,6 +51,17 @@ public class City_ChattingUI : MonoBehaviour
         }
     }
 
+    private void SetNpcName(string name)
+    {
+        Transform infoTransform = NpcSpeechBubble.transform.Find("Info");
+        if (infoTransform != null)
+        {
+            TextMeshProUGUI infoText = infoTransform.GetComponent<TextMeshProUGUI>();
+            if (infoText != null)
+                infoText.text = name;
+        }
+    }
+
     public void SetNpcAnswerText(string text)
     {
         TextMeshProUGUI NpcSpeechText = NpcSpeechBubble.GetComponentInChildren<TextMeshProUGUI>();
@@ -59,10 +70,11 @@ public class City_ChattingUI : MonoBehaviour
         NpcSpeechBubble.transform.DOScale(1f, 0.5f).SetEase(Ease.InOutBounce).SetUpdate(true);
     }
 
-    public void ShowPanel(Define.SendChatType sendChatType, object additionalData = null, bool isEndByUser =false)
+    public void ShowPanel(Define.SendChatType sendChatType, object additionalData = null, string name=null, bool isEndByUser =false)
     {
         if (sendChatType == Define.SendChatType.ChatInit)
         {
+            SetNpcName(name);
             ConvoPanel.SetActive(true);// show convo: npc name, 
             //TODO :ItemInfo randItem, npc item 룰렛
         }

@@ -25,7 +25,7 @@ public class EvalSubManager
         _npcEvaluation.npcID = npcID;
         currentNpcId = _npcEvaluation.npcID;
 
-        if (NpcEvalDict.ContainsKey(npcID))
+        if (!NpcEvalDict.ContainsKey(npcID))
         {
             NpcEvalDict.Add(npcID, _npcEvaluation);
         }
