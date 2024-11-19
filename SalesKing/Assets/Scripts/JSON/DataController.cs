@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using System;
-using OpenAI_API.Files;
 
 public class DataController : MonoBehaviour
 {
