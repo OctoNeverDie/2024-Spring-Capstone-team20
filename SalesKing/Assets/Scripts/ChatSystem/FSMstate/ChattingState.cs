@@ -39,6 +39,7 @@ public class ChattingState : ChatBaseState, IVariableChat
                 {
                     _persuasion = (int)value;
                 }
+                totalPersuasion += _persuasion;
             }
         }
 
@@ -52,7 +53,7 @@ public class ChattingState : ChatBaseState, IVariableChat
         [JsonProperty("summary")]
         public string summary { get; set; }
 
-        public int totalPersuasion;
+        public int totalPersuasion = 0;
     }
     GptResult gptResult;
 
@@ -75,11 +76,11 @@ public class ChattingState : ChatBaseState, IVariableChat
         if (type != nameof(ChatManager.Instance.Reply.UserAnswer))
             return;
 
-        if (gptResult.Persuasion >= persuMaxLimit)
+        if (gptResult.totalPersuasion >= persuMaxLimit)
         {
             user_input += "isBuy = True";
         }
-        else if (gptResult.Persuasion <= persuMinLimit)
+        else if (gptResult.totalPersuasion <= persuMinLimit)
         {
             user_input += "isBuy = False";
         }
