@@ -44,14 +44,14 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
         TransitionToState(SendChatType.Endpoint);
     }
 
-    public void ActivatePanel(SendChatType chatState, object additionalData = null)
+    public void ActivatePanel(SendChatType chatState, object additionalData = null, string name =null)
     {
         switch (chatState)
         {
             case SendChatType.ChatInit:
                 if (additionalData is ItemInfo randItem)
                 {
-                    cityChattingUI.ShowPanel(chatState, randItem, isEndByUser); // show convo: npc name, npc item 룰렛
+                    cityChattingUI.ShowPanel(chatState, randItem, name, isEndByUser); // show convo: npc name, npc item 룰렛
                     cityTabletUI.UpdateItemData(randItem, ThisNpcID); // show tablet: npc name ~ npc want item
                 }
                 break;
