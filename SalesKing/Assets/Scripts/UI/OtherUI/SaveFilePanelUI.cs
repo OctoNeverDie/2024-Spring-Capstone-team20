@@ -60,7 +60,6 @@ public class SaveFilePanelUI : MonoBehaviour
         if(!isCreateFile && !isNullPanel)
         {
             // 이 패널이 들고 있는 file ID
-            SaveFileManager.Instance.DeleteSaveFile(fileID, this.gameObject);
         }
 
     }

@@ -26,19 +26,6 @@ public class SaveFileManager : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-    }
-
     SaveFileMainUI UI;
     List<SaveFilePanelUI> panel_list = new List<SaveFilePanelUI>();
     int slot_count = 3;
@@ -93,20 +80,17 @@ public class SaveFileManager : MonoBehaviour
         Debug.Log("load save file name : " + file_id);
     }
 
-    public void DeleteSaveFile(string file_id, GameObject panel)
+    public void DeleteSaveFile(string file_id)
     {
         DataController.Instance.gameData.save_files_IDs.Remove(file_id);
+        DataController.Instance.DeletePlayData(file_id);
         Debug.Log("delete save file name : " + file_id);
         UpdateSaveFilePanels();
     }
 
-    int count = 0;
-
     public void CreateSaveFile()
     {
         DataController.Instance.LoadPlayData("playData" + "_" + DateTime.Now.ToString("yyyy-MM-dd-HH_mm_ss"));
-        //DataController.Instance.LoadPlayData("playData" + count);
-        //count++;
         UpdateSaveFilePanels();
     }
 }

@@ -34,6 +34,8 @@ public class DataController : MonoBehaviour
     void Awake()
     {
         Init();
+        LoadGameData();
+        ToGameJson();
     }
 
     void Init()
@@ -95,7 +97,6 @@ public class DataController : MonoBehaviour
     {
         string filePath = GetGameDataFilePath();
 
-        Debug.Log("이거 호출");
         Debug.Log(filePath);
 
         if (File.Exists(filePath))
@@ -133,7 +134,6 @@ public class DataController : MonoBehaviour
         }
         else
         {
-            Debug.Log("파일 새로 생성");
             // 새 파일이 없을 경우, 새로운 PlayData 객체 생성
             _playData = new PlayData();  // 기본 PlayData 객체 생성
             ToPlayJson(playDataID); // 생성된 PlayData를 JSON 파일로 저장
