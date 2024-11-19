@@ -105,11 +105,29 @@ public class NPC : MonoBehaviour
 
     public void PlayNPCAnimByEmotion(Define.Emotion emotion)
     {
-        //int randAnimIndex = Random.Range(0, NPCManager.Instance.Anim.NPCAnimDictionary[type].Count);
-        //animator.Play(NPCManager.Instance.Anim.NPCAnimDictionary[type][randAnimIndex].name);
+        switch (emotion)
+        {
+            case Define.Emotion.best:
+                PlayRandomNPCAnimByAnimType(NPCDefine.AnimType.VeryPositive);
+                break;
+            case Define.Emotion.good:
+                PlayRandomNPCAnimByAnimType(NPCDefine.AnimType.Positive);
+                break;
+            case Define.Emotion.normal:
+                PlayRandomNPCAnimByAnimType(NPCDefine.AnimType.SlightlyPositive);
+                break;
+            case Define.Emotion.bad:
+                PlayRandomNPCAnimByAnimType(NPCDefine.AnimType.Negative);
+                break;
+            case Define.Emotion.worst:
+                PlayRandomNPCAnimByAnimType(NPCDefine.AnimType.VeryNegative);
+                break;
+            default: break;
+        }
+        
     }
 
-    public void PlayRandomNPCAnim(NPCDefine.AnimType type)
+    public void PlayRandomNPCAnimByAnimType(NPCDefine.AnimType type)
     {
         int randAnimIndex = Random.Range(0, NPCManager.Instance.Anim.NPCAnimDictionary[type].Count);
         animator.Play(NPCManager.Instance.Anim.NPCAnimDictionary[type][randAnimIndex].name);
