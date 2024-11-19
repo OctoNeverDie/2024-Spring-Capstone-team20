@@ -116,22 +116,11 @@ public class ChattingState : ChatBaseState, IVariableChat
     private void UpdateReplyVariables(string gptAnswer)
     {
         Debug.Log($"이걸 담가야해.. {gptAnswer}");
-        gptAnswer = gptAnswer.Replace("\n", "").Replace("+", "").Replace("{", "");
-        int startIndex = gptAnswer.IndexOf("{");
-        int endIndex = gptAnswer.LastIndexOf("}");
-        string jsonPart="";
+        gptAnswer = gptAnswer.Replace("\n", "").Replace("+", "").Replace("{", "").Replace("}", "");
+        gptAnswer = "{"+ $"\n{gptAnswer}\n"+"}";
 
-        if (startIndex != -1 && endIndex != -1 && endIndex > startIndex)
-        {
-            jsonPart = gptAnswer.Substring(startIndex, endIndex - startIndex + 1);
-            Debug.Log($"이걸 담가야해 {jsonPart}");
-        }
-        else 
-        {
-            jsonPart = gptAnswer.Substring(0, gptAnswer.Length);
-            Debug.Log($"{startIndex}, {endIndex}"); 
-        } 
-
+        Debug.Log($"이걸 담가야해! {gptAnswer}");
+        string jsonPart = gptAnswer.Substring(0, gptAnswer.Length);
         gptResult = JsonConvert.DeserializeObject<GptResult>(jsonPart);
 
         Debug.Log($"무사히 들어왔어요!\n{gptResult.reaction}, {gptResult.totalPersuasion}");

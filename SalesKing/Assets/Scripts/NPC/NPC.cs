@@ -105,8 +105,8 @@ public class NPC : MonoBehaviour
 
     public void PlayNPCAnimByEmotion(Define.Emotion emotion)
     {
-        int randAnimIndex = Random.Range(0, NPCManager.Instance.Anim.NPCAnimDictionary[type].Count);
-        animator.Play(NPCManager.Instance.Anim.NPCAnimDictionary[type][randAnimIndex].name);
+        //int randAnimIndex = Random.Range(0, NPCManager.Instance.Anim.NPCAnimDictionary[type].Count);
+        //animator.Play(NPCManager.Instance.Anim.NPCAnimDictionary[type][randAnimIndex].name);
     }
 
     public void PlayRandomNPCAnim(NPCDefine.AnimType type)
