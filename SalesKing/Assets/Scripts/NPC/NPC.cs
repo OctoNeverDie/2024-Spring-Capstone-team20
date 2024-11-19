@@ -110,16 +110,16 @@ public class NPC : MonoBehaviour
             case Define.Emotion.best:
                 animator.Play(NPCManager.Instance.Anim.NPCAnimDictionary[NPCDefine.AnimType.VeryPositive][0].name);
                 break;
-            case Define.Emotion.best:
+            case Define.Emotion.good:
                 animator.Play(NPCManager.Instance.Anim.NPCAnimDictionary[NPCDefine.AnimType.Positive][0].name);
                 break;
-            case Define.Emotion.best:
+            case Define.Emotion.normal:
                 animator.Play(NPCManager.Instance.Anim.NPCAnimDictionary[NPCDefine.AnimType.SlightlyPositive][0].name);
                 break;
-            case Define.Emotion.best:
+            case Define.Emotion.bad:
                 animator.Play(NPCManager.Instance.Anim.NPCAnimDictionary[NPCDefine.AnimType.Negative][0].name);
                 break;
-            case Define.Emotion.best:
+            case Define.Emotion.worst:
                 animator.Play(NPCManager.Instance.Anim.NPCAnimDictionary[NPCDefine.AnimType.VeryNegative][0].name);
                 break;
             default: break;
