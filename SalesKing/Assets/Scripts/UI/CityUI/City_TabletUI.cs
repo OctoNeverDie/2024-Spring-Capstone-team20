@@ -1,5 +1,4 @@
 using UnityEngine;
-using DG.Tweening;
 using System.Collections.Generic; // DoTween 네임스페이스 추가
 
 public class City_TabletUI : MonoBehaviour
@@ -9,7 +8,7 @@ public class City_TabletUI : MonoBehaviour
     [SerializeField] City_SummaryUI summaryUI;
 
     private List<int> npcIDs;
-    private void Awake()
+    private void Start()
     {
         Debug.Log("TODO : Tablet Mock, stage 확인하고, 해당되는 id 넣을 것");
         npcIDs = new List<int>() { 0, 1, 2 };
@@ -22,11 +21,12 @@ public class City_TabletUI : MonoBehaviour
         for (int i = 0; i < npcIDs.Count; i++)
         {
             NpcInfo npc = DataGetter.Instance.NpcList[npcIDs[i]];
+
             Debug.Log($"mbti : {npc.Mbtis}");
             string colorPersuasion = ColorPersuasion(npc.Mbtis);
             //npc sprite
-            npcInfoUI.InitNpc(i, npc, colorPersuasion);
-            summaryUI.InitNpc(i, npc, colorPersuasion);
+            npcInfoUI.InitNpc(npc, colorPersuasion);
+            summaryUI.InitNpc(npc, colorPersuasion);
         }
     }
 
@@ -87,10 +87,10 @@ public class City_TabletUI : MonoBehaviour
         switch (prefer)
         {
             case -1:
-                result = "<color=blue>" + mbtiType + "싫어" + "</color>";
+                result = "<color=red>" + mbtiType + "싫어" + "</color>";
                 break;
             case 1:
-                result = "<color=red>" + mbtiType + "좋아" + "</color>";
+                result = "<color=green>" + mbtiType + "좋아" + "</color>";
                 break;
             default: break;
         }

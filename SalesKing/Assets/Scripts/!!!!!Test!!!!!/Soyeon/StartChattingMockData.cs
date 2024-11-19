@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class StartChattingMockData : MonoBehaviour
 {
+    private void Start()
+    {
+        ChatManager.Instance.Init(1);
+    }
     public NpcInfo Encountered(int npcID = 0)
     {
         NpcInfo thisNpc;

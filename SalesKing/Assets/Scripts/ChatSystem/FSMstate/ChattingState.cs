@@ -1,5 +1,7 @@
 using System;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using UnityEngine;
 
 public class ChattingState : ChatBaseState, IVariableChat
@@ -14,14 +16,25 @@ public class ChattingState : ChatBaseState, IVariableChat
     }
     public class GptResult
     {
-        public Decision decision;
-        public string reaction;
+        [JsonProperty("decision")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Decision decision { get; set; }
 
-        public int persuasion;
-        public Define.Emotion emotion;
+        [JsonProperty("yourReply")]
+        public string reaction { get; set; }
 
-        public string reason;
-        public string summary;
+        [JsonProperty("persuasion")]
+        public int persuasion { get; set; }
+
+        [JsonProperty("emotion")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Define.Emotion emotion { get; set; }
+
+        [JsonProperty("reason")]
+        public string reason { get; set; }
+
+        [JsonProperty("summary")]
+        public string summary { get; set; }
 
         public int totalPersuasion;
     }
@@ -85,45 +98,25 @@ public class ChattingState : ChatBaseState, IVariableChat
 
     private void UpdateReplyVariables(string gptAnswer)
     {
-        string pattern = @"(?i)(decision|yourReply|persuasion|reason|emotion|summary):\s*(.*?)(?=(\n[a-zA-Z]+:)|$)";
-        var matches = Regex.Matches(gptAnswer, pattern, RegexOptions.Multiline);
+        Debug.Log($"이걸 담가야해.. {gptAnswer}");
+        int startIndex = gptAnswer.IndexOf("{");
+        int endIndex = gptAnswer.LastIndexOf("}");
+        string jsonPart="";
 
-        foreach (Match match in matches)
+        if (startIndex != -1 && endIndex != -1 && endIndex > startIndex)
         {
-            string key = match.Groups[1].Value.Trim().ToLower();
-            string value = match.Groups[2].Value.Trim();
-
-            switch (key)
-            {
-                case "decision":
-                    if (Enum.TryParse<Decision>(value, true, out Decision decision))
-                    {
-                        gptResult.decision = decision;
-                    }
-                    break;
-                case "yourreply":
-                    gptResult.reaction = value;
-                    break;
-                case "persuasion":
-                    gptResult.persuasion = int.Parse(value);
-                    break;
-                case "reason":
-                    gptResult.reason = value;
-                    break;
-                case "emotion":
-                    if (Enum.TryParse<Define.Emotion>(value, true, out Define.Emotion emotion))
-                    {
-                        gptResult.emotion = emotion;
-                    }
-                    break;
-                case "summary":
-                    gptResult.summary = value;
-                    break;
-                default:
-                    Debug.Log("Wrong Regex match");
-                    break;
-            }
+            jsonPart = gptAnswer.Substring(startIndex, endIndex - startIndex + 1);
+            Debug.Log($"이걸 담가야해 {jsonPart}");
         }
+        else 
+        {
+            jsonPart = gptAnswer.Substring(0, gptAnswer.Length);
+            Debug.Log($"{startIndex}, {endIndex}"); 
+        } 
+
+        gptResult = JsonConvert.DeserializeObject<GptResult>(jsonPart);
+
+        Debug.Log($"무사히 들어왔어요!\n{gptResult.reaction}");
     }
     private void SubScribeAction()
     {
