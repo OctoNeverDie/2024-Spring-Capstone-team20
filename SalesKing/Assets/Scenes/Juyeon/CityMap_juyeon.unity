@@ -17527,7 +17527,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &514270930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58241,21 +58241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267c0231a1509f943a6872779b3da683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TalkOrNotPanel: {fileID: 0}
-  ChooseItemPanel: {fileID: 0}
-  ConvoPanel: {fileID: 0}
-  SummaryPanel: {fileID: 0}
-  EndPanel: {fileID: 0}
-  DemoEndPanel: {fileID: 578660552}
-  WaitReplyPanel: {fileID: 0}
-  NPCSpeechBubble: {fileID: 0}
-  NPCSpeechText: {fileID: 0}
-  UserSpeechBubble: {fileID: 0}
-  UserSpeechText: {fileID: 0}
-  todayCashText: {fileID: 0}
-  RecordPanel: {fileID: 0}
-  KeyboardPanel: {fileID: 0}
-  OkayBtn: {fileID: 0}
 --- !u!114 &1614449861
 MonoBehaviour:
   m_ObjectHideFlags: 0
