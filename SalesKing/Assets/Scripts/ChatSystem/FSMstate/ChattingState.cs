@@ -1,13 +1,11 @@
-using System;
-using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using UnityEngine;
 
 public class ChattingState : ChatBaseState, IVariableChat
 {
-    const int persuMaxLimit = 9;
-    const int persuMinLimit = -3;
+    const int persuMaxLimit = 8;
+    const int persuMinLimit = -5;
     public enum Decision
     {
         wait,
@@ -24,7 +22,26 @@ public class ChattingState : ChatBaseState, IVariableChat
         public string reaction { get; set; }
 
         [JsonProperty("persuasion")]
-        public int persuasion { get; set; }
+        private int _persuasion;
+        public int Persuasion {
+            get => _persuasion;
+            set
+            {
+                // Convert value to a string only once and avoid infinite recursion
+                string stringValue = (value.ToString());
+
+                if (stringValue.StartsWith("+"))
+                {
+                    stringValue = stringValue.TrimStart('+');
+                    _persuasion = int.TryParse(stringValue, out int parsedValue) ? parsedValue : value;
+                }
+                else 
+                {
+                    _persuasion = (int)value;
+                }
+                totalPersuasion += _persuasion;
+            }
+        }
 
         [JsonProperty("emotion")]
         [JsonConverter(typeof(StringEnumConverter))]
@@ -36,7 +53,7 @@ public class ChattingState : ChatBaseState, IVariableChat
         [JsonProperty("summary")]
         public string summary { get; set; }
 
-        public int totalPersuasion;
+        public int totalPersuasion = 0;
     }
     GptResult gptResult;
 
@@ -59,11 +76,11 @@ public class ChattingState : ChatBaseState, IVariableChat
         if (type != nameof(ChatManager.Instance.Reply.UserAnswer))
             return;
 
-        if (gptResult.persuasion >= persuMaxLimit)
+        if (gptResult.totalPersuasion >= persuMaxLimit)
         {
             user_input += "isBuy = True";
         }
-        else if (gptResult.persuasion <= persuMinLimit)
+        else if (gptResult.totalPersuasion <= persuMinLimit)
         {
             user_input += "isBuy = False";
         }
@@ -85,6 +102,7 @@ public class ChattingState : ChatBaseState, IVariableChat
     private void ShowFront()
     {
         Chat.ActivatePanel(_sendChatType, gptResult);
+        //NPCManager.Instance.curTalkingNPC.GetComponent<NPC>().PlayNPCAnimByEmotion(gptResult.emotion);
     }
 
     private void UpdateEvaluation()
@@ -99,24 +117,14 @@ public class ChattingState : ChatBaseState, IVariableChat
     private void UpdateReplyVariables(string gptAnswer)
     {
         Debug.Log($"이걸 담가야해.. {gptAnswer}");
-        int startIndex = gptAnswer.IndexOf("{");
-        int endIndex = gptAnswer.LastIndexOf("}");
-        string jsonPart="";
+        gptAnswer = gptAnswer.Replace("\n", "").Replace("+", "").Replace("{", "").Replace("}", "");
+        gptAnswer = "{"+ $"\n{gptAnswer}\n"+"}";
 
-        if (startIndex != -1 && endIndex != -1 && endIndex > startIndex)
-        {
-            jsonPart = gptAnswer.Substring(startIndex, endIndex - startIndex + 1);
-            Debug.Log($"이걸 담가야해 {jsonPart}");
-        }
-        else 
-        {
-            jsonPart = gptAnswer.Substring(0, gptAnswer.Length);
-            Debug.Log($"{startIndex}, {endIndex}"); 
-        } 
-
+        Debug.Log($"이걸 담가야해! {gptAnswer}");
+        string jsonPart = gptAnswer.Substring(0, gptAnswer.Length);
         gptResult = JsonConvert.DeserializeObject<GptResult>(jsonPart);
 
-        Debug.Log($"무사히 들어왔어요!\n{gptResult.reaction}");
+        Debug.Log($"무사히 들어왔어요!\n{gptResult.reaction}, {gptResult.totalPersuasion}");
     }
     private void SubScribeAction()
     {
