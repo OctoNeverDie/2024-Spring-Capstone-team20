@@ -143,17 +143,31 @@ public class DataController : MonoBehaviour
 
     public void DeletePlayData(string playDataID)
     {
-        string filePath = GetPlayDataFilePath(playDataID);
+        string filePath = GetPlayDataFilePath(playDataID); // JSON 파일 경로
+        string metaFilePath = filePath + ".meta"; // 메타 파일 경로
 
+        // JSON 파일 삭제
         if (File.Exists(filePath))
         {
             File.Delete(filePath);
-            if (gameData.save_files_IDs.Contains(playDataID))
-            {
-                gameData.save_files_IDs.Remove(playDataID);
-            }
+            Debug.Log($"Deleted JSON file: {filePath}");
+        }
+
+        // 메타 파일 삭제
+        if (File.Exists(metaFilePath))
+        {
+            File.Delete(metaFilePath);
+            Debug.Log($"Deleted meta file: {metaFilePath}");
+        }
+
+        // gameData에서 ID 제거
+        if (gameData.save_files_IDs.Contains(playDataID))
+        {
+            gameData.save_files_IDs.Remove(playDataID);
+            Debug.Log($"Removed {playDataID} from save_files_IDs.");
         }
     }
+
 
     public void ToPlayJson(string playDataID)
     {
