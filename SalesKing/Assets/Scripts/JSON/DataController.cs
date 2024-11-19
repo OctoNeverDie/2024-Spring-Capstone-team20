@@ -34,6 +34,8 @@ public class DataController : MonoBehaviour
     void Awake()
     {
         Init();
+        LoadGameData();
+        ToGameJson();
     }
 
     void Init()
@@ -95,7 +97,6 @@ public class DataController : MonoBehaviour
     {
         string filePath = GetGameDataFilePath();
 
-        Debug.Log("이거 호출");
         Debug.Log(filePath);
 
         if (File.Exists(filePath))
@@ -133,7 +134,6 @@ public class DataController : MonoBehaviour
         }
         else
         {
-            Debug.Log("파일 새로 생성");
             // 새 파일이 없을 경우, 새로운 PlayData 객체 생성
             _playData = new PlayData();  // 기본 PlayData 객체 생성
             ToPlayJson(playDataID); // 생성된 PlayData를 JSON 파일로 저장
@@ -143,17 +143,31 @@ public class DataController : MonoBehaviour
 
     public void DeletePlayData(string playDataID)
     {
-        string filePath = GetPlayDataFilePath(playDataID);
+        string filePath = GetPlayDataFilePath(playDataID); // JSON 파일 경로
+        string metaFilePath = filePath + ".meta"; // 메타 파일 경로
 
+        // JSON 파일 삭제
         if (File.Exists(filePath))
         {
             File.Delete(filePath);
-            if (gameData.save_files_IDs.Contains(playDataID))
-            {
-                gameData.save_files_IDs.Remove(playDataID);
-            }
+            Debug.Log($"Deleted JSON file: {filePath}");
+        }
+
+        // 메타 파일 삭제
+        if (File.Exists(metaFilePath))
+        {
+            File.Delete(metaFilePath);
+            Debug.Log($"Deleted meta file: {metaFilePath}");
+        }
+
+        // gameData에서 ID 제거
+        if (gameData.save_files_IDs.Contains(playDataID))
+        {
+            gameData.save_files_IDs.Remove(playDataID);
+            Debug.Log($"Removed {playDataID} from save_files_IDs.");
         }
     }
+
 
     public void ToPlayJson(string playDataID)
     {
