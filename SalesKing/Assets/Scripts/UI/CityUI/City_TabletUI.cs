@@ -22,6 +22,7 @@ public class City_TabletUI : MonoBehaviour
         for (int i = 0; i < npcIDs.Count; i++)
         {
             NpcInfo npc = DataGetter.Instance.NpcList[npcIDs[i]];
+            Debug.Log($"mbti : {npc.Mbtis}");
             string colorPersuasion = ColorPersuasion(npc.Mbtis);
             //npc sprite
             npcInfoUI.InitNpc(i, npc, colorPersuasion);

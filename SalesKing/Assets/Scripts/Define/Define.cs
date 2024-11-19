@@ -59,6 +59,7 @@ public class Define
         Default,
         Food,
         Clothes,
+        Music,
         MaxCnt
     }
 }

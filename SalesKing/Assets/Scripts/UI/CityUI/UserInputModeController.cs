@@ -25,7 +25,7 @@ public class UserInputMode : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("submit"))
+        if (Input.GetButtonDown("Submit"))
         {
             UpdateInput();
         }
