@@ -8,10 +8,9 @@ public class City_ChattingUI : MonoBehaviour
 {
     [SerializeField] GameObject WaitReplyPanel;//server waiting panel
     [SerializeField] GameObject NpcSpeechBubble;//user answer panel
-    [SerializeField] TMP_InputField UserInputText;//user Input text
     [SerializeField] GameObject EndPanel;
     [SerializeField] GameObject ConvoPanel;
-    [SerializeField] GameObject RandItemPanel;
+    //[SerializeField] GameObject RandItemPanel;
 
     [SerializeField] City_TabletUI Tablet;
 
