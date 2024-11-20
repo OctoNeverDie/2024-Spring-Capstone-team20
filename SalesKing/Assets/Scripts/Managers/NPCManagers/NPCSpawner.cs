@@ -25,14 +25,12 @@ public class NPCSpawner : MonoBehaviour
         
     public void SpawnStoryModeNPCs()
     {
-        Debug.Log("1번까지");
         int stage_num = DataController.Instance.gameData.cur_stage_number;
         StoryNpcSO story_so = NPCManager.Instance.storyNpcSO;
         NpcLookSO looks_so = NPCManager.Instance.npcLookSO;
 
         for (int i=0; i < story_so.storyNpcs[stage_num].npc_IDs.Count; i++)
         {
-            Debug.Log("2번까지");
             int npc_ID = story_so.storyNpcs[stage_num].npc_IDs[i];
 
             GameObject npc_body = null;
@@ -47,7 +45,6 @@ public class NPCSpawner : MonoBehaviour
             }
             
             Transform npc_spawn_point = spawn_points[i];
-            Debug.Log("3번까지");
             GameObject spawned_npc = Instantiate(npc_body, npc_spawn_point.position, npc_spawn_point.rotation);
         }
     }
