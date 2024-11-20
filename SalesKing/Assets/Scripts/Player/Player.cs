@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        FreezeAndUnFreezePlayer(true);
+        FreezeAndUnFreezePlayer(false);
     }
 
     void Update()
