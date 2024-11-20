@@ -25,7 +25,7 @@ public class NPCSpawner : MonoBehaviour
         
     public void SpawnStoryModeNPCs()
     {
-        int stage_num = DataController.Instance.gameData.cur_stage_number;
+        int stage_num = DataController.Instance.playData.cur_day_ID;
         StoryNpcSO story_so = NPCManager.Instance.storyNpcSO;
         NpcLookSO looks_so = NPCManager.Instance.npcLookSO;
 
@@ -44,7 +44,6 @@ public class NPCSpawner : MonoBehaviour
                     npc_body = looks_so.npcLooks[j].look;
                     break;
                 }
-
             }
             
             Transform npc_spawn_point = spawn_points[i];
