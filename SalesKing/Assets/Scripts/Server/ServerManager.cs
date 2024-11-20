@@ -47,8 +47,10 @@ public class ServerManager : ServerBase
         }
 
         Debug.Log($"User답++++++++++{_userInput}, {_sendChatType}, {_initData}");
-        OnSendReplyUpdate?.Invoke(true);
-        StartCoroutine(GetGPTCo());
+
+        templateReceive.GetGptAnswer(_userInput, _sendChatType);
+        //OnSendReplyUpdate?.Invoke(true);
+        //StartCoroutine(GetGPTCo());
     }
 
     private IEnumerator GetGPTCo()
