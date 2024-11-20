@@ -47,6 +47,7 @@ public class SaveFilePanelUI : MonoBehaviour
         {
             // 이 패널이 들고 있는 file ID
             SaveFileManager.Instance.CreateSaveFile();
+            SaveFileManager.Instance.LoadCitySceneBySaveFile(fileID);
         }
         else if (!isNullPanel)
         {

@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 
 public class Define
@@ -54,12 +54,22 @@ public class Define
         Voice
     }
 
+
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum ItemCategory
-    { 
-        Default,
-        Food,
-        Clothes,
+    {
+        [EnumMember(Value = "Music")]
         Music,
+        [EnumMember(Value = "Books")]
+        Books,
+        [EnumMember(Value = "Dessert")]
+        Dessert,
+        [EnumMember(Value = "Game")]
+        Game,
+        [EnumMember(Value = "Clothes")]
+        Clothes,
+        [EnumMember(Value = "Cosmetics")]
+        Cosmetics,
         MaxCnt
     }
 }

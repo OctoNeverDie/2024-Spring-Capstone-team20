@@ -30,7 +30,7 @@ public class NpcInitState : ChatBaseState
 
     private void ShowFront()
     {
-        Chat.ActivatePanel(_sendChatType, playerItem);
+        Chat.ActivatePanel(_sendChatType, playerItem, npc.NpcName);
     }
 
     private void SendBack()

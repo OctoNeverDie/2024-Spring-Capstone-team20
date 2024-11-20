@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveFileManager : MonoBehaviour
 {
@@ -77,7 +78,9 @@ public class SaveFileManager : MonoBehaviour
 
     public void LoadCitySceneBySaveFile(string file_id)
     {
+        DataController.Instance.gameData.cur_save_file_ID = file_id;
         Debug.Log("load save file name : " + file_id);
+        SceneManager.LoadScene("CityMap");
     }
 
     public void DeleteSaveFile(string file_id)

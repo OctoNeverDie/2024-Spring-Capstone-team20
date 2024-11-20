@@ -1,11 +1,11 @@
-using System;
-using System.Text.RegularExpressions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using UnityEngine;
 
 public class ChattingState : ChatBaseState, IVariableChat
 {
-    const int persuMaxLimit = 9;
-    const int persuMinLimit = -3;
+    const int persuMaxLimit = 8;
+    const int persuMinLimit = -5;
     public enum Decision
     {
         wait,
@@ -14,16 +14,46 @@ public class ChattingState : ChatBaseState, IVariableChat
     }
     public class GptResult
     {
-        public Decision decision;
-        public string reaction;
+        [JsonProperty("decision")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Decision decision { get; set; }
 
-        public int persuasion;
-        public Define.Emotion emotion;
+        [JsonProperty("yourReply")]
+        public string reaction { get; set; }
 
-        public string reason;
-        public string summary;
+        [JsonProperty("persuasion")]
+        private int _persuasion;
+        public int Persuasion {
+            get => _persuasion;
+            set
+            {
+                // Convert value to a string only once and avoid infinite recursion
+                string stringValue = (value.ToString());
 
-        public int totalPersuasion;
+                if (stringValue.StartsWith("+"))
+                {
+                    stringValue = stringValue.TrimStart('+');
+                    _persuasion = int.TryParse(stringValue, out int parsedValue) ? parsedValue : value;
+                }
+                else 
+                {
+                    _persuasion = (int)value;
+                }
+                totalPersuasion += _persuasion;
+            }
+        }
+
+        [JsonProperty("emotion")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Define.Emotion emotion { get; set; }
+
+        [JsonProperty("reason")]
+        public string reason { get; set; }
+
+        [JsonProperty("summary")]
+        public string summary { get; set; }
+
+        public int totalPersuasion = 0;
     }
     GptResult gptResult;
 
@@ -46,11 +76,11 @@ public class ChattingState : ChatBaseState, IVariableChat
         if (type != nameof(ChatManager.Instance.Reply.UserAnswer))
             return;
 
-        if (gptResult.persuasion >= persuMaxLimit)
+        if (gptResult.totalPersuasion >= persuMaxLimit)
         {
             user_input += "isBuy = True";
         }
-        else if (gptResult.persuasion <= persuMinLimit)
+        else if (gptResult.totalPersuasion <= persuMinLimit)
         {
             user_input += "isBuy = False";
         }
@@ -72,6 +102,7 @@ public class ChattingState : ChatBaseState, IVariableChat
     private void ShowFront()
     {
         Chat.ActivatePanel(_sendChatType, gptResult);
+        //NPCManager.Instance.curTalkingNPC.GetComponent<NPC>().PlayNPCAnimByEmotion(gptResult.emotion);
     }
 
     private void UpdateEvaluation()
@@ -85,45 +116,15 @@ public class ChattingState : ChatBaseState, IVariableChat
 
     private void UpdateReplyVariables(string gptAnswer)
     {
-        string pattern = @"(?i)(decision|yourReply|persuasion|reason|emotion|summary):\s*(.*?)(?=(\n[a-zA-Z]+:)|$)";
-        var matches = Regex.Matches(gptAnswer, pattern, RegexOptions.Multiline);
+        Debug.Log($"이걸 담가야해.. {gptAnswer}");
+        gptAnswer = gptAnswer.Replace("\n", "").Replace("+", "").Replace("{", "").Replace("}", "");
+        gptAnswer = "{"+ $"\n{gptAnswer}\n"+"}";
 
-        foreach (Match match in matches)
-        {
-            string key = match.Groups[1].Value.Trim().ToLower();
-            string value = match.Groups[2].Value.Trim();
+        Debug.Log($"이걸 담가야해! {gptAnswer}");
+        string jsonPart = gptAnswer.Substring(0, gptAnswer.Length);
+        gptResult = JsonConvert.DeserializeObject<GptResult>(jsonPart);
 
-            switch (key)
-            {
-                case "decision":
-                    if (Enum.TryParse<Decision>(value, true, out Decision decision))
-                    {
-                        gptResult.decision = decision;
-                    }
-                    break;
-                case "yourreply":
-                    gptResult.reaction = value;
-                    break;
-                case "persuasion":
-                    gptResult.persuasion = int.Parse(value);
-                    break;
-                case "reason":
-                    gptResult.reason = value;
-                    break;
-                case "emotion":
-                    if (Enum.TryParse<Define.Emotion>(value, true, out Define.Emotion emotion))
-                    {
-                        gptResult.emotion = emotion;
-                    }
-                    break;
-                case "summary":
-                    gptResult.summary = value;
-                    break;
-                default:
-                    Debug.Log("Wrong Regex match");
-                    break;
-            }
-        }
+        Debug.Log($"무사히 들어왔어요!\n{gptResult.reaction}, {gptResult.totalPersuasion}");
     }
     private void SubScribeAction()
     {
