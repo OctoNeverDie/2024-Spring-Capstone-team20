@@ -12,4 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 160582be01b96434c960e02c7c825d00, type: 3}
   m_Name: NpcLookSO
   m_EditorClassIdentifier: 
-  npcLooks: []
+  npcLooks:
+  - npcId: 0
+    look: {fileID: 6204495428180669375, guid: 9769e85e35dc14a468228724ab01ba65, type: 3}
+    npcProfileImg: {fileID: 0}
+  - npcId: 1
+    look: {fileID: 6204495428180669375, guid: 64f453809761a374984294524f9aeb16, type: 3}
+    npcProfileImg: {fileID: 0}
+  - npcId: 2
+    look: {fileID: 6204495428180669375, guid: 96b0f3e55cd01a64589b36137ac97dd8, type: 3}
+    npcProfileImg: {fileID: 0}
+  - npcId: 3
+    look: {fileID: 6204495428180669375, guid: e5451aaf894ce4e4ab29d4f01ee4dac6, type: 3}
+    npcProfileImg: {fileID: 0}
