@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcLooks:
   - npcId: 0
-    look: {fileID: 1330039496260108138, guid: fe2dd46dd86200c46b8ac81e4204cfd2, type: 3}
+    look: {fileID: 6204495428180669375, guid: 9769e85e35dc14a468228724ab01ba65, type: 3}
     npcProfileImg: {fileID: 0}
   - npcId: 1
-    look: {fileID: 1330039496260108138, guid: eb854911bbe99d049aadf1200b6a09c7, type: 3}
+    look: {fileID: 6204495428180669375, guid: 64f453809761a374984294524f9aeb16, type: 3}
     npcProfileImg: {fileID: 0}
   - npcId: 2
-    look: {fileID: 1330039496260108138, guid: cc04241e0ec74b64e82efbf9d55fc5f0, type: 3}
+    look: {fileID: 6204495428180669375, guid: 96b0f3e55cd01a64589b36137ac97dd8, type: 3}
     npcProfileImg: {fileID: 0}
   - npcId: 3
     look: {fileID: 6204495428180669375, guid: e5451aaf894ce4e4ab29d4f01ee4dac6, type: 3}

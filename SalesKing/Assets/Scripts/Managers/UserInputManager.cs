@@ -37,5 +37,6 @@ public class UserInputManager : Singleton<UserInputManager>, ISingletonSettings
                 thisNPC.NPCEnterConvo(myPlayer.gameObject);
             }
         }
+
     }
 }

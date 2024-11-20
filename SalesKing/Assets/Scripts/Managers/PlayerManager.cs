@@ -8,12 +8,14 @@ public class PlayerManager : Singleton<PlayerManager>, ISingletonSettings
     [SerializeField] GameObject PlayerSpawnPoint;
 
     public GameObject MyPlayer;
+    public Player player;
 
     public bool ShouldNotDestroyOnLoad => true;
 
     protected override void Awake()
     {
         base.Awake();
+        player = MyPlayer.GetComponent<Player>();
         SpawnPlayer();
     }
 
