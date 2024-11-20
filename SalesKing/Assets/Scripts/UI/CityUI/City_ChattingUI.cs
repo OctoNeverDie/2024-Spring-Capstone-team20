@@ -28,6 +28,7 @@ public class City_ChattingUI : MonoBehaviour
         DealBtn.onClick.AddListener(OnClickFinal);
 
         TxtPopUpUI.SetActive(false);
+        ConvoPanel.SetActive(false);
     }
 
     private void OnDestroy()
