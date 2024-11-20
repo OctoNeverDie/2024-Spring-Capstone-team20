@@ -20,6 +20,8 @@ public class NPCManager : Singleton<NPCManager>, ISingletonSettings
     public StoryNpcSO storyNpcSO;
     public NpcLookSO npcLookSO;
 
+    public GameObject NPCPrefab;
+
     protected override void Awake()
     {
         base.Awake();

@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerManager : Singleton<PlayerManager>, ISingletonSettings
 {
     [SerializeField] GameObject PlayerPrefab;
+    [SerializeField] GameObject PlayerSpawnPoint;
+
     public GameObject MyPlayer;
 
     public bool ShouldNotDestroyOnLoad => true;
@@ -13,12 +15,11 @@ public class PlayerManager : Singleton<PlayerManager>, ISingletonSettings
     {
         base.Awake();
         SpawnPlayer();
-        //Managers.Input.myPlayer = MyPlayer.GetComponent<Player>();
     }
 
     private void SpawnPlayer()
     {
-        PlayerPrefab = Resources.Load<GameObject>("Prefabs/Player");
+        //PlayerPrefab = Resources.Load<GameObject>("Prefabs/Player");
 
         if (PlayerPrefab != null)
         {
