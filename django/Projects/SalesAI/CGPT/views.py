@@ -66,65 +66,20 @@ def get_completion(input):
     response = query.choices[0].message.content
     return response
 
-#region Mbti
-def makeMbtiPrompt(data):
-    mbtiInit = getMbti(data)
-
-    mbtiPrompt = []
-    path = 'CGPT/prompts/11mbti/'
-    dimensions = ['emotional', 'logical', 'flatter', 'flirter']
-    
-    for dim in dimensions:
-        value = mbtiInit.get(dim)
-        if value:
-            value = value.capitalize()
-            if value in ["like", "dislike", "norm"]:
-                filename = f"{path}{dim}{value}.txt"
-                try:
-                    mbtiPrompt.append(read_system_message(filename))
-                except FileNotFoundError:
-                    print(f"Error: File {filename} does not exist.")
-            else:
-                print(f"Warning: Unexpected value '{value}' for dimension '{dim}'")
-        else:
-            print(f"Warning: No value provided for dimension '{dim}'")
-        mbtiPrompt.append('\n')
-    
-    print("MBTI prompt")
-    return ''.join(mbtiPrompt)
-
-def getMbti(data):
-    mbti_data = {
-    'emotional': data.get('emotional'),
-    'logical': data.get('logical'),
-    'flirter': data.get('flirter'),
-    'flatter': data.get('flatter')
-    }
-
-    return mbti_data
-
-#endregion
-
 #region Prompt
-def init_prompt(mbtiPrompt, npcInit, request):
+def init_prompt(npcInit, request):
     clear_everything(request)
 
-    editPrompt(mbtiPrompt, npcInit)
+    editPrompt(npcInit)
     print({'reply': '@ Init Complete.'})
     return
 
-def editPrompt(mbtiPrompt, npcPrompt):
+def editPrompt(npcPrompt):
     path = 'CGPT/prompts/PromptFile.txt'
     systemPrompt = read_system_message(path)
-    systemPrompt = editMbtiPrompt(mbtiPrompt, systemPrompt)
     systemPrompt+='\n' + npcPrompt
     overwrite_system_message(path, systemPrompt)
     print(systemPrompt)
-
-def editMbtiPrompt(mbtiPrompt, systemPrompt):
-    pattern = '1\\.\\s*감정형.*?4\\.\\s*플러팅.*?감소시킵니다\\.'
-    modified_text = re.sub(pattern, mbtiPrompt, systemPrompt, flags=re.DOTALL)
-    return modified_text
 # endregion
 
 @csrf_exempt
@@ -137,11 +92,9 @@ def query_view(request):
             
             if sendType == "ChatInit":
                 clear_everything(request)
-
-                mbtiPrompt = makeMbtiPrompt(data)
                 npcInit = data.get('NpcInit')
 
-                init_prompt(mbtiPrompt, npcInit, request)
+                init_prompt(npcInit, request)
 
                 response = get_completion(userSend)
                 update_history(response, request, "assistant", "chat_history")
