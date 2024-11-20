@@ -21,9 +21,12 @@ public class StartSceneUI : MonoBehaviour
 
     public void GameExit()
     {
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
-        #else
+#else
+        DataController.Instance.SaveGameData();
+        string file_ID = DataController.Instance.gameData.cur_save_file_ID;
+        DataController.Instance.SavePlayData(file_ID);
         Application.Quit();
         #endif
     }

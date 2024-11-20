@@ -181,7 +181,7 @@ public class DataController : MonoBehaviour
         ToPlayJson(gameData.cur_save_file_ID);//종료할때 있어야함
     }
 
-    IEnumerator SaveGameData()
+    public IEnumerator SaveGameData()
     {
         while (true)
         {
@@ -209,7 +209,7 @@ public class DataController : MonoBehaviour
 
     }
 
-    IEnumerator SavePlayData(string playDataID)
+    public IEnumerator SavePlayData(string playDataID)
     {
         while (true)
         {
