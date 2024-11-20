@@ -28,6 +28,7 @@ public class City_ChattingUI : MonoBehaviour
         DealBtn.onClick.AddListener(OnClickFinal);
 
         TxtPopUpUI.SetActive(false);
+        ConvoPanel.SetActive(false);
     }
 
     private void OnDestroy()
@@ -105,7 +106,7 @@ public class City_ChattingUI : MonoBehaviour
 
         else if (sendChatType == Define.SendChatType.Endpoint)
         {
-            ConvoManager.Instance.ConvoFinished();
+            PlayerManager.Instance.player.PlayerExitConvo();
             StartCoroutine(ShowEndPanelAfterDelay());
         }
     }
