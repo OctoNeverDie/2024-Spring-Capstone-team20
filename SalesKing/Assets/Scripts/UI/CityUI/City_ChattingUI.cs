@@ -106,7 +106,7 @@ public class City_ChattingUI : MonoBehaviour
 
         else if (sendChatType == Define.SendChatType.Endpoint)
         {
-            ConvoManager.Instance.ConvoFinished();
+            PlayerManager.Instance.player.PlayerExitConvo();
             StartCoroutine(ShowEndPanelAfterDelay());
         }
     }
