@@ -17,6 +17,9 @@ public class NPCManager : Singleton<NPCManager>, ISingletonSettings
     public GameObject NPCHolder;
     public GameObject curTalkingNPC;
 
+    public StoryNpcSO storyNpcSO;
+    public NpcLookSO npcLookSO;
+
     protected override void Awake()
     {
         base.Awake();
