@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5126,9 +5126,9 @@ MonoBehaviour:
           m_StringArgument: ButtonClicked
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 517190129}
-        m_TargetAssemblyTypeName: StartSceneTest, Assembly-CSharp
-        m_MethodName: LoadCityScene
+      - m_Target: {fileID: 1680897881}
+        m_TargetAssemblyTypeName: StartSceneUI, Assembly-CSharp
+        m_MethodName: LoadSaveFileScene_StoryMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -68076,7 +68076,6 @@ MonoBehaviour:
     sfx_volume: 0
     cur_save_file_ID: 
     save_files_IDs: []
-    cur_stage_number: 0
   _playData:
     cur_day_ID: 0
     item_list: []
@@ -71149,8 +71148,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 517190129}
-        m_TargetAssemblyTypeName: StartSceneTest, Assembly-CSharp
+      - m_Target: {fileID: 1680897881}
+        m_TargetAssemblyTypeName: StartSceneUI, Assembly-CSharp
         m_MethodName: GameExit
         m_Mode: 1
         m_Arguments:
@@ -71910,6 +71909,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: ButtonClicked
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1680897881}
+        m_TargetAssemblyTypeName: StartSceneUI, Assembly-CSharp
+        m_MethodName: LoadSaveFileScene_InfinityMode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1957370995

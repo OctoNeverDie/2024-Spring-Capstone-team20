@@ -2,9 +2,32 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+
 
 public class StartSceneUI : MonoBehaviour
 {
+    public void LoadSaveFileScene_StoryMode()
+    {
+        DataController.Instance.gameData.this_game_mode = Define.GameMode.Story;
+        SceneManager.LoadScene("SaveFile");
+    }
+
+    public void LoadSaveFileScene_InfinityMode()
+    {
+        DataController.Instance.gameData.this_game_mode = Define.GameMode.Infinity;
+        SceneManager.LoadScene("SaveFile");
+    }
+
+    public void GameExit()
+    {
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+        Application.Quit();
+        #endif
+    }
+
     private struct ButtonTextPair
     {
         public GameObject button;

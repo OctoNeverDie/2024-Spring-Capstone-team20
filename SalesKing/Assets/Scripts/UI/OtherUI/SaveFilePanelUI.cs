@@ -36,7 +36,9 @@ public class SaveFilePanelUI : MonoBehaviour
         }
         else
         {
-            file_button_text.text = fileID;
+            DataController.Instance.LoadPlayData(fileID);
+            int saved_day = DataController.Instance.playData.cur_day_ID;
+            file_button_text.text = (saved_day+1)+"일부터 계속하기\n"+fileID;
         }
             
     }

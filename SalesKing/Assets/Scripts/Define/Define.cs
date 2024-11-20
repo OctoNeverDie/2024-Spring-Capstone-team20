@@ -8,9 +8,7 @@ public class Define
     public enum SceneMode
     {
         Start,
-        //StageSelect,
         CityMap, 
-        OfficeMap, 
         SaveFile
     }
 
@@ -71,5 +69,11 @@ public class Define
         [EnumMember(Value = "Cosmetics")]
         Cosmetics,
         MaxCnt
+    }
+
+    public enum GameMode
+    {
+        Story,
+        Infinity
     }
 }
