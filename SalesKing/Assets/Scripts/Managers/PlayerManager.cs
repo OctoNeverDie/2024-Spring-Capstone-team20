@@ -15,7 +15,6 @@ public class PlayerManager : Singleton<PlayerManager>, ISingletonSettings
     protected override void Awake()
     {
         base.Awake();
-        player = MyPlayer.GetComponent<Player>();
         SpawnPlayer();
     }
 
@@ -27,6 +26,7 @@ public class PlayerManager : Singleton<PlayerManager>, ISingletonSettings
         {
             Transform playerStart = GameObject.Find("PlayerStart").transform;
             MyPlayer = Instantiate(PlayerPrefab, playerStart.position, playerStart.rotation);
+            player = MyPlayer.GetComponent<Player>();
         }
     }
 }
