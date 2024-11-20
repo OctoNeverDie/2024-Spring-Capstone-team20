@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using System.Collections.Generic;
@@ -44,12 +45,20 @@ public class StartSceneUI : MonoBehaviour
 
     private void Start()
     {
-        // 모든 하위 자식을 탐색하여 버튼-텍스트 짝 생성
         foreach (Transform child in GetComponentsInChildren<Transform>())
         {
+            // 모든 하위 자식을 탐색하여 버튼-텍스트 짝 생성
             if (child.name == "Story" || child.name == "Infinity" || child.name == "Option" || child.name == "Exit")
             {
                 var text = child.GetComponentInChildren<TextMeshProUGUI>();
+                var button = child.GetComponent<Button>();
+
+                // Button 컴포넌트가 없거나 interactable이 false인 경우 건너뜀
+                if (button == null || !button.interactable)
+                {
+                    continue;
+                }
+
                 if (text != null)
                 {
                     var eventTrigger = child.gameObject.AddComponent<EventTrigger>();

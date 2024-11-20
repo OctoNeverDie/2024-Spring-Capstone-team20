@@ -18,6 +18,7 @@ public class City_EndDayUI : MonoBehaviour
     void EndDayAndUpdateToFile()
     {
         DataController.Instance.playData.cur_day_ID++;
+        Debug.Log("the number that its going for is " + DataController.Instance.playData.cur_day_ID);
         DataController.Instance.ToPlayJson(DataController.Instance.gameData.cur_save_file_ID);
         SceneManager.LoadScene("CityMap");
     }
