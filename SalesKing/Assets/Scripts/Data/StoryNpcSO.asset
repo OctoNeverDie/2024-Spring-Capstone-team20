@@ -13,31 +13,10 @@ MonoBehaviour:
   m_Name: StoryNpcSO
   m_EditorClassIdentifier: 
   storyNpcs:
-  - stage_number: 0
-    npc1_ID: 0
-    npc2_ID: 1
-    npc3_ID: 2
-  - stage_number: 1
-    npc1_ID: 3
-    npc2_ID: 3
-    npc3_ID: 3
-  - stage_number: 0
-    npc1_ID: 0
-    npc2_ID: 0
-    npc3_ID: 0
-  - stage_number: 0
-    npc1_ID: 0
-    npc2_ID: 0
-    npc3_ID: 0
-  - stage_number: 0
-    npc1_ID: 0
-    npc2_ID: 0
-    npc3_ID: 0
-  - stage_number: 0
-    npc1_ID: 0
-    npc2_ID: 0
-    npc3_ID: 0
-  - stage_number: 0
-    npc1_ID: 0
-    npc2_ID: 0
-    npc3_ID: 0
+  - npc_IDs: 000000000100000002000000
+  - npc_IDs: 
+  - npc_IDs: 
+  - npc_IDs: 
+  - npc_IDs: 
+  - npc_IDs: 
+  - npc_IDs: 
