@@ -16,8 +16,5 @@ public class GameData
     // json file들의 리스트 저장
     public List<string> save_files_IDs = new List<string>();
 
-
-    public int cur_stage_number;
-
 }
 

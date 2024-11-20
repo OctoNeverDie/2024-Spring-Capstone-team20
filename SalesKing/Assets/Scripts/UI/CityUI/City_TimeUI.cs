@@ -9,6 +9,6 @@ public class City_TimeUI : MonoBehaviour
 
     void Start()
     {
-        time_text.text = "DAY " + DataController.Instance.playData.cur_day_ID+1;
+        time_text.text = "DAY " + (DataController.Instance.playData.cur_day_ID+1);
     }
 }
