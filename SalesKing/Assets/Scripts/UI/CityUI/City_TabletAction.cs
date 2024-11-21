@@ -21,13 +21,15 @@ public class City_TabletAction : MonoBehaviour
             {
                 OnClickHideTablet();
                 isTablet = false;
+                PlayerManager.Instance.player.FreezeAndUnFreezePlayer(false);
             }
             else
             {
                 OnClickShowTablet();
                 isTablet = true;
+                PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
             }
-            
+
         }
     }
 
