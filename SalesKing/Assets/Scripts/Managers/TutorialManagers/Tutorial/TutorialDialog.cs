@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 [RequireComponent(typeof(DialogSystem))]
 public class TutorialDialog : TutorialBase

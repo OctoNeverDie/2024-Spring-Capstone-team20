@@ -6,7 +6,7 @@ using UnityEngine;
 public class City_TabletAction : MonoBehaviour
 {
     public GameObject Tablet;
-
+    
     public bool isTablet = false;
     void Start()
     {
@@ -15,19 +15,21 @@ public class City_TabletAction : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetButtonDown("Tab"))
+        if (!UserInputManager.Instance.isKeyInputLocked && Input.GetButtonDown("Tab"))
         {
             if (isTablet)
             {
                 OnClickHideTablet();
                 isTablet = false;
+                PlayerManager.Instance.player.FreezeAndUnFreezePlayer(false);
             }
             else
             {
                 OnClickShowTablet();
                 isTablet = true;
+                PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
             }
-            
+
         }
     }
 
