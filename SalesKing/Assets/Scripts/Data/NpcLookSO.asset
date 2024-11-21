@@ -14,14 +14,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcLooks:
   - npcId: 0
-    look: {fileID: 6204495428180669375, guid: 9769e85e35dc14a468228724ab01ba65, type: 3}
+    look: {fileID: 6204495428180669375, guid: b8a0a32d7e34bfb4bba3256995814f44, type: 3}
     npcProfileImg: {fileID: 0}
   - npcId: 1
     look: {fileID: 6204495428180669375, guid: 64f453809761a374984294524f9aeb16, type: 3}
     npcProfileImg: {fileID: 0}
   - npcId: 2
-    look: {fileID: 6204495428180669375, guid: 96b0f3e55cd01a64589b36137ac97dd8, type: 3}
+    look: {fileID: 6204495428180669375, guid: ed792521df67d064c884038a68bbd5e8, type: 3}
     npcProfileImg: {fileID: 0}
   - npcId: 3
+    look: {fileID: 6204495428180669375, guid: e130d10765d88f343a87df9e06a14d4b, type: 3}
+    npcProfileImg: {fileID: 0}
+  - npcId: 4
+    look: {fileID: 6204495428180669375, guid: 27a277a46e45a3d41a34ca5992192d7e, type: 3}
+    npcProfileImg: {fileID: 0}
+  - npcId: 5
+    look: {fileID: 6204495428180669375, guid: 9769e85e35dc14a468228724ab01ba65, type: 3}
+    npcProfileImg: {fileID: 0}
+  - npcId: 6
+    look: {fileID: 6204495428180669375, guid: 14fdf1b1449bfa147970e913b01e309e, type: 3}
+    npcProfileImg: {fileID: 0}
+  - npcId: 7
+    look: {fileID: 6204495428180669375, guid: 96b0f3e55cd01a64589b36137ac97dd8, type: 3}
+    npcProfileImg: {fileID: 0}
+  - npcId: 8
+    look: {fileID: 6204495428180669375, guid: 729c51b43b2e2b44c8ab2ef39cddec1b, type: 3}
+    npcProfileImg: {fileID: 0}
+  - npcId: 9
+    look: {fileID: 6204495428180669375, guid: 524a82556f9a16f4ca972096e5242e02, type: 3}
+    npcProfileImg: {fileID: 0}
+  - npcId: 10
+    look: {fileID: 6204495428180669375, guid: ab78b2af09a759c4eaa0202f1ef23ee0, type: 3}
+    npcProfileImg: {fileID: 0}
+  - npcId: 11
     look: {fileID: 6204495428180669375, guid: e5451aaf894ce4e4ab29d4f01ee4dac6, type: 3}
     npcProfileImg: {fileID: 0}
