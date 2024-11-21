@@ -35,29 +35,27 @@ public class ServerManager : ServerBase
     private string _userInput = "";
     private string _initData = "";
     private SendChatType _sendChatType;
-    private string[] _mbtis;
-    public void GetGPTReply(string userInput, SendChatType sendChatTypeFrom, string initData="", string[] mbtis = null)
+    public void GetGPTReply(string userInput, SendChatType sendChatTypeFrom, string initData="")
     { 
         this._sendChatType = sendChatTypeFrom;
         this._userInput = userInput;
         if (sendChatTypeFrom == SendChatType.ChatInit)
         {
             this._initData = initData;
-            this._mbtis = mbtis;
         }
 
         Debug.Log($"User답++++++++++{_userInput}, {_sendChatType}, {_initData}");
-        string str = "{\n" +
-    "  \"decision\": \"wait\",\n" +
-    "  \"yourReply\": \"판매자의 설명에 따라 더 질문하거나 반응하세요. 제시된 성격을 반영하여 반응하세요. 아직 확신이 없는 상태입니다.\",\n" +
-    "  \"persuasion\": -3,\n" +
-    "  \"reason\": \"왜 해당 persuasion 점수를 출력했는지 설명해줘. 키워드식으로 짧게 써줘. ex. 연민을 느낌, 불확실한 설명, ~~한 키워드가 마음에 듦 등등\",\n" +
-    "  \"emotion\": \"worst\"\n" +
-    "}";
+    //    string str = "{\n" +
+    //"  \"decision\": \"wait\",\n" +
+    //"  \"yourReply\": \"판매자의 설명에 따라 더 질문하거나 반응하세요. 제시된 성격을 반영하여 반응하세요. 아직 확신이 없는 상태입니다.\",\n" +
+    //"  \"persuasion\": -3,\n" +
+    //"  \"reason\": \"왜 해당 persuasion 점수를 출력했는지 설명해줘. 키워드식으로 짧게 써줘. ex. 연민을 느낌, 불확실한 설명, ~~한 키워드가 마음에 듦 등등\",\n" +
+    //"  \"emotion\": \"worst\"\n" +
+    //"}";
 
-        templateReceive.GetGptAnswer(str, _sendChatType);
-        //OnSendReplyUpdate?.Invoke(true);
-        //StartCoroutine(GetGPTCo());
+    //    templateReceive.GetGptAnswer(str, _sendChatType);
+        OnSendReplyUpdate?.Invoke(true);
+        StartCoroutine(GetGPTCo());
     }
 
     private IEnumerator GetGPTCo()
@@ -72,10 +70,6 @@ public class ServerManager : ServerBase
         if (sendChatType == Define.SendChatType.ChatInit)
         {
             jobj.Add("NpcInit", _initData);
-            jobj.Add("emotional", _mbtis[0]);
-            jobj.Add("logical", _mbtis[1]);
-            jobj.Add("flirter", _mbtis[2]);
-            jobj.Add("flatter", _mbtis[3]);
         }
 
         return jobj;

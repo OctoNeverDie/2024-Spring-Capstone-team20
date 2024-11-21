@@ -36,9 +36,9 @@ public class City_TabletUI : MonoBehaviour
         npcInfoUI.UpdateItemData(randItem.ObjName, thisNpcID);
     }
 
-    public void UpdateEvaluationData(string Evaluation, int thisNpcID)
+    public void UpdateEvaluationData(string Evaluation, int thisNpcID, bool isBuy)
     {
-        summaryUI.UpdateEvaluationData(Evaluation, thisNpcID);
+        summaryUI.UpdateEvaluationData(Evaluation, thisNpcID, isBuy);
     }
 
     public void ShowSummary()
@@ -87,10 +87,10 @@ public class City_TabletUI : MonoBehaviour
         switch (prefer)
         {
             case -1:
-                result = "<color=red>" + mbtiType + "싫어" + "</color>";
+                result = "<color=red><size=35>" + mbtiType + "싫어" + "</size></color>";
                 break;
             case 1:
-                result = "<color=green>" + mbtiType + "좋아" + "</color>";
+                result = "<color=green><size=35>" + mbtiType + "좋아" + "</size></color>";
                 break;
             default: break;
         }

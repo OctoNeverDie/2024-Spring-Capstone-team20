@@ -14,6 +14,7 @@ public class NpcEvalRectrans : MonoBehaviour
     public TextMeshProUGUI Item;
     public TextMeshProUGUI Evaluation;
 
-    [Header("ProfileImg")]
+    [Header("Img")]
     public Image ProfileImg;
+    public Image SuccessImg;
 }

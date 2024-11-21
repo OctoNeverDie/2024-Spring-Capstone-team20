@@ -66,7 +66,7 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
 
             case SendChatType.Endpoint:
                 cityChattingUI.ShowPanel(chatState); // convo가 끝나 카메라가 돌아가고, end Panel 하나만 띄우기
-                cityTabletUI.UpdateEvaluationData(Eval.NpcEvalDict[ThisNpcID].summary, ThisNpcID);
+                cityTabletUI.UpdateEvaluationData(Eval.NpcEvalDict[ThisNpcID].summary, ThisNpcID, Eval.NpcEvalDict[ThisNpcID].isSuccess);
                 break;
 
             default:
