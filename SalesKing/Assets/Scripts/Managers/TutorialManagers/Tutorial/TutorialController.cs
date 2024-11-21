@@ -6,7 +6,9 @@ public class TutorialController : MonoBehaviour
 {
 	[SerializeField]
 	private	List<TutorialBase>	tutorials;
-	private TutorialBase		currentTutorial = null;
+	[SerializeField]
+	private GameObject MainPanel;
+    private TutorialBase		currentTutorial = null;
 	private	int					currentIndex = -1;
 
 	[SerializeField]
@@ -55,6 +57,7 @@ public class TutorialController : MonoBehaviour
 		currentTutorial = null;
 		Debug.Log("Complete All");
         PlayerManager.Instance.player.FreezeAndUnFreezePlayer(false);
+		MainPanel.SetActive(true);
     }
 }
 
