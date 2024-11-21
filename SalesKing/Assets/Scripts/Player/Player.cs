@@ -30,11 +30,6 @@ public class Player : MonoBehaviour
         ui = transform.GetComponentInChildren<PlayerUI>();
     }
 
-    void Start()
-    {
-        FreezeAndUnFreezePlayer(false);
-    }
-
     void Update()
     {
         if (isRaycast)

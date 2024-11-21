@@ -30,7 +30,7 @@ public class VariableInput : MonoBehaviour
 
         _userInput = userText;
         
-        TutorialManager.Instance.OnPersuadeToCustomer();
+        //TutorialManager.Instance.OnPersuadeToCustomer();
         ChatManager.Instance.Reply.UserAnswer = _userInput;
 
         if(UserInputManager.Instance.CurInputMode == Define.UserInputMode.Voice)
