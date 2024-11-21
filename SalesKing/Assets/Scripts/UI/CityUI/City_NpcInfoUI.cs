@@ -16,7 +16,7 @@ public class City_NpcInfoUI : MonoBehaviour
         NpcIDToUIIdx.Add(npc.NpcID, i);
 
         npcs[i].Name.text = $"고객 정보 : {npc.NpcName} ( {npc.NpcAge}세 )";
-        npcs[i].Persuasion.text = $"설득 유형 : {coloredMbti}";
+        npcs[i].Persuasion.text = $"설득 유형 : <size=35>{coloredMbti}</size>";
         npcs[i].Keyword.text = $"키워드 : {npc.KeyWord}";
 
         if (sprite != null)
