@@ -2,35 +2,24 @@ using UnityEngine;
 
 public class TutorialTrigger : TutorialBase
 {
-	//[SerializeField]
-	//private	PlayerController	playerController;
-	[SerializeField]
-	private	Transform			triggerObject;
-	
-	public	bool isTrigger { set; get; } = false;
+    [SerializeField]
+    private KeyCode keycode_trigger;   // 타이핑 효과를 스킵하는 키
+    public	bool isTrigger { set; get; } = false;
 
 	public override void Enter()
 	{
-		// 플레이어 이동 가능
-		//playerController.IsMoved = true;
-		// Trigger 오브젝트 활성화
-		triggerObject.gameObject.SetActive(true);
-	}
+        PlayerManager.Instance.player.FreezeAndUnFreezePlayer(false);
+    }
 
 	public override void Execute(TutorialController controller)
 	{
-		/*
-		/// 거리 기준
-		if ( (triggerObject.position - playerController.transform.position).sqrMagnitude < 0.1f )
-		{
-			controller.SetNextTutorial();
-		}*/
+        if (Input.GetKeyDown(keycode_trigger))
+        {
+			isTrigger = true;
+            Debug.Log("이번 키코드는 " + keycode_trigger);
+        }
 
-		/// 충돌 기준
-		// TutorialTrigger 오브젝트의 위치를 플레이어와 동일하게 설정 (Trigger 오브젝트와 충돌할 수 있도록)
-		//transform.position = playerController.transform.position;
-
-		if ( isTrigger == true )
+        if ( isTrigger == true )
 		{
 			controller.SetNextTutorial();
 		}
@@ -38,20 +27,8 @@ public class TutorialTrigger : TutorialBase
 
 	public override void Exit()
 	{
-		// 플레이어 이동 불가능
-		//playerController.IsMoved = false;
-		// Trigger 오브젝트 비활성화
-		triggerObject.gameObject.SetActive(false);
-	}
+        PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
+    }
 
-	private void OnTriggerEnter2D(Collider2D collision)
-	{
-		if ( collision.transform.Equals(triggerObject) )
-		{
-			isTrigger = true;
-
-			collision.gameObject.SetActive(false);
-		}
-	}
 }
 
