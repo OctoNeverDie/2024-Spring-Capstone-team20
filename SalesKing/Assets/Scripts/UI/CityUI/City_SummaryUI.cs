@@ -17,8 +17,9 @@ public class City_SummaryUI : MonoBehaviour
         NpcIDToUIIdx.Add(npc.NpcID, i);//npc ui object와 npc id를 매칭한 걸 기록한 dictionary
         Debug.Log($"{npc.NpcID}, {i} 만들었어요!");
 
+        npcs[i].SuccessImg.gameObject.SetActive(false);
         npcs[i].Name.text = npc.NpcName;
-        npcs[i].Persuasion.text = coloredMbti;
+        npcs[i].Persuasion.text ="<size=15>"+coloredMbti+"</size>";
         if(sprite!=null)
             npcs[i].ProfileImg.sprite = sprite;
 
@@ -31,8 +32,10 @@ public class City_SummaryUI : MonoBehaviour
         npcs[thisNpcID].Item.text = randItem;
     }
 
-    public void UpdateEvaluationData(string summary, int thisNpcID)
+    public void UpdateEvaluationData(string summary, int thisNpcID, bool isBuy)
     {
         npcs[thisNpcID].Evaluation.text = summary;
+        npcs[thisNpcID].SuccessImg.color = isBuy? Color.green : Color.red;
+        npcs[thisNpcID].SuccessImg.gameObject.SetActive(true);
     }
 }
