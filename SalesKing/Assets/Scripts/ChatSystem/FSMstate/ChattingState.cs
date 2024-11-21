@@ -40,6 +40,7 @@ public class ChattingState : ChatBaseState, IVariableChat
                     _persuasion = (int)value;
                 }
                 totalPersuasion += _persuasion;
+                Debug.Log($"더했다, {totalPersuasion}");
             }
         }
 
@@ -102,7 +103,7 @@ public class ChattingState : ChatBaseState, IVariableChat
     private void ShowFront()
     {
         Chat.ActivatePanel(_sendChatType, gptResult);
-        //NPCManager.Instance.curTalkingNPC.GetComponent<NPC>().PlayNPCAnimByEmotion(gptResult.emotion);
+        NPCManager.Instance.curTalkingNPC.GetComponent<NPC>().PlayNPCAnimByEmotion(gptResult.emotion);
     }
 
     private void UpdateEvaluation()
@@ -117,7 +118,7 @@ public class ChattingState : ChatBaseState, IVariableChat
     private void UpdateReplyVariables(string gptAnswer)
     {
         Debug.Log($"이걸 담가야해.. {gptAnswer}");
-        gptAnswer = gptAnswer.Replace("\n", "").Replace("+", "").Replace("{", "").Replace("}", "");
+        gptAnswer = gptAnswer.Replace("\n", "").Replace("+", "").Replace("{", "").Replace("}", "").Replace("`", "").Replace("json","").Replace(":","");
         gptAnswer = "{"+ $"\n{gptAnswer}\n"+"}";
 
         Debug.Log($"이걸 담가야해! {gptAnswer}");

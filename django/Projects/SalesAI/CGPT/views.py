@@ -92,6 +92,7 @@ def query_view(request):
             
             if sendType == "ChatInit":
                 clear_everything(request)
+                
                 npcInit = data.get('NpcInit')
 
                 init_prompt(npcInit, request)
