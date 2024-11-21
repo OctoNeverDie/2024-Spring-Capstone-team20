@@ -13,7 +13,8 @@ public class NpcInitState : ChatBaseState
     public override void Enter()
     {
         _sendChatType = SendChatType.ChatInit;
-        npc = DataGetter.Instance.NpcList[Chat.ThisNpcID];
+        Debug.Log("이거 고치기! thisnpc id ");
+        npc = DataGetter.Instance.NpcList[Chat.ThisNpcID-1];
         playerItem = GetRandItem();
         Debug.Log($"item : :::{npc.NpcName} - {playerItem}");
 

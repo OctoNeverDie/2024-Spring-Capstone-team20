@@ -56,6 +56,8 @@ public class Define
     [JsonConverter(typeof(StringEnumConverter))]
     public enum ItemCategory
     {
+        [EnumMember(Value = "Money")]
+        Money,
         [EnumMember(Value = "Music")]
         Music,
         [EnumMember(Value = "Books")]
@@ -68,6 +70,14 @@ public class Define
         Clothes,
         [EnumMember(Value = "Cosmetics")]
         Cosmetics,
+        [EnumMember(Value = "Exercise")]
+        Exercise,
+        [EnumMember(Value = "Food")]
+        Food,
+        [EnumMember(Value = "Hobby")]
+        Hobby,
+        [EnumMember(Value = "Weapons")]
+        Weapons,
         MaxCnt
     }
 

@@ -14,7 +14,7 @@ public class City_SummaryUI : MonoBehaviour
     public void InitNpc(NpcInfo npc, string coloredMbti, Sprite sprite = null)
     {
         int i = npcsCount++;
-        Debug.Log($"영원히 오류만 생겨... {npc.NpcID}");
+        Debug.Log($"영원히 오류만 생겨...이거 바꾸기 {npc.NpcID}");
         NpcIDToUIIdx.Add(npc.NpcID, i);//npc ui object와 npc id를 매칭한 걸 기록한 dictionary
         Debug.Log($"{npc.NpcID}, {i} 만들었어요!");
 
