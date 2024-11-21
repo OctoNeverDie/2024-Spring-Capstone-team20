@@ -6,6 +6,7 @@ public class UserInputManager : Singleton<UserInputManager>, ISingletonSettings
 {
     public bool ShouldNotDestroyOnLoad => true;
     public bool isKeyInputLocked = false;
+    [SerializeField] private GameObject OptionPanel;
 
     Player myPlayer;
 
@@ -36,6 +37,18 @@ public class UserInputManager : Singleton<UserInputManager>, ISingletonSettings
                 
                 myPlayer.PlayerEnterConvo(thisNPC.gameObject);
                 thisNPC.NPCEnterConvo(myPlayer.gameObject);
+            }
+        }
+
+        if (Input.GetButtonDown("ESC"))
+        {
+            if (OptionPanel.activeSelf)
+            {
+                OptionPanel.SetActive(false);
+            }
+            else
+            {
+                OptionPanel.SetActive(true);
             }
         }
 
