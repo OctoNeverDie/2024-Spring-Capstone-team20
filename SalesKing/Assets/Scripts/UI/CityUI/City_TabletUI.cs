@@ -6,18 +6,19 @@ public class City_TabletUI : MonoBehaviour
     [SerializeField] City_TabletAction tabletAction;
     [SerializeField] City_NpcInfoUI npcInfoUI;
     [SerializeField] City_SummaryUI summaryUI;
+    [SerializeField] StoryNpcSO storyNpcSO;
 
     private List<int> npcIDs;
     private void Start()
     {
-        Debug.Log("TODO : Tablet Mock, stage 확인하고, 해당되는 id 넣을 것");
-        
-
         InitNpc();
     }
 
     private void InitNpc()
     {
+        int today = DataController.Instance.playData.cur_day_ID;
+        npcIDs = storyNpcSO.storyNpcs[today].npc_IDs;
+
         for (int i = 0; i < npcIDs.Count; i++)
         {
             NpcInfo npc = DataGetter.Instance.NpcList[npcIDs[i]];
