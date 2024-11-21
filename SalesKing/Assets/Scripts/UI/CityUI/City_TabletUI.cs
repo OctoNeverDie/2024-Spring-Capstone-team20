@@ -11,7 +11,7 @@ public class City_TabletUI : MonoBehaviour
     private void Start()
     {
         Debug.Log("TODO : Tablet Mock, stage 확인하고, 해당되는 id 넣을 것");
-        npcIDs = new List<int>() { 0, 1, 2 };
+        
 
         InitNpc();
     }

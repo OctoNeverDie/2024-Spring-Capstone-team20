@@ -14,6 +14,7 @@ public class City_SummaryUI : MonoBehaviour
     public void InitNpc(NpcInfo npc, string coloredMbti, Sprite sprite = null)
     {
         int i = npcsCount++;
+        Debug.Log($"영원히 오류만 생겨... {npc.NpcID}");
         NpcIDToUIIdx.Add(npc.NpcID, i);//npc ui object와 npc id를 매칭한 걸 기록한 dictionary
         Debug.Log($"{npc.NpcID}, {i} 만들었어요!");
 
@@ -29,7 +30,9 @@ public class City_SummaryUI : MonoBehaviour
 
     public void UpdateItemData(string randItem, int thisNpcID)
     {
-        npcs[thisNpcID].Item.text = randItem;
+        Debug.Log($"원래 이거 0 아니야? {thisNpcID}");
+        int idx = NpcIDToUIIdx[thisNpcID];
+        npcs[idx].Item.text = randItem;
     }
 
     public void UpdateEvaluationData(string summary, int thisNpcID, bool isBuy)
