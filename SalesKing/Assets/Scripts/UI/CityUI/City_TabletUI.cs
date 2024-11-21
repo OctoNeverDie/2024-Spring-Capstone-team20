@@ -87,10 +87,10 @@ public class City_TabletUI : MonoBehaviour
         switch (prefer)
         {
             case -1:
-                result = "<color=red><size=35>" + mbtiType + "싫어" + "</size></color>";
+                result = "<color=red>" + mbtiType + "싫어" + "</color>";
                 break;
             case 1:
-                result = "<color=green><size=35>" + mbtiType + "좋아" + "</size></color>";
+                result = "<color=green>" + mbtiType + "좋아" + "</color>";
                 break;
             default: break;
         }

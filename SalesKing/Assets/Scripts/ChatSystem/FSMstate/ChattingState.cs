@@ -118,7 +118,7 @@ public class ChattingState : ChatBaseState, IVariableChat
     private void UpdateReplyVariables(string gptAnswer)
     {
         Debug.Log($"이걸 담가야해.. {gptAnswer}");
-        gptAnswer = gptAnswer.Replace("\n", "").Replace("+", "").Replace("{", "").Replace("}", "").Replace("`", "").Replace("json","").Replace(":","");
+        gptAnswer = gptAnswer.Replace("\n", "").Replace("+", "").Replace("{", "").Replace("}", "").Replace("`", "").Replace("json","");
         gptAnswer = "{"+ $"\n{gptAnswer}\n"+"}";
 
         Debug.Log($"이걸 담가야해! {gptAnswer}");

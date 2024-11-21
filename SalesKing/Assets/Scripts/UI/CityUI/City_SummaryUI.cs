@@ -19,7 +19,7 @@ public class City_SummaryUI : MonoBehaviour
 
         npcs[i].SuccessImg.gameObject.SetActive(false);
         npcs[i].Name.text = npc.NpcName;
-        npcs[i].Persuasion.text ="<size=15>"+coloredMbti+"</size>";
+        npcs[i].Persuasion.text = "<size=15>"+coloredMbti+"</size>";
         if(sprite!=null)
             npcs[i].ProfileImg.sprite = sprite;
 
