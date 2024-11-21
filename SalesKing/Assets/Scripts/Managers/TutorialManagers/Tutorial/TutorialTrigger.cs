@@ -17,6 +17,7 @@ public class TutorialTrigger : TutorialBase
         {
 			isTrigger = true;
             Debug.Log("이번 키코드는 " + keycode_trigger);
+            UserInputManager.Instance.isKeyInputLocked = true;
         }
 
         if ( isTrigger == true )
@@ -28,6 +29,7 @@ public class TutorialTrigger : TutorialBase
 	public override void Exit()
 	{
         PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
+        UserInputManager.Instance.isKeyInputLocked = false;
     }
 
 }

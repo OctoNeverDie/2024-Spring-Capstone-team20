@@ -5,6 +5,7 @@ using UnityEngine;
 public class UserInputManager : Singleton<UserInputManager>, ISingletonSettings
 {
     public bool ShouldNotDestroyOnLoad => true;
+    public bool isKeyInputLocked = false;
 
     Player myPlayer;
 
@@ -21,7 +22,7 @@ public class UserInputManager : Singleton<UserInputManager>, ISingletonSettings
 
     void Update()
     {
-        if (Input.GetButtonDown("Interaction"))
+        if (!isKeyInputLocked && Input.GetButtonDown("Interaction"))
         {
             if(myPlayer == null)
             {
