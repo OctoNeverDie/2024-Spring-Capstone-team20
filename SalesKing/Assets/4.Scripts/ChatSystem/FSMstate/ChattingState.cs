@@ -102,8 +102,7 @@ public class ChattingState : ChatBaseState, IVariableChat
 
     private void ShowFront()
     {
-        Chat.ActivatePanel(_sendChatType, gptResult);
-        NPCManager.Instance.curTalkingNPC.GetComponent<NPC>().PlayNPCAnimByEmotion(gptResult.emotion);
+        Chat.ActivatePanel(_sendChatType, gptResult);        
     }
 
     private void UpdateEvaluation()

@@ -39,10 +39,10 @@ MonoBehaviour:
     npcProfileImg: {fileID: 21300000, guid: 2a22ea6b6e225694298e769efdfa4788, type: 3}
   - npcId: 9
     look: {fileID: 6204495428180669375, guid: 729c51b43b2e2b44c8ab2ef39cddec1b, type: 3}
-    npcProfileImg: {fileID: 0}
+    npcProfileImg: {fileID: 21300000, guid: 1d50ddef3c87ad341b8dbcdfc5bd238a, type: 3}
   - npcId: 10
     look: {fileID: 6204495428180669375, guid: 524a82556f9a16f4ca972096e5242e02, type: 3}
-    npcProfileImg: {fileID: 0}
+    npcProfileImg: {fileID: 21300000, guid: 5d07b4af2e17b8849bc3ffc5f2e4398f, type: 3}
   - npcId: 11
     look: {fileID: 6204495428180669375, guid: ab78b2af09a759c4eaa0202f1ef23ee0, type: 3}
-    npcProfileImg: {fileID: 0}
+    npcProfileImg: {fileID: 21300000, guid: 2bbbbd06e1f4f314eb6f359e6512b60f, type: 3}

@@ -3,7 +3,6 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static ChattingState;
 
 public class City_ChattingUI : MonoBehaviour
 {
@@ -19,6 +18,8 @@ public class City_ChattingUI : MonoBehaviour
     [SerializeField] Button UserEndBtn; //end conversation
     [SerializeField] Button DealBtn; //deal ended
 
+    TextMeshProUGUI NpcSpeechText;
+
     private void Awake()
     {
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
@@ -29,6 +30,8 @@ public class City_ChattingUI : MonoBehaviour
 
         TxtPopUpUI.SetActive(false);
         ConvoPanel.SetActive(false);
+
+        NpcSpeechText = NpcSpeechBubble.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     private void OnDestroy()
@@ -49,7 +52,6 @@ public class City_ChattingUI : MonoBehaviour
     public void OnClickFinal()
     {
         EndPanel.SetActive(false);
-        ConvoPanel.SetActive(false);
 
         if (ChatManager.Instance.npcNum >= 3)
         {
@@ -70,7 +72,6 @@ public class City_ChattingUI : MonoBehaviour
 
     public void SetNpcAnswerText(string text)
     {
-        TextMeshProUGUI NpcSpeechText = NpcSpeechBubble.GetComponentInChildren<TextMeshProUGUI>();
         NpcSpeechText.text = text;
         NpcSpeechBubble.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         NpcSpeechBubble.transform.DOScale(1f, 0.5f).SetEase(Ease.InOutBounce).SetUpdate(true);
@@ -82,7 +83,7 @@ public class City_ChattingUI : MonoBehaviour
         {
             SetNpcName(name);
             ConvoPanel.SetActive(true);// show convo: npc name, 
-            //TODO :ItemInfo randItem, npc item 룰렛
+            Debug.Log("TODO :ItemInfo randItem, npc item 룰렛");
         }
 
         else if (sendChatType == Define.SendChatType.Chatting)
@@ -106,6 +107,7 @@ public class City_ChattingUI : MonoBehaviour
 
         else if (sendChatType == Define.SendChatType.Endpoint)
         {
+            SetNpcAnswerText("");
             PlayerManager.Instance.player.PlayerExitConvo();
             StartCoroutine(ShowEndPanelAfterDelay());
         }
@@ -113,7 +115,9 @@ public class City_ChattingUI : MonoBehaviour
 
     private IEnumerator ShowEndPanelAfterDelay()
     {
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(3f);
+        TxtPopUpUI.SetActive(false);
+        ConvoPanel.SetActive(false);
         EndPanel.SetActive(true);
     }
 

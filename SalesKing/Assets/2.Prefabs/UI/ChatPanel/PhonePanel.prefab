@@ -871,6 +871,7 @@ GameObject:
   - component: {fileID: 2662098472016784068}
   - component: {fileID: 1849295941952354832}
   - component: {fileID: 5845579393518982673}
+  - component: {fileID: 3741813964216108763}
   - component: {fileID: 8092872907927218603}
   m_Layer: 5
   m_Name: PhonePanel
@@ -937,6 +938,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3741813964216108763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1046054712752609851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9adc3bed8d519894395a5de0392891e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tabletMovement: {fileID: 8092872907927218603}
+  npcInfoUI: {fileID: 4851765332555838713}
+  summaryUI: {fileID: 1787126497358909707}
+  storyNpcSO: {fileID: 11400000, guid: 649a9adc19ff4584ba1cf71e931769ca, type: 2}
+  npcLookSO: {fileID: 11400000, guid: 52967f0d494cc0043b18fc93dae2be84, type: 2}
 --- !u!114 &8092872907927218603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5634,6 +5652,7 @@ MonoBehaviour:
   - {fileID: 3463571333143485889}
   - {fileID: 8520333331557791827}
   - {fileID: 3290883704128289051}
+  npcsCount: 0
 --- !u!1 &6939647223521201083
 GameObject:
   m_ObjectHideFlags: 0

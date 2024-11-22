@@ -29,7 +29,6 @@ public class City_SummaryUI : MonoBehaviour
 
     public void UpdateItemData(string randItem, int thisNpcID)
     {
-        Debug.Log($"원래 이거 0 아니야? {thisNpcID}");
         int idx = NpcIDToUIIdx[thisNpcID];
         npcs[idx].Item.text = randItem;
     }

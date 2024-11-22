@@ -23,9 +23,17 @@ public class City_NpcInfoUI : MonoBehaviour
         if (sprite != null)
         {
             npcs[i].profileImg.sprite = sprite;
+
+            float width = sprite.rect.width;
+            float height = sprite.rect.height;
+            float ratio = width / height;
+
+            height = npcs[i].profileImg.rectTransform.rect.height;
+            width = height * ratio;
+
+            npcs[i].profileImg.rectTransform.sizeDelta = new Vector2(width, height);
         }
-        
-        Debug.Log("TODO : 그림 넣기");
+
         npcs[i].concern.text = $"{npc.Concern}\n그래서 {npc.WantItem}을(를) 사고 싶어함.";
         npcs[i].item.text = "당신이 갖고 있는 아이템 : ???";
     }

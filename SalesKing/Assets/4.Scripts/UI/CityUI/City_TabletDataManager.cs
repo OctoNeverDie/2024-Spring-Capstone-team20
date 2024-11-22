@@ -27,7 +27,7 @@ public class City_TabletDataManager : MonoBehaviour
                     .Where(n => n.NpcID == npcIDs[i])
                     .FirstOrDefault(); // 해당 요소 반환 또는 null
             todaysIDdict.Add(npcIDs[i], npc);
-
+            Debug.Log($"todayDict {npcIDs[i]}");
             string colorPersuasion = ColorPersuasion(npc.Mbtis);
             Sprite npcProfile = npcLookSO.npcLooks
                     .Where(n => n.npcId == npcIDs[i]) // npcId가 npcIDs[i]와 일치하는 항목 필터링

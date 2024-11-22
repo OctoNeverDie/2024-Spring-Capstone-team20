@@ -36,6 +36,12 @@ public class NpcInitState : ChatBaseState
 
     private void SendBack()
     {
+        if (npc.NpcID == 0)
+        {
+            Chat.FirstNpc();
+            return;
+        }
+        
         string _userSend = MakeUserSend(npc) + "\n" + MakeMbtiSend(npc.Mbtis);
 
         Debug.Log($"NpcInitState에서 보냄 {_sendChatType}. {_userSend}");
@@ -141,8 +147,8 @@ public class NpcInitState : ChatBaseState
     {
         string user_send = $"\n NpcName : {npc.NpcName}, NpcSex : {npc.NpcSex}, NpcAge : {npc.NpcAge} "
             + $" KeyWord : {npc.KeyWord}, \nPersonailty : {npc.Personality}\nDialogue Style: {npc.DialogueStyle}\nExample: {npc.Example}"
-            +$"Situation : {npc.SituationDescription}"
-            + $"당근에 올린 글: {npc.Concern}\n네가 사려고 한 물건: {npc.WantItem}, 판매자가 가져온 물건: {playerItem.ObjName} ";
+            +$"\nSituation : {npc.SituationDescription}"
+            + $"\n당근에 올린 글: {npc.Concern}\n네가 사려고 한 물건: {npc.WantItem}, 판매자가 가져온 물건: {playerItem.ObjName}\n";
 
         return user_send;
     }

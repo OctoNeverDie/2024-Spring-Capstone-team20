@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +6,7 @@ public class NPCAnimationManager : MonoBehaviour
     private static readonly string basePath = "Animations/NPC";
     public Dictionary<NPCDefine.AnimType, List<AnimationClip>> NPCAnimDictionary = new Dictionary<NPCDefine.AnimType, List<AnimationClip>>();
 
-    private void Awake()
+    protected void Awake()
     {
         LoadAnimations();
     }
@@ -30,7 +29,5 @@ public class NPCAnimationManager : MonoBehaviour
                 //Debug.Log($"Loaded {animations.Length} animations for category '{category}'.");
             }
         }
-        
     }
-    
 }

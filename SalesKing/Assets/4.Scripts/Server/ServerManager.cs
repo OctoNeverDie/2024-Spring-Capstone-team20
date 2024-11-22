@@ -17,7 +17,6 @@ public class ServerManager : ServerBase
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
 
             Init();
         }
