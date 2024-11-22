@@ -6,15 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/GamePlay/Start.unity
+    path: Assets/3.Scenes/GamePlay/Start.unity
     guid: 957e449d977e95441b1688b5ed6417e7
   - enabled: 1
-    path: Assets/Scenes/GamePlay/SaveFile.unity
+    path: Assets/3.Scenes/GamePlay/SaveFile.unity
     guid: 688dc3501fd81154c9af57b6756c4124
   - enabled: 1
-    path: Assets/Scenes/GamePlay/CityMap.unity
+    path: Assets/3.Scenes/GamePlay/CityMap.unity
     guid: ae6646ad2126ae348a0b759b4f2f4d8d
   - enabled: 1
-    path: Assets/Scenes/GamePlay/Last.unity
+    path: Assets/3.Scenes/GamePlay/Last.unity
     guid: 830ea67847fb17543af511be021aa9fe
   m_configObjects: {}
