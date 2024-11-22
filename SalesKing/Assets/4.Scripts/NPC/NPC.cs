@@ -153,6 +153,7 @@ public class NPC : MonoBehaviour
         transform.DOLookAt(player.transform.position, 1f, AxisConstraint.None, null).SetUpdate(true);
         NPCManager.Instance.curTalkingNPC = transform.gameObject;
         currentState = NPCDefine.MoveState.Talk;
+        currentTalkable = NPCDefine.Talkable.Not;
         agent.isStopped = true;
         animator.Play(NPCManager.Instance.Anim.NPCAnimDictionary[NPCDefine.AnimType.Standing][0].name);
     }

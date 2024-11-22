@@ -51,7 +51,11 @@ public class City_ChattingUI : MonoBehaviour
 
     public void OnClickFinal()
     {
+        SetNpcAnswerText("");
+        TxtPopUpUI.SetActive(false);
         EndPanel.SetActive(false);
+        ConvoPanel.SetActive(false);
+        PlayerManager.Instance.player.PlayerExitConvo();
 
         if (ChatManager.Instance.npcNum >= 3)
         {
@@ -91,24 +95,20 @@ public class City_ChattingUI : MonoBehaviour
             if (additionalData is ChattingState.GptResult gptResult)
             {
                 SetNpcAnswerText(gptResult.reaction);//reply 보여줌
-                Debug.Log($"Persuation : {gptResult.Persuasion}");
+                NPCManager.Instance.curTalkingNPC.GetComponent<NPC>().PlayNPCAnimByEmotion(gptResult.emotion);//애니메이션 보여줌
                 if (gptResult.Persuasion >= 2)
                 {
-                    TxtPopup(gptResult.reason, true);
-                    //++ 효과, 초록색, gptResult.reason 뒤에 따라옴.
+                    TxtPopup(gptResult.reason, true);//++ 효과, 초록색, gptResult.reason 뒤에 따라옴.
                 }
                 else if (gptResult.Persuasion <= -2)
                 {
-                    TxtPopup(gptResult.reason, false);
-                    //-- 효과, 빨간색, gptResult.reason 뒤에 따라옴.
+                    TxtPopup(gptResult.reason, false);//-- 효과, 빨간색, gptResult.reason 뒤에 따라옴.
                 }
             }
         }
 
         else if (sendChatType == Define.SendChatType.Endpoint)
         {
-            SetNpcAnswerText("");
-            PlayerManager.Instance.player.PlayerExitConvo();
             StartCoroutine(ShowEndPanelAfterDelay());
         }
     }
@@ -116,8 +116,6 @@ public class City_ChattingUI : MonoBehaviour
     private IEnumerator ShowEndPanelAfterDelay()
     {
         yield return new WaitForSecondsRealtime(3f);
-        TxtPopUpUI.SetActive(false);
-        ConvoPanel.SetActive(false);
         EndPanel.SetActive(true);
     }
 

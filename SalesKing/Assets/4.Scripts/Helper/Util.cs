@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Util 
 {
@@ -31,6 +32,20 @@ public class Util
             }
         }
         return default;
+    }
+
+    public static void ChangeSprite(Image image, Sprite sprite)
+    {
+        image.sprite = sprite;
+
+        float width = sprite.rect.width;
+        float height = sprite.rect.height;
+        float ratio = width / height;
+
+        height = image.rectTransform.rect.height;
+        width = height * ratio;
+
+        image.rectTransform.sizeDelta = new Vector2(width, height);
     }
 
     public static string Concat(string pattern, string gptAnswer)

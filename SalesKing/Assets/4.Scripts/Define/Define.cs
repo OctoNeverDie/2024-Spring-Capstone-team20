@@ -56,6 +56,8 @@ public class Define
     [JsonConverter(typeof(StringEnumConverter))]
     public enum ItemCategory
     {
+        [EnumMember(Value = "Nothing")]
+        None,
         [EnumMember(Value = "Money")]
         Money,
         [EnumMember(Value = "Music")]

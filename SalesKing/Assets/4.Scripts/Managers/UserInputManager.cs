@@ -1,13 +1,15 @@
+using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
 /// player에 붙어있음!
 /// </summary>
 public class UserInputManager : Singleton<UserInputManager>, ISingletonSettings
 {
-    public bool ShouldNotDestroyOnLoad => true;
+    [HideInInspector]
+    public bool ShouldNotDestroyOnLoad => false;
     public bool isKeyInputLocked = false;
-    [SerializeField] private GameObject OptionPanel;
 
+    [SerializeField] private GameObject OptionPanel;
     Player myPlayer;
 
     [SerializeField] Define.UserInputMode DefaultMode = Define.UserInputMode.Voice;
@@ -33,10 +35,13 @@ public class UserInputManager : Singleton<UserInputManager>, ISingletonSettings
             if (myPlayer.ui.RaycastHitObj.activeSelf)
             {
                 NPC thisNPC = myPlayer.RaycastCollider.GetComponent<NPC>();
-                ChatManager.Instance.Init(thisNPC.NpcID);
-                
-                myPlayer.PlayerEnterConvo(thisNPC.gameObject);
-                thisNPC.NPCEnterConvo(myPlayer.gameObject);
+                if (thisNPC.currentTalkable == NPCDefine.Talkable.Able)
+                {
+                    ChatManager.Instance.Init(thisNPC.NpcID);
+
+                    myPlayer.PlayerEnterConvo(thisNPC.gameObject);
+                    thisNPC.NPCEnterConvo(myPlayer.gameObject);
+                }
             }
         }
 

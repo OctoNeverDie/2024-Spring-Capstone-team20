@@ -15,7 +15,6 @@ public class NpcInitState : ChatBaseState
         _sendChatType = SendChatType.ChatInit;
         npc = Chat.ThisNpc;
         playerItem = GetRandItem();
-        Debug.Log($"item : :::{npc.NpcName} - {playerItem}");
 
         ShowFront();
         SendBack();
@@ -55,8 +54,12 @@ public class NpcInitState : ChatBaseState
         {
             Debug.Log($"items : {npc.ItemCategory}, {cate.Category}, {cate.ObjName}");
         }
-        int randomIdx = Random.Range(0, categorizedList.Count);
-        Debug.Log($"dn? {categorizedList.Count}, {categorizedList[randomIdx].ObjName}");
+        int randomIdx;
+        if (categorizedList.Count > 0)
+            randomIdx = Random.Range(0, categorizedList.Count);
+        else
+            return DataGetter.Instance.ItemList[0];
+
         return categorizedList[randomIdx];
     }
 

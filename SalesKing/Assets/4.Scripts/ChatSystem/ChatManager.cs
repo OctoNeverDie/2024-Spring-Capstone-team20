@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
@@ -47,6 +49,12 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
     {
         TransitionToState(SendChatType.Chatting);
 
+        StartCoroutine(LateReply());
+    }
+
+    private IEnumerator LateReply()
+    {
+        yield return new WaitForSecondsRealtime(2f);
         string forFirstReply = "{ \"decision\" : \"yes\", \n\"yourReply\" : \"와! 물건 맞게 가져오셨네요. 거래 할게요~!\", \n\"persuasion\" : \"+3\", \n \"reason\" : \"물건이 마음에 듦\", \n\"emotion\" : \"best\"\n}";
         Reply.GptAnswer = forFirstReply;
     }
@@ -66,7 +74,6 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
             case SendChatType.Chatting:
                 if (additionalData is ChattingState.GptResult gptResult)
                 {
-                    if(ThisNpc.NpcID!=0) NPCManager.Instance.curTalkingNPC.GetComponent<NPC>().PlayNPCAnimByEmotion(gptResult.emotion);
                     cityChattingUI.ShowPanel(chatState, gptResult);// reply도 보여주고, persuasion에 따른 reason에 대한 ++, -- 보여주기
                 }
                 break;
