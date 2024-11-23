@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: NpcLookSO
   m_EditorClassIdentifier: 
   npcLooks:
+  - npcId: 0
+    look: {fileID: 6204495428180669375, guid: e5451aaf894ce4e4ab29d4f01ee4dac6, type: 3}
+    npcProfileImg: {fileID: 21300000, guid: 4ceb2764188c468488f2e6a6382ff839, type: 3}
   - npcId: 1
     look: {fileID: 6204495428180669375, guid: b8a0a32d7e34bfb4bba3256995814f44, type: 3}
     npcProfileImg: {fileID: 21300000, guid: 3f561ef4b54e01a45aeca146c742346d, type: 3}
