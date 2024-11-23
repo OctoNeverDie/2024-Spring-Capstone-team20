@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Newtonsoft.Json;
 
 public interface ILoader<DataFormat>
 { List<DataFormat> GetList(); }
@@ -26,25 +27,25 @@ public class DataGetter : Singleton<DataGetter>, ISingletonSettings
     public void Init()
     {
         npcList = LoadJson<NpcData, NpcInfo>("NpcData").GetList();
-        //foreach (var npc in npcList)
-        //{
-        //    // 확장 메서드를 사용하여 출력
-        //    string logMessage = $"NpcID: {npc.NpcID}, " +
-        //                        $"NpcAge: {npc.NpcAge}, " +
-        //                        $"Mbtis: [{string.Join(", ", npcList[0].Mbtis)}], " +
-        //                        $"ItemCategory: {npc.ItemCategory}, " +
-        //                        $"NpcName: {npc.NpcName}, " +
-        //                        $"NpcSex: {npc.NpcSex}, " +
-        //                        $"KeyWord: {npc.KeyWord}, " +
-        //                        $"Concern: {npc.Concern}, " +
-        //                        $"WantItem: {npc.WantItem}, " +
-        //                        $"SituationDescription: {npc.SituationDescription}, " +
-        //                        $"Personality: {npc.Personality}, " +
-        //                        $"DialogueStyle: {npc.DialogueStyle}, " +
-        //                        $"Example: {npc.Example}";
+        foreach (var npc in npcList)
+        {
+            // 확장 메서드를 사용하여 출력
+            string logMessage = $"NpcID: {npc.NpcID}, " +
+                                $"NpcAge: {npc.NpcAge}, " +
+                                $"Mbtis: [{string.Join(", ", npcList[0].Mbtis)}], " +
+                                $"ItemCategory: {npc.ItemCategory}, " +
+                                $"NpcName: {npc.NpcName}, " +
+                                $"NpcSex: {npc.NpcSex}, " +
+                                $"KeyWord: {npc.KeyWord}, " +
+                                $"Concern: {npc.Concern}, " +
+                                $"WantItem: {npc.WantItem}, " +
+                                $"SituationDescription: {npc.SituationDescription}, " +
+                                $"Personality: {npc.Personality}, " +
+                                $"DialogueStyle: {npc.DialogueStyle}, " +
+                                $"Example: {npc.Example}";
 
-        //    Debug.Log(logMessage);
-        //}
+            Debug.Log(logMessage);
+        }
         itemList = LoadJson<ItemData, ItemInfo>("ItemData").GetList();
         ListToDict();
     }
@@ -53,7 +54,7 @@ public class DataGetter : Singleton<DataGetter>, ISingletonSettings
     {
         TextAsset textAsset = Resources.Load<TextAsset>($"Data/JsonFile/{path}");
         Debug.Log($"{textAsset.text}");
-        return JsonUtility.FromJson<Loader>(textAsset.text);
+        return JsonConvert.DeserializeObject<Loader>(textAsset.text);
     }
 
     private void ListToDict()
@@ -62,7 +63,8 @@ public class DataGetter : Singleton<DataGetter>, ISingletonSettings
                                     .ToDictionary(group => group.Key, group => group.ToList());
         foreach (var items in categorizedItems)
         {
-            string test = $"{items.Key}" + $"[{string.Join(", ", items.Value.Select(item => item.ToString()))}]";
+            string test = $"왜 이게 항상 출력되지? {items.Key}" + $"[{string.Join(", ", items.Value.Select(item => item.ToString()))}]";
+            Debug.Log(test);
         }
     }
 }

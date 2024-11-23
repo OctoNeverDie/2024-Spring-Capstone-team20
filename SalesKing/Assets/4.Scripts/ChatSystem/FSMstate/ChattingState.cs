@@ -21,8 +21,8 @@ public class ChattingState : ChatBaseState, IVariableChat
         [JsonProperty("yourReply")]
         public string reaction { get; set; }
 
-        [JsonProperty("persuasion")]
         private int _persuasion;
+        [JsonProperty("persuasion")]
         public int Persuasion {
             get => _persuasion;
             set
@@ -54,7 +54,7 @@ public class ChattingState : ChatBaseState, IVariableChat
         [JsonProperty("summary")]
         public string summary { get; set; }
 
-        public int totalPersuasion = 0;
+        public int totalPersuasion;
     }
     GptResult gptResult;
 
@@ -64,6 +64,7 @@ public class ChattingState : ChatBaseState, IVariableChat
 
         _sendChatType = Define.SendChatType.Chatting;
         gptResult = new GptResult();
+        gptResult.totalPersuasion = 0;
     }
 
     public override void Exit()
