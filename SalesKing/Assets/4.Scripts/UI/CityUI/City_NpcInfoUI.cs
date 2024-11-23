@@ -18,7 +18,7 @@ public class City_NpcInfoUI : MonoBehaviour
 
         string age = npc.NpcAge == 0? "???" : npc.NpcAge.ToString();
         npcs[i].Name.text = $"고객 정보 : {npc.NpcName} ( {age}세 )";
-        npcs[i].Persuasion.text = $"설득 유형 : <size=40>{coloredMbti}</size>";
+        npcs[i].Persuasion.text = $"설득 유형 : {coloredMbti}";
         npcs[i].Keyword.text = $"키워드 : {npc.KeyWord}";
 
         if (sprite != null)
