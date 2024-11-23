@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Linq; // DoTween 네임스페이스 추가
+using System.Linq;
 
 public class City_TabletDataManager : MonoBehaviour
 {
@@ -77,10 +77,10 @@ public class City_TabletDataManager : MonoBehaviour
         switch (prefer)
         {
             case -1:
-                result = "<color=red>" + mbtiType + "싫어" + "</color>";
+                result = "<color=red>" + "-" + mbtiType + "</color>";
                 break;
             case 1:
-                result = "<color=green>" + mbtiType + "좋아" + "</color>";
+                result = "<color=green>" + "+" + mbtiType + "</color>";
                 break;
             default: break;
         }

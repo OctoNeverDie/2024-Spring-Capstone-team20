@@ -17,6 +17,13 @@ MonoBehaviour:
     NpcName: 
     NpcSex: 
     NpcAge: 0
-    NpcPersonality: 
-    NpcProplemType: 
-    NpcProblemInfo: 
+    KeyWord: 
+    Concern: 
+    WantItem: 
+    ItemCategory: 0
+    Mbtis: 
+    SituationDescription: 
+    Personality: 
+    DialogueStyle: 
+    Example: 
+    NpcLooks: {fileID: 0}

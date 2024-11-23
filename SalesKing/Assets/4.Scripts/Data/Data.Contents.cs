@@ -43,45 +43,6 @@ public class NpcInfo
     public string Example;
 
     public GameObject NpcLooks;
-
-    public NpcInfo(int npcID, string npcName, string npcSex, int npcAge, string keyWord, string concern, string wantItem, int[] mbtis, string situationDescription, string personality, string dialogueStyle, string example, GameObject npcLooks)
-    {
-        NpcID = npcID;
-        NpcName = npcName;
-        NpcSex = npcSex;
-        NpcAge = npcAge;
-        KeyWord = keyWord;
-        Concern = concern;
-        WantItem = wantItem;
-        Mbtis = mbtis;
-        SituationDescription = situationDescription;
-        Personality = personality;
-        DialogueStyle = dialogueStyle;
-        Example = example;
-        NpcLooks = npcLooks;
-    }
-
-    public NpcInfo(NpcInfo other)
-    {
-        if (other == null)
-            throw new ArgumentNullException(nameof(other));
-
-        NpcID = other.NpcID;
-        NpcName = other.NpcName;
-        NpcSex = other.NpcSex;
-        NpcAge = other.NpcAge;
-        KeyWord = other.KeyWord;
-        Concern = other.Concern;
-        WantItem = other.WantItem;
-        ItemCategory = other.ItemCategory;
-        Mbtis = other.Mbtis != null ? (int[])other.Mbtis.Clone() : null;
-
-        SituationDescription = other.SituationDescription;
-        Personality = other.Personality;
-        DialogueStyle = other.DialogueStyle;
-        Example = other.Example;
-        NpcLooks = other.NpcLooks;
-    }
 }
 
 public class NpcData : ILoader<NpcInfo>
@@ -89,26 +50,5 @@ public class NpcData : ILoader<NpcInfo>
     public List<NpcInfo> npcs = new List<NpcInfo>();
     public List<NpcInfo> GetList()
     => npcs;
-
-    protected void MakeSO()
-    {
-        //base.MakeDirectory("npcs");
-
-        foreach (var npc in npcs)
-        {
-            MakeSOInstance(npc);
-        }
-    }
-    protected void MakeSOInstance(NpcInfo npc)
-    {
-        NpcSO npcSO = ScriptableObject.CreateInstance<NpcSO>();
-        npcSO.Initialize(npc);
-
-
-#if UNITY_EDITOR
-        //UnityEditor.AssetDatabase.CreateAsset(npcSO, $"{base.basePath}Npcs/{npcSO.npcInfo.NpcName}.asset");
-        //UnityEditor.AssetDatabase.SaveAssets();
-#endif
-    }
 }
 #endregion

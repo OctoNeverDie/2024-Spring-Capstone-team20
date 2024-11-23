@@ -2,7 +2,6 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
-
 public class Define
 {
     public enum SceneMode
@@ -80,6 +79,8 @@ public class Define
         Hobby,
         [EnumMember(Value = "Weapons")]
         Weapons,
+        [EnumMember(Value = "Furniture")]
+        Furniture,
         MaxCnt
     }
 
