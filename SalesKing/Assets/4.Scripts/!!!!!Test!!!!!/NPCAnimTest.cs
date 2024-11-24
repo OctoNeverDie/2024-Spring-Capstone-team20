@@ -35,42 +35,36 @@ public class NPCAnimTest : MonoBehaviour
             transform.position = init_position;
             transform.rotation = init_rotation;
             npc.PlayRandomNPCAnimByAnimType(NPCDefine.AnimType.SlightlyPositive);
-            looks.thisMesh[NPCDefine.MeshType.Eyebrow].GetComponent<SkinnedMeshRenderer>().sharedMesh = NPCManager.Mesh.NPCMeshDictionary[NPCDefine.MeshType.Eyebrow][10];
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
             transform.position = init_position;
             transform.rotation = init_rotation;
             npc.PlayRandomNPCAnimByAnimType(NPCDefine.AnimType.Positive);
-            looks.thisMesh[NPCDefine.MeshType.Eyebrow].GetComponent<SkinnedMeshRenderer>().sharedMesh = NPCManager.Mesh.NPCMeshDictionary[NPCDefine.MeshType.Eyebrow][10];
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
             transform.position = init_position;
             transform.rotation = init_rotation;
             npc.PlayRandomNPCAnimByAnimType(NPCDefine.AnimType.VeryPositive);
-            looks.thisMesh[NPCDefine.MeshType.Eyebrow].GetComponent<SkinnedMeshRenderer>().sharedMesh = NPCManager.Mesh.NPCMeshDictionary[NPCDefine.MeshType.Eyebrow][10];
         }
         else if (Input.GetKeyDown(KeyCode.T))
         {
             transform.position = init_position;
             transform.rotation = init_rotation;
             npc.PlayRandomNPCAnimByAnimType(NPCDefine.AnimType.SlightlyNegative);
-            looks.thisMesh[NPCDefine.MeshType.Eyebrow].GetComponent<SkinnedMeshRenderer>().sharedMesh = NPCManager.Mesh.NPCMeshDictionary[NPCDefine.MeshType.Eyebrow][6];
         }
         else if (Input.GetKeyDown(KeyCode.Y))
         {
             transform.position = init_position;
             transform.rotation = init_rotation;
             npc.PlayRandomNPCAnimByAnimType(NPCDefine.AnimType.Negative);
-            looks.thisMesh[NPCDefine.MeshType.Eyebrow].GetComponent<SkinnedMeshRenderer>().sharedMesh = NPCManager.Mesh.NPCMeshDictionary[NPCDefine.MeshType.Eyebrow][6];
         }
         else if (Input.GetKeyDown(KeyCode.U))
         {
             transform.position = init_position;
             transform.rotation = init_rotation;
             npc.PlayRandomNPCAnimByAnimType(NPCDefine.AnimType.VeryNegative);
-            looks.thisMesh[NPCDefine.MeshType.Eyebrow].GetComponent<SkinnedMeshRenderer>().sharedMesh = NPCManager.Mesh.NPCMeshDictionary[NPCDefine.MeshType.Eyebrow][6];
         }
         else if (Input.GetKeyDown(KeyCode.I))
         {

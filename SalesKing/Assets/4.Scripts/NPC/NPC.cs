@@ -11,6 +11,7 @@ public class NPC : MonoBehaviour
 
     private Animator animator;
     private NavMeshAgent agent;
+    private Rigidbody rb;
 
     public float speed = 0.5f;
     public float rotationSpeed = 5.0f; // 서서히 회전하기 위한 속도
@@ -25,6 +26,7 @@ public class NPC : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
         myCanvas = transform.Find("Canvas").gameObject;
     }
 
@@ -33,6 +35,22 @@ public class NPC : MonoBehaviour
         agent.speed = speed;
         AssignRandomLooks();
     }
+
+    void Update()
+    {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        // 현재 상태 확인
+        Debug.Log($"현재 상태 이름: {stateInfo.IsName("Idle")}");
+
+        // Transition 조건 확인
+        if (stateInfo.IsName("Idle"))
+        {
+            Debug.Log("Idle 상태에서 멈춰 있습니다.");
+        }
+    }
+
+
 
 
     void AssignRandomLooks()
@@ -73,9 +91,12 @@ public class NPC : MonoBehaviour
     public void PlayRandomNPCAnimByAnimType(NPCDefine.AnimType type)
     {
         //int randAnimIndex = Random.Range(0, NPCManager.Anim.NPCAnimDictionary[type].Count);
-
-        animator.Play(NPCManager.Anim.NPCAnimDictionary[NPCDefine.AnimType.VeryNegative][0].name);
-        Debug.Log("애니메이션 출력: "+NPCManager.Anim.NPCAnimDictionary[NPCDefine.AnimType.VeryNegative][0].name);
+        //Debug.Log("애니메이터 상태는: "+animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
+        animator.updateMode = AnimatorUpdateMode.UnscaledTime;
+        animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+        animator.Rebind();
+        animator.Play(NPCManager.Anim.NPCAnimDictionary[type][0].name);
+        Debug.Log("애니메이션 출력: "+NPCManager.Anim.NPCAnimDictionary[type][0].name);
     }
 
     public void NPCEnterConvo(GameObject player)
@@ -83,7 +104,7 @@ public class NPC : MonoBehaviour
         transform.DOLookAt(player.transform.position, 1f, AxisConstraint.None, null).SetUpdate(true);
         NPCManager.Instance.curTalkingNPC = transform.gameObject.GetComponent<NPC>();
         Debug.Log("~~~~~~~~~~~~~~~~~");
-        animator.Play(NPCManager.Anim.NPCAnimDictionary[NPCDefine.AnimType.Moving][0].name);
+       // animator.Play(NPCManager.Anim.NPCAnimDictionary[NPCDefine.AnimType.Moving][0].name);
     }
 
 }
