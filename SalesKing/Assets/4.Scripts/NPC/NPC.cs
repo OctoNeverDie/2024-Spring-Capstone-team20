@@ -130,7 +130,8 @@ public class NPC : MonoBehaviour
     public void PlayRandomNPCAnimByAnimType(NPCDefine.AnimType type)
     {
         int randAnimIndex = Random.Range(0, NPCManager.Instance.Anim.NPCAnimDictionary[type].Count);
-        animator.Play(NPCManager.Instance.Anim.NPCAnimDictionary[type][randAnimIndex].name);
+        animator.Play(NPCManager.Instance.Anim.NPCAnimDictionary[NPCDefine.AnimType.VeryNegative][randAnimIndex].name);
+        Debug.Log("애니메이션 출력: "+NPCManager.Instance.Anim.NPCAnimDictionary[NPCDefine.AnimType.VeryNegative][randAnimIndex].name);
     }
 
     public void ChooseNextDestination()
