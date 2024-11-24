@@ -102,7 +102,7 @@ public class City_ChattingUI : MonoBehaviour
             if (additionalData is ChattingState.GptResult gptResult)
             {
                 SetNpcAnswerText(gptResult.reaction);//reply 보여줌
-                NPCManager.Instance.curTalkingNPC.GetComponent<NPC>().PlayNPCAnimByEmotion(gptResult.emotion);//애니메이션 보여줌
+                NPCManager.Instance.curTalkingNPC.PlayNPCAnimByEmotion(gptResult.emotion);//애니메이션 보여줌
 
                 if (gptResult.Persuasion >= 2)
                 {

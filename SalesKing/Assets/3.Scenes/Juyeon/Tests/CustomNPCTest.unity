@@ -452,7 +452,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 431715514}
   m_CullTransparentMesh: 1
---- !u!1 &694065332
+--- !u!1 &688461053
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -460,37 +460,43 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 694065334}
-  - component: {fileID: 694065333}
+  - component: {fileID: 688461055}
+  - component: {fileID: 688461054}
   m_Layer: 0
-  m_Name: '@Managers'
+  m_Name: '@NPCManager'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &694065333
+--- !u!114 &688461054
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 694065332}
+  m_GameObject: {fileID: 688461053}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94036a9ba8b683a459c0cd32e2777c9d, type: 3}
+  m_Script: {fileID: 11500000, guid: a38ba7bc312efd54da4fa3f88ff1e646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &694065334
+  NPCGroup: []
+  NPCHolder: {fileID: 0}
+  curTalkingNPC: {fileID: 0}
+  storyNpcSO: {fileID: 0}
+  npcLookSO: {fileID: 0}
+  NPCPrefab: {fileID: 0}
+--- !u!4 &688461055
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 694065332}
+  m_GameObject: {fileID: 688461053}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -42.91799, y: -62.088253, z: 53.37899}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -956,8 +962,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 1852176699}
   - {fileID: 1200514454}
-  - {fileID: 694065334}
   - {fileID: 159453537}
   - {fileID: 1682797751}
   - {fileID: 1852141933}
   - {fileID: 2033442933}
+  - {fileID: 688461055}

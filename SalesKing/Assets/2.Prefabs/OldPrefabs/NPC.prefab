@@ -51,7 +51,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 79bfa86c7b1441248b5f8289c862448b, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -141,9 +141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6be9fa4921162743ad19f144f77866a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
-  currentTalkable: 0
-  currentLook: 0
   destination: {fileID: 0}
   myCanvas: {fileID: 0}
   speed: 0.5

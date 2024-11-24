@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NPCMovementManager : MonoBehaviour
 {
+    /*
     List<Transform> spawnPoints = new List<Transform>();
     List<Transform> availableSpawnPoints = new List<Transform>();
     List<Transform> usedSpawnPoints = new List<Transform>();
@@ -57,5 +58,6 @@ public class NPCMovementManager : MonoBehaviour
 
         return spawnPoint;
     }
+    */
 }
 

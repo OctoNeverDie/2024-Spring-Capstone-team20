@@ -8,14 +8,14 @@ public class NPCManager : Singleton<NPCManager>, ISingletonSettings
 {
     public bool ShouldNotDestroyOnLoad => true;
 
-    public NPCMeshManager Mesh;
-    public NPCSpawner Spawner;
-    public NPCAnimationManager Anim;
-    public NPCMovementManager Move;
+    public static NPCMeshManager Mesh;
+    public static NPCSpawner Spawner;
+    public static NPCAnimationManager Anim;
+    public static NPCMovementManager Move;
 
     public List<GameObject> NPCGroup = new List<GameObject>();
     public GameObject NPCHolder;
-    public GameObject curTalkingNPC;
+    public NPC curTalkingNPC;
 
     public StoryNpcSO storyNpcSO;
     public NpcLookSO npcLookSO;
