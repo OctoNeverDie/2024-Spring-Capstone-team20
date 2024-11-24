@@ -21,13 +21,15 @@ public class City_TabletMovement : MonoBehaviour
             {
                 OnClickHideTablet();
                 isTablet = false;
-                PlayerManager.Instance.player.FreezeAndUnFreezePlayer(false);
+                if (!ChatManager.Instance.isConvo)
+                    PlayerManager.Instance.player.FreezeAndUnFreezePlayer(false);
             }
             else
             {
                 OnClickShowTablet();
                 isTablet = true;
-                PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
+                if(!ChatManager.Instance.isConvo)
+                    PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
             }
         }
     }

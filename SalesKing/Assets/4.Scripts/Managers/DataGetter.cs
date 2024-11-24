@@ -32,7 +32,7 @@ public class DataGetter : Singleton<DataGetter>, ISingletonSettings
             // 확장 메서드를 사용하여 출력
             string logMessage = $"NpcID: {npc.NpcID}, " +
                                 $"NpcAge: {npc.NpcAge}, " +
-                                $"Mbtis: [{string.Join(", ", npcList[0].Mbtis)}], " +
+                                $"Mbtis: [{string.Join(", ", npc.Mbtis)}], " +
                                 $"ItemCategory: {npc.ItemCategory}, " +
                                 $"NpcName: {npc.NpcName}, " +
                                 $"NpcSex: {npc.NpcSex}, " +

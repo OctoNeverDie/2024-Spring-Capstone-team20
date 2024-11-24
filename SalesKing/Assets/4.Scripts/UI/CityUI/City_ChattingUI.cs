@@ -20,6 +20,13 @@ public class City_ChattingUI : MonoBehaviour
 
     TextMeshProUGUI NpcSpeechText;
 
+    private enum PersuasionLevel
+    {
+        Like,
+        Normal,
+        Dislike
+    }
+
     private void Awake()
     {
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
@@ -96,13 +103,18 @@ public class City_ChattingUI : MonoBehaviour
             {
                 SetNpcAnswerText(gptResult.reaction);//reply 보여줌
                 NPCManager.Instance.curTalkingNPC.GetComponent<NPC>().PlayNPCAnimByEmotion(gptResult.emotion);//애니메이션 보여줌
+
                 if (gptResult.Persuasion >= 2)
                 {
-                    TxtPopup(gptResult.reason, true);//++ 효과, 초록색, gptResult.reason 뒤에 따라옴.
+                    TxtPopup(gptResult.reason, PersuasionLevel.Like);//++ 효과, 초록색, gptResult.reason 뒤에 따라옴.
                 }
                 else if (gptResult.Persuasion <= -2)
                 {
-                    TxtPopup(gptResult.reason, false);//-- 효과, 빨간색, gptResult.reason 뒤에 따라옴.
+                    TxtPopup(gptResult.reason, PersuasionLevel.Dislike);//-- 효과, 빨간색, gptResult.reason 뒤에 따라옴.
+                }
+                else
+                {
+                    TxtPopup(gptResult.reason, PersuasionLevel.Normal);
                 }
             }
         }
@@ -119,15 +131,19 @@ public class City_ChattingUI : MonoBehaviour
         EndPanel.SetActive(true);
     }
 
-    private void TxtPopup(string reason, bool isLike)
+    private void TxtPopup(string reason, PersuasionLevel level)
     {
-        if (isLike)
+        if (level == PersuasionLevel.Like)
         {
             reason = "<color=green>" + "++ " + reason + "</color>";
         }
-        else
+        else if (level == PersuasionLevel.Dislike)
         {
             reason = "<color=red>" + "-- " + reason + "</color>";
+        }
+        else if(level == PersuasionLevel.Normal)
+        {
+            reason = "<color=grey>" + reason + "</color>";
         }
 
         TxtPopUpUI.GetComponentInChildren<TextMeshProUGUI>().text = reason;
