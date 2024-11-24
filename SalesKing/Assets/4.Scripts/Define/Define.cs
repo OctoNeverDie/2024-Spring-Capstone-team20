@@ -11,6 +11,12 @@ public class Define
         SaveFile
     }
 
+    public enum PersuasionLevel
+    { 
+        Like,
+        Normal,
+        Dislike
+    }
     public enum Emotion
     {
         worst,
