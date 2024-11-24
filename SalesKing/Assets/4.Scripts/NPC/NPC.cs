@@ -5,16 +5,13 @@ using UnityEngine.AI;
 
 public class NPC : MonoBehaviour
 {
-    public NPCDefine.MoveState currentState;
-    public NPCDefine.Talkable currentTalkable;
-    public NPCDefine.LookState currentLook;
-
     public Transform destination;
 
     public GameObject myCanvas;
 
     private Animator animator;
     private NavMeshAgent agent;
+    private Rigidbody rb;
 
     public float speed = 0.5f;
     public float rotationSpeed = 5.0f; // 서서히 회전하기 위한 속도
@@ -29,6 +26,7 @@ public class NPC : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
         myCanvas = transform.Find("Canvas").gameObject;
     }
 
@@ -36,53 +34,24 @@ public class NPC : MonoBehaviour
     {
         agent.speed = speed;
         AssignRandomLooks();
-        AssignRandomState();
     }
 
     void Update()
     {
-        /*
-        if (currentState != NPCDefine.MoveState.Talk && curDestination != null)
-        {
-            agent.SetDestination(curDestination.position);
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-            if (Vector3.Distance(transform.position, curDestination.position) < 1f)
-            {
-                curDestination = null;
-                AssignRandomState();
-            }
+        // 현재 상태 확인
+        Debug.Log($"현재 상태 이름: {stateInfo.IsName("Idle")}");
+
+        // Transition 조건 확인
+        if (stateInfo.IsName("Idle"))
+        {
+            Debug.Log("Idle 상태에서 멈춰 있습니다.");
         }
-        */
     }
 
-    /*
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player") && currentTalkable == NPCDefine.Talkable.Able)
-        {
-            NPCEnterConvo(other.gameObject);
-        }
-    }
-    */
 
-    public void AssignRandomState()
-    {
-        /*
-        int rand = Random.Range(0, 2);
-        if (rand == 0)
-        {
-            currentState = NPCDefine.MoveState.Stand;
-            StartCoroutine(StandForAwhile());
-            PlayRandomNPCAnim(NPCDefine.AnimType.Standing);
-        }
-        else
-        {
-            currentState = NPCDefine.MoveState.Walk;
-            ChooseNextDestination();
-            PlayRandomNPCAnim(NPCDefine.AnimType.Moving);
-        }
-        */
-    }
+
 
     void AssignRandomLooks()
     {
@@ -90,21 +59,13 @@ public class NPC : MonoBehaviour
 
         foreach (NPCDefine.MeshType category in System.Enum.GetValues(typeof(NPCDefine.MeshType)))
         {
-            looks.AssignCustomMesh(category, currentLook);
-        }
-    }
-
-    public void SetTalkable()
-    {
-        GameObject GO = transform.Find("Canvas").gameObject;
-        if(currentTalkable == NPCDefine.Talkable.Able)
-        {
-            GO.SetActive(true);
+            looks.AssignCustomMesh(category);
         }
     }
 
     public void PlayNPCAnimByEmotion(Define.Emotion emotion)
     {
+        Debug.Log("여기서 감정 호출: "+emotion.ToString());
         switch (emotion)
         {
             case Define.Emotion.best:
@@ -129,38 +90,21 @@ public class NPC : MonoBehaviour
 
     public void PlayRandomNPCAnimByAnimType(NPCDefine.AnimType type)
     {
-        int randAnimIndex = Random.Range(0, NPCManager.Instance.Anim.NPCAnimDictionary[type].Count);
-        animator.Play(NPCManager.Instance.Anim.NPCAnimDictionary[NPCDefine.AnimType.VeryNegative][randAnimIndex].name);
-        Debug.Log("애니메이션 출력: "+NPCManager.Instance.Anim.NPCAnimDictionary[NPCDefine.AnimType.VeryNegative][randAnimIndex].name);
-    }
-
-    public void ChooseNextDestination()
-    {
-        Transform thisTransform = NPCManager.Instance.Move.GetUniqueSpawnPoint();
-        if (thisTransform != null) curDestination = thisTransform;
-        else curDestination = this.transform;
-    }
-
-    public IEnumerator StandForAwhile()
-    {
-        float standTime = Random.Range(minStandTime, maxStandTime);
-        yield return new WaitForSeconds(standTime);
-        AssignRandomState();
+        //int randAnimIndex = Random.Range(0, NPCManager.Anim.NPCAnimDictionary[type].Count);
+        //Debug.Log("애니메이터 상태는: "+animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
+        animator.updateMode = AnimatorUpdateMode.UnscaledTime;
+        animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+        animator.Rebind();
+        animator.Play(NPCManager.Anim.NPCAnimDictionary[type][0].name);
+        Debug.Log("애니메이션 출력: "+NPCManager.Anim.NPCAnimDictionary[type][0].name);
     }
 
     public void NPCEnterConvo(GameObject player)
     {
-        animator.updateMode = AnimatorUpdateMode.UnscaledTime;
         transform.DOLookAt(player.transform.position, 1f, AxisConstraint.None, null).SetUpdate(true);
-        NPCManager.Instance.curTalkingNPC = transform.gameObject;
-        currentState = NPCDefine.MoveState.Talk;
-        currentTalkable = NPCDefine.Talkable.Not;
-        agent.isStopped = true;
-        animator.Play(NPCManager.Instance.Anim.NPCAnimDictionary[NPCDefine.AnimType.Standing][0].name);
+        NPCManager.Instance.curTalkingNPC = transform.gameObject.GetComponent<NPC>();
+        Debug.Log("~~~~~~~~~~~~~~~~~");
+       // animator.Play(NPCManager.Anim.NPCAnimDictionary[NPCDefine.AnimType.Moving][0].name);
     }
 
-    public void NPCExitConvo()
-    {
-        animator.updateMode = AnimatorUpdateMode.Normal;
-    }
 }

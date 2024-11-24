@@ -36,7 +36,7 @@ public class NPCLooks : MonoBehaviour
         */
     }
 
-    public void AssignCustomMesh(NPCDefine.MeshType type, NPCDefine.LookState look)
+    public void AssignCustomMesh(NPCDefine.MeshType type)
     {
         /*
         if (look == NPCDefine.LookState.Normal)
