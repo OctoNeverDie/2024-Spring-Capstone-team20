@@ -26,9 +26,11 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
     public EvalSubManager Eval = new EvalSubManager();
 
     private ChatStateMachine _chatStateMachine;
+    public bool isConvo { get; private set; } = false;
 
     public void Init(int NpcID=0)
     {
+        isConvo = true;
         ThisNpc = cityTabletData.todaysIDdict[NpcID];
         _chatStateMachine = new ChatStateMachine();
         _chatStateMachine.SetState(new NpcInitState()); //back용
@@ -55,7 +57,7 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
     private IEnumerator LateReply()
     {
         yield return new WaitForSecondsRealtime(2f);
-        string forFirstReply = "{ \"decision\" : \"yes\", \n\"yourReply\" : \"와! 물건 맞게 가져오셨네요. 거래 할게요~!\", \n\"persuasion\" : \"+3\", \n \"reason\" : \"물건이 마음에 듦\", \n\"emotion\" : \"best\"\n}";
+        string forFirstReply = "{ \"decision\" : \"yes\", \n\"yourReply\" : \"와! 물건 맞게 가져오셨네요. 거래 할게요~!\", \n\"persuasion\" : \"+3\", \n \"reason\" : \"물건이 마음에 듦\", \n \"summary\" : \"쿨거래 감사해요~\", \n\"emotion\" : \"best\"\n}";
         Reply.GptAnswer = forFirstReply;
     }
 
@@ -79,6 +81,7 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
                 break;
 
             case SendChatType.Endpoint:
+                isConvo = false;
                 cityChattingUI.ShowPanel(chatState); // convo가 끝나 카메라가 돌아가고, end Panel 하나만 띄우기
                 cityTabletData.UpdateEvaluationData(Eval.NpcEvalDict[ThisNpc.NpcID].summary, ThisNpc.NpcID, Eval.NpcEvalDict[ThisNpc.NpcID].isSuccess);
                 break;
