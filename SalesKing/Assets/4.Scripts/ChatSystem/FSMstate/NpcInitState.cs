@@ -78,20 +78,20 @@ public class NpcInitState : ChatBaseState
                 switch (i)
                 {
                     case 0:
-                        likeType = "\"감성형\"";
-                        likeType2 = "감성적 호소";
+                        likeType += " \"감성형\",";
+                        likeType2 += " 감성적 호소,";
                         break;
                     case 1:
-                        likeType = "\"논리형\"";
-                        likeType2 = "논리적 설득";
+                        likeType += " \"논리형\",";
+                        likeType2 += " 논리적 설득,";
                         break;
                     case 2:
-                        likeType = "\"아부형\"";
-                        likeType2 = "아부섞인 칭찬";
+                        likeType += " \"아부형\",";
+                        likeType2 += " 아부섞인 칭찬,";
                         break;
                     case 3:
-                        likeType = "\"유혹형\"";
-                        likeType2 = "매력적인 어필";
+                        likeType += " \"유혹형\",";
+                        likeType2 += " 매력적인 어필,";
                         break;
                 }
             }
@@ -101,20 +101,20 @@ public class NpcInitState : ChatBaseState
                 switch (i)
                 {
                     case 0:
-                        disLikeType = "\"감성형\"";
-                        disLikeType2 = "감성적 호소";
+                        disLikeType += "\"감성형\",";
+                        disLikeType2 += "감성적 호소,";
                         break;
                     case 1:
-                        disLikeType = "\"논리형\"";
-                        disLikeType2 = "논리적 설득";
+                        disLikeType += "\"논리형\",";
+                        disLikeType2 += "논리적 설득,";
                         break;
                     case 2:
-                        disLikeType = "\"아부형\"";
-                        disLikeType2 = "아부섞인 칭찬";
+                        disLikeType += "\"아부형\",";
+                        disLikeType2 += "아부섞인 칭찬,";
                         break;
                     case 3:
-                        disLikeType = "\"유혹형\"";
-                        disLikeType2 = "매력적인 어필";
+                        disLikeType += "\"유혹형\",";
+                        disLikeType2 += "매력적인 어필,";
                         break;
                 }
             }
