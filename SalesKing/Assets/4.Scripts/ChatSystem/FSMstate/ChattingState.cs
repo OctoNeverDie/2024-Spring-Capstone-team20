@@ -39,8 +39,6 @@ public class ChattingState : ChatBaseState, IVariableChat
                 {
                     _persuasion = (int)value;
                 }
-                totalPersuasion += _persuasion;
-                Debug.Log($"더했다, {totalPersuasion}");
             }
         }
 
@@ -53,10 +51,9 @@ public class ChattingState : ChatBaseState, IVariableChat
 
         [JsonProperty("summary")]
         public string summary { get; set; }
-
-        public int totalPersuasion;
     }
     GptResult gptResult;
+    private int totalPersuasion = 0;
 
     public override void Enter()
     {
@@ -64,7 +61,6 @@ public class ChattingState : ChatBaseState, IVariableChat
 
         _sendChatType = Define.SendChatType.Chatting;
         gptResult = new GptResult();
-        gptResult.totalPersuasion = 0;
     }
 
     public override void Exit()
@@ -78,11 +74,11 @@ public class ChattingState : ChatBaseState, IVariableChat
         if (type != nameof(ChatManager.Instance.Reply.UserAnswer))
             return;
 
-        if (gptResult.totalPersuasion >= persuMaxLimit)
+        if (totalPersuasion >= persuMaxLimit)
         {
             user_input += "isBuy = True";
         }
-        else if (gptResult.totalPersuasion <= persuMinLimit)
+        else if (totalPersuasion <= persuMinLimit)
         {
             user_input += "isBuy = False";
         }
@@ -125,8 +121,14 @@ public class ChattingState : ChatBaseState, IVariableChat
         string jsonPart = gptAnswer.Substring(0, gptAnswer.Length);
         gptResult = JsonConvert.DeserializeObject<GptResult>(jsonPart);
 
-        Debug.Log($"무사히 들어왔어요!\n{gptResult.reaction}, {gptResult.totalPersuasion}");
+        AddPersuasion(gptResult.Persuasion);
+        Debug.Log($"무사히 들어왔어요!\n{gptResult.reaction}, {totalPersuasion}");
     }
+    private void AddPersuasion(int persuasion)
+    {
+        totalPersuasion += persuasion;
+    }
+
     private void SubScribeAction()
     {
         ReplySubManager.OnReplyUpdated -= UserInput;
