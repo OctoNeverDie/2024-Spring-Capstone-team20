@@ -5519,17 +5519,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4903351923960654042, guid: dd06f9b6f70df7541ae1880694a0c48e, type: 3}
   m_PrefabInstance: {fileID: 134559203}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &134783546 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5065151546657285274, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
-  m_PrefabInstance: {fileID: 206822359}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &135352848
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7742,10 +7731,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ConversationPanel
       objectReference: {fileID: 0}
-    - target: {fileID: 2030383533556463602, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
-      propertyPath: okayBtn
-      value: 
-      objectReference: {fileID: 134783546}
     - target: {fileID: 5100732250719050403, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
       propertyPath: cityTabletData
       value: 
@@ -7834,21 +7819,17 @@ PrefabInstance:
       propertyPath: Tablet
       value: 
       objectReference: {fileID: 2075008035}
-    - target: {fileID: 5901510311658079270, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
-      propertyPath: RandItemPanel
-      value: 
-      objectReference: {fileID: 1736005413}
-    - target: {fileID: 6924311050068745017, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -628
-      objectReference: {fileID: 0}
-    - target: {fileID: 7085535756906354205, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
-      propertyPath: m_IsActive
+    - target: {fileID: 6023049534855620999, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
+      propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8981621250644695359, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
-      propertyPath: m_IsActive
+    - target: {fileID: 6023049534855620999, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8282148891161560337, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -61839,11 +61820,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6373218151705477116, guid: fe9fa90c181e9ae42aea3ae90b935501, type: 3}
   m_PrefabInstance: {fileID: 1735644599}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1736005413 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8981621250644695359, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
-  m_PrefabInstance: {fileID: 206822359}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1737248757
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68526,8 +68502,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a48c30dac83d53f47b8cbc48fc649950, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stt: {fileID: 0}
   myInputField: {fileID: 0}
   recordingSlider: {fileID: 0}
+  currentRecordingTime: 0
+  isFixingRecord: 0
 --- !u!1001 &1902428174
 PrefabInstance:
   m_ObjectHideFlags: 0

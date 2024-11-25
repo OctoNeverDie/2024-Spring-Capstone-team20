@@ -11,11 +11,17 @@ public class UserInputMode : MonoBehaviour
     //서버에 전송
     //도착 후 npc reply 나옴
     //1초 뒤 슬라이더로 바뀜
-    [SerializeField] private TMP_InputField userInput; 
-    [SerializeField] private Button EnterBtn;       
+    [SerializeField] private TMP_InputField userKeyboard;
+    [SerializeField] private TMP_InputField userVoice;
+    [SerializeField] private Button EnterBtn;
+
+    private bool canInput = false;
+    private Define.UserInputMode inputMode = Define.UserInputMode.Voice;
+    private TMP_InputField userInput;
 
     private void Awake()
     {
+        ReplySubManager.OnReplyUpdated -= DeleteInput;
         ReplySubManager.OnReplyUpdated += DeleteInput;
 
         EnterBtn.onClick.AddListener(UpdateInput);
@@ -31,7 +37,8 @@ public class UserInputMode : MonoBehaviour
 
     private void UpdateInput()
     {
-        // Ensure the input field is not empty
+        userInput = (inputMode == Define.UserInputMode.Voice) ? userVoice : userKeyboard;
+        
         if (!string.IsNullOrEmpty(userInput.text))
         {
             string reply = userInput.text.Trim(); // Get and trim the input text
@@ -41,8 +48,11 @@ public class UserInputMode : MonoBehaviour
 
     private void DeleteInput(string type, string _)//응답 오면 지워짐
     {
-        if(type == nameof(ReplySubManager.GptAnswer))
-            userInput.text = string.Empty;
+        if (type == nameof(ReplySubManager.GptAnswer))
+        {
+            if(userInput!=null) userInput.text = "";
+            canInput = true;
+        }
     }
 }
 
