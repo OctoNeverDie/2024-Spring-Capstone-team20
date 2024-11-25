@@ -21,7 +21,6 @@ public class SlotItem : MonoBehaviour
     Ease tweening = Ease.InOutQuad;
 
     List<string> items;
-    string selectedItem;
     bool onSpinning = false;
     Coroutine spinCoroutine;
     float defaultInterval;
@@ -36,15 +35,14 @@ public class SlotItem : MonoBehaviour
         }
         bg.color = Color.white;
         okayBtn.gameObject.SetActive(false);
-        StartSpinning(ChatManager.Instance.playerItemName);
+        StartSpinning();
     }
 
-    public void StartSpinning(string selected)
+    public void StartSpinning()
     {
         if (!onSpinning)
         {
             onSpinning = true;
-            selectedItem = selected;
             defaultInterval = startInterval;
             spinCoroutine = StartCoroutine(SlowDownAndStop());
         }
@@ -71,7 +69,6 @@ public class SlotItem : MonoBehaviour
             {
                 StopCoroutine(spinCoroutine);
             }
-            ItemSlot.text = selectedItem;
             onSpinning = false;
             bg.color = Color.green;
             PlayPopEffect();
@@ -92,12 +89,12 @@ public class SlotItem : MonoBehaviour
         // defaultInterval이 minimumInterval에 도달할 때까지 텍스트를 업데이트
         while (defaultInterval < minimumInterval)
         {
-            if (items == null)
-            { }
-            int idx = UnityEngine.Random.Range(0, items.Count);
+            int idx = Random.Range(0, items.Count);
             ItemSlot.text = items[idx];
             yield return new WaitForSeconds(defaultInterval);
         }
+
+        ItemSlot.text = ChatManager.Instance.playerItemName;
     }
 
     private void PlayPopEffect()

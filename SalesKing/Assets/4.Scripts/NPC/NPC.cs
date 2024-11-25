@@ -39,15 +39,6 @@ public class NPC : MonoBehaviour
     void Update()
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-
-        // 현재 상태 확인
-        Debug.Log($"현재 상태 이름: {stateInfo.IsName("Idle")}");
-
-        // Transition 조건 확인
-        if (stateInfo.IsName("Idle"))
-        {
-            Debug.Log("Idle 상태에서 멈춰 있습니다.");
-        }
     }
 
 
@@ -103,7 +94,6 @@ public class NPC : MonoBehaviour
     {
         transform.DOLookAt(player.transform.position, 1f, AxisConstraint.None, null).SetUpdate(true);
         NPCManager.Instance.curTalkingNPC = transform.gameObject.GetComponent<NPC>();
-        Debug.Log("~~~~~~~~~~~~~~~~~");
        // animator.Play(NPCManager.Anim.NPCAnimDictionary[NPCDefine.AnimType.Moving][0].name);
     }
 

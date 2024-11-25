@@ -67,6 +67,8 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
             case SendChatType.ChatInit:
                 if (additionalData is ItemInfo randItem)
                 {
+                    playerItemName = randItem.ObjName;
+                    Debug.Log($"{playerItemName}");
                     cityChattingUI.ShowPanel(chatState, randItem, name, isEndByUser); // show convo: npc name, npc item 룰렛
                     cityTabletData.UpdateItemData(randItem, ThisNpc.NpcID); // show tablet: npc name ~ npc want item
                 }
