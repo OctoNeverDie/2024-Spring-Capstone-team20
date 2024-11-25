@@ -12,6 +12,8 @@ public class SlotItem : MonoBehaviour
     TextMeshProUGUI ItemSlot;
     [SerializeField]
     Image bg;
+    [SerializeField]
+    Button okayBtn;
 
     float startInterval = 0.005f;
     float minimumInterval = 0.01f;
@@ -32,6 +34,8 @@ public class SlotItem : MonoBehaviour
                 .Select(item => item.ObjName)
                 .ToList();
         }
+        bg.color = Color.white;
+        okayBtn.gameObject.SetActive(false);
         StartSpinning(ChatManager.Instance.playerItemName);
     }
 
@@ -71,9 +75,10 @@ public class SlotItem : MonoBehaviour
             onSpinning = false;
             bg.color = Color.green;
             PlayPopEffect();
+
+            okayBtn.gameObject.SetActive(true);
         });
 
-        
         yield return slowDownSequence.WaitForCompletion();
     }
 
@@ -89,7 +94,7 @@ public class SlotItem : MonoBehaviour
         {
             if (items == null)
             { }
-            int idx = Random.Range(0, items.Count);
+            int idx = UnityEngine.Random.Range(0, items.Count);
             ItemSlot.text = items[idx];
             yield return new WaitForSeconds(defaultInterval);
         }
@@ -97,18 +102,13 @@ public class SlotItem : MonoBehaviour
 
     private void PlayPopEffect()
     {
-        // 초기 스케일 저장
-        Vector3 originalScale = ItemSlot.transform.localScale;
-        
-        // 팝업 이펙트 Sequence 생성
-        Sequence popSequence = DOTween.Sequence();
-
-        popSequence.Append(ItemSlot.transform.DOScale(originalScale * 1.8f, 0.8f)) //띠요옹
-                   .Append(ItemSlot.transform.DOScale(originalScale* 1.2f, 0.4f))
-                   .Append(ItemSlot.transform.DOScale(originalScale * 1.1f, 0.2f))
-                   .Append(ItemSlot.transform.DOScale(originalScale, 0.1f))
-                   .SetEase(Ease.OutBounce);
-
-        popSequence.Play();
+        List<(float scale, float duration)> tweenFactors = new List<(float, float)>
+        {
+            (1.8f, 0.8f),
+            (1.2f, 0.4f),
+            (1.1f, 0.2f),
+            (1f, 0.1f)
+        };
+        Util.PopDotween(ItemSlot.transform, tweenFactors);
     }
 }
