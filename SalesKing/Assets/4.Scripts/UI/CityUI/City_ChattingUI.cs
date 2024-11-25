@@ -34,6 +34,8 @@ public class City_ChattingUI : MonoBehaviour
     {
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
         ServerManager.OnSendReplyUpdate += SubWaitReply;
+        STTConnect.OnSendClovaUpdate -= SubWaitReply;
+        STTConnect.OnSendClovaUpdate += SubWaitReply;
 
         UserEndBtn.onClick.AddListener(OnClickLeaveFSM);
         DealBtn.onClick.AddListener(OnClickFinal);
@@ -48,6 +50,7 @@ public class City_ChattingUI : MonoBehaviour
     private void OnDestroy()
     {
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
+        STTConnect.OnSendClovaUpdate -= SubWaitReply;
     }
 
     private void SubWaitReply(bool beActive)

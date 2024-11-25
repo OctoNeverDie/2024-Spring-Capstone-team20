@@ -14,10 +14,13 @@ public class UserInputMode : MonoBehaviour
     [SerializeField] private TMP_InputField userKeyboard;
     [SerializeField] private TMP_InputField userVoice;
     [SerializeField] private Button EnterBtn;
+    [SerializeField] private Button VoicetoTxtBtn;
+    [SerializeField] private Button TxttoVoiceBtn;
 
-    private bool canInput = false;
-    private Define.UserInputMode inputMode = Define.UserInputMode.Voice;
+    public Define.UserInputMode inputMode = Define.UserInputMode.Voice;
     private TMP_InputField userInput;
+    private RecordInput recordInput;
+    private bool isSending = true;
 
     private void Awake()
     {
@@ -25,14 +28,24 @@ public class UserInputMode : MonoBehaviour
         ReplySubManager.OnReplyUpdated += DeleteInput;
 
         EnterBtn.onClick.AddListener(UpdateInput);
+        VoicetoTxtBtn.onClick.AddListener(() => VoiceToTxt(true));
+        TxttoVoiceBtn.onClick.AddListener(() => VoiceToTxt(false));
+
+        recordInput = GetComponent<RecordInput>();
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Submit"))
-        {
-            UpdateInput();
+        if (Input.GetButtonDown("Submit") && !isSending)//Enter
+        { 
+            if (inputMode == Define.UserInputMode.Voice && !recordInput._isRecording)
+                UpdateInput();
+            else if(inputMode == Define.UserInputMode.Keyboard)
+                UpdateInput();
         }
+
+        if (Input.GetButtonDown("STT") && inputMode == Define.UserInputMode.Voice && !isSending && ChatManager.Instance.isConvo)//Space bar
+            recordInput.PressedRecord();
     }
 
     private void UpdateInput()
@@ -43,6 +56,7 @@ public class UserInputMode : MonoBehaviour
         {
             string reply = userInput.text.Trim(); // Get and trim the input text
             ChatManager.Instance.Reply.UserAnswer = reply; // Assign to ChatManager
+            isSending = true;
         }
     }
 
@@ -51,8 +65,14 @@ public class UserInputMode : MonoBehaviour
         if (type == nameof(ReplySubManager.GptAnswer))
         {
             if(userInput!=null) userInput.text = "";
-            canInput = true;
+            recordInput.SwitchInputFieldToSlider(false);
+            isSending = false;
         }
+    }
+
+    public void VoiceToTxt(bool isVoicetotxt)
+    {
+        inputMode = isVoicetotxt ? Define.UserInputMode.Keyboard : Define.UserInputMode.Voice;
     }
 }
 

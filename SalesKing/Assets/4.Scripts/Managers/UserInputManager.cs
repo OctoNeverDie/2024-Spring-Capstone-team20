@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
 /// player에 붙어있음!
@@ -20,7 +19,6 @@ public class UserInputManager : Singleton<UserInputManager>, ISingletonSettings
     {
         myPlayer = PlayerManager.Instance.MyPlayer.GetComponent<Player>();
         CurInputMode = DefaultMode;
-        //if(Managers.Scene.curScene==Define.SceneMode.CityMap) Managers.UI.InitiateInputMode();
     }
 
     void Update()
@@ -53,6 +51,5 @@ public class UserInputManager : Singleton<UserInputManager>, ISingletonSettings
                 OptionPanel.SetActive(true);
             }
         }
-
     }
 }

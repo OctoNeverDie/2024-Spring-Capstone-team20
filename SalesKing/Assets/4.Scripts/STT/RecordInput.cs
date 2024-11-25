@@ -24,7 +24,8 @@ public class RecordInput : MonoBehaviour
 
     STTConnect STTconnect;
 
-    private bool _isRecording = false;
+    [HideInInspector]
+    public bool _isRecording = false;
     private float _currentRecordingTime;
     private Coroutine _recordingCoroutine;
 
@@ -32,17 +33,11 @@ public class RecordInput : MonoBehaviour
     {
         STTconnect = this.GetComponent<STTConnect>();
 
-        recordImg = RecordInputRect.GetComponent<Image>();
-        recordBtn = RecordInputRect.GetComponent<Button>();
+        recordImg = RecordInputRect.GetComponentInChildren<Image>();
+        recordBtn = RecordInputRect.GetComponentInChildren<Button>();
         recordSlider = RecordInputRect.GetComponentInChildren<Slider>();
 
         recordBtn.onClick.AddListener(PressedRecord);
-    }
-
-    private void Update()
-    {
-        if (Input.GetButtonDown("STT"))
-            PressedRecord();
     }
 
     public void PressedRecord()
@@ -61,20 +56,22 @@ public class RecordInput : MonoBehaviour
 
     public void OnRecordingOnUI()
     {
-        ChangeSprite();
-        RecordInputRect.gameObject.SetActive(true);
-        ResultInputfield.gameObject.SetActive(false);
-
+        SwitchInputFieldToSlider(false);
         SliderStart();
     }
 
     public void OnRecordingOffUI()
     {
-        ChangeSprite();
-        RecordInputRect.gameObject.SetActive(false);
-        ResultInputfield.gameObject.SetActive(true);
+        if (_isRecording) _isRecording = false;
+        SwitchInputFieldToSlider();
     }
 
+    public void SwitchInputFieldToSlider(bool isSliderToInput = true)
+    {
+        ChangeSprite();
+        RecordInputRect.gameObject.SetActive(!isSliderToInput);
+        ResultInputfield.gameObject.SetActive(isSliderToInput);
+    }
     public void SetSTTtxt(string playerSTT)//STT Connect에서 주입
     {
         ResultInputfield.text = playerSTT;
@@ -101,11 +98,11 @@ public class RecordInput : MonoBehaviour
 
     private IEnumerator UpdateRecordingSlider()
     {
-        while (Microphone.IsRecording(STTconnect._microphoneID) && _isRecording)
+        while (_isRecording)
         {
             _currentRecordingTime += Time.fixedDeltaTime;  // 시간이 지남에 따라 증가
             recordSlider.value = STTconnect._recordingLengthSec - _currentRecordingTime; // 슬라이더 값 감소
-
+            
             // 녹음 시간이 다 되면 녹음 중지
             if (recordSlider.value <= 0)
             {
