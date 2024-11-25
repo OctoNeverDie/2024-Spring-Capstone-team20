@@ -22,12 +22,15 @@ public class NPC : MonoBehaviour
     public float maxStandTime = 30f;
 
     public int NpcID = 0;
+    [HideInInspector]
+    public bool Talkable;
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         myCanvas = transform.Find("Canvas").gameObject;
+        Talkable = true;
     }
 
     void Start()
@@ -92,8 +95,8 @@ public class NPC : MonoBehaviour
 
     public void NPCEnterConvo(GameObject player)
     {
-        transform.DOLookAt(player.transform.position, 1f, AxisConstraint.None, null).SetUpdate(true);
-        NPCManager.Instance.curTalkingNPC = transform.gameObject.GetComponent<NPC>();
+            transform.DOLookAt(player.transform.position, 1f, AxisConstraint.None, null).SetUpdate(true);
+            NPCManager.Instance.curTalkingNPC = transform.gameObject.GetComponent<NPC>();
        // animator.Play(NPCManager.Anim.NPCAnimDictionary[NPCDefine.AnimType.Moving][0].name);
     }
 

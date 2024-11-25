@@ -33,10 +33,14 @@ public class UserInputManager : Singleton<UserInputManager>, ISingletonSettings
             if (myPlayer.ui.RaycastHitObj.activeSelf)
             {
                 NPC thisNPC = myPlayer.RaycastCollider.GetComponent<NPC>();
-                ChatManager.Instance.Init(thisNPC.NpcID);
+                if (thisNPC.Talkable)
+                {
+                    thisNPC.Talkable = false;
+                    ChatManager.Instance.Init(thisNPC.NpcID);
 
-                myPlayer.PlayerEnterConvo(thisNPC.gameObject);
-                thisNPC.NPCEnterConvo(myPlayer.gameObject);
+                    myPlayer.PlayerEnterConvo(thisNPC.gameObject);
+                    thisNPC.NPCEnterConvo(myPlayer.gameObject);
+                }
             }
         }
 

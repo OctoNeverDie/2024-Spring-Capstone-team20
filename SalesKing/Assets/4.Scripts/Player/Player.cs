@@ -65,9 +65,12 @@ public class Player : MonoBehaviour
                 else if (hit.collider.CompareTag("NPC"))
                 {
                     NPC thisNPC = hit.collider.gameObject.GetComponent<NPC>();
-                    ui.ShowCurInteractableIcon(Define.Interactables.City_NPC);
-                    ui.CrosshairTriggersButton(true);
-                    RaycastCollider = hit.collider.gameObject;
+                    if (thisNPC.Talkable)
+                    {
+                        ui.ShowCurInteractableIcon(Define.Interactables.City_NPC);
+                        ui.CrosshairTriggersButton(true);
+                        RaycastCollider = hit.collider.gameObject;
+                    }
                 }
                 else if (hit.collider.CompareTag("Office_Secretary"))
                 {
