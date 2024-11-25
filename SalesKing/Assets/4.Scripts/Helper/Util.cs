@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -55,5 +56,20 @@ public class Util
         if (match.Success)
             return match.Groups[1].Value;
         return string.Empty;
+    }
+
+    public static void PopDotween(Transform target, List<(float, float)> tweenFactors, Ease ease = Ease.OutBounce)
+    {
+        Vector3 originalScale = target.localScale;
+        Sequence popSequence = DOTween.Sequence();
+
+        foreach (var factor in tweenFactors)
+        {
+            popSequence.Append(target.DOScale(originalScale * factor.Item1, factor.Item2)); //띠요옹
+        }
+
+        popSequence.SetEase(ease)
+                .SetUpdate(true);
+        popSequence.Play();
     }
 }

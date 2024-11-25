@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -20,6 +21,7 @@ public class City_ChattingUI : MonoBehaviour
     [SerializeField] Button ItemBtn;
 
     TextMeshProUGUI NpcSpeechText;
+    Image CheckMark;
 
     private enum PersuasionLevel
     {
@@ -85,6 +87,10 @@ public class City_ChattingUI : MonoBehaviour
             TextMeshProUGUI infoText = infoTransform.GetComponent<TextMeshProUGUI>();
             if (infoText != null)
                 infoText.text = name;
+
+            //check check mark
+            CheckMark = infoTransform.GetComponentInChildren<Image>(true);
+            CheckMark.gameObject.SetActive(false);
         }
     }
 
@@ -128,13 +134,35 @@ public class City_ChattingUI : MonoBehaviour
 
         else if (sendChatType == Define.SendChatType.Endpoint)
         {
+            if (additionalData is bool isSuccess)
+            {
+                ShowCheckMark(isSuccess);
+            }
+
             StartCoroutine(ShowEndPanelAfterDelay());
         }
     }
 
+    private void ShowCheckMark(bool isSuccess)
+    {
+        CheckMark.color = isSuccess ? Color.green : Color.red;
+
+        CheckMark.gameObject.SetActive(true);
+
+        //animation
+        CheckMark.transform.localScale = CheckMark.transform.localScale * 0.1f;
+        List<(float scale, float duration)> tweenFactors = new List<(float, float)>
+        {
+            (20f, 1.5f),
+            (12f, 0.75f),
+            (10f, 0.75f),
+        };
+        Util.PopDotween(CheckMark.transform, tweenFactors);
+    }
+
     private IEnumerator ShowEndPanelAfterDelay()
     {
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(2.3f);
         EndPanel.SetActive(true);
     }
 
