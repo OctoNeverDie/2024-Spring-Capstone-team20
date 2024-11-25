@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
 /// player에 붙어있음!
@@ -20,7 +19,6 @@ public class UserInputManager : Singleton<UserInputManager>, ISingletonSettings
     {
         myPlayer = PlayerManager.Instance.MyPlayer.GetComponent<Player>();
         CurInputMode = DefaultMode;
-        //if(Managers.Scene.curScene==Define.SceneMode.CityMap) Managers.UI.InitiateInputMode();
     }
 
     void Update()
@@ -35,10 +33,14 @@ public class UserInputManager : Singleton<UserInputManager>, ISingletonSettings
             if (myPlayer.ui.RaycastHitObj.activeSelf)
             {
                 NPC thisNPC = myPlayer.RaycastCollider.GetComponent<NPC>();
-                ChatManager.Instance.Init(thisNPC.NpcID);
+                if (thisNPC.Talkable)
+                {
+                    thisNPC.Talkable = false;
+                    ChatManager.Instance.Init(thisNPC.NpcID);
 
-                myPlayer.PlayerEnterConvo(thisNPC.gameObject);
-                thisNPC.NPCEnterConvo(myPlayer.gameObject);
+                    myPlayer.PlayerEnterConvo(thisNPC.gameObject);
+                    thisNPC.NPCEnterConvo(myPlayer.gameObject);
+                }
             }
         }
 
@@ -53,6 +55,5 @@ public class UserInputManager : Singleton<UserInputManager>, ISingletonSettings
                 OptionPanel.SetActive(true);
             }
         }
-
     }
 }

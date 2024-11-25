@@ -6,6 +6,8 @@ using UnityEngine.Networking;
 
 public class STTConnect : MonoBehaviour
 {
+    public static event Action<bool> OnSendClovaUpdate;
+
     public string _microphoneID = null;
     public int _recordingLengthSec = 15;
 
@@ -63,6 +65,7 @@ public class STTConnect : MonoBehaviour
 
     private void SendToClova()
     {
+        OnSendClovaUpdate.Invoke(true);
         // AudioClip을 WAV 형식의 바이트 배열로 변환
         byte[] byteData = GetWavBytesFromAudioClip(_recording);
         // API 서버로 오디오 데이터 전송
@@ -102,6 +105,7 @@ public class STTConnect : MonoBehaviour
             VoiceRecognize voiceRecognize = JsonUtility.FromJson<VoiceRecognize>(responseText);
 
             recordInputUI.SetSTTtxt(voiceRecognize.text);
+            OnSendClovaUpdate.Invoke(false);
         }
     }
 

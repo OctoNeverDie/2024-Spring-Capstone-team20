@@ -4,6 +4,12 @@ using System.Runtime.Serialization;
 
 public class Define
 {
+    public enum Talkable
+    { 
+        Yes,
+        No
+    }
+
     public enum SceneMode
     {
         Start,
