@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -11,14 +12,16 @@ public class City_ChattingUI : MonoBehaviour
     [SerializeField] GameObject EndPanel;
     [SerializeField] GameObject ConvoPanel;
     [SerializeField] GameObject TxtPopUpUI;
-    //[SerializeField] GameObject RandItemPanel;
+    [SerializeField] GameObject RandItemPanel;
 
     [SerializeField] City_TabletDataManager Tablet;
 
     [SerializeField] Button UserEndBtn; //end conversation
     [SerializeField] Button DealBtn; //deal ended
+    [SerializeField] Button ItemBtn;
 
     TextMeshProUGUI NpcSpeechText;
+    Image CheckMark;
 
     private enum PersuasionLevel
     {
@@ -34,6 +37,7 @@ public class City_ChattingUI : MonoBehaviour
 
         UserEndBtn.onClick.AddListener(OnClickLeaveFSM);
         DealBtn.onClick.AddListener(OnClickFinal);
+        ItemBtn.onClick.AddListener(OnClickItem);
 
         TxtPopUpUI.SetActive(false);
         ConvoPanel.SetActive(false);
@@ -70,6 +74,11 @@ public class City_ChattingUI : MonoBehaviour
         }
     }
 
+    public void OnClickItem()
+    {
+        ChatManager.Instance.TransitionToState(Define.SendChatType.Chatting);
+    }
+
     private void SetNpcName(string name)
     {
         Transform infoTransform = NpcSpeechBubble.transform.Find("Info");
@@ -78,6 +87,10 @@ public class City_ChattingUI : MonoBehaviour
             TextMeshProUGUI infoText = infoTransform.GetComponent<TextMeshProUGUI>();
             if (infoText != null)
                 infoText.text = name;
+
+            //check check mark
+            CheckMark = infoTransform.GetComponentInChildren<Image>(true);
+            CheckMark.gameObject.SetActive(false);
         }
     }
 
@@ -94,7 +107,7 @@ public class City_ChattingUI : MonoBehaviour
         {
             SetNpcName(name);
             ConvoPanel.SetActive(true);// show convo: npc name, 
-            Debug.Log("TODO :ItemInfo randItem, npc item 룰렛");
+            RandItemPanel.SetActive(true);
         }
 
         else if (sendChatType == Define.SendChatType.Chatting)
@@ -121,13 +134,35 @@ public class City_ChattingUI : MonoBehaviour
 
         else if (sendChatType == Define.SendChatType.Endpoint)
         {
+            if (additionalData is bool isSuccess)
+            {
+                ShowCheckMark(isSuccess);
+            }
+
             StartCoroutine(ShowEndPanelAfterDelay());
         }
     }
 
+    private void ShowCheckMark(bool isSuccess)
+    {
+        CheckMark.color = isSuccess ? Color.green : Color.red;
+
+        CheckMark.gameObject.SetActive(true);
+
+        //animation
+        CheckMark.transform.localScale = CheckMark.transform.localScale * 0.1f;
+        List<(float scale, float duration)> tweenFactors = new List<(float, float)>
+        {
+            (20f, 1.5f),
+            (12f, 0.75f),
+            (10f, 0.75f),
+        };
+        Util.PopDotween(CheckMark.transform, tweenFactors);
+    }
+
     private IEnumerator ShowEndPanelAfterDelay()
     {
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(2.3f);
         EndPanel.SetActive(true);
     }
 
