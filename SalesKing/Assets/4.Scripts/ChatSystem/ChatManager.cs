@@ -21,6 +21,7 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
     public NpcInfo ThisNpc { get; private set; }
     public int npcNum { get; private set; } = 0;
     public bool isEndByUser { get; private set; } = false;
+    public string playerItemName = "사탕"; 
 
     public ReplySubManager Reply = new ReplySubManager();
     public EvalSubManager Eval = new EvalSubManager();
@@ -49,14 +50,12 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
 
     public void FirstNpc()
     {
-        TransitionToState(SendChatType.Chatting);
-
         StartCoroutine(LateReply());
     }
 
     private IEnumerator LateReply()
     {
-        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSecondsRealtime(1f);
         string forFirstReply = "{ \"decision\" : \"yes\", \n\"yourReply\" : \"와! 물건 맞게 가져오셨네요. 거래 할게요~!\", \n\"persuasion\" : \"+3\", \n \"reason\" : \"물건이 마음에 듦\", \n \"summary\" : \"쿨거래 감사해요~\", \n\"emotion\" : \"best\"\n}";
         Reply.GptAnswer = forFirstReply;
     }

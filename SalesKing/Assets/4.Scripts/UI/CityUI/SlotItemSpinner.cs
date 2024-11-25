@@ -4,15 +4,18 @@ using TMPro;
 using System.Linq;
 using DG.Tweening;
 using System.Collections;
+using UnityEngine.UI;
 
 public class SlotItem : MonoBehaviour
 {
     [SerializeField]
     TextMeshProUGUI ItemSlot;
+    [SerializeField]
+    Image bg;
 
     float startInterval = 0.005f;
     float minimumInterval = 0.01f;
-    float spinDuration = 1.5f;
+    float spinDuration = 1f;
     Ease tweening = Ease.InOutQuad;
 
     List<string> items;
@@ -21,13 +24,15 @@ public class SlotItem : MonoBehaviour
     Coroutine spinCoroutine;
     float defaultInterval;
 
-    private void Start()
+    private void OnEnable()
     {
-        items = DataGetter.Instance.ItemList
+        if (items == null)
+        {
+            items = DataGetter.Instance.ItemList
                 .Select(item => item.ObjName)
                 .ToList();
-
-        StartSpinning("사탕");
+        }
+        StartSpinning(ChatManager.Instance.playerItemName);
     }
 
     public void StartSpinning(string selected)
@@ -37,35 +42,8 @@ public class SlotItem : MonoBehaviour
             onSpinning = true;
             selectedItem = selected;
             defaultInterval = startInterval;
-            spinCoroutine = StartCoroutine(SpinText());
-        }
-    }
-
-    public void StopSpinning()
-    {
-        if (onSpinning)
-        {
-            if (spinCoroutine != null)
-            {
-                StopCoroutine(spinCoroutine);
-            }
             spinCoroutine = StartCoroutine(SlowDownAndStop());
         }
-    }
-
-    private IEnumerator SpinText()
-    {
-        float elapsedTime = 0f;
-        float spinDuration = 0.2f;
-
-        while (elapsedTime < spinDuration)
-        {
-            ItemSlot.text = items[Random.Range(0, items.Count)];
-            yield return new WaitForSecondsRealtime(defaultInterval);
-            elapsedTime += defaultInterval;
-        }
-
-        StopSpinning();
     }
 
     private IEnumerator SlowDownAndStop()
@@ -89,9 +67,9 @@ public class SlotItem : MonoBehaviour
             {
                 StopCoroutine(spinCoroutine);
             }
-            else { Debug.Log("OnComplete"); }
             ItemSlot.text = selectedItem;
             onSpinning = false;
+            bg.color = Color.green;
             PlayPopEffect();
         });
 
@@ -109,9 +87,10 @@ public class SlotItem : MonoBehaviour
         // defaultInterval이 minimumInterval에 도달할 때까지 텍스트를 업데이트
         while (defaultInterval < minimumInterval)
         {
+            if (items == null)
+            { }
             int idx = Random.Range(0, items.Count);
             ItemSlot.text = items[idx];
-            Debug.Log($"들어오긴 하나요?{onSpinning}, {defaultInterval}, {minimumInterval}. {idx}");
             yield return new WaitForSeconds(defaultInterval);
         }
     }
@@ -120,14 +99,14 @@ public class SlotItem : MonoBehaviour
     {
         // 초기 스케일 저장
         Vector3 originalScale = ItemSlot.transform.localScale;
-
+        
         // 팝업 이펙트 Sequence 생성
         Sequence popSequence = DOTween.Sequence();
 
-        popSequence.Append(ItemSlot.transform.DOScale(originalScale * 2f, 0.8f)) // 1.2배로 확대
-                   .Append(ItemSlot.transform.DOScale(originalScale*1.2f, 0.4f))
+        popSequence.Append(ItemSlot.transform.DOScale(originalScale * 1.8f, 0.8f)) //띠요옹
+                   .Append(ItemSlot.transform.DOScale(originalScale* 1.2f, 0.4f))
                    .Append(ItemSlot.transform.DOScale(originalScale * 1.1f, 0.2f))
-                   .Append(ItemSlot.transform.DOScale(originalScale, 0.1f))// 원래 크기로 축소
+                   .Append(ItemSlot.transform.DOScale(originalScale, 0.1f))
                    .SetEase(Ease.OutBounce);
 
         popSequence.Play();
