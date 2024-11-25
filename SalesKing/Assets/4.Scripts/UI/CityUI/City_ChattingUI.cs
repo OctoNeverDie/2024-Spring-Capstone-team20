@@ -11,12 +11,13 @@ public class City_ChattingUI : MonoBehaviour
     [SerializeField] GameObject EndPanel;
     [SerializeField] GameObject ConvoPanel;
     [SerializeField] GameObject TxtPopUpUI;
-    //[SerializeField] GameObject RandItemPanel;
+    [SerializeField] GameObject RandItemPanel;
 
     [SerializeField] City_TabletDataManager Tablet;
 
     [SerializeField] Button UserEndBtn; //end conversation
     [SerializeField] Button DealBtn; //deal ended
+    [SerializeField] Button ItemBtn;
 
     TextMeshProUGUI NpcSpeechText;
 
@@ -34,6 +35,7 @@ public class City_ChattingUI : MonoBehaviour
 
         UserEndBtn.onClick.AddListener(OnClickLeaveFSM);
         DealBtn.onClick.AddListener(OnClickFinal);
+        ItemBtn.onClick.AddListener(OnClickItem);
 
         TxtPopUpUI.SetActive(false);
         ConvoPanel.SetActive(false);
@@ -70,6 +72,11 @@ public class City_ChattingUI : MonoBehaviour
         }
     }
 
+    public void OnClickItem()
+    {
+        ChatManager.Instance.TransitionToState(Define.SendChatType.Chatting);
+    }
+
     private void SetNpcName(string name)
     {
         Transform infoTransform = NpcSpeechBubble.transform.Find("Info");
@@ -94,7 +101,7 @@ public class City_ChattingUI : MonoBehaviour
         {
             SetNpcName(name);
             ConvoPanel.SetActive(true);// show convo: npc name, 
-            Debug.Log("TODO :ItemInfo randItem, npc item 룰렛");
+            RandItemPanel.SetActive(true);
         }
 
         else if (sendChatType == Define.SendChatType.Chatting)
