@@ -8,9 +8,11 @@ using TMPro;
 
 public class Player : MonoBehaviour
 {
-    PlayerCameraRot cam;
-    PlayerMove move;
+    private PlayerCameraRot cam;
+    private PlayerMove move;
     public PlayerUI ui;
+
+    private GameObject canvas;
 
     // first person
     public CinemachineVirtualCamera Camera1;
@@ -28,6 +30,7 @@ public class Player : MonoBehaviour
         cam = transform.GetComponentInChildren<PlayerCameraRot>();
         move = GetComponent<PlayerMove>();
         ui = transform.GetComponentInChildren<PlayerUI>();
+        canvas = this.transform.Find("Canvas").gameObject;
     }
 
     void Update()
@@ -100,6 +103,7 @@ public class Player : MonoBehaviour
         move.isMovementLocked = isFreeze;
         cam.isCameraLocked = isFreeze;
         isRaycast = !isFreeze;
+        canvas.SetActive(!isFreeze);
         if(isFreeze) ui.CrosshairTriggersButton(false);
         //ui.CrosshairTriggersButton(!isFreeze);
     }
@@ -116,6 +120,7 @@ public class Player : MonoBehaviour
     public void PlayerExitConvo()
     {
         FreezeAndUnFreezePlayer(false);
+        NPCManager.Instance.curTalkingNPC.NPCExitConvo();
     }
 
 

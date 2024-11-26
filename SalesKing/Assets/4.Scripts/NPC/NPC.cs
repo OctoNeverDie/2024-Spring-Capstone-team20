@@ -44,9 +44,6 @@ public class NPC : MonoBehaviour
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
     }
 
-
-
-
     void AssignRandomLooks()
     {
         NPCLooks looks = transform.GetComponent<NPCLooks>();
@@ -84,20 +81,25 @@ public class NPC : MonoBehaviour
 
     public void PlayRandomNPCAnimByAnimType(NPCDefine.AnimType type)
     {
-        //int randAnimIndex = Random.Range(0, NPCManager.Anim.NPCAnimDictionary[type].Count);
-        //Debug.Log("애니메이터 상태는: "+animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
         animator.updateMode = AnimatorUpdateMode.UnscaledTime;
         animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
         animator.Rebind();
-        animator.Play(NPCManager.Anim.NPCAnimDictionary[type][0].name);
-        Debug.Log("애니메이션 출력: "+NPCManager.Anim.NPCAnimDictionary[type][0].name);
+
+        int anim_count = NPCManager.Anim.NPCAnimDictionary[type].Count;
+        int rand_int = Random.Range(0, anim_count);
+        animator.Play(NPCManager.Anim.NPCAnimDictionary[type][rand_int].name);
     }
 
     public void NPCEnterConvo(GameObject player)
     {
-            transform.DOLookAt(player.transform.position, 1f, AxisConstraint.None, null).SetUpdate(true);
-            NPCManager.Instance.curTalkingNPC = transform.gameObject.GetComponent<NPC>();
-       // animator.Play(NPCManager.Anim.NPCAnimDictionary[NPCDefine.AnimType.Moving][0].name);
+        transform.DOLookAt(player.transform.position, 1f, AxisConstraint.None, null).SetUpdate(true);
+        NPCManager.Instance.curTalkingNPC = transform.gameObject.GetComponent<NPC>();
+        PlayRandomNPCAnimByAnimType(NPCDefine.AnimType.Idle);
+    }
+
+    public void NPCExitConvo()
+    {
+        PlayRandomNPCAnimByAnimType(NPCDefine.AnimType.Standing);
     }
 
 }
