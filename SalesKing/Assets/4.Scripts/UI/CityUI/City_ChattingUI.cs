@@ -186,7 +186,7 @@ public class City_ChattingUI : MonoBehaviour
 
         TxtPopUpUI.GetComponentInChildren<TextMeshProUGUI>().text = reason;
 
-        float vecX = Random.Range(-540f, 520f);
+        float vecX = Random.Range(-350f, 350f);
         float vecY = Random.Range(-150, 205);
         RectTransform rectTransform = TxtPopUpUI.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = new Vector2(vecX, vecY);
