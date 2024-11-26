@@ -987,7 +987,7 @@ GameObject:
   - component: {fileID: 8853610176254304751}
   - component: {fileID: 53437807630356400}
   m_Layer: 0
-  m_Name: 04-3_TabletInfoDialog (3)
+  m_Name: 03-4_TabletInfoDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1958,7 +1958,7 @@ GameObject:
   - component: {fileID: 1089115842745063985}
   - component: {fileID: 4774304567057703270}
   m_Layer: 0
-  m_Name: 06_PhoneCallDialog_Good
+  m_Name: 05_PhoneCallDialog_Good
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2686,7 +2686,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9077978471991803356}
   - {fileID: 8722391468283076289}
   - {fileID: 3003084437948672680}
   - {fileID: 8703706584678837419}
@@ -2711,7 +2710,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials:
-  - {fileID: 5422748048971581268}
   - {fileID: 7122600913037336494}
   - {fileID: 864727555944205866}
   - {fileID: 180355192663441825}
@@ -3801,7 +3799,7 @@ GameObject:
   - component: {fileID: 3003084437948672680}
   - component: {fileID: 864727555944205866}
   m_Layer: 0
-  m_Name: 03_KeyCodeTrigger
+  m_Name: 02_KeyCodeTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4098,52 +4096,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
---- !u!1 &2979951862517366247
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9077978471991803356}
-  - component: {fileID: 5422748048971581268}
-  m_Layer: 0
-  m_Name: 01_TutorialFadeEffect
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9077978471991803356
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2979951862517366247}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2647059820575299690}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5422748048971581268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2979951862517366247}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b64301a1f25bea84d8a92bcb4c26d3bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeEffect: {fileID: 3008559508865503233}
-  isFadeIn: 1
 --- !u!1 &3030466864050304897
 GameObject:
   m_ObjectHideFlags: 0
@@ -4831,7 +4783,7 @@ GameObject:
   - component: {fileID: 7193401377739936821}
   - component: {fileID: 4083661864250891112}
   m_Layer: 0
-  m_Name: 05_KeyCodeTrigger
+  m_Name: 04_KeyCodeTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4878,7 +4830,7 @@ GameObject:
   - component: {fileID: 8703706584678837419}
   - component: {fileID: 180355192663441825}
   m_Layer: 0
-  m_Name: 04_TabletInfoDialog
+  m_Name: 03-1_TabletInfoDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5060,7 +5012,7 @@ GameObject:
   - component: {fileID: 8566537964866069648}
   - component: {fileID: 8684224967177586037}
   m_Layer: 0
-  m_Name: 04-1_TabletInfoDialog (1)
+  m_Name: 03-2_TabletInfoDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5974,7 +5926,7 @@ GameObject:
   - component: {fileID: 7122600913037336494}
   - component: {fileID: 730822854038351632}
   m_Layer: 0
-  m_Name: 02_PhoneCallDialog
+  m_Name: 01_PhoneCallDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6047,7 +5999,7 @@ GameObject:
   - component: {fileID: 3777706918273696839}
   - component: {fileID: 2777647882972426577}
   m_Layer: 0
-  m_Name: 06_PhoneCallDialog_Bad
+  m_Name: 05_PhoneCallDialog_Bad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8615,7 +8567,7 @@ GameObject:
   - component: {fileID: 5909554038440168014}
   - component: {fileID: 3995912025153284390}
   m_Layer: 0
-  m_Name: 04-2_TabletInfoDialog (2)
+  m_Name: 03-3_TabletInfoDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
