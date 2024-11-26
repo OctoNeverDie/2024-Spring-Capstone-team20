@@ -32988,9 +32988,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cur_panel: {fileID: 880441747}
   dialogs:
-  - dialogue: "\uB2F9\uC2E0\uC740 \uBB38\uC5B4\uAE30\uC5C5\uC5D0 \uCDE8\uC9C1\uD558\uAC8C
-      \uB418\uC5C8\uC2B5\uB2C8\uB2E4. "
-  - dialogue: "\uD639\uC2DC \uB2F9\uADFC\uC774\uC138\uC694?"
+  - dialogue: "\uAC11\uC790\uAE30 \uBD88\uC5B4\uB2E5\uCE5C \uCDE8\uC5C5\uB09C.  \uB2F9\uC2E0\uC740
+      \uBB34\uB108\uAE30\uC5C5\uC5D0 \uCDE8\uC9C1\uD558\uAC8C \uB418\uC5C8\uC2B5\uB2C8\uB2E4. "
+  - dialogue: "\uBB34\uB108\uAE30\uC5C5\uC774 \uB2F9\uC2E0\uC5D0\uAC8C \uBC30\uC815\uD55C
+      \uC5C5\uBB34\uB294 \uB2E8 \uD558\uB098. \uB77C\uC774\uBC8C \uD68C\uC0AC\uC778
+      \uB2F9\uADFC \uAE30\uC5C5\uC758 \uACE0\uAC1D\uC744 \uBAB0\uB798 \uBE7C\uC557\uB294
+      \uC77C\uC785\uB2C8\uB2E4. "
+  - dialogue: "\uAE38\uAC70\uB9AC\uC5D0\uC11C \uB2F9\uADFC \uC0AC\uC6D0\uC744 \uAE30\uB2E4\uB9AC\uB294
+      \uACE0\uAC1D\uC5D0\uAC8C \uB2F9\uC2E0\uC774 \uD560 \uB9D0\uC740 \uB2E8 \uD558\uB098\uC785\uB2C8\uB2E4. "
+  - dialogue: "\uD639\uC2DC, \uB2F9\uADFC\uC774\uC138\uC694?"
   textDialogue: {fileID: 1900871127}
   objectArrow: {fileID: 598762108}
   typingSpeed: 0.01
@@ -35572,7 +35578,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1500, y: 900}
+  m_SizeDelta: {x: 1500, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &880441749
 MonoBehaviour:
