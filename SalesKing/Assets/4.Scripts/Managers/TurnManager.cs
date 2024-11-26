@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using TMPro;
 
 public class TurnManager : Singleton<TurnManager>, ISingletonSettings
 {
@@ -14,6 +15,7 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
     [SerializeField] private GameObject CustomerReviewPanel;
     [SerializeField] private Image FinalFadeOutPanel;
     [SerializeField] private GameObject DontDestroyOnCityMapReload;
+    [SerializeField] private TextMeshProUGUI NextDayText;
 
     private bool isMouseInputChecking = false;
     private float duration = 1.0f;
@@ -40,19 +42,28 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
         // 페이드 인
         FirstFadeInPanel.DOFade(1f, duration).OnComplete(() =>
         {
-            FirstFadeInPanel.gameObject.SetActive(false); // 이미지 비활성화
             PlayScaleUp(CustomerReviewPanel.transform);
         });
     }
 
     void EndDayAndUpdateToFile()
     {
-        FinalFadeOutPanel.DOFade(0f, duration);
-        DataController.Instance.playData.cur_day_ID++;
-        DataController.Instance.ToPlayJson(DataController.Instance.gameData.cur_save_file_ID);
+        NextDayText.text = "DAY "+(DataController.Instance.playData.cur_day_ID + 2);
 
-        //DontDestroyOnLoad(DontDestroyOnCityMapReload);
-        SceneManager.LoadScene("CityMap");
+        Sequence fadeSequence = DOTween.Sequence();
+        fadeSequence.Append(FinalFadeOutPanel.DOFade(1f, duration));
+        fadeSequence.Append(NextDayText.DOFade(1f, duration));
+        fadeSequence.AppendInterval(0.5f);
+        fadeSequence.Append(NextDayText.DOFade(0f, duration));
+
+        fadeSequence.OnComplete(() =>
+        {
+            DataController.Instance.playData.cur_day_ID++;
+            DataController.Instance.ToPlayJson(DataController.Instance.gameData.cur_save_file_ID);
+
+            //DontDestroyOnLoad(DontDestroyOnCityMapReload);
+            SceneManager.LoadScene("CityMap");
+        });
     }
 
     public void LoadOtherScene()
