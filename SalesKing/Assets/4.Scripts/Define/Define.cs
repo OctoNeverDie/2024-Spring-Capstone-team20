@@ -43,6 +43,7 @@ public class Define
     public enum SendChatType
     {
         None,
+        MuhanInit,
         ChatInit,
         Chatting,
         Endpoint,
@@ -93,6 +94,8 @@ public class Define
         Weapons,
         [EnumMember(Value = "Furniture")]
         Furniture,
+        [EnumMember(Value = "Random")]
+        Random,
         MaxCnt
     }
 

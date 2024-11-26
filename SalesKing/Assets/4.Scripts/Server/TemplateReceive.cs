@@ -6,4 +6,9 @@ public class TemplateReceive : MonoBehaviour
     {
         ChatManager.Instance.Reply.GptAnswer = resultData;//이건 쌩
     }
+
+    public void GetGptAnswer(string[] resultData, Define.SendChatType sendChatType)
+    {
+        MuhanNpcDataManager.Instance.NpcsReceive(resultData);
+    }
 }

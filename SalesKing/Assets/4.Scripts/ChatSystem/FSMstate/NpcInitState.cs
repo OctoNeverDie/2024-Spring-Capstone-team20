@@ -44,23 +44,36 @@ public class NpcInitState : ChatBaseState
         string _userSend = MakeUserSend(npc) + "\n" + MakeMbtiSend(npc.Mbtis);
 
         Debug.Log($"NpcInitState에서 보냄 {_sendChatType}. {_userSend}");
-        ServerManager.Instance.GetGPTReply("$start", _sendChatType, _userSend);
+        ServerManager.Instance.GetGPTReply(GameMode.Story, "$start", _sendChatType, _userSend);
     }
 
     private ItemInfo GetRandItem()
     {
-        List<ItemInfo> categorizedList= DataGetter.Instance.CategorizedItems[npc.ItemCategory];
-        foreach (var cate in categorizedList)
-        {
-            Debug.Log($"items : {npc.ItemCategory}, {cate.Category}, {cate.ObjName}");
-        }
         int randomIdx;
-        if (categorizedList.Count > 0)
-            randomIdx = Random.Range(0, categorizedList.Count);
-        else
-            return DataGetter.Instance.ItemList[0];
+        ItemInfo thisItem;
 
-        return categorizedList[randomIdx];
+        if (npc.ItemCategory == ItemCategory.Random)
+        {
+            var items = DataGetter.Instance.ItemList;
+            randomIdx = Random.Range(0, items.Count);
+
+            thisItem = items[randomIdx];
+        }
+        else 
+        {
+            List<ItemInfo> categorizedList = DataGetter.Instance.CategorizedItems[npc.ItemCategory];
+
+            if (categorizedList.Count > 0)
+            {
+                randomIdx = Random.Range(0, categorizedList.Count);
+                thisItem = categorizedList[randomIdx];
+            }
+            
+            else
+                thisItem = DataGetter.Instance.ItemList[0];
+        }
+ 
+        return thisItem;
     }
 
     //감정형 호소, 매력형 어필, 논리형 설득, 아부형 칭찬
@@ -150,7 +163,6 @@ public class NpcInitState : ChatBaseState
     {
         string user_send = $"\n NpcName : {npc.NpcName}, NpcSex : {npc.NpcSex}, NpcAge : {npc.NpcAge} "
             + $" KeyWord : {npc.KeyWord}, \nPersonailty : {npc.Personality}\nDialogue Style: {npc.DialogueStyle}\nExample: {npc.Example}"
-            +$"\nSituation : {npc.SituationDescription}"
             + $"\n당근에 올린 글: {npc.Concern}\n네가 사려고 한 물건: {npc.WantItem}, 판매자가 가져온 물건: {playerItem.ObjName}\n";
 
         return user_send;

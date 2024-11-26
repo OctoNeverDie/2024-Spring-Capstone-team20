@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
@@ -33,7 +32,9 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
     {
         isConvo = true;
         ThisNpc = cityTabletData.todaysIDdict[NpcID];
-        _chatStateMachine = new ChatStateMachine();
+
+        if(_chatStateMachine == null)
+            _chatStateMachine = new ChatStateMachine();
         _chatStateMachine.SetState(new NpcInitState()); //back용
     }
 
