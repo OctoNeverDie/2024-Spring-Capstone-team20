@@ -18,7 +18,9 @@ public class MuhanNpcDataManager : Singleton<MuhanNpcDataManager>, ISingletonSet
     private MuhanInfo[] npcs = new MuhanInfo[3];
     private int _npdIDStart = 0;
     private string _npcLooksStr;
-    private string[] npcOption = { "웃기고 개성있는", "독특한", "말이 잘 통하는" };
+    
+    private string[] npcOptionA = { "권위적인", "소심한", "독특한", "쾌활한", "엉뚱한", "느끼한", "성격 나쁜", "야비한" };
+    private string[] npcOptionB = { "미치광이", "괴짜", "개성있는" };
 
     public class NpcLooks
     {
@@ -51,12 +53,15 @@ public class MuhanNpcDataManager : Singleton<MuhanNpcDataManager>, ISingletonSet
         _npdIDStart = DataGetter.Instance.NpcList.Count;
         Debug.Log($"뭐가 문제임 {_npdIDStart}");
         int randIdx;
+        int randIdx2;
         string gameSend = "";
 
         for (int i = 0; i < 3; i++)
         {
-            randIdx = UnityEngine.Random.Range(0, npcOption.Length);
-            gameSend += $" {npcOption[randIdx]} Npc 하나 만들어줘. Npc 설정 전부 합해서 700 토큰을 넘기지 마.,";
+            randIdx = UnityEngine.Random.Range(0, npcOptionA.Length);
+            randIdx2 = UnityEngine.Random.Range(0, npcOptionB.Length);
+
+            gameSend += $" {npcOptionA[randIdx]} {npcOptionB[randIdx2]} Npc 하나 만들어줘. Npc 설정 전부 합해서 700 토큰을 넘기지 마.,";
         }
         Debug.Log("뭐여ㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ");
         ServerManager.Instance.GetGPTReply(Define.GameMode.Infinity, gameSend, SendChatType.MuhanInit);

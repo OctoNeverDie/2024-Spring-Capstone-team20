@@ -83,7 +83,7 @@ public class ServerManager : ServerBase
             if (result.IsNetworkError)
             {
                 Debug.Log("+++++++++networkTest");
-                await Task.Delay(1000); // 재시도 간격 조절
+                await Task.Delay(120000); // 재시도 간격 조절
                 continue; // 재시도
             }
             else if (result.IsSuccess)
