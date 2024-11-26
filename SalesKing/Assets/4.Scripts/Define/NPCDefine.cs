@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using Newtonsoft.Json;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -42,24 +43,53 @@ public class NPCDefine : MonoBehaviour
 
     // 외양 enum
     
-    public enum SexType { None, Male, Female }
-    public enum AgeType { None, Young, Old }
-    public enum BackpackType { None, Common, Wings, Tube, Youtuber, Jetpack, Hiking, Sword, Gun, Turtle, Drums, Skateboard }
-    public enum BodyType { Common, Alien }
     public enum EyebrowType { None, Aggressive, Common, Timid }
+
+    [JsonConverter(typeof(SafeEnumConverter<SexType>), SexType.None)]
+    public enum SexType { None, Male, Female }
+
+    [JsonConverter(typeof(SafeEnumConverter<AgeType>), AgeType.None)]
+    public enum AgeType { None, Young, Old }
+
+    [JsonConverter(typeof(SafeEnumConverter<BackpackType>), BackpackType.None)]
+    public enum BackpackType { None, Common, Wings, Tube, Youtuber, Jetpack, Hiking, Sword, Gun, Turtle, Drums, Skateboard }
+
+    [JsonConverter(typeof(SafeEnumConverter<BodyType>), BodyType.None)]
+    public enum BodyType { Common, Alien }
+
+    [JsonConverter(typeof(SafeEnumConverter<EyebrowType>), EyebrowType.None)]
+    public enum EyebrowType { None, Aggressive, Common, Timid }
+    
+    [JsonConverter(typeof(SafeEnumConverter<FullBodyType>), FullbodyType.None)]
     public enum FullBodyType { None, OuterSpace, Soldier, Halloween, Food, Party }
+
+    [JsonConverter(typeof(SafeEnumConverter<GlassesType>), GlassesType.None)]
     public enum GlassesType { None, Common, Sunglasses, Special }
+
+    [JsonConverter(typeof(SafeEnumConverter<GloveType>), GloveType.None)]
     public enum GloveType { None, Common, Boxing, Ski, LadyGloves, WorkGloves }
+
+    [JsonConverter(typeof(SafeEnumConverter<HairType>), HairType.None)]
     public enum HairType { None, MaleCommon, FemaleCommon, Oriental, Workout, Punk, HotGirl, CuteGirl }
+
+    [JsonConverter(typeof(SafeEnumConverter<HatType>), HatType.None)]
     public enum HatType
     {
         None, Common, Cap, Headphones, Beret, Theif, Police, Farmer, Chef, Maid, Firefighter, Goggles, Graduate,
         ConstructionWorker, Pilot, SerialKiller, Clown, CuteCostume, Pancho, PowderedWig, Elf, Kid, Santa, Gentleman,
         Helmet, Cleopatra, Snorkling, Lady, Crown, HeroMask, WinterHat, Yoda, GasMask, JackSparrow, PaperBag, Alien, PlagueMask
     }
+
+    [JsonConverter(typeof(SafeEnumConverter<MustacheType>), MustacheType.None)]
     public enum MustacheType { None, Common, Thin, Beard, White }
+
+    [JsonConverter(typeof(SafeEnumConverter<OuterwearType>), OuterwearType.None)]
     public enum OuterwearType { None, Hoodie, TankTop, Dress, Shirt, Jacket, Suit, TShirt }
+
+    [JsonConverter(typeof(SafeEnumConverter<PantsType>), PantsType.None)]
     public enum PantsType { None, Shorts, Pants, Skirt }
+
+    [JsonConverter(typeof(SafeEnumConverter<ShoeType>), ShoeType.None)]
     public enum ShoeType { None, Sneakers, Boots, Skate, Slippers }
 
     // 까지

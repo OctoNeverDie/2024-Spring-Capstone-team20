@@ -26,7 +26,6 @@ public class NPCAnimationManager : MonoBehaviour
                 }
 
                 NPCAnimDictionary[category].AddRange(animations);
-                Debug.Log($"Loaded {animations.Length} animations for category '{category}'.");
             }
         }
     }
