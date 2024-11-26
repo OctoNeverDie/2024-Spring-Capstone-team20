@@ -27,7 +27,7 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
 
     void Update()
     {
-        if (!isMouseInputChecking && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
+        if (isMouseInputChecking && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
         {
             isMouseInputChecking = false;
             EndDayAndUpdateToFile();
