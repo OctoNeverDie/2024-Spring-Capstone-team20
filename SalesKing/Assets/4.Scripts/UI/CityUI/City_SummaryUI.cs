@@ -8,6 +8,9 @@ using UnityEngine;
 public class City_SummaryUI : MonoBehaviour
 {
     [SerializeField] NpcEvalRectrans[] npcs;
+    [SerializeField] Sprite Success;
+    [SerializeField] Sprite Failed;
+
     int npcsCount = 0;
     Dictionary<int, int> NpcIDToUIIdx = new Dictionary<int, int>();
 
@@ -36,7 +39,18 @@ public class City_SummaryUI : MonoBehaviour
     {
         int idx = NpcIDToUIIdx[thisNpcID];
         npcs[idx].Evaluation.text = summary;
-        npcs[idx].SuccessImg.color = isBuy? Color.green : Color.red;
+
+        if (isBuy)
+        {
+            npcs[idx].SuccessImg.color = Color.green;
+            Util.ChangeSprite(npcs[idx].SuccessImg, Success);
+        }
+        else
+        {
+            npcs[idx].SuccessImg.color = Color.red;
+            Util.ChangeSprite(npcs[idx].SuccessImg, Failed);
+        }
+
         npcs[idx].SuccessImg.gameObject.SetActive(true);
     }
 }

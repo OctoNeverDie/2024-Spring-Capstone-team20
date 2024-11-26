@@ -47,7 +47,7 @@ public class RecordInput : MonoBehaviour
             _isRecording = true;
             STTconnect.StartRecording();
         }
-        else 
+        else
         {
             _isRecording = false;
             STTconnect.StopRecording();
@@ -98,18 +98,19 @@ public class RecordInput : MonoBehaviour
 
     private IEnumerator UpdateRecordingSlider()
     {
-        float recordingDuration = STTconnect._recordingLengthSec;
-        float elapsedTime = 0f;
-
-        while (_isRecording && elapsedTime < recordingDuration)
+        while (_isRecording)
         {
-            elapsedTime += Time.unscaledDeltaTime;
-            recordSlider.value = recordingDuration - elapsedTime;
+            _currentRecordingTime += Time.fixedDeltaTime;  // 시간이 지남에 따라 증가
+            recordSlider.value = STTconnect._recordingLengthSec - _currentRecordingTime; // 슬라이더 값 감소
+
+            // 녹음 시간이 다 되면 녹음 중지
+            if (recordSlider.value <= 0)
+            {
+                STTconnect.StopRecording();
+                yield break;
+            }
             yield return null;
         }
-        // 녹음 시간이 다 되면 녹음 중지
-        STTconnect.StopRecording();
-        recordSlider.value = 0f;
     }
 
     private void ChangeSprite()

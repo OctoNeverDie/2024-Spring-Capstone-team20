@@ -20,6 +20,10 @@ public class City_ChattingUI : MonoBehaviour
     [SerializeField] Button DealBtn; //deal ended
     [SerializeField] Button ItemBtn;
 
+    [SerializeField] TextMeshProUGUI npcItem;
+    [SerializeField] Sprite Success;
+    [SerializeField] Sprite Failed;
+
     TextMeshProUGUI NpcSpeechText;
     Image CheckMark;
 
@@ -104,12 +108,14 @@ public class City_ChattingUI : MonoBehaviour
         NpcSpeechBubble.transform.DOScale(1f, 0.5f).SetEase(Ease.InOutBounce).SetUpdate(true);
     }
 
-    public void ShowPanel(Define.SendChatType sendChatType, object additionalData = null, string name=null, bool isEndByUser =false)
+    public void ShowPanel(Define.SendChatType sendChatType, object additionalData = null, NpcInfo npcInfo=null, bool isEndByUser =false)
     {
         if (sendChatType == Define.SendChatType.ChatInit)
         {
-            SetNpcName(name);
+            SetNpcName(npcInfo.NpcName);
             ConvoPanel.SetActive(true);// show convo: npc name, 
+
+            npcItem.text = npcInfo.WantItem;
             RandItemPanel.SetActive(true);
         }
 
@@ -148,7 +154,16 @@ public class City_ChattingUI : MonoBehaviour
 
     private void ShowCheckMark(bool isSuccess)
     {
-        CheckMark.color = isSuccess ? Color.green : Color.red;
+        if (isSuccess)
+        {
+            CheckMark.color = Color.green;
+            Util.ChangeSprite(CheckMark, Success);
+        }
+        else 
+        {
+            CheckMark.color = Color.red;
+            Util.ChangeSprite(CheckMark, Failed);
+        }
 
         CheckMark.gameObject.SetActive(true);
 

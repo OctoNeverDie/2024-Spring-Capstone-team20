@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static NPCDefine;
-using static TreeEditor.TreeEditorHelper;
 
 public class NPCMeshManager : MonoBehaviour
 {

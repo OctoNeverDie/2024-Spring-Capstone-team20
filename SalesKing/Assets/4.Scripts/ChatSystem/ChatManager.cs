@@ -61,7 +61,7 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
         Reply.GptAnswer = forFirstReply;
     }
 
-    public void ActivatePanel(SendChatType chatState, object additionalData = null, string name =null)
+    public void ActivatePanel(SendChatType chatState, object additionalData = null, NpcInfo name =null)
     {
         switch (chatState)
         {
