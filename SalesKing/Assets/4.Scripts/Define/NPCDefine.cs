@@ -39,6 +39,7 @@ public class NPCDefine : MonoBehaviour
         Standing
     }
 
+    // 외양 enum
     public enum EyebrowType { Aggressive, Common, Timid }
     public enum SexType { Male, Female, Unknown }
     public enum AgeType { Young, Common, Old }
@@ -58,4 +59,5 @@ public class NPCDefine : MonoBehaviour
     public enum PantsType { None, Shorts, Pants, Skirt }
     public enum ShoeType { None, Sneakers, Boots, Skate, Slippers }
 
+    // 까지
 }

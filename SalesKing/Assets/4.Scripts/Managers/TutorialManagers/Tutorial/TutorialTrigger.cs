@@ -8,7 +8,7 @@ public class TutorialTrigger : TutorialBase
 
 	public override void Enter()
 	{
-        PlayerManager.Instance.player.FreezeAndUnFreezePlayer(false);
+        UserInputManager.Instance.isKeyInputLocked = false;
     }
 
 	public override void Execute(TutorialController controller)
@@ -29,7 +29,7 @@ public class TutorialTrigger : TutorialBase
 	public override void Exit()
 	{
         PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
-        UserInputManager.Instance.isKeyInputLocked = false;
+        UserInputManager.Instance.isKeyInputLocked = true;
     }
 
 }
