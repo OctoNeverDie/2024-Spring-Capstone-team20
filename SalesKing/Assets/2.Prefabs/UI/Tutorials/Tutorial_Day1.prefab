@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 9093439564722551019}
   - component: {fileID: 5127207741057631800}
   m_Layer: 0
-  m_Name: 09_PhoneCallDialog
+  m_Name: 08_PhoneCallDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1369,7 +1369,7 @@ GameObject:
   - component: {fileID: 6772919489292183851}
   - component: {fileID: 8578172907057533543}
   m_Layer: 0
-  m_Name: 05_PhoneCallDialog
+  m_Name: 04_PhoneCallDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1584,52 +1584,6 @@ MonoBehaviour:
   - {fileID: 376353894748563535}
   - {fileID: 3017584389158657686}
   npcsCount: 0
---- !u!1 &1078598482181789755
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7900068070575460706}
-  - component: {fileID: 8742613716764206731}
-  m_Layer: 0
-  m_Name: 01_TutorialFadeEffect
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7900068070575460706
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078598482181789755}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2365972375587555869}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8742613716764206731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078598482181789755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b64301a1f25bea84d8a92bcb4c26d3bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeEffect: {fileID: 9028211820092315519}
-  isFadeIn: 1
 --- !u!1 &1211908178435818854
 GameObject:
   m_ObjectHideFlags: 0
@@ -1918,7 +1872,7 @@ GameObject:
   - component: {fileID: 6599084750047203464}
   - component: {fileID: 6383859101278181921}
   m_Layer: 0
-  m_Name: 03_PhoneCallDialog
+  m_Name: 02_PhoneCallDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2201,7 +2155,7 @@ GameObject:
   - component: {fileID: 6336137145505924715}
   - component: {fileID: 5932983700125809429}
   m_Layer: 0
-  m_Name: 02_NarrationDialog
+  m_Name: 01_NarrationDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5384,7 +5338,7 @@ GameObject:
   - component: {fileID: 183810006879367662}
   - component: {fileID: 2239277057039846492}
   m_Layer: 0
-  m_Name: 07_PhoneCallDialog
+  m_Name: 06_PhoneCallDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7921,7 +7875,7 @@ GameObject:
   - component: {fileID: 8859402107951657065}
   - component: {fileID: 2533522111501117238}
   m_Layer: 0
-  m_Name: 08_KeyCodeTrigger
+  m_Name: 07_KeyCodeTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9001,7 +8955,7 @@ GameObject:
   - component: {fileID: 1944364548006957485}
   - component: {fileID: 1176102208821318106}
   m_Layer: 0
-  m_Name: 04_KeyCodeTrigger
+  m_Name: 03_KeyCodeTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9299,7 +9253,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7900068070575460706}
   - {fileID: 9164402653865646776}
   - {fileID: 7470303061691260989}
   - {fileID: 1944364548006957485}
@@ -9323,7 +9276,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials:
-  - {fileID: 8742613716764206731}
   - {fileID: 6336137145505924715}
   - {fileID: 6599084750047203464}
   - {fileID: 1176102208821318106}
@@ -9810,7 +9762,7 @@ GameObject:
   - component: {fileID: 7547363473306181645}
   - component: {fileID: 5507962816448021698}
   m_Layer: 0
-  m_Name: 06_KeyCodeTrigger
+  m_Name: 05_KeyCodeTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

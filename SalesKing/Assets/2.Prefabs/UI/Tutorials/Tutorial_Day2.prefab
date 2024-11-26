@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1305522646231629987}
   - component: {fileID: 3157442520960608739}
   m_Layer: 0
-  m_Name: 06_PhoneCallDialog
+  m_Name: 05_PhoneCallDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2649,7 +2649,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3392457213559706793}
   - {fileID: 7430701959621746110}
   - {fileID: 7681385794777056632}
   - {fileID: 1960438977615743483}
@@ -2673,7 +2672,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials:
-  - {fileID: 3261821773429252894}
   - {fileID: 6671384106003483173}
   - {fileID: 3189190685755459656}
   - {fileID: 4472178021839252631}
@@ -3110,7 +3108,7 @@ GameObject:
   - component: {fileID: 5199931267040108065}
   - component: {fileID: 1289164833783991243}
   m_Layer: 0
-  m_Name: 05_KeyCodeTrigger
+  m_Name: 04_KeyCodeTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3889,52 +3887,6 @@ RectTransform:
   m_AnchoredPosition: {x: 691.05, y: -385}
   m_SizeDelta: {x: 1382.1, y: 770}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &2410180473880562089
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3392457213559706793}
-  - component: {fileID: 3261821773429252894}
-  m_Layer: 0
-  m_Name: 01_TutorialFadeEffect
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3392457213559706793
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2410180473880562089}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5024244901995933149}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3261821773429252894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2410180473880562089}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b64301a1f25bea84d8a92bcb4c26d3bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeEffect: {fileID: 5528747212033282938}
-  isFadeIn: 1
 --- !u!1 &2417586505370419793
 GameObject:
   m_ObjectHideFlags: 0
@@ -4899,7 +4851,7 @@ GameObject:
   - component: {fileID: 6635271516344874540}
   - component: {fileID: 7466592785750502469}
   m_Layer: 0
-  m_Name: 04-2_TabletInfoDialog (2)
+  m_Name: 03-3_TabletInfoDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6903,7 +6855,7 @@ GameObject:
   - component: {fileID: 1960438977615743483}
   - component: {fileID: 4472178021839252631}
   m_Layer: 0
-  m_Name: 04_TabletInfoDialog
+  m_Name: 03-1_TabletInfoDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7237,7 +7189,7 @@ GameObject:
   - component: {fileID: 3284097286905934310}
   - component: {fileID: 5574773854144262307}
   m_Layer: 0
-  m_Name: 04-3_TabletInfoDialog (3)
+  m_Name: 03-4_TabletInfoDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8900,7 +8852,7 @@ GameObject:
   - component: {fileID: 3667693986658266080}
   - component: {fileID: 9164635943898053635}
   m_Layer: 0
-  m_Name: 04-1_TabletInfoDialog (1)
+  m_Name: 03-2_TabletInfoDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10562,7 +10514,7 @@ GameObject:
   - component: {fileID: 6671384106003483173}
   - component: {fileID: 7550200443792798598}
   m_Layer: 0
-  m_Name: 02_PhoneCallDialog
+  m_Name: 01_PhoneCallDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11319,7 +11271,7 @@ GameObject:
   - component: {fileID: 7681385794777056632}
   - component: {fileID: 3189190685755459656}
   m_Layer: 0
-  m_Name: 03_KeyCodeTrigger
+  m_Name: 02_KeyCodeTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
