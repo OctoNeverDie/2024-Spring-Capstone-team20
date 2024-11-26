@@ -120,6 +120,7 @@ public class Player : MonoBehaviour
     public void PlayerExitConvo()
     {
         FreezeAndUnFreezePlayer(false);
+        NPCManager.Instance.curTalkingNPC.NPCExitConvo();
     }
 
 
