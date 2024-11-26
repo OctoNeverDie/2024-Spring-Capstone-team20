@@ -34,8 +34,9 @@ public class City_SummaryUI : MonoBehaviour
 
     public void UpdateEvaluationData(string summary, int thisNpcID, bool isBuy)
     {
-        npcs[thisNpcID].Evaluation.text = summary;
-        npcs[thisNpcID].SuccessImg.color = isBuy? Color.green : Color.red;
-        npcs[thisNpcID].SuccessImg.gameObject.SetActive(true);
+        int idx = NpcIDToUIIdx[thisNpcID];
+        npcs[idx].Evaluation.text = summary;
+        npcs[idx].SuccessImg.color = isBuy? Color.green : Color.red;
+        npcs[idx].SuccessImg.gameObject.SetActive(true);
     }
 }
