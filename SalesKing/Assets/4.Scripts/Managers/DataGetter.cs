@@ -39,7 +39,6 @@ public class DataGetter : Singleton<DataGetter>, ISingletonSettings
                                 $"KeyWord: {npc.KeyWord}, " +
                                 $"Concern: {npc.Concern}, " +
                                 $"WantItem: {npc.WantItem}, " +
-                                $"SituationDescription: {npc.SituationDescription}, " +
                                 $"Personality: {npc.Personality}, " +
                                 $"DialogueStyle: {npc.DialogueStyle}, " +
                                 $"Example: {npc.Example}";

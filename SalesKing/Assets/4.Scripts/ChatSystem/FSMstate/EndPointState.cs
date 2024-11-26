@@ -44,7 +44,7 @@ public class EndPointState : ChatBaseState
     {
         string user_input = "is_buy = false, 왜냐하면 상대가 나를 무시하고 갔기 때문.";
         Debug.Log($"Endpoint에서 보냄 {user_input}");
-        ServerManager.Instance.GetGPTReply(user_input, _sendChatType);
+        ServerManager.Instance.GetGPTReply(Define.GameMode.Story, user_input, _sendChatType);
     }
 
     private void GptOutput(string type, string gpt_output)//유저가 end btn 눌렀을 때만
