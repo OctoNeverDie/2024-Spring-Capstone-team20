@@ -90,6 +90,7 @@ public class MuhanNpcDataManager : Singleton<MuhanNpcDataManager>, ISingletonSet
         storyNpcSet.npc_IDs = npc_IDs;
 
         storyNpcSO.storyNpcs.Add(storyNpcSet);
+        Debug.Log("냐냐냐냐냐냐" + storyNpcSO.storyNpcs[storyNpcSO.storyNpcs.Count -1]);
         npc_IDs.Clear();
     }
 }
