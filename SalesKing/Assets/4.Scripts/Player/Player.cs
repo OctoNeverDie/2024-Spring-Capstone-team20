@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
         canvas = this.transform.Find("Canvas").gameObject;
 
         playerSpeed = 5f;
-        cameraSpeed = 1f;
+        cameraSpeed = 5f;
     }
 
     void Update()
