@@ -25,6 +25,7 @@ public class NpcInitState : ChatBaseState
     }
     private void UpdateEvaluation()
     {
+        Debug.Log($"여기에 evaldict가 추가됨 {npc.NpcID}");
         Chat.Eval.InitEvalDictNpc(npc.NpcID, playerItem.ObjID);
     }
 
@@ -163,7 +164,7 @@ public class NpcInitState : ChatBaseState
     {
         string user_send = $"\n NpcName : {npc.NpcName}, NpcSex : {npc.NpcSex}, NpcAge : {npc.NpcAge} "
             + $" KeyWord : {npc.KeyWord}, \nPersonailty : {npc.Personality}\nDialogue Style: {npc.DialogueStyle}\nExample: {npc.Example}"
-            + $"\n당근에 올린 글: {npc.Concern}\n네가 사려고 한 물건: {npc.WantItem}, 판매자가 가져온 물건: {playerItem.ObjName}\n";
+            + $"\n당근에 올린 글: {npc.Concern}\n원래 사려고 했던 물건(이게 아니어도 됨): {npc.WantItem}, 판매자가 가져온 물건: {playerItem.ObjName}\n";
 
         return user_send;
     }

@@ -11,23 +11,22 @@ public class EndPointState : ChatBaseState
 
     public override void Enter()
     {
+        Debug.Log("?????????");
         SubScribeAction();
         _sendChatType = SendChatType.Endpoint;
         Chat.NpcCountUp();
-
-        if (Chat.isEndByUser) { EndByUser(); }
-        else { Exit(); }
 
         if (Chat.npcNum >= 3)
         {
             SaveData();
         }
+
+        ShowFront();
     }
 
     public override void Exit()
     {
-        ShowFront();
-        UnSubScribeAction();
+        UnSubScribeAction(); 
     }
 
     private void SaveData()
@@ -40,13 +39,6 @@ public class EndPointState : ChatBaseState
         Chat.ActivatePanel(_sendChatType);
     }
 
-    private void EndByUser()
-    {
-        string user_input = "is_buy = false, 왜냐하면 상대가 나를 무시하고 갔기 때문. 이는 무례한 행동이니, 비꽈줘. 너는 비꼬고, 극딜하는 성격의 캐릭터야.";
-        Debug.Log($"Endpoint에서 보냄 {user_input}");
-        ServerManager.Instance.GetGPTReply(Define.GameMode.Story, user_input, SendChatType.Chatting);
-    }
-
     private void GptOutput(string type, string gpt_output)//유저가 end btn 눌렀을 때만
     {
         if (type != nameof(Chat.Reply.GptAnswer))
@@ -55,7 +47,7 @@ public class EndPointState : ChatBaseState
         ConcatReply(gpt_output);
         UpdateEvaluation();
 
-        Exit();
+        ShowFront();
     }
 
     private void ConcatReply(string GPTanswer)

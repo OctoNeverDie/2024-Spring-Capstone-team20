@@ -44,6 +44,10 @@ public class ServerManager : ServerBase
         {
             _initData = initData;
         }
+        else 
+        {
+            _initData = "";
+        }
 
         Debug.Log($"User답++++++++++{_userInput}, {_sendChatType}, {_initData}");
     
