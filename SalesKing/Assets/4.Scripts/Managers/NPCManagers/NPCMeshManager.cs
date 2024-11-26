@@ -1,66 +1,118 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static NPCDefine;
+using static TreeEditor.TreeEditorHelper;
 
 public class NPCMeshManager : MonoBehaviour
 {
-    private static readonly string basePath = "Meshes/NPC_Parts";
+    private static readonly string basePath = "Meshes/NPC_Parts/";
 
-    // 모든 걸 합친
-    public Dictionary<NPCDefine.MeshType, List<Mesh>> NPCMeshDictionary = new Dictionary<NPCDefine.MeshType, List<Mesh>>();
-    // 정상인것만 저장하는
-    public Dictionary<NPCDefine.MeshType, List<Mesh>> NPCMeshDictionary_norm = new Dictionary<NPCDefine.MeshType, List<Mesh>>();
+    //public Dictionary<NPCDefine.MeshType, Dictionary<NPCDefine.MeshType, List<Mesh>>> NPCMeshDictionary = new Dictionary<NPCDefine.MeshType, List<Mesh>>();
 
-    private void Awake()
+
+    public Dictionary<MeshType, Dictionary<Enum, List<Mesh>>> NPCMeshDictionary;
+
+    void Awake()
     {
+        NPCMeshDictionary = new Dictionary<MeshType, Dictionary<Enum, List<Mesh>>>();
         LoadMeshes();
     }
 
     private void LoadMeshes()
     {
-        // set every-mesh dictionary
-        foreach (NPCDefine.MeshType category in System.Enum.GetValues(typeof(NPCDefine.MeshType)))
+        foreach (MeshType category in Enum.GetValues(typeof(MeshType)))
         {
-            string folderPath = $"{basePath}/{category.ToString()}";
-            Mesh[] meshes = Resources.LoadAll<Mesh>(folderPath);
-
-            if (meshes.Length > 0)
+            // 각 Category마다 Key에 해당하는 Mesh를 로드
+            switch (category)
             {
-                if (!NPCMeshDictionary.ContainsKey(category))
-                {
-                    NPCMeshDictionary[category] = new List<Mesh>();
-                }
+                case MeshType.Backpack:
+                    AddCategoryMeshes<MeshType, BackpackType>(basePath + "Backpack/");
+                    break;
 
-                NPCMeshDictionary[category].AddRange(meshes);
-                //Debug.Log($"Loaded {meshes.Length} meshes for category '{category}'.");
+                case MeshType.Body:
+                    AddCategoryMeshes<MeshType, BodyType>(basePath + "Body/");
+                    break;
+
+                case MeshType.Eyebrow:
+                    AddCategoryMeshes<MeshType, EyebrowType>(basePath + "Eyebrow/");
+                    break;
+
+                case MeshType.FullBody:
+                    AddCategoryMeshes<MeshType, FullBodyType>(basePath + "FullBody/");
+                    break;
+
+                case MeshType.Glasses:
+                    AddCategoryMeshes<MeshType, GlassesType>(basePath + "Glasses/");
+                    break;
+
+                case MeshType.Glove:
+                    AddCategoryMeshes<MeshType, GloveType>(basePath + "Glove/");
+                    break;
+
+                case MeshType.Hair:
+                    AddCategoryMeshes<MeshType, HairType>(basePath + "Hair/");
+                    break;
+
+                case MeshType.Hat:
+                    AddCategoryMeshes<MeshType, HatType>(basePath + "Hat/");
+                    break;
+
+                case MeshType.Mustache:
+                    AddCategoryMeshes<MeshType, MustacheType>(basePath + "Mustache/");
+                    break;
+
+                case MeshType.Outerwear:
+                    AddCategoryMeshes<MeshType, OuterwearType>(basePath + "Outerwear/");
+                    break;
+
+                case MeshType.Pants:
+                    AddCategoryMeshes<MeshType, PantsType>(basePath + "Pants/");
+                    break;
+
+                case MeshType.Shoe:
+                    AddCategoryMeshes<MeshType, ShoeType>(basePath + "Shoe/");
+                    break;
+
+                default:
+                    Debug.LogWarning($"Unknown category: {category}");
+                    break;
             }
         }
 
-        // set normal-mesh dictionary
-        foreach (NPCDefine.MeshType category in System.Enum.GetValues(typeof(NPCDefine.MeshType)))
+    }
+
+    private void AddCategoryMeshes<TCategory, TKey>(string categoryPath) where TKey : Enum
+    {
+        if (!NPCMeshDictionary.ContainsKey((MeshType)Enum.Parse(typeof(MeshType), typeof(TCategory).Name)))
         {
-            string folderPath = $"{basePath}/{category.ToString()}/Normal";
-            Mesh[] meshes = Resources.LoadAll<Mesh>(folderPath);
+            NPCMeshDictionary[(MeshType)Enum.Parse(typeof(MeshType), typeof(TCategory).Name)] =
+                new Dictionary<Enum, List<Mesh>>();
+        }
+
+        foreach (TKey key in Enum.GetValues(typeof(TKey)))
+        {
+            // Resources에서 Mesh 로드
+            Mesh[] meshes = Resources.LoadAll<Mesh>($"{categoryPath}/{key.ToString().ToLower()}");
 
             if (meshes.Length > 0)
             {
-                if (!NPCMeshDictionary_norm.ContainsKey(category))
-                {
-                    NPCMeshDictionary_norm[category] = new List<Mesh>();
-                }
-
-                NPCMeshDictionary_norm[category].AddRange(meshes);
-                //Debug.Log($"Loaded {meshes.Length} Normal meshes for category '{category}'.");
-            }
-            else
-            {
-                if (!NPCMeshDictionary_norm.ContainsKey(category))
-                {
-                    NPCMeshDictionary_norm[category] = new List<Mesh>();
-                }
-                //Debug.Log($"Loaded zero Normal meshes for category '{category}'.");
+                NPCMeshDictionary[(MeshType)Enum.Parse(typeof(MeshType), typeof(TCategory).Name)][key] =
+                    new List<Mesh>(meshes);
             }
         }
+    }
+
+    public List<Mesh> GetMeshes(MeshType category, Enum key)
+    {
+        if (NPCMeshDictionary.ContainsKey(category) && NPCMeshDictionary[category].ContainsKey(key))
+        {
+            return NPCMeshDictionary[category][key];
+        }
+
+        Debug.LogWarning($"Meshes not found for Category: {category}, Key: {key}");
+        return null;
     }
 
 }
