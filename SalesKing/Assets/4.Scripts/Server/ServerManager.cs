@@ -34,13 +34,15 @@ public class ServerManager : ServerBase
     private string _userInput = "";
     private string _initData = "";
     private SendChatType _sendChatType;
-    public void GetGPTReply(string userInput, SendChatType sendChatTypeFrom, string initData="")
+    private GameMode _gameMode;
+    public void GetGPTReply(GameMode gameMode, string userInput, SendChatType sendChatTypeFrom, string initData="")
     { 
-        this._sendChatType = sendChatTypeFrom;
-        this._userInput = userInput;
+        _gameMode = gameMode;
+        _sendChatType = sendChatTypeFrom;
+        _userInput = userInput;
         if (sendChatTypeFrom == SendChatType.ChatInit)
         {
-            this._initData = initData;
+            _initData = initData;
         }
 
         Debug.Log($"User답++++++++++{_userInput}, {_sendChatType}, {_initData}");
@@ -84,11 +86,24 @@ public class ServerManager : ServerBase
 
         Action<ResultInfo> bringGPTReply = (result) =>
         {
-            var resultData = JObject.Parse(result.Json)["reply"].ToString();
-            Debug.Log($"Gpt 답+++++++++++++++ {resultData}, {_sendChatType}");
+            if (_gameMode == GameMode.Story)
+            {
+                string resultData = JObject.Parse(result.Json)["reply"].ToString();
+                Debug.Log($"Gpt 답+++++++++++++++ {resultData}, {_sendChatType}");
 
-            OnSendReplyUpdate?.Invoke(false);
-            templateReceive.GetGptAnswer(resultData, _sendChatType);
+                OnSendReplyUpdate?.Invoke(false);
+                templateReceive.GetGptAnswer(resultData, _sendChatType);
+            }
+            else if (_gameMode == GameMode.Infinity)
+            {
+                string[] resultData = new string[3];
+                resultData[0] = JObject.Parse(result.Json)["npc1"].ToString();
+                resultData[1] = JObject.Parse(result.Json)["npc2"].ToString();
+                resultData[2] = JObject.Parse(result.Json)["npc3"].ToString();
+
+                OnSendReplyUpdate?.Invoke(false);
+                templateReceive.GetGptAnswer(resultData, _sendChatType);
+            }
         };
 
         Action<ResultInfo> failTest = (result) =>

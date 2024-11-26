@@ -84,7 +84,7 @@ public class ChattingState : ChatBaseState, IVariableChat
         }
 
         Debug.Log($"ChatBargainState에서 보냄 {user_input}");
-        ServerManager.Instance.GetGPTReply(user_input, _sendChatType);
+        ServerManager.Instance.GetGPTReply(Define.GameMode.Story, user_input, _sendChatType);
     }
 
     public void GptOutput(string type, string gpt_output)

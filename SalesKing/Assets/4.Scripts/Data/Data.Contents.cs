@@ -37,12 +37,11 @@ public class NpcInfo
     public int [] Mbtis;// 1 = like, 0 = norm, -1 = dislike
 
     //prompt needed
-    public string SituationDescription;
     public string Personality;
     public string DialogueStyle;
     public string Example;
-
-    public GameObject NpcLooks;
+    //muhanmode
+    public string NpcLooks;
 }
 
 public class NpcData : ILoader<NpcInfo>
