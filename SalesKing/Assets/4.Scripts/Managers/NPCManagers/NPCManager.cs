@@ -14,7 +14,6 @@ public class NPCManager : Singleton<NPCManager>, ISingletonSettings
     public static NPCMovementManager Move;
 
     public List<GameObject> NPCGroup = new List<GameObject>();
-    public GameObject NPCHolder;
     public NPC curTalkingNPC;
 
     public StoryNpcSO storyNpcSO;
@@ -26,7 +25,6 @@ public class NPCManager : Singleton<NPCManager>, ISingletonSettings
     {
         base.Awake();
         Init();
-        NPCHolder = new GameObject("NPCHolder");
     }
 
     void Init()

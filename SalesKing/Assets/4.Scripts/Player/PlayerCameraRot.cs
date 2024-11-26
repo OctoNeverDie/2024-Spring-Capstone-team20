@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class PlayerCameraRot : MonoBehaviour
 {
-    [SerializeField] private float mouseSpeed = 3f; //회전속도
     private float mouseY = 0f; //위아래 회전값을 담을 변수
-
     public bool isCameraLocked;
+    private float mouseSpeed;
 
-    void Awake()
+    void Start()
     {
-        mouseSpeed = 3f;
+        mouseSpeed = PlayerManager.Instance.player.cameraSpeed;
     }
 
     void Update()

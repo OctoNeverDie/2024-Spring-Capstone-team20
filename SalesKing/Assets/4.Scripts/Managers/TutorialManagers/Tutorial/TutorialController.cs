@@ -6,8 +6,6 @@ public class TutorialController : MonoBehaviour
 {
 	[SerializeField]
 	private	List<TutorialBase>	tutorials;
-	[SerializeField]
-	private GameObject MainPanel;
     private TutorialBase		currentTutorial = null;
 	private	int					currentIndex = -1;
 
@@ -18,6 +16,7 @@ public class TutorialController : MonoBehaviour
 	{
 		canvas.SetActive(true);
 		PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
+		UserInputManager.Instance.isKeyInputLocked = true;
 		SetNextTutorial();
 	}
 
@@ -38,8 +37,9 @@ public class TutorialController : MonoBehaviour
 		}
 
 		// 마지막 튜토리얼을 진행했다면 CompletedAllTutorials() 메소드 호출
-		if ( currentIndex >= tutorials.Count-1 )
+		if ( currentIndex >= tutorials.Count -1 )
 		{
+			Debug.Log("마지막 튜토리얼 끝");
 			CompletedAllTutorials();
 			return;
 		}
@@ -57,7 +57,7 @@ public class TutorialController : MonoBehaviour
 		currentTutorial = null;
 		Debug.Log("Complete All");
         PlayerManager.Instance.player.FreezeAndUnFreezePlayer(false);
-		MainPanel.SetActive(true);
+        UserInputManager.Instance.isKeyInputLocked = false;
     }
 }
 

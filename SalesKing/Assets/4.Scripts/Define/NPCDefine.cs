@@ -39,14 +39,15 @@ public class NPCDefine : MonoBehaviour
         Standing
     }
 
-    public enum EyebrowType { Aggressive, Normal, Timid }
-    public enum SexType { Male, Female, Unknown }
-    public enum AgeType { Young, Common, Old }
-    public enum BackpackType { None, Common, Wings, Tube, Youtuber, Jetpack, Hiking, Sword, Gun }
+    // 외양 enum
+    public enum EyebrowType { None, Aggressive, Common, Timid }
+    public enum SexType { None, Male, Female }
+    public enum AgeType { None, Young, Old }
+    public enum BackpackType { None, Common, Wings, Tube, Youtuber, Jetpack, Hiking, Sword, Gun, Turtle, Drums, Skateboard }
     public enum FullbodyType { None, OuterSpace, Soldier, Halloween, Food, Party }
-    public enum GlassesType { None, CommonGlasses, Sunglasses, Special }
+    public enum GlassesType { None, Common, Sunglasses, Special }
     public enum GloveType { None, Common, Boxing, Ski, LadyGloves, WorkGloves }
-    public enum HairType { None, MaleCommon, FemaleCommon, Oriental, Workout }
+    public enum HairType { None, MaleCommon, FemaleCommon, Oriental, Workout, Punk, HotGirl, CuteGirl }
     public enum HatType
     {
         None, Common, Cap, Headphones, Beret, Theif, Police, Farmer, Chef, Maid, Firefighter, Goggles, Graduate,
@@ -54,8 +55,9 @@ public class NPCDefine : MonoBehaviour
         Helmet, Cleopatra, Snorkling, Lady, Crown, HeroMask, WinterHat, Yoda, GasMask, JackSparrow, PaperBag, Alien, PlagueMask
     }
     public enum MustacheType { None, Common, Thin, Beard, White }
-    public enum OuterwearType { Hoodie, TankTop, Dress, Shirt, Jacket, Suit, TShirt }
+    public enum OuterwearType { None, Hoodie, TankTop, Dress, Shirt, Jacket, Suit, TShirt }
     public enum PantsType { None, Shorts, Pants, Skirt }
     public enum ShoeType { None, Sneakers, Boots, Skate, Slippers }
 
+    // 까지
 }

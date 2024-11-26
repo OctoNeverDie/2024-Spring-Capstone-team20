@@ -10,6 +10,8 @@ public class TutorialDialog : TutorialBase
 	{
 		dialogSystem = GetComponent<DialogSystem>();
 		dialogSystem.Setup();
+
+		//UserInputManager.Instance.isKeyInputLocked = true;
 	}
 
 	public override void Execute(TutorialController controller)
@@ -27,6 +29,7 @@ public class TutorialDialog : TutorialBase
 
 	public override void Exit()
 	{
+		//UserInputManager.Instance.isKeyInputLocked = false;
 	}
 }
 

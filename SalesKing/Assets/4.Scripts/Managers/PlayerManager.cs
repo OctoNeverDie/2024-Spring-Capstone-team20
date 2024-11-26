@@ -24,7 +24,7 @@ public class PlayerManager : Singleton<PlayerManager>, ISingletonSettings
 
         if (PlayerPrefab != null)
         {
-            Transform playerStart = GameObject.Find("PlayerStart").transform;
+            Transform playerStart = PlayerSpawnPoint.transform;
             MyPlayer = Instantiate(PlayerPrefab, playerStart.position, playerStart.rotation);
             player = MyPlayer.GetComponent<Player>();
         }
