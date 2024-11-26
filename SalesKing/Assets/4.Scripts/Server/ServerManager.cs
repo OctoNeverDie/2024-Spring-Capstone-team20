@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 using static Define;
@@ -17,7 +17,6 @@ public class ServerManager : ServerBase
         if (instance == null)
         {
             instance = this;
-
             Init();
         }
         else
@@ -35,7 +34,8 @@ public class ServerManager : ServerBase
     private string _initData = "";
     private SendChatType _sendChatType;
     private GameMode _gameMode;
-    public void GetGPTReply(GameMode gameMode, string userInput, SendChatType sendChatTypeFrom, string initData="")
+
+    public async void GetGPTReply(GameMode gameMode, string userInput, SendChatType sendChatTypeFrom, string initData="")
     { 
         _gameMode = gameMode;
         _sendChatType = sendChatTypeFrom;
@@ -46,22 +46,16 @@ public class ServerManager : ServerBase
         }
 
         Debug.Log($"User답++++++++++{_userInput}, {_sendChatType}, {_initData}");
-    //    string str = "{\n" +
-    //"  \"decision\": \"wait\",\n" +
-    //"  \"yourReply\": \"판매자의 설명에 따라 더 질문하거나 반응하세요. 제시된 성격을 반영하여 반응하세요. 아직 확신이 없는 상태입니다.\",\n" +
-    //"  \"persuasion\": -3,\n" +
-    //"  \"reason\": \"왜 해당 persuasion 점수를 출력했는지 설명해줘. 키워드식으로 짧게 써줘. ex. 연민을 느낌, 불확실한 설명, ~~한 키워드가 마음에 듦 등등\",\n" +
-    //"  \"emotion\": \"worst\"\n" +
-    //"}";
+    
+        if(gameMode == GameMode.Story) 
+            OnSendReplyUpdate?.Invoke(true);
 
-    //    templateReceive.GetGptAnswer(str, _sendChatType);
-        OnSendReplyUpdate?.Invoke(true);
-        StartCoroutine(GetGPTCo());
+        await GetGPTAsync();
     }
 
-    private IEnumerator GetGPTCo()
+    private async Task GetGPTAsync()
     {
-        yield return CoGetGPT();
+        await CoGetGPT();
     }
 
     private JObject AddJobjBySendType(JObject jobj, SendChatType sendChatType)
@@ -75,51 +69,50 @@ public class ServerManager : ServerBase
 
         return jobj;
     }
-    private Coroutine CoGetGPT( Action<ResultInfo> onSucceed = null,
-                                Action<ResultInfo> onFailed = null,
-                                Action<ResultInfo> onNetworkFailed = null)
+    private async Task CoGetGPT()
     {
-        string url = "https://salesai-khm.azurewebsites.net/"; //"http://127.0.0.1:8000/"; //"https://salesai-ljy.azurewebsites.net/"//"https://salesai-jsy333.azurewebsites.net/";//"https://salesai-jsy2.azurewebsites.net/";//
+        string url = "http://127.0.0.1:8000/"; //"https://salesai-khm.azurewebsites.net/"; //"https://salesai-ljy.azurewebsites.net/"//"https://salesai-jsy333.azurewebsites.net/";//"https://salesai-jsy2.azurewebsites.net/";//
 
         JObject jobj = new JObject();
         jobj = AddJobjBySendType(jobj, _sendChatType);
 
-        Action<ResultInfo> bringGPTReply = (result) =>
+        while (true) 
         {
-            if (_gameMode == GameMode.Story)
+            ResultInfo result = await SendRequest(url, SendType.POST, jobj);
+
+            if (result.IsNetworkError)
             {
-                string resultData = JObject.Parse(result.Json)["reply"].ToString();
-                Debug.Log($"Gpt 답+++++++++++++++ {resultData}, {_sendChatType}");
-
-                OnSendReplyUpdate?.Invoke(false);
-                templateReceive.GetGptAnswer(resultData, _sendChatType);
+                Debug.Log("+++++++++networkTest");
+                await Task.Delay(1000); // 재시도 간격 조절
+                continue; // 재시도
             }
-            else if (_gameMode == GameMode.Infinity)
+            else if (result.IsSuccess)
             {
-                string[] resultData = new string[3];
-                resultData[0] = JObject.Parse(result.Json)["npc1"].ToString();
-                resultData[1] = JObject.Parse(result.Json)["npc2"].ToString();
-                resultData[2] = JObject.Parse(result.Json)["npc3"].ToString();
+                if (_gameMode == GameMode.Story)
+                {
+                    string resultData = JObject.Parse(result.Json)["reply"].ToString();
+                    Debug.Log($"Gpt 답+++++++++++++++ {resultData}, {_sendChatType}");
 
-                OnSendReplyUpdate?.Invoke(false);
-                templateReceive.GetGptAnswer(resultData, _sendChatType);
+                    OnSendReplyUpdate?.Invoke(false);
+                    templateReceive.GetGptAnswer(resultData, _sendChatType);
+                }
+                else if (_gameMode == GameMode.Infinity)
+                {
+                    string[] resultData = new string[3];
+                    resultData[0] = JObject.Parse(result.Json)["npc1"].ToString();
+                    resultData[1] = JObject.Parse(result.Json)["npc2"].ToString();
+                    resultData[2] = JObject.Parse(result.Json)["npc3"].ToString();
+                    Debug.Log($"Gpt 답+++++++++++++++ {resultData[0]}, {_sendChatType}");
+
+                    templateReceive.GetGptAnswer(resultData, _sendChatType);
+                }
+                break; // 성공 시 루프 종료
             }
-        };
-
-        Action<ResultInfo> failTest = (result) =>
-        {
-            Debug.Log("+++++++++fail");
-        };
-
-        Action<ResultInfo> networkTest = (result) =>//runserver!
-        {
-            Debug.Log("+++++++++networkTest");
-        };
-
-        onSucceed += bringGPTReply;
-        onFailed += failTest;
-        onNetworkFailed += networkTest;
-
-        return StartCoroutine(SendRequest(url, SendType.POST, jobj, onSucceed, onFailed, onNetworkFailed));
+            else
+            {
+                Debug.Log("+++++++++fail");
+                break; // 실패 시 루프 종료
+            }
+        }
     }
 }

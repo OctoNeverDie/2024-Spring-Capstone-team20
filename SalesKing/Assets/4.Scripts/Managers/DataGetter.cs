@@ -60,10 +60,5 @@ public class DataGetter : Singleton<DataGetter>, ISingletonSettings
     {
         categorizedItems = itemList.GroupBy(item => item.Category)
                                     .ToDictionary(group => group.Key, group => group.ToList());
-        foreach (var items in categorizedItems)
-        {
-            string test = $"왜 이게 항상 출력되지? {items.Key}" + $"[{string.Join(", ", items.Value.Select(item => item.ToString()))}]";
-            Debug.Log(test);
-        }
     }
 }

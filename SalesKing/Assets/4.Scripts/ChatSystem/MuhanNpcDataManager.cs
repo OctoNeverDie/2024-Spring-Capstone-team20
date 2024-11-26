@@ -42,11 +42,24 @@ public class MuhanNpcDataManager : Singleton<MuhanNpcDataManager>, ISingletonSet
         public NpcLooks NpcLooks;
     }
     //-----------------------------------------------------------
+    private void Start()
+    {
+        Init();
+    }
     private void Init()
     {
         _npdIDStart = DataGetter.Instance.NpcList.Count;
-        int randIdx = UnityEngine.Random.Range(0, npcOption.Length);
-        ServerManager.Instance.GetGPTReply(Define.GameMode.Infinity, $"{npcOption[randIdx]} Npc 하나 만들어줘.", SendChatType.MuhanInit);
+        Debug.Log($"뭐가 문제임 {_npdIDStart}");
+        int randIdx;
+        string gameSend = "";
+
+        for (int i = 0; i < 3; i++)
+        {
+            randIdx = UnityEngine.Random.Range(0, npcOption.Length);
+            gameSend += $" {npcOption[randIdx]} Npc 하나 만들어줘. Npc 설정 전부 합해서 700 토큰을 넘기지 마.,";
+        }
+        Debug.Log("뭐여ㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ");
+        ServerManager.Instance.GetGPTReply(Define.GameMode.Infinity, gameSend, SendChatType.MuhanInit);
     }
 
     public void NpcsReceive(String[] npcsStr)
@@ -64,6 +77,7 @@ public class MuhanNpcDataManager : Singleton<MuhanNpcDataManager>, ISingletonSet
     private void ConcatInfo(string npcStr, int idx)
     {
         Debug.Log($"잘 왔어요~ {npcStr}");
+        npcStr = npcStr.Replace("json", "").Replace("`", "");
         npcs[idx] = JsonConvert.DeserializeObject<MuhanInfo>(npcStr);
         npcs[idx].NpcID = _npdIDStart;
         npcs[idx].ItemCategory = ItemCategory.Random;

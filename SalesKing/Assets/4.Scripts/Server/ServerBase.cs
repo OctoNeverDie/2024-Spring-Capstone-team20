@@ -1,7 +1,6 @@
-using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Text;
@@ -9,63 +8,45 @@ using System.Text;
 public class ServerBase : MonoBehaviour
 {
     public enum SendType { GET, POST, PUT ,DELETE }
-    //public delegate void RequestCallback(ResultInfo result);
 
     //sent to the server
-    protected virtual IEnumerator SendRequest(string url, SendType sendType, JObject jobj, Action<ResultInfo> onSucceed, Action<ResultInfo> onFailed, Action<ResultInfo> onNetworkFailed)
+    protected virtual async Task<ResultInfo> SendRequest(string url, SendType sendType, JObject jobj)
     {
         //check network connection
-        yield return StartCoroutine(CheckNextwork());
+        await CheckNetwork();
 
         using (var req = new UnityWebRequest(url, sendType.ToString()))
         {
-            //check sending information
-            //Debug.LogFormat("Sended Data: {1}", url, JsonConvert.SerializeObject(jobj, Formatting.Indented));
-
             //make request body and header
             byte[] bodyRaw = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(jobj));
             req.uploadHandler = new UploadHandlerRaw(bodyRaw);
             req.downloadHandler = new DownloadHandlerBuffer();
             req.SetRequestHeader("Content-Type", "application/json");
-               
-            yield return req.SendWebRequest();
+
+            var operation = req.SendWebRequest();
+
+            while (!operation.isDone)
+                await Task.Yield();
 
             //check result success/fail
             var result = ResultCheck(req);
 
-            //if network error
-            if (result.IsNetworkError)
-            {
-                onNetworkFailed?.Invoke(result);
-
-                // TODO: 네트워크 재시도 팝업 호출.
-
-                yield return new WaitForSeconds(1f);
-                Debug.LogError("재시도");
-                yield return StartCoroutine(SendRequest(url, sendType, jobj, onSucceed, onFailed, onNetworkFailed));
-            }
-            else
-            {
-                if (result.IsSuccess)
-                {
-                    onSucceed?.Invoke(result);
-                }
-                else //fail from server
-                { 
-                    onFailed?.Invoke(result);
-                }
-            }
+            return result;
         }
     }
 
-    protected virtual IEnumerator CheckNextwork()
+    protected virtual async Task CheckNetwork()
     {
         if (Application.internetReachability == NetworkReachability.NotReachable)
         {
             //TODO : pop up - network error
             Debug.LogError("Network not working!");
 
-            yield return new WaitUntil(() => Application.internetReachability != NetworkReachability.NotReachable);
+            while (Application.internetReachability == NetworkReachability.NotReachable)
+            {
+                await Task.Delay(500); // 0.5초마다 체크
+            }
+
             Debug.Log("Network reconnected");
         }
     }
@@ -76,14 +57,13 @@ public class ServerBase : MonoBehaviour
         switch (req.result)
         {
             case UnityWebRequest.Result.Success:
-                JObject jobj = JObject.Parse(req.downloadHandler.text);
-
                 res = new ResultInfo(req.downloadHandler.text, true, false, string.Empty);
                 return res;
 
-            case UnityWebRequest.Result.InProgress://possibly network error
+            case UnityWebRequest.Result.InProgress: // 네트워크 오류 가능성
                 res = new ResultInfo(req.downloadHandler.text, false, true, "InProgress");
                 return res;
+
             #region Connection Error Handle
             case UnityWebRequest.Result.ConnectionError:
             case UnityWebRequest.Result.ProtocolError:
