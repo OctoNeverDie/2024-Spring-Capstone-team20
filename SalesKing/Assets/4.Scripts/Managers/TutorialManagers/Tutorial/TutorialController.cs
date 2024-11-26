@@ -6,8 +6,6 @@ public class TutorialController : MonoBehaviour
 {
 	[SerializeField]
 	private	List<TutorialBase>	tutorials;
-	[SerializeField]
-	private GameObject MainPanel;
     private TutorialBase		currentTutorial = null;
 	private	int					currentIndex = -1;
 
@@ -60,7 +58,6 @@ public class TutorialController : MonoBehaviour
 		Debug.Log("Complete All");
         PlayerManager.Instance.player.FreezeAndUnFreezePlayer(false);
         UserInputManager.Instance.isKeyInputLocked = false;
-        MainPanel.SetActive(true);
     }
 }
 

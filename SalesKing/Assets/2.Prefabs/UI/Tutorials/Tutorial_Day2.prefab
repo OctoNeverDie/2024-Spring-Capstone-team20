@@ -2682,7 +2682,6 @@ MonoBehaviour:
   - {fileID: 5574773854144262307}
   - {fileID: 1289164833783991243}
   - {fileID: 1305522646231629987}
-  MainPanel: {fileID: 0}
   canvas: {fileID: 9154781573744388012}
 --- !u!1 &1770451265029587642
 GameObject:
@@ -11526,10 +11525,10 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 22074060056156237}
   - {fileID: 8892506099985712472}
   - {fileID: 8466161888494936777}
   - {fileID: 132538217596773142}
-  - {fileID: 22074060056156237}
   - {fileID: 5910867350620583205}
   m_Father: {fileID: 8081742137528824944}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

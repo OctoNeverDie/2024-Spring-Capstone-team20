@@ -7647,9 +7647,9 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2411868196799114055}
   - {fileID: 3432754648252037627}
   - {fileID: 8907224725125463624}
-  - {fileID: 2411868196799114055}
   - {fileID: 4711682722766276902}
   m_Father: {fileID: 4679035320150786879}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9332,7 +9332,6 @@ MonoBehaviour:
   - {fileID: 183810006879367662}
   - {fileID: 2533522111501117238}
   - {fileID: 9093439564722551019}
-  MainPanel: {fileID: 0}
   canvas: {fileID: 7385397804269706760}
 --- !u!1 &8858618043456192035
 GameObject:
