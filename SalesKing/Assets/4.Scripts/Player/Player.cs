@@ -25,12 +25,18 @@ public class Player : MonoBehaviour
     private GameObject previousTarget = null; // 이전에 Raycast가 감지한 오브젝트
     public GameObject RaycastCollider;
 
+    public float playerSpeed;
+    public float cameraSpeed;
+
     void Awake()
     {
         cam = transform.GetComponentInChildren<PlayerCameraRot>();
         move = GetComponent<PlayerMove>();
         ui = transform.GetComponentInChildren<PlayerUI>();
         canvas = this.transform.Find("Canvas").gameObject;
+
+        playerSpeed = 5f;
+        cameraSpeed = 1f;
     }
 
     void Update()

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    [SerializeField] float speed = 5f;
-    [SerializeField] float mouseSpeed = 8f;
     private float gravity;
     private CharacterController controller;
     private Vector3 mov;
@@ -13,11 +11,17 @@ public class PlayerMove : MonoBehaviour
     private float mouseX;
     public bool isMovementLocked;
 
+    private float speed;
+    private float mouseSpeed;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
         mov = Vector3.zero;
         gravity = 10f;
+
+        speed = PlayerManager.Instance.player.playerSpeed;
+        mouseSpeed = PlayerManager.Instance.player.cameraSpeed;
     }
 
     void Update()
