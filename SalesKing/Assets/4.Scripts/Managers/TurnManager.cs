@@ -23,6 +23,7 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
     private bool isMouseInputChecking = false;
     private float duration = 1.0f;
 
+    private int stage_count = 4;
 
     protected override void Awake()
     {
@@ -81,7 +82,15 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
             DataController.Instance.ToPlayJson(DataController.Instance.gameData.cur_save_file_ID);
 
             //DontDestroyOnLoad(DontDestroyOnCityMapReload);
-            SceneManager.LoadScene("CityMap");
+            if (DataController.Instance.playData.cur_day_ID == stage_count)
+            {
+                SceneManager.LoadScene("Last");
+            }
+            else
+            {
+                SceneManager.LoadScene("CityMap");
+            }
+            
         });
     }
 
