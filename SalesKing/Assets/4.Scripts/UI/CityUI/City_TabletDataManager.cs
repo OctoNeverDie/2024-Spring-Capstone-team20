@@ -101,8 +101,12 @@ public class City_TabletDataManager : MonoBehaviour
 
     public void ShowSummary()
     {
+        // 소연삐의 코드 잠시 주석
+        /*
         npcInfoUI.gameObject.SetActive(false);
         summaryUI.gameObject.SetActive(true);
         tabletMovement.OnClickShowTablet();
+        */
+        TurnManager.Instance.EndDayShowSummary();
     }
 }

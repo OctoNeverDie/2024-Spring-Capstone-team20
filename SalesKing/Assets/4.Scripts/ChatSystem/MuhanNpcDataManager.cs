@@ -28,7 +28,7 @@ public class MuhanNpcDataManager : Singleton<MuhanNpcDataManager>, ISingletonSet
         public SexType SexType { get; set; }
         public AgeType AgeType { get; set; }
         public BackpackType BackpackType { get; set; }
-        public FullbodyType FullbodyType { get; set; }
+        public FullBodyType FullbodyType { get; set; }
         public GlassesType GlassesType { get; set; }
         public GloveType GloveType { get; set; }
         public HairType HairType { get; set; }

@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class NPCSpawner_original : MonoBehaviour
 {
+    /*
     [SerializeField] GameObject NPCPrefab;
     [SerializeField] int NPCCount = 20;
 
     //[SerializeField] int TalkableNPCCount = 20;
     //[SerializeField] int WeirdNPCCount = 0;
+
+    private List<Transform> usedSpawnPoints = new List<Transform>();
 
     void Awake()
     {
@@ -39,7 +42,7 @@ public class NPCSpawner_original : MonoBehaviour
     }
 
 
-    /*
+    
     private void SpawnNPC(int i)
     {
         Transform npcTransform = Managers.NPC.Move.GetRandomSpawnPoint();
@@ -84,21 +87,17 @@ public class NPCSpawner_original : MonoBehaviour
         }
 
     }
-
-    */
+    
 
     private void SpawnNPC(int i)
     {
-        /*
-        Transform npcTransform = Managers.NPC.Move.GetUniqueSpawnPoint();
-        if (npcTransform == null) return; // 스폰 포인트가 없을 경우 리턴
-
+        Transform npcTransform = GetUniqueSpawnPoint();
         GameObject newNPC = Instantiate(NPCPrefab, npcTransform.position, npcTransform.rotation);
         newNPC.transform.parent = Managers.NPC.NPCHolder.transform;
         Managers.NPC.NPCGroup.Add(newNPC);
 
         NPC npcScript = newNPC.GetComponent<NPC>();
-        npcScript.destination = Managers.NPC.Move.GetUniqueSpawnPoint();
+        npcScript.destination = GetUniqueSpawnPoint();
 
         if (i < TalkableNPCCount)
         {
@@ -132,9 +131,24 @@ public class NPCSpawner_original : MonoBehaviour
                 }
             }
         }
-        */
     }
 
+    private Transform GetUniqueSpawnPoint()
+    {
+        Transform spawnPoint;
+        do
+        {
+            spawnPoint = Managers.NPC.Move.GetRandomSpawnPoint();
+        }
+        while (usedSpawnPoints.Contains(spawnPoint));
 
+        usedSpawnPoints.Add(spawnPoint);
+        return spawnPoint;
+    }
+
+    
+
+
+    */
 
 }
