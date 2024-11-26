@@ -55,6 +55,7 @@ public class ChattingState : ChatBaseState, IVariableChat
     GptResult gptResult;
     private int totalPersuasion = 0;
     private string playerReply = "";
+    private int turn = 0;
     public override void Enter()
     {
         SubScribeAction();
@@ -74,6 +75,14 @@ public class ChattingState : ChatBaseState, IVariableChat
         if (type != nameof(ChatManager.Instance.Reply.UserAnswer))
             return;
 
+        if (turn >= 8)
+        {
+            if (totalPersuasion > 0)
+                turn = persuMaxLimit;
+            else
+                turn = persuMinLimit;
+        }
+        
         if (totalPersuasion >= persuMaxLimit)
         {
             user_input += "isBuy = True";
@@ -94,6 +103,7 @@ public class ChattingState : ChatBaseState, IVariableChat
         if (type != nameof(ChatManager.Instance.Reply.GptAnswer))
             return;
 
+        turn++;
         UpdateReplyVariables(gpt_output);
         ShowFront();
         UpdateEvaluation();

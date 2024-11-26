@@ -27,24 +27,24 @@ public class DataGetter : Singleton<DataGetter>, ISingletonSettings
     public void Init()
     {
         npcList = LoadJson<NpcData, NpcInfo>("NpcData").GetList();
-        foreach (var npc in npcList)
-        {
-            // 확장 메서드를 사용하여 출력
-            string logMessage = $"NpcID: {npc.NpcID}, " +
-                                $"NpcAge: {npc.NpcAge}, " +
-                                $"Mbtis: [{string.Join(", ", npc.Mbtis)}], " +
-                                $"ItemCategory: {npc.ItemCategory}, " +
-                                $"NpcName: {npc.NpcName}, " +
-                                $"NpcSex: {npc.NpcSex}, " +
-                                $"KeyWord: {npc.KeyWord}, " +
-                                $"Concern: {npc.Concern}, " +
-                                $"WantItem: {npc.WantItem}, " +
-                                $"Personality: {npc.Personality}, " +
-                                $"DialogueStyle: {npc.DialogueStyle}, " +
-                                $"Example: {npc.Example}";
+        //foreach (var npc in npcList)
+        //{
+        //    // 확장 메서드를 사용하여 출력
+        //    string logMessage = $"NpcID: {npc.NpcID}, " +
+        //                        $"NpcAge: {npc.NpcAge}, " +
+        //                        $"Mbtis: [{string.Join(", ", npc.Mbtis)}], " +
+        //                        $"ItemCategory: {npc.ItemCategory}, " +
+        //                        $"NpcName: {npc.NpcName}, " +
+        //                        $"NpcSex: {npc.NpcSex}, " +
+        //                        $"KeyWord: {npc.KeyWord}, " +
+        //                        $"Concern: {npc.Concern}, " +
+        //                        $"WantItem: {npc.WantItem}, " +
+        //                        $"Personality: {npc.Personality}, " +
+        //                        $"DialogueStyle: {npc.DialogueStyle}, " +
+        //                        $"Example: {npc.Example}";
 
-            Debug.Log(logMessage);
-        }
+        //    Debug.Log(logMessage);
+        //}
         itemList = LoadJson<ItemData, ItemInfo>("ItemData").GetList();
         ListToDict();
     }
