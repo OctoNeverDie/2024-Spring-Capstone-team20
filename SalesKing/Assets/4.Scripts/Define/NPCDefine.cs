@@ -39,10 +39,10 @@ public class NPCDefine : MonoBehaviour
         Standing
     }
 
-    public enum EyebrowType { Aggressive, Normal, Timid }
+    public enum EyebrowType { Aggressive, Common, Timid }
     public enum SexType { Male, Female, Unknown }
     public enum AgeType { Young, Common, Old }
-    public enum BackpackType { None, Common, Wings, Tube, Youtuber, Jetpack, Hiking, Sword, Gun }
+    public enum BackpackType { None, Common, Wings, Tube, Youtuber, Jetpack, Hiking, Sword, Gun, Turtle, Drums, Skateboard }
     public enum FullbodyType { None, OuterSpace, Soldier, Halloween, Food, Party }
     public enum GlassesType { None, CommonGlasses, Sunglasses, Special }
     public enum GloveType { None, Common, Boxing, Ski, LadyGloves, WorkGloves }
