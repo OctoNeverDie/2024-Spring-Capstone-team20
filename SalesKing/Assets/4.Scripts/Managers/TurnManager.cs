@@ -27,7 +27,7 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
 
     void Update()
     {
-        if (isMouseInputChecking && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
+        if (!isMouseInputChecking && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
         {
             isMouseInputChecking = false;
             EndDayAndUpdateToFile();
@@ -51,13 +51,13 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
         DataController.Instance.playData.cur_day_ID++;
         DataController.Instance.ToPlayJson(DataController.Instance.gameData.cur_save_file_ID);
 
-        DontDestroyOnLoad(DontDestroyOnCityMapReload);
+        //DontDestroyOnLoad(DontDestroyOnCityMapReload);
         SceneManager.LoadScene("CityMap");
     }
 
     public void LoadOtherScene()
     {
-        Destroy(DontDestroyOnCityMapReload);
+        //Destroy(DontDestroyOnCityMapReload);
     }
 
     // 띠용~ 이러면서 커지는거
