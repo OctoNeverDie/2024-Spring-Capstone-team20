@@ -42,9 +42,6 @@ public class NPCDefine : MonoBehaviour
 
 
     // 외양 enum
-    
-    public enum EyebrowType { None, Aggressive, Common, Timid }
-
     [JsonConverter(typeof(SafeEnumConverter<SexType>), SexType.None)]
     public enum SexType { None, Male, Female }
 
@@ -55,12 +52,12 @@ public class NPCDefine : MonoBehaviour
     public enum BackpackType { None, Common, Wings, Tube, Youtuber, Jetpack, Hiking, Sword, Gun, Turtle, Drums, Skateboard }
 
     [JsonConverter(typeof(SafeEnumConverter<BodyType>), BodyType.None)]
-    public enum BodyType { Common, Alien }
+    public enum BodyType { None, Common, Alien }
 
     [JsonConverter(typeof(SafeEnumConverter<EyebrowType>), EyebrowType.None)]
     public enum EyebrowType { None, Aggressive, Common, Timid }
     
-    [JsonConverter(typeof(SafeEnumConverter<FullBodyType>), FullbodyType.None)]
+    [JsonConverter(typeof(SafeEnumConverter<FullBodyType>), FullBodyType.None)]
     public enum FullBodyType { None, OuterSpace, Soldier, Halloween, Food, Party }
 
     [JsonConverter(typeof(SafeEnumConverter<GlassesType>), GlassesType.None)]

@@ -12,12 +12,5 @@ public class City_EndDayUI : MonoBehaviour
 
     }
 
-    void EndDayAndUpdateToFile()
-    {
-        DataController.Instance.playData.cur_day_ID++;
-        DataController.Instance.ToPlayJson(DataController.Instance.gameData.cur_save_file_ID);
-        SceneManager.LoadScene("CityMap");
-    }
-
 
 }
