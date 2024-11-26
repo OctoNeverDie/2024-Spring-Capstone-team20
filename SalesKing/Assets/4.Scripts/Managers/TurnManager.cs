@@ -15,6 +15,9 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
     [SerializeField] private GameObject CustomerReviewPanel;
     [SerializeField] private Image FinalFadeOutPanel;
     [SerializeField] private GameObject DontDestroyOnCityMapReload;
+
+    [SerializeField] private GameObject StartDayPanel;
+    [SerializeField] private Image StartFadeInPanel;
     [SerializeField] private TextMeshProUGUI NextDayText;
 
     private bool isMouseInputChecking = false;
@@ -24,7 +27,12 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
     protected override void Awake()
     {
         base.Awake();
+    }
+
+    void Start()
+    {
         isMouseInputChecking = false;
+        StartDayFadeIn();
     }
 
     void Update()
@@ -34,6 +42,25 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
             isMouseInputChecking = false;
             EndDayAndUpdateToFile();
         }
+    }
+
+    private void StartDayFadeIn()
+    {
+        StartDayPanel.SetActive(true);
+        PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
+        NextDayText.text = "DAY " + (DataController.Instance.playData.cur_day_ID + 1);
+
+        Sequence fadeSequence = DOTween.Sequence();
+        
+        fadeSequence.Append(NextDayText.DOFade(1f, duration));
+        fadeSequence.AppendInterval(0.5f);
+        fadeSequence.Append(NextDayText.DOFade(0f, duration));
+        fadeSequence.Append(StartFadeInPanel.DOFade(0f, duration));
+        fadeSequence.OnComplete(() =>
+        {
+            StartDayPanel.SetActive(false);
+            PlayerManager.Instance.player.FreezeAndUnFreezePlayer(false);
+        });
     }
 
     public void EndDayShowSummary()
@@ -48,15 +75,7 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
 
     void EndDayAndUpdateToFile()
     {
-        NextDayText.text = "DAY "+(DataController.Instance.playData.cur_day_ID + 2);
-
-        Sequence fadeSequence = DOTween.Sequence();
-        fadeSequence.Append(FinalFadeOutPanel.DOFade(1f, duration));
-        fadeSequence.Append(NextDayText.DOFade(1f, duration));
-        fadeSequence.AppendInterval(0.5f);
-        fadeSequence.Append(NextDayText.DOFade(0f, duration));
-
-        fadeSequence.OnComplete(() =>
+        FinalFadeOutPanel.DOFade(1f, duration).OnComplete(() =>
         {
             DataController.Instance.playData.cur_day_ID++;
             DataController.Instance.ToPlayJson(DataController.Instance.gameData.cur_save_file_ID);
