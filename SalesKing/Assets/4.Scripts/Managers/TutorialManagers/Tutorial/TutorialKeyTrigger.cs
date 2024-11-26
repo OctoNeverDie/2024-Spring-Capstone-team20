@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TutorialTrigger : TutorialBase
+public class TutorialKeyTrigger : TutorialBase
 {
     [SerializeField]
     private KeyCode keycode_trigger;   // 타이핑 효과를 스킵하는 키
