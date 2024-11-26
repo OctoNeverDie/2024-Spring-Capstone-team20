@@ -44,6 +44,10 @@ public class ServerManager : ServerBase
         {
             _initData = initData;
         }
+        else 
+        {
+            _initData = "";
+        }
 
         Debug.Log($"User답++++++++++{_userInput}, {_sendChatType}, {_initData}");
     
@@ -71,7 +75,7 @@ public class ServerManager : ServerBase
     }
     private async Task CoGetGPT()
     {
-        string url = "https://salesai-khm.azurewebsites.net/"; //"http://127.0.0.1:8000/"; //"https://salesai-ljy.azurewebsites.net/"//"https://salesai-jsy333.azurewebsites.net/";//"https://salesai-jsy2.azurewebsites.net/";//
+        string url = "http://127.0.0.1:8000/"; //"https://salesai-khm.azurewebsites.net/"; //"https://salesai-ljy.azurewebsites.net/"//"https://salesai-jsy333.azurewebsites.net/";//"https://salesai-jsy2.azurewebsites.net/";//
 
         JObject jobj = new JObject();
         jobj = AddJobjBySendType(jobj, _sendChatType);
