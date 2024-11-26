@@ -47,7 +47,7 @@ public class NPCDefine : MonoBehaviour
     public enum FullbodyType { None, OuterSpace, Soldier, Halloween, Food, Party }
     public enum GlassesType { None, Common, Sunglasses, Special }
     public enum GloveType { None, Common, Boxing, Ski, LadyGloves, WorkGloves }
-    public enum HairType { None, MaleCommon, FemaleCommon, Oriental, Workout }
+    public enum HairType { None, MaleCommon, FemaleCommon, Oriental, Workout, Punk, HotGirl, CuteGirl }
     public enum HatType
     {
         None, Common, Cap, Headphones, Beret, Theif, Police, Farmer, Chef, Maid, Firefighter, Goggles, Graduate,
