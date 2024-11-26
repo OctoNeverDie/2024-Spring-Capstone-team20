@@ -54,7 +54,7 @@ public class ChattingState : ChatBaseState, IVariableChat
     }
     GptResult gptResult;
     private int totalPersuasion = 0;
-
+    private string playerReply = "";
     public override void Enter()
     {
         SubScribeAction();
@@ -82,6 +82,8 @@ public class ChattingState : ChatBaseState, IVariableChat
         {
             user_input += "isBuy = False";
         }
+
+        playerReply = user_input;
 
         Debug.Log($"ChatBargainState에서 보냄 {user_input}");
         ServerManager.Instance.GetGPTReply(Define.GameMode.Story, user_input, _sendChatType);
@@ -119,7 +121,16 @@ public class ChattingState : ChatBaseState, IVariableChat
 
         Debug.Log($"이걸 담가야해! {gptAnswer}");
         string jsonPart = gptAnswer.Substring(0, gptAnswer.Length);
-        gptResult = JsonConvert.DeserializeObject<GptResult>(jsonPart);
+        try {
+            gptResult = JsonConvert.DeserializeObject<GptResult>(jsonPart);
+        }
+        catch (JsonReaderException)
+        {
+            playerReply += "SystemPrompt를 잘 읽고, Json 형식에 맞춰 대답해.";
+            ServerManager.Instance.GetGPTReply(Define.GameMode.Story, playerReply, _sendChatType);
+        }
+
+
 
         AddPersuasion(gptResult.Persuasion);
         Debug.Log($"무사히 들어왔어요!\n{gptResult.reaction}, {totalPersuasion}");
