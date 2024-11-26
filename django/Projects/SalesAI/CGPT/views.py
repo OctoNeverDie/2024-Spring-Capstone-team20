@@ -2,11 +2,24 @@ from django.http import JsonResponse
 from openai import OpenAI
 import json
 import os
-import re
 from django.views.decorators.csrf import csrf_exempt
+from datetime import datetime
 
 client = OpenAI(api_key=os.environ.get('OPENAI_API_KEY'), )
 cleanSystem = ""
+
+
+file_path = 'CGPT/prompts/MuhanPromptFile.txt'
+with open(file_path, 'r', encoding='utf-8') as f:
+    muhan_system_message_content = f.read()
+
+def timeMessage(strMessage):    
+    # 현재 시간을 원하는 형식으로 포맷합니다.
+    timestamp = datetime.now().strftime('[%d/%b/%Y %H:%M:%S]')
+
+    # 시간과 메시지를 함께 출력합니다.
+    print(f'{timestamp} {strMessage}')
+    
 
 # region System Message Manager
 
@@ -66,12 +79,48 @@ def get_completion(input):
     response = query.choices[0].message.content
     return response
 
+def get_completion_muhan(input):
+    timeMessage(input)
+    query = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {"role": "system", "content": muhan_system_message_content},
+            {"role": "user", "content": input}
+        ],
+        max_tokens=700,
+        n=1,
+        stop=None,
+        temperature=0.5
+    )
+    response = query.choices[0].message.content
+    timeMessage(response)
+    return response
+
+def get_three_npcs(userSend):
+    npc_requests = [s.strip() for s in userSend.split(',')]
+    
+     #최대 3개의 요청만 처리합니다.
+    npc_requests = npc_requests[:3]
+    
+    responses = []
+    # 각 요청을 처리합니다.
+    for request in npc_requests:
+        response = get_completion_muhan(request)
+        responses.append(response)
+    
+    # 응답이 3개 미만이면 빈 문자열로 채웁니다.
+    while len(responses) < 3:
+        responses.append("")
+    
+    timeMessage("다 나왔다!")
+    return responses
+
 #region Prompt
 def init_prompt(npcInit, request):
     clear_everything(request)
 
     editPrompt(npcInit)
-    print({'reply': '@ Init Complete.'})
+    timeMessage('@ Init Complete.')
     return
 
 def editPrompt(npcPrompt):
@@ -79,7 +128,7 @@ def editPrompt(npcPrompt):
     systemPrompt = read_system_message(path)
     systemPrompt+='\n' + npcPrompt
     overwrite_system_message(path, systemPrompt)
-    print(systemPrompt)
+    timeMessage(systemPrompt)
 # endregion
 
 @csrf_exempt
@@ -112,11 +161,17 @@ def query_view(request):
 
                     return JsonResponse({'reply': response})
 
+            elif sendType == "MuhanInit":
+                timeMessage(userSend)
+                responses = get_three_npcs(userSend)
+                timeMessage("이제 집 보냄!" + responses[0])
+                return JsonResponse({'npc1' : responses[0], 'npc2' : responses[1], 'npc3' : responses[2]})
+
             else:
                 return JsonResponse({'reply' : 'Please Select Proper SendType'})
 
         except json.JSONDecodeError:
-            print("에러났다!")
+            timeMessage("에러났다!")
             return JsonResponse({'reply': 'Invalid JSON.'}, status=400)
 
     return JsonResponse({'reply': 'Bottom Code'})

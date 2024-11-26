@@ -15,7 +15,6 @@ public class City_SummaryUI : MonoBehaviour
     {
         int i = npcsCount++;
         NpcIDToUIIdx.Add(npc.NpcID, i);//npc ui object와 npc id를 매칭한 걸 기록한 dictionary
-        Debug.Log($"{npc.NpcID}, {i} 만들었어요!");
 
         npcs[i].SuccessImg.gameObject.SetActive(false);
         npcs[i].Name.text = npc.NpcName;

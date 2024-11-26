@@ -18,7 +18,9 @@ public class MuhanNpcDataManager : Singleton<MuhanNpcDataManager>, ISingletonSet
     private MuhanInfo[] npcs = new MuhanInfo[3];
     private int _npdIDStart = 0;
     private string _npcLooksStr;
-    private string[] npcOption = { "웃기고 개성있는", "독특한", "말이 잘 통하는" };
+    
+    private string[] npcOptionA = { "권위적인", "소심한", "독특한", "쾌활한", "엉뚱한", "느끼한", "성격 나쁜", "야비한" };
+    private string[] npcOptionB = { "미치광이", "괴짜", "개성있는" };
 
     public class NpcLooks
     {
@@ -42,11 +44,27 @@ public class MuhanNpcDataManager : Singleton<MuhanNpcDataManager>, ISingletonSet
         public NpcLooks NpcLooks;
     }
     //-----------------------------------------------------------
+    private void Start()
+    {
+        Init();
+    }
     private void Init()
     {
         _npdIDStart = DataGetter.Instance.NpcList.Count;
-        int randIdx = UnityEngine.Random.Range(0, npcOption.Length);
-        ServerManager.Instance.GetGPTReply(Define.GameMode.Infinity, $"{npcOption[randIdx]} Npc 하나 만들어줘.", SendChatType.MuhanInit);
+        Debug.Log($"뭐가 문제임 {_npdIDStart}");
+        int randIdx;
+        int randIdx2;
+        string gameSend = "";
+
+        for (int i = 0; i < 3; i++)
+        {
+            randIdx = UnityEngine.Random.Range(0, npcOptionA.Length);
+            randIdx2 = UnityEngine.Random.Range(0, npcOptionB.Length);
+
+            gameSend += $" {npcOptionA[randIdx]} {npcOptionB[randIdx2]} Npc 하나 만들어줘. Npc 설정 전부 합해서 700 토큰을 넘기지 마.,";
+        }
+        Debug.Log("뭐여ㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ");
+        ServerManager.Instance.GetGPTReply(Define.GameMode.Infinity, gameSend, SendChatType.MuhanInit);
     }
 
     public void NpcsReceive(String[] npcsStr)
@@ -64,6 +82,7 @@ public class MuhanNpcDataManager : Singleton<MuhanNpcDataManager>, ISingletonSet
     private void ConcatInfo(string npcStr, int idx)
     {
         Debug.Log($"잘 왔어요~ {npcStr}");
+        npcStr = npcStr.Replace("json", "").Replace("`", "");
         npcs[idx] = JsonConvert.DeserializeObject<MuhanInfo>(npcStr);
         npcs[idx].NpcID = _npdIDStart;
         npcs[idx].ItemCategory = ItemCategory.Random;
@@ -76,6 +95,7 @@ public class MuhanNpcDataManager : Singleton<MuhanNpcDataManager>, ISingletonSet
         storyNpcSet.npc_IDs = npc_IDs;
 
         storyNpcSO.storyNpcs.Add(storyNpcSet);
+        Debug.Log("냐냐냐냐냐냐" + storyNpcSO.storyNpcs[storyNpcSO.storyNpcs.Count -1]);
         npc_IDs.Clear();
     }
 }

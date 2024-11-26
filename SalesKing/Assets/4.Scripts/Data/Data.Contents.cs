@@ -40,8 +40,6 @@ public class NpcInfo
     public string Personality;
     public string DialogueStyle;
     public string Example;
-    //muhanmode
-    public string NpcLooks;
 }
 
 public class NpcData : ILoader<NpcInfo>
