@@ -50,7 +50,7 @@ public class NPC : MonoBehaviour
 
         foreach (NPCDefine.MeshType category in System.Enum.GetValues(typeof(NPCDefine.MeshType)))
         {
-            looks.AssignCustomMesh(category);
+            //looks.AssignCustomMesh(category);
         }
     }
 

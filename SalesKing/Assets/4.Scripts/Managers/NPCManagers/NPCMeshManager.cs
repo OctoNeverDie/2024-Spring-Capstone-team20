@@ -7,7 +7,7 @@ using static TreeEditor.TreeEditorHelper;
 
 public class NPCMeshManager : MonoBehaviour
 {
-    private static readonly string basePath = "Meshes/NPC_Parts/";
+    //private static readonly string basePath = "Meshes/NPC_Parts/";
 
     //public Dictionary<NPCDefine.MeshType, Dictionary<NPCDefine.MeshType, List<Mesh>>> NPCMeshDictionary = new Dictionary<NPCDefine.MeshType, List<Mesh>>();
 
@@ -20,8 +20,10 @@ public class NPCMeshManager : MonoBehaviour
         LoadMeshes();
     }
 
+
     private void LoadMeshes()
     {
+        /*
         foreach (MeshType category in Enum.GetValues(typeof(MeshType)))
         {
             // 각 Category마다 Key에 해당하는 Mesh를 로드
@@ -80,9 +82,11 @@ public class NPCMeshManager : MonoBehaviour
                     break;
             }
         }
+        */
 
     }
 
+    /*
     private void AddCategoryMeshes<TCategory, TKey>(string categoryPath) where TKey : Enum
     {
         if (!NPCMeshDictionary.ContainsKey((MeshType)Enum.Parse(typeof(MeshType), typeof(TCategory).Name)))
@@ -114,5 +118,5 @@ public class NPCMeshManager : MonoBehaviour
         Debug.LogWarning($"Meshes not found for Category: {category}, Key: {key}");
         return null;
     }
-
+    */
 }

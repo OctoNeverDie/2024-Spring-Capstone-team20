@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class NPCLooks : MonoBehaviour
 {
+    /*
     public Dictionary<NPCDefine.MeshType, GameObject> thisMesh = new Dictionary<NPCDefine.MeshType, GameObject>(); // 새롭게 적용할 메쉬
 
     void Awake()
@@ -33,7 +34,7 @@ public class NPCLooks : MonoBehaviour
 
     public void AssignCustomMesh(NPCDefine.MeshType type)
     {
-        /*
+        
         int options = NPC.Mesh.NPCMeshDictionary[type].Count;
         int index = Random.Range(0, options);
 
@@ -46,6 +47,7 @@ public class NPCLooks : MonoBehaviour
         {
             meshRenderer.sharedMesh = Managers.NPC.Mesh.NPCMeshDictionary[type][index];
         }
-        */
+        
     }
+*/
 }
