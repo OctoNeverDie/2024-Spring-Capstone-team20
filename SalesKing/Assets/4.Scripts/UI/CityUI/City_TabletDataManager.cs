@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
 
 public class City_TabletDataManager : MonoBehaviour
 {
@@ -101,12 +102,16 @@ public class City_TabletDataManager : MonoBehaviour
 
     public void ShowSummary()
     {
-        // 소연삐의 코드 잠시 주석
-        /*
         npcInfoUI.gameObject.SetActive(false);
         summaryUI.gameObject.SetActive(true);
         tabletMovement.OnClickShowTablet();
-        */
+
+        StartCoroutine(nextScene());
+    }
+
+    private IEnumerator nextScene()
+    {
+        yield return new WaitForSeconds(2f);
         TurnManager.Instance.EndDayShowSummary();
     }
 }

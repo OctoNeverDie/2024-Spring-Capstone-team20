@@ -12,7 +12,7 @@ using static Define;
 
 public class ChatManager : Singleton<ChatManager> , ISingletonSettings
 {
-    public bool ShouldNotDestroyOnLoad => true;
+    public bool ShouldNotDestroyOnLoad => false;
 
     [SerializeField] City_ChattingUI cityChattingUI;
     [SerializeField] City_TabletDataManager cityTabletData;
@@ -30,10 +30,11 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
 
     public void Init(int NpcID=0)
     {
+        cityChattingUI.GetComponent<City_ChattingUI>();
         isConvo = true;
         ThisNpc = cityTabletData.todaysIDdict[NpcID];
 
-        if(_chatStateMachine == null)
+        if (_chatStateMachine == null)
             _chatStateMachine = new ChatStateMachine();
         _chatStateMachine.SetState(new NpcInitState()); //back용
     }

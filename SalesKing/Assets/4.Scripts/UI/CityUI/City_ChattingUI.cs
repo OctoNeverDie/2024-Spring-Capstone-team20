@@ -57,6 +57,20 @@ public class City_ChattingUI : MonoBehaviour
         STTConnect.OnSendClovaUpdate -= SubWaitReply;
     }
 
+    private void OnEnable()
+    {
+        Debug.Log("City_ChattingUI OnEnable");
+        ServerManager.OnSendReplyUpdate += SubWaitReply;
+        STTConnect.OnSendClovaUpdate += SubWaitReply;
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log("City_ChattingUI OnDisable");
+        ServerManager.OnSendReplyUpdate -= SubWaitReply;
+        STTConnect.OnSendClovaUpdate -= SubWaitReply;
+    }
+
     private void SubWaitReply(bool beActive)
     {
         WaitReplyPanel.SetActive(beActive);
@@ -145,7 +159,7 @@ public class City_ChattingUI : MonoBehaviour
         {
             if (additionalData is bool isSuccess)
             {
-                ShowCheckMark(isSuccess);
+                if(CheckMark != null)ShowCheckMark(isSuccess);
             }
 
             StartCoroutine(ShowEndPanelAfterDelay());
@@ -180,7 +194,7 @@ public class City_ChattingUI : MonoBehaviour
 
     private IEnumerator ShowEndPanelAfterDelay()
     {
-        yield return new WaitForSecondsRealtime(2.3f);
+        yield return new WaitForSeconds(2.3f);
         EndPanel.SetActive(true);
     }
 
