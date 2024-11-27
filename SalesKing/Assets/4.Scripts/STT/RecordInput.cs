@@ -69,8 +69,15 @@ public class RecordInput : MonoBehaviour
     public void SwitchInputFieldToSlider(bool isSliderToInput = true)
     {
         ChangeSprite();
-        RecordInputRect.gameObject.SetActive(!isSliderToInput);
-        ResultInputfield.gameObject.SetActive(isSliderToInput);
+        if (RecordInputRect != null && RecordInputRect.gameObject != null)
+        {
+            RecordInputRect.gameObject.SetActive(!isSliderToInput);
+        }
+
+        if (ResultInputfield != null && ResultInputfield.gameObject != null)
+        {
+            ResultInputfield.gameObject.SetActive(isSliderToInput);
+        }
     }
     public void SetSTTtxt(string playerSTT)//STT Connect에서 주입
     {
