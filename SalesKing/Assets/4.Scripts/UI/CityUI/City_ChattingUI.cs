@@ -36,9 +36,7 @@ public class City_ChattingUI : MonoBehaviour
 
     private void Awake()
     {
-        ServerManager.OnSendReplyUpdate -= SubWaitReply;
         ServerManager.OnSendReplyUpdate += SubWaitReply;
-        STTConnect.OnSendClovaUpdate -= SubWaitReply;
         STTConnect.OnSendClovaUpdate += SubWaitReply;
 
         UserEndBtn.onClick.AddListener(OnClickLeaveFSM);
@@ -53,20 +51,6 @@ public class City_ChattingUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        ServerManager.OnSendReplyUpdate -= SubWaitReply;
-        STTConnect.OnSendClovaUpdate -= SubWaitReply;
-    }
-
-    private void OnEnable()
-    {
-        Debug.Log("City_ChattingUI OnEnable");
-        ServerManager.OnSendReplyUpdate += SubWaitReply;
-        STTConnect.OnSendClovaUpdate += SubWaitReply;
-    }
-
-    private void OnDisable()
-    {
-        Debug.Log("City_ChattingUI OnDisable");
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
         STTConnect.OnSendClovaUpdate -= SubWaitReply;
     }
