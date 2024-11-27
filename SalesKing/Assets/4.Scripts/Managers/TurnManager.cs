@@ -69,6 +69,7 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
 
     public void EndDayShowSummary()
     {
+        PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
         EndDayPanel.SetActive(true);
         // 페이드 인
         FirstFadeInPanel.DOFade(1f, duration).OnComplete(() =>
