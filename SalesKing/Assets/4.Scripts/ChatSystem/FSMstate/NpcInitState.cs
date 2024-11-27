@@ -153,7 +153,7 @@ public class NpcInitState : ChatBaseState
             BadpointBad = $" \n판매자의 {disLikeType2}에 대해 네가 불쾌감을 느껴 반응하거나 아무 반응 안 해. 정도에 따라 0에서 -3까지 persuasion을 출력해줘.";
         }
 
-        string fixedSentence = "판매자가 다른 설득 유형에 해당하는 답을 한다면, -2 ~ +2 정도의 시큰둥한 반응을 해줘.\r\n- 물론 네 성격과 키워드에 따라서, 호감이나 비호감을 유발하는 말이라면 유형을 무시하고 점수와 반응을 유동적으로 해도 좋아.";
+        string fixedSentence = "판매자가 다른 설득 유형에 해당하는 답을 한다면, -1 ~ + 정도의 시큰둥한 반응을 해줘.\r\n- 물론 네 성격과 키워드에 따라서, 호감이나 비호감을 유발하는 말이라면 유형을 무시하고 점수와 반응을 유동적으로 해도 좋아.";
 
         string result = introduceGood + introduceBad + GoodpointGood + GoodpointBad + BadpointBad + fixedSentence;
 
