@@ -3,7 +3,6 @@ using System.Collections;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 using static Define;
-using static NPCDefine;
 
 public class ServerManager : ServerBase
 {

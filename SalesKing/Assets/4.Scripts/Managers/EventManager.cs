@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement; // SceneManager를 사용하기 위해 추가
 public class EventManager : MonoBehaviour
 {
     public GameObject youDiedPanel;
-
+    CanvasGroup canvasGroup;
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -17,7 +17,9 @@ public class EventManager : MonoBehaviour
 
         sequence.Play();
 
-        CanvasGroup canvasGroup = youDiedPanel.GetComponent<CanvasGroup>();
+        if(youDiedPanel!=null)
+            canvasGroup = youDiedPanel.GetComponent<CanvasGroup>();
+
         if (canvasGroup != null)
         {
             canvasGroup.alpha = 0; // 초기 투명도 설정

@@ -25,7 +25,7 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
     private bool isMouseInputChecking = false;
     private float duration = 1.0f;
 
-    private int stage_count = 1;
+    private int stage_count = 4;
 
     protected override void Awake()
     {
