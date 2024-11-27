@@ -47,15 +47,6 @@ public class ServerManager : ServerBase
         }
 
         Debug.Log($"User답++++++++++{_userInput}, {_sendChatType}, {_initData}");
-        //    string str = "{\n" +
-        //"  \"decision\": \"wait\",\n" +
-        //"  \"yourReply\": \"판매자의 설명에 따라 더 질문하거나 반응하세요. 제시된 성격을 반영하여 반응하세요. 아직 확신이 없는 상태입니다.\",\n" +
-        //"  \"persuasion\": -3,\n" +
-        //"  \"reason\": \"왜 해당 persuasion 점수를 출력했는지 설명해줘. 키워드식으로 짧게 써줘. ex. 연민을 느낌, 불확실한 설명, ~~한 키워드가 마음에 듦 등등\",\n" +
-        //"  \"emotion\": \"worst\"\n" +
-        //"}";
-
-        //    templateReceive.GetGptAnswer(str, _sendChatType);
         OnSendReplyUpdate?.Invoke(true);
         StartCoroutine(GetGPTCo());
     }
@@ -80,7 +71,7 @@ public class ServerManager : ServerBase
                                 Action<ResultInfo> onFailed = null,
                                 Action<ResultInfo> onNetworkFailed = null)
     {
-        string url = "https://salesking-jbr.azurewebsites.net/"; //"http://127.0.0.1:8000/"; //"https://salesai-ljy.azurewebsites.net/"//"https://salesai-jsy333.azurewebsites.net/";//"https://salesai-jsy2.azurewebsites.net/";//
+        string url = "http://127.0.0.1:8000/"; //"https://salesking-jbr.azurewebsites.net/"; //"https://salesai-ljy.azurewebsites.net/"//"https://salesai-jsy333.azurewebsites.net/";//"https://salesai-jsy2.azurewebsites.net/";//
 
         JObject jobj = new JObject();
         jobj = AddJobjBySendType(jobj, _sendChatType);

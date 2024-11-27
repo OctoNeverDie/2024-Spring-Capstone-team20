@@ -119,6 +119,7 @@ public class ChattingState : ChatBaseState, IVariableChat
         if (gptResult.decision != Decision.wait)
         {
             ChatManager.Instance.Eval.AddEvaluation(gptResult.summary, gptResult.decision == Decision.yes);
+            Debug.Log("이게 왜 지금 실행이돼?");
             ChatManager.Instance.TransitionToState(Define.SendChatType.Endpoint);
         }
     }
