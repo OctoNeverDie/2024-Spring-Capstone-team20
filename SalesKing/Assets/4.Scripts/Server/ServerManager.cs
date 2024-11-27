@@ -1,8 +1,9 @@
 using System;
-using System.Threading.Tasks;
+using System.Collections;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 using static Define;
+using static NPCDefine;
 
 public class ServerManager : ServerBase
 {
@@ -11,12 +12,13 @@ public class ServerManager : ServerBase
     public static ServerManager Instance => instance;
 
     private void Init()
-    { templateReceive = Util.GetOrAddComponent<TemplateReceive>(this.gameObject);  }
+    { templateReceive = Util.GetOrAddComponent<TemplateReceive>(this.gameObject); }
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
+
             Init();
         }
         else
@@ -34,9 +36,8 @@ public class ServerManager : ServerBase
     private string _initData = "";
     private SendChatType _sendChatType;
     private GameMode _gameMode;
-
-    public async void GetGPTReply(GameMode gameMode, string userInput, SendChatType sendChatTypeFrom, string initData="")
-    { 
+    public void GetGPTReply(GameMode gameMode, string userInput, SendChatType sendChatTypeFrom, string initData = "")
+    {
         _gameMode = gameMode;
         _sendChatType = sendChatTypeFrom;
         _userInput = userInput;
@@ -44,22 +45,24 @@ public class ServerManager : ServerBase
         {
             _initData = initData;
         }
-        else 
-        {
-            _initData = "";
-        }
 
         Debug.Log($"User답++++++++++{_userInput}, {_sendChatType}, {_initData}");
-    
-        if(gameMode == GameMode.Story) 
-            OnSendReplyUpdate?.Invoke(true);
+        //    string str = "{\n" +
+        //"  \"decision\": \"wait\",\n" +
+        //"  \"yourReply\": \"판매자의 설명에 따라 더 질문하거나 반응하세요. 제시된 성격을 반영하여 반응하세요. 아직 확신이 없는 상태입니다.\",\n" +
+        //"  \"persuasion\": -3,\n" +
+        //"  \"reason\": \"왜 해당 persuasion 점수를 출력했는지 설명해줘. 키워드식으로 짧게 써줘. ex. 연민을 느낌, 불확실한 설명, ~~한 키워드가 마음에 듦 등등\",\n" +
+        //"  \"emotion\": \"worst\"\n" +
+        //"}";
 
-        await GetGPTAsync();
+        //    templateReceive.GetGptAnswer(str, _sendChatType);
+        OnSendReplyUpdate?.Invoke(true);
+        StartCoroutine(GetGPTCo());
     }
 
-    private async Task GetGPTAsync()
+    private IEnumerator GetGPTCo()
     {
-        await CoGetGPT();
+        yield return CoGetGPT();
     }
 
     private JObject AddJobjBySendType(JObject jobj, SendChatType sendChatType)
@@ -73,50 +76,51 @@ public class ServerManager : ServerBase
 
         return jobj;
     }
-    private async Task CoGetGPT()
+    private Coroutine CoGetGPT(Action<ResultInfo> onSucceed = null,
+                                Action<ResultInfo> onFailed = null,
+                                Action<ResultInfo> onNetworkFailed = null)
     {
-        string url = "https://salesking-jbr.azurewebsites.net/"; //"https://salesai-khm.azurewebsites.net/"; //"http://127.0.0.1:8000/"; //"https://salesai-ljy.azurewebsites.net/"//"https://salesai-jsy333.azurewebsites.net/";//"https://salesai-jsy2.azurewebsites.net/";//
+        string url = "https://salesking-jbr.azurewebsites.net/"; //"http://127.0.0.1:8000/"; //"https://salesai-ljy.azurewebsites.net/"//"https://salesai-jsy333.azurewebsites.net/";//"https://salesai-jsy2.azurewebsites.net/";//
 
         JObject jobj = new JObject();
         jobj = AddJobjBySendType(jobj, _sendChatType);
 
-        while (true) 
+        Action<ResultInfo> bringGPTReply = (result) =>
         {
-            ResultInfo result = await SendRequest(url, SendType.POST, jobj);
-
-            if (result.IsNetworkError)
+            if (_gameMode == GameMode.Story)
             {
-                Debug.Log("+++++++++networkTest");
-                await Task.Delay(120000); // 재시도 간격 조절
-                continue; // 재시도
-            }
-            else if (result.IsSuccess)
-            {
-                if (_gameMode == GameMode.Story)
-                {
-                    string resultData = JObject.Parse(result.Json)["reply"].ToString();
-                    Debug.Log($"Gpt 답+++++++++++++++ {resultData}, {_sendChatType}");
+                string resultData = JObject.Parse(result.Json)["reply"].ToString();
+                Debug.Log($"Gpt 답+++++++++++++++ {resultData}, {_sendChatType}");
 
-                    OnSendReplyUpdate?.Invoke(false);
-                    templateReceive.GetGptAnswer(resultData, _sendChatType);
-                }
-                else if (_gameMode == GameMode.Infinity)
-                {
-                    string[] resultData = new string[3];
-                    resultData[0] = JObject.Parse(result.Json)["npc1"].ToString();
-                    resultData[1] = JObject.Parse(result.Json)["npc2"].ToString();
-                    resultData[2] = JObject.Parse(result.Json)["npc3"].ToString();
-                    Debug.Log($"Gpt 답+++++++++++++++ {resultData[0]}, {_sendChatType}");
-
-                    templateReceive.GetGptAnswer(resultData, _sendChatType);
-                }
-                break; // 성공 시 루프 종료
+                OnSendReplyUpdate?.Invoke(false);
+                templateReceive.GetGptAnswer(resultData, _sendChatType);
             }
-            else
+            else if (_gameMode == GameMode.Infinity)
             {
-                Debug.Log("+++++++++fail");
-                break; // 실패 시 루프 종료
+                string[] resultData = new string[3];
+                resultData[0] = JObject.Parse(result.Json)["npc1"].ToString();
+                resultData[1] = JObject.Parse(result.Json)["npc2"].ToString();
+                resultData[2] = JObject.Parse(result.Json)["npc3"].ToString();
+
+                OnSendReplyUpdate?.Invoke(false);
+                templateReceive.GetGptAnswer(resultData, _sendChatType);
             }
-        }
+        };
+
+        Action<ResultInfo> failTest = (result) =>
+        {
+            Debug.Log("+++++++++fail");
+        };
+
+        Action<ResultInfo> networkTest = (result) =>//runserver!
+        {
+            Debug.Log("+++++++++networkTest");
+        };
+
+        onSucceed += bringGPTReply;
+        onFailed += failTest;
+        onNetworkFailed += networkTest;
+
+        return StartCoroutine(SendRequest(url, SendType.POST, jobj, onSucceed, onFailed, onNetworkFailed));
     }
 }
