@@ -113,7 +113,7 @@ public class City_ChattingUI : MonoBehaviour
             SetNpcName(npcInfo.NpcName);
             ConvoPanel.SetActive(true);// show convo: npc name, 
 
-            npcItem.text = npcInfo.WantItem;
+            npcItem.text = $"상대가 원했던 물품 : " + npcInfo.WantItem;
             RandItemPanel.SetActive(true);
         }
 
