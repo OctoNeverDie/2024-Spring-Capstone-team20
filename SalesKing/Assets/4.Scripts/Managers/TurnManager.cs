@@ -20,7 +20,7 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
     [SerializeField] private Image StartFadeInPanel;
     [SerializeField] private TextMeshProUGUI NextDayText;
 
-    [SerializeField] private GameObject myTurnManager;
+    [SerializeField] private GameObject myTutoManager;
 
     private bool isMouseInputChecking = false;
     private float duration = 1.0f;
@@ -63,7 +63,7 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
         {
             StartDayPanel.SetActive(false);
             PlayerManager.Instance.player.FreezeAndUnFreezePlayer(false);
-            myTurnManager.SetActive(true);
+            myTutoManager.SetActive(true);
         });
     }
 
