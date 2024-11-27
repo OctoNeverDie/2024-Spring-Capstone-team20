@@ -12,8 +12,8 @@ using TMPro;
 /// </summary>
 public class RecordInput : MonoBehaviour
 {
-    [SerializeField] TMP_InputField ResultInputfield;
-    [SerializeField] RectTransform RecordInputRect;//contains button, button image, slider
+    [SerializeField] GameObject ResultInputfield;
+    [SerializeField] GameObject RecordInputRect;//contains button, button image, slider
     [SerializeField] Sprite recordOn;
     [SerializeField] Sprite recordOff;
     [SerializeField] GameObject noMicDetected;
@@ -69,19 +69,19 @@ public class RecordInput : MonoBehaviour
     public void SwitchInputFieldToSlider(bool isSliderToInput = true)
     {
         ChangeSprite();
-        if (RecordInputRect != null && RecordInputRect.gameObject != null)
+        if (RecordInputRect != null)
         {
-            RecordInputRect.gameObject.SetActive(!isSliderToInput);
+            RecordInputRect.SetActive(!isSliderToInput);
         }
 
-        if (ResultInputfield != null && ResultInputfield.gameObject != null)
+        if (ResultInputfield != null)
         {
             ResultInputfield.gameObject.SetActive(isSliderToInput);
         }
     }
     public void SetSTTtxt(string playerSTT)//STT Connect에서 주입
     {
-        ResultInputfield.text = playerSTT;
+        ResultInputfield.GetComponent<TextMeshProUGUI>().text = playerSTT;
     }
 
     public void NoMic()

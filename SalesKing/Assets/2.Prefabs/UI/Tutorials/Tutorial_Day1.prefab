@@ -864,7 +864,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4601113034967259692}
   - component: {fileID: 1374913199940466705}
-  - component: {fileID: 2574883701059901620}
+  - component: {fileID: 1147573505956456887}
   m_Layer: 5
   m_Name: 01
   m_TagString: Untagged
@@ -899,7 +899,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4083638490172501066}
   m_CullTransparentMesh: 1
---- !u!114 &2574883701059901620
+--- !u!114 &1147573505956456887
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -919,7 +919,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a9a075ff11e85424b8293e3188ad5175, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cd799f3c76d16e642b12d2bdaef110c2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1407,7 +1407,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5911325522889924539
 RectTransform:
   m_ObjectHideFlags: 0

@@ -7823,6 +7823,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1085774841058392035, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
+      propertyPath: RecordInputRect
+      value: 
+      objectReference: {fileID: 331773563}
+    - target: {fileID: 1085774841058392035, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
+      propertyPath: ResultInputfield
+      value: 
+      objectReference: {fileID: 1489118085}
     - target: {fileID: 1559557632483231806, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -12156,6 +12164,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5848220360708688002, guid: 1a546004a9e63d1428fe39b43efeab2d, type: 3}
   m_PrefabInstance: {fileID: 330287292}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &331773563 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4968415455753985486, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
+  m_PrefabInstance: {fileID: 206822359}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &333168434
 PrefabInstance:
@@ -52481,6 +52494,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3227174682591795274, guid: f5959dbd2b9127b45be9266202fa8d8c, type: 3}
   m_PrefabInstance: {fileID: 1487767518}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1489118085 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5734107434478833353, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
+  m_PrefabInstance: {fileID: 206822359}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1493212419
 PrefabInstance:
