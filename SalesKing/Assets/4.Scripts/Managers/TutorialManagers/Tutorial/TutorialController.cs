@@ -59,7 +59,7 @@ public class TutorialController : MonoBehaviour
 		Debug.Log("Complete All");
         PlayerManager.Instance.player.FreezeAndUnFreezePlayer(false);
         UserInputManager.Instance.isKeyInputLocked = false;
-		SceneManager.LoadScene("Start");
+		//SceneManager.LoadScene("Start");
     }
 }
 

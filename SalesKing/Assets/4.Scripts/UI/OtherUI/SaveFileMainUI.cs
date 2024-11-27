@@ -7,6 +7,7 @@ public class SaveFileMainUI : MonoBehaviour
 {
     public GameObject SaveFilePanelPrefab;
     public GameObject VerticalLayoutPanel;
+    public Image FadePanel;
 
     [SerializeField] GameObject StoryModeText;
     [SerializeField] GameObject InfinityModeText;
@@ -21,4 +22,6 @@ public class SaveFileMainUI : MonoBehaviour
             default: break;
         }
     }
+
+
 }

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
+
 
 public class SaveFileManager : MonoBehaviour
 {
@@ -80,7 +82,12 @@ public class SaveFileManager : MonoBehaviour
     {
         DataController.Instance.gameData.cur_save_file_ID = file_id;
         Debug.Log("load save file name : " + file_id);
-        SceneManager.LoadScene("CityMap");
+
+        UI.FadePanel.DOFade(1f, 1.0f).OnComplete(() =>
+        {
+            SceneManager.LoadScene("CityMap");
+        });
+        
     }
 
     public void DeleteSaveFile(string file_id)

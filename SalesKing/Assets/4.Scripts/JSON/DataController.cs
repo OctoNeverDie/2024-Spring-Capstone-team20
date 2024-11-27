@@ -84,13 +84,13 @@ public class DataController : MonoBehaviour
 
     private string GetGameDataFilePath()
     {
-        //return Application.persistentDataPath + $"/GameData.json";
-        return Application.dataPath + "/4.Scripts/JSON/GameData.json";
+        return Application.persistentDataPath + $"/GameData.json";
+        //return Application.dataPath + "/4.Scripts/JSON/GameData.json";
     }
     private string GetPlayDataFilePath(string playDataId)
     {
-        //return Application.persistentDataPath + $"/{playDataId}.json";
-        return Application.dataPath + "/4.Scripts/JSON/"+ playDataId+".json";
+        return Application.persistentDataPath + $"/{playDataId}.json";
+        //return Application.dataPath + "/4.Scripts/JSON/"+ playDataId+".json";
     }
 
     public void LoadGameData()
