@@ -15,7 +15,6 @@ public class NPCMeshManager : MonoBehaviour
         LoadMeshes();
     }
 
-
     private void LoadMeshes()
     {
         foreach (NPCDefine.MeshType category in Enum.GetValues(typeof(NPCDefine.MeshType)))
@@ -88,14 +87,27 @@ public class NPCMeshManager : MonoBehaviour
 
         foreach (TKey key in Enum.GetValues(typeof(TKey)))
         {
-            // Resources에서 Mesh 로드
-            Mesh[] meshes = Resources.LoadAll<Mesh>($"{categoryPath}/{key.ToString()}");
+            // "None" 값은 건너뜀
+            if (key.ToString() == "None")
+            {
+                Debug.Log($"Skipping 'None' for Category: {category}");
+                continue;
+            }
 
+            string path = $"{categoryPath}{key.ToString()}";
+            Debug.Log($"Loading meshes for: {category} - Key: {key}, Path: {path}");
+            Mesh[] meshes = Resources.LoadAll<Mesh>(path);
             if (meshes.Length > 0)
             {
                 NPCMeshDictionary[category][key] = new List<Mesh>(meshes);
+                Debug.Log($"Loaded {meshes.Length} meshes from {path}");
+            }
+            else
+            {
+                Debug.LogWarning($"No meshes found at path: {path}");
             }
         }
+
     }
 
 

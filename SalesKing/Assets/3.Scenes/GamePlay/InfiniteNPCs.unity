@@ -1907,7 +1907,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 5abe19802ea8f4643803f7341c6ada20, type: 2}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: HatType
-      value: 28
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: BodyType
@@ -1923,11 +1923,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: GloveType
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: PantsType
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: EyebrowType
@@ -1939,7 +1939,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: BackpackType
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: FullBodyType
@@ -1951,7 +1951,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: OuterwearType
-      value: 7
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9066295910686082996, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
