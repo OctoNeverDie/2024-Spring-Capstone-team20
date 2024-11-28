@@ -75,7 +75,7 @@ public class City_ChattingUI : MonoBehaviour
 
         if (ChatManager.Instance.npcNum >= 3)
         {
-            Tablet.ShowSummary();
+            TurnManager.Instance.EndDayShowSummary();
         }
     }
 
@@ -111,6 +111,7 @@ public class City_ChattingUI : MonoBehaviour
         if (sendChatType == Define.SendChatType.ChatInit)
         {
             SetNpcName(npcInfo.NpcName);
+            TxtPopUpUI.SetActive(false);
             ConvoPanel.SetActive(true);// show convo: npc name, 
 
             npcItem.text = $"상대가 원했던 물품 : " + npcInfo.WantItem;
@@ -145,6 +146,7 @@ public class City_ChattingUI : MonoBehaviour
             {
                 if(CheckMark != null)ShowCheckMark(isSuccess);
             }
+
 
             StartCoroutine(ShowEndPanelAfterDelay());
         }
@@ -203,7 +205,7 @@ public class City_ChattingUI : MonoBehaviour
         float vecY = Random.Range(-150, 205);
         RectTransform rectTransform = TxtPopUpUI.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = new Vector2(vecX, vecY);
-        
+
         TxtPopUpUI.SetActive(false);
         TxtPopUpUI.SetActive(true);
     }

@@ -12,10 +12,9 @@ public class MuhanNpcDataManager : Singleton<MuhanNpcDataManager>, ISingletonSet
 
     [SerializeField] StoryNpcSO storyNpcSO;
     [HideInInspector]
-    public NpcLooks[] todayNpcLooks = new NpcLooks[3];
+    public MuhanInfo[] npcs = new MuhanInfo[3];
     public List<int> npc_IDs = new List<int>();
 
-    private MuhanInfo[] npcs = new MuhanInfo[3];
     private int _npdIDStart = 0;
     private string _npcLooksStr;
     
@@ -73,7 +72,6 @@ public class MuhanNpcDataManager : Singleton<MuhanNpcDataManager>, ISingletonSet
         {
             npc_IDs.Add(++_npdIDStart);
             ConcatInfo(npcsStr[i], i);
-            todayNpcLooks[i] = npcs[i].NpcLooks;
         }
 
         InjectIDtoStorySO();

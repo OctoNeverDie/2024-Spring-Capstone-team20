@@ -15,6 +15,7 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
     [SerializeField] private GameObject CustomerReviewPanel;
     [SerializeField] private Image FinalFadeOutPanel;
     [SerializeField] private GameObject DontDestroyOnCityMapReload;
+    [SerializeField] private City_TabletDataManager Tablet;
 
     [SerializeField] private GameObject StartDayPanel;
     [SerializeField] private Image StartFadeInPanel;
@@ -70,7 +71,7 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
     public void EndDayShowSummary()
     {
         PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
-        EndDayPanel.SetActive(true);
+        Tablet.ShowSummary();
         // 페이드 인
         FirstFadeInPanel.DOFade(1f, duration).OnComplete(() =>
         {

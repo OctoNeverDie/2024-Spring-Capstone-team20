@@ -105,13 +105,5 @@ public class City_TabletDataManager : MonoBehaviour
         npcInfoUI.gameObject.SetActive(false);
         summaryUI.gameObject.SetActive(true);
         tabletMovement.OnClickShowTablet();
-
-        StartCoroutine(nextScene());
-    }
-
-    private IEnumerator nextScene()
-    {
-        yield return new WaitForSeconds(2f);
-        TurnManager.Instance.EndDayShowSummary();
     }
 }
