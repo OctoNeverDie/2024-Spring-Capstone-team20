@@ -68,7 +68,9 @@ public class City_ChattingUI : MonoBehaviour
     public void OnClickFinal()
     {
         SetNpcAnswerText("");
+
         TxtPopUpUI.SetActive(false);
+
         EndPanel.SetActive(false);
         ConvoPanel.SetActive(false);
         PlayerManager.Instance.player.PlayerExitConvo();
@@ -111,7 +113,6 @@ public class City_ChattingUI : MonoBehaviour
         if (sendChatType == Define.SendChatType.ChatInit)
         {
             SetNpcName(npcInfo.NpcName);
-            TxtPopUpUI.SetActive(false);
             ConvoPanel.SetActive(true);// show convo: npc name, 
 
             npcItem.text = $"상대가 원했던 물품 : " + npcInfo.WantItem;
@@ -146,7 +147,6 @@ public class City_ChattingUI : MonoBehaviour
             {
                 if(CheckMark != null)ShowCheckMark(isSuccess);
             }
-
 
             StartCoroutine(ShowEndPanelAfterDelay());
         }
@@ -194,9 +194,12 @@ public class City_ChattingUI : MonoBehaviour
         {
             reason = "<color=red>" + "-- " + reason + "</color>";
         }
-        else if(level == PersuasionLevel.Normal)
+        else if (level == PersuasionLevel.Normal)
         {
-            reason = "<color=grey>" + reason + "</color>";
+            if(reason == null || reason == "")
+                reason = "";
+            else
+                reason = "<color=grey>" + reason + "</color>";
         }
 
         TxtPopUpUI.GetComponentInChildren<TextMeshProUGUI>().text = reason;
