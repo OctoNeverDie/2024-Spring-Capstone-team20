@@ -8,14 +8,14 @@
     },
     {
       "ObjID": 1,
-      "ObjName": "탕후루",
+      "ObjName": "산타 탕후루",
       "ObjInfo": "",
       "Category": "Dessert"
     },
     {
       "ObjID": 2,
-      "ObjName": "케이크",
-      "ObjInfo": "냉동 딸기 쇼트 케이크. 다른 케이크와 다른 점은 없어 보인다. 케이크가 신선해보이는 건 거짓말이다. 누가봐도 공장에서 나온 케이크다.",
+      "ObjName": "싸구려 공장 케이크",
+      "ObjInfo": "",
       "Category": "Dessert"
     },
     {
@@ -26,13 +26,13 @@
     },
     {
       "ObjID": 4,
-      "ObjName": "티라미수 밤 케이크",
+      "ObjName": "티라미수 아이스크림",
       "ObjInfo": "",
       "Category": "Dessert"
     },
     {
       "ObjID": 5,
-      "ObjName": "마카롱",
+      "ObjName": "뭉개진 마카롱",
       "ObjInfo": "",
       "Category":"Dessert"
     },
@@ -44,7 +44,7 @@
     },
     {
       "ObjID": 7,
-      "ObjName": "치즈케이크",
+      "ObjName": "치즈 퐁듀",
       "ObjInfo": "",
       "Category": "Dessert"
     },
@@ -236,7 +236,7 @@
     },
     {
       "ObjID": 40,
-      "ObjName": "립스틱",
+      "ObjName": "3회 사용 립스틱",
       "ObjInfo": "",
       "Category": "Cosmetics"
     },
