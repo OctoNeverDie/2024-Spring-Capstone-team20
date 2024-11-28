@@ -1943,7 +1943,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: FullBodyType
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: MustacheType
