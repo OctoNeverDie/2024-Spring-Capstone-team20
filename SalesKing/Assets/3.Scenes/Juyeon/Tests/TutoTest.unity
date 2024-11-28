@@ -79541,6 +79541,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tutorial_Day2
       objectReference: {fileID: 0}
+    - target: {fileID: 2417586505370419793, guid: 4293ac0aa7843814f9e2af4fc54120c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8081742137528824944, guid: 4293ac0aa7843814f9e2af4fc54120c7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -79642,10 +79646,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9084356290535904198, guid: 68ead1cfe3eb7a14f948dcef770a9695, type: 3}
-      propertyPath: MainPanel
-      value: 
-      objectReference: {fileID: 751301342}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -79662,10 +79662,6 @@ PrefabInstance:
     - target: {fileID: 278467128448791585, guid: c7ea5ee875902b744ad2b0aa404276b0, type: 3}
       propertyPath: m_Name
       value: Tutorial_Day4
-      objectReference: {fileID: 0}
-    - target: {fileID: 278467128448791585, guid: c7ea5ee875902b744ad2b0aa404276b0, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5231543758551304776, guid: c7ea5ee875902b744ad2b0aa404276b0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -79707,10 +79703,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6368681098642496051, guid: c7ea5ee875902b744ad2b0aa404276b0, type: 3}
-      propertyPath: MainPanel
-      value: 
-      objectReference: {fileID: 751301342}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
