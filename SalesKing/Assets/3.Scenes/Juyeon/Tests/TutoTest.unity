@@ -19040,7 +19040,6 @@ MonoBehaviour:
     save_files_IDs: []
     this_game_mode: 0
   _playData:
-    cur_day_ID: 0
     item_list: []
 --- !u!4 &492511215
 Transform:
@@ -28845,8 +28844,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd0cd2d9dcfcb4441a01651c83b93727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  end_day_button: {fileID: 769448587}
-  return_to_main_button: {fileID: 1995345766}
 --- !u!114 &751301345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58077,7 +58074,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NPCGroup: []
-  NPCHolder: {fileID: 1601559761}
   curTalkingNPC: {fileID: 0}
   storyNpcSO: {fileID: 11400000, guid: 649a9adc19ff4584ba1cf71e931769ca, type: 2}
   npcLookSO: {fileID: 11400000, guid: 52967f0d494cc0043b18fc93dae2be84, type: 2}
@@ -77494,8 +77490,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd0cd2d9dcfcb4441a01651c83b93727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  end_day_button: {fileID: 769448587}
-  return_to_main_button: {fileID: 0}
 --- !u!114 &2109948564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79486,6 +79480,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tutorial_Day1
       objectReference: {fileID: 0}
+    - target: {fileID: 4184735526582246607, guid: 41cc5af489cf3ea4ba890e1c506edccb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4679035320150786879, guid: 41cc5af489cf3ea4ba890e1c506edccb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -79543,10 +79541,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tutorial_Day2
       objectReference: {fileID: 0}
-    - target: {fileID: 3932455671611782697, guid: 4293ac0aa7843814f9e2af4fc54120c7, type: 3}
-      propertyPath: MainPanel
-      value: 
-      objectReference: {fileID: 751301342}
     - target: {fileID: 8081742137528824944, guid: 4293ac0aa7843814f9e2af4fc54120c7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -79644,6 +79638,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tutorial_Day3
       objectReference: {fileID: 0}
+    - target: {fileID: 6623786817933319339, guid: 68ead1cfe3eb7a14f948dcef770a9695, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9084356290535904198, guid: 68ead1cfe3eb7a14f948dcef770a9695, type: 3}
       propertyPath: MainPanel
       value: 
@@ -79664,6 +79662,10 @@ PrefabInstance:
     - target: {fileID: 278467128448791585, guid: c7ea5ee875902b744ad2b0aa404276b0, type: 3}
       propertyPath: m_Name
       value: Tutorial_Day4
+      objectReference: {fileID: 0}
+    - target: {fileID: 278467128448791585, guid: c7ea5ee875902b744ad2b0aa404276b0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5231543758551304776, guid: c7ea5ee875902b744ad2b0aa404276b0, type: 3}
       propertyPath: m_LocalPosition.x
