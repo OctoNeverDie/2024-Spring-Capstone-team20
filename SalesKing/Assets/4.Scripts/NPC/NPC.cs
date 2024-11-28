@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using static NPCDefine;
 
 public class NPC : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class NPC : MonoBehaviour
     private Animator animator;
     private NavMeshAgent agent;
     private Rigidbody rb;
+    private NPCLooksSetter looks;
 
     public float speed = 0.5f;
     public float rotationSpeed = 5.0f; // 서서히 회전하기 위한 속도
@@ -24,34 +26,27 @@ public class NPC : MonoBehaviour
     public int NpcID = 0;
     [HideInInspector]
     public bool Talkable;
+
+
     void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
+        //agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-        myCanvas = transform.Find("Canvas").gameObject;
+        //myCanvas = transform.Find("Canvas").gameObject;
         Talkable = true;
+        looks = GetComponent<NPCLooksSetter>();
     }
 
     void Start()
     {
-        agent.speed = speed;
-        AssignRandomLooks();
+        //agent.speed = speed;
+        looks.AssignAllMeshes();
     }
 
     void Update()
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-    }
-
-    void AssignRandomLooks()
-    {
-        NPCLooks looks = transform.GetComponent<NPCLooks>();
-
-        foreach (NPCDefine.MeshType category in System.Enum.GetValues(typeof(NPCDefine.MeshType)))
-        {
-            //looks.AssignCustomMesh(category);
-        }
     }
 
     public void PlayNPCAnimByEmotion(Define.Emotion emotion)

@@ -18,9 +18,10 @@ public class NPCSpawner : MonoBehaviour
             {
                 spawn_points.Add(child); // 리스트에 추가
             }
+            SpawnStoryModeNPCs();
         }
 
-        SpawnStoryModeNPCs();
+        
     }
         
     public void SpawnStoryModeNPCs()

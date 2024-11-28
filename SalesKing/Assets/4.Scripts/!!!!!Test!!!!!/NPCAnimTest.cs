@@ -6,7 +6,7 @@ public class NPCAnimTest : MonoBehaviour
 {
     
     NPC npc;
-    NPCLooks looks;
+    //NPCLooks looks;
     private Rigidbody rb;
 
     Vector3 init_position;
@@ -15,7 +15,7 @@ public class NPCAnimTest : MonoBehaviour
     void Start()
     {
         npc = GetComponent<NPC>();
-        looks = GetComponent<NPCLooks>();
+        //looks = GetComponent<NPCLooks>();
         rb = GetComponent<Rigidbody>();
 
         init_position = transform.position;
