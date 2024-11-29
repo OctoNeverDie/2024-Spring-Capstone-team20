@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9162676dab61bef428723cb0e4e05a36, type: 3}
+  m_Name: LightSO
+  m_EditorClassIdentifier: 
+  emotionLightSets:
+  - emotion: 0
+    lightSets:
+    - lightType: 0
+      intensity: 0
+      Color: 000000
+    - lightType: 1
+      intensity: 0
+      Color: 000000
+    - lightType: 2
+      intensity: 17
+      Color: FFFFFF
+    - lightType: 3
+      intensity: 0
+      Color: 000000
+  - emotion: 1
+    lightSets:
+    - lightType: 0
+      intensity: 2
+      Color: FF0000
+    - lightType: 1
+      intensity: 2
+      Color: FF0000
+    - lightType: 2
+      intensity: 0
+      Color: 000000
+    - lightType: 3
+      intensity: 12
+      Color: 160000
+  - emotion: 2
+    lightSets:
+    - lightType: 0
+      intensity: 2
+      Color: 000000
+    - lightType: 1
+      intensity: 2
+      Color: 000000
+    - lightType: 2
+      intensity: 0
+      Color: 000000
+    - lightType: 3
+      intensity: 0
+      Color: 000000
+  - emotion: 3
+    lightSets:
+    - lightType: 0
+      intensity: 2
+      Color: FFFC3B
+    - lightType: 1
+      intensity: 2
+      Color: FFFC3B
+    - lightType: 2
+      intensity: 1
+      Color: FFBDF9
+    - lightType: 3
+      intensity: 0
+      Color: 000000
+  - emotion: 4
+    lightSets:
+    - lightType: 0
+      intensity: 2
+      Color: FF15E1
+    - lightType: 1
+      intensity: 2
+      Color: FF15E1
+    - lightType: 2
+      intensity: 2
+      Color: 7D1C71
+    - lightType: 3
+      intensity: 0
+      Color: 000000
