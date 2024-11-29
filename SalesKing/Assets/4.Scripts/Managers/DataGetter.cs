@@ -11,7 +11,7 @@ public class DataGetter : Singleton<DataGetter>, ISingletonSettings
     public bool ShouldNotDestroyOnLoad => true;
 
     private List<NpcInfo> npcList = new List<NpcInfo>();
-    public List<NpcInfo> NpcList { get => npcList; }
+    public List<NpcInfo> NpcList { get => npcList; set => npcList = value; }
 
     private List<ItemInfo> itemList = new List<ItemInfo>();
     public List<ItemInfo> ItemList { get => itemList; }

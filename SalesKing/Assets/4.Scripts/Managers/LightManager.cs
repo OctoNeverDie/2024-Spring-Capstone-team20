@@ -7,6 +7,7 @@ public class LightManager : MonoBehaviour
     [SerializeField] LightSO lightSO;
 
     Define.Emotion emotion;
+    
 
     
 }

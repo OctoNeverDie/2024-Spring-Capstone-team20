@@ -1,9 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
-using static NPCDefine;
+using System.Linq;
+using static MuhanNpcDataManager;
 
 public class NPCLooksSetter : MonoBehaviour
 {
@@ -45,6 +44,72 @@ public class NPCLooksSetter : MonoBehaviour
             }
         }
         
+    }
+
+    /// <summary>
+    /// 나중에 무한모드에서 day 로드하면 입혀짐.
+    /// 즉, mesh 정보는 MuhanNpcDataManager에 전날 만들어지고,
+    /// 다음날 npc가 story so의 id에 따라 mesh를 setting해야 할 때 MuhanNpcDataManager에서 자기 id를 매칭하여 mesh 조합 가져와서 입힘
+    /// </summary>
+    /// <param name="muhanNpcID"></param>
+    public void AssignMuhanDayMeshes(int muhanNpcID)
+    {
+        NpcLooks npcLooks = MuhanNpcDataManager.Instance.npcs
+            .Where(n => n.NpcID == muhanNpcID)
+            .Select(n => n.NpcLooks)
+            .SingleOrDefault();
+
+        if (npcLooks != null)
+        {
+            Debug.Log($"NpcLooks for NpcID {muhanNpcID}: " +
+                      $"BackpackType = {npcLooks.BackpackType}, " +
+                      $"EyebrowType = {npcLooks.EyebrowType}, " +
+                      $"FullbodyType = {npcLooks.FullbodyType}, " +
+                      $"GlassesType = {npcLooks.GlassesType}, " +
+                      $"GloveType = {npcLooks.GloveType}, " +
+                      $"HairType = {npcLooks.HairType}, " +
+                      $"HatType = {npcLooks.HatType}, " +
+                      $"MustacheType = {npcLooks.MustacheType}, " +
+                      $"OuterwearType = {npcLooks.OuterwearType}, " +
+                      $"PantsType = {npcLooks.PantsType}, " +
+                      $"ShoeType = {npcLooks.ShoeType}");
+        }
+        else
+        {
+            Debug.LogWarning($"No NpcLooks found for NpcID {muhanNpcID}");
+        }
+
+        AssignNPCMesh(NPCDefine.MeshType.Backpack, npcLooks.BackpackType);
+        AssignNPCMesh(NPCDefine.MeshType.Eyebrow, npcLooks.EyebrowType);
+        AssignNPCMesh(NPCDefine.MeshType.FullBody, npcLooks.FullbodyType);
+        AssignNPCMesh(NPCDefine.MeshType.Glasses, npcLooks.GlassesType);
+        AssignNPCMesh(NPCDefine.MeshType.Glove, npcLooks.GloveType);
+        AssignNPCMesh(NPCDefine.MeshType.Hair, npcLooks.HairType);
+        AssignNPCMesh(NPCDefine.MeshType.Hat, npcLooks.HatType);
+        AssignNPCMesh(NPCDefine.MeshType.Mustache, npcLooks.MustacheType);
+        AssignNPCMesh(NPCDefine.MeshType.Outerwear, npcLooks.OuterwearType);
+        AssignNPCMesh(NPCDefine.MeshType.Pants, npcLooks.PantsType);
+        AssignNPCMesh(NPCDefine.MeshType.Shoe, npcLooks.ShoeType);
+    }
+
+    /// <summary>
+    /// 데모보여주기용.
+    /// mesh 정보가 MuhanNpcDataManager에서 만들어지는 즉시 입혀짐.
+    /// </summary>
+    /// <param name="muhanNpcID"></param>
+    public void AssignMuhanMeshes(NpcLooks npcLooks)
+    {
+        AssignNPCMesh(NPCDefine.MeshType.Backpack, npcLooks.BackpackType);
+        AssignNPCMesh(NPCDefine.MeshType.Eyebrow, npcLooks.EyebrowType);
+        AssignNPCMesh(NPCDefine.MeshType.FullBody, npcLooks.FullbodyType);
+        AssignNPCMesh(NPCDefine.MeshType.Glasses, npcLooks.GlassesType);
+        AssignNPCMesh(NPCDefine.MeshType.Glove, npcLooks.GloveType);
+        AssignNPCMesh(NPCDefine.MeshType.Hair, npcLooks.HairType);
+        AssignNPCMesh(NPCDefine.MeshType.Hat, npcLooks.HatType);
+        AssignNPCMesh(NPCDefine.MeshType.Mustache, npcLooks.MustacheType);
+        AssignNPCMesh(NPCDefine.MeshType.Outerwear, npcLooks.OuterwearType);
+        AssignNPCMesh(NPCDefine.MeshType.Pants, npcLooks.PantsType);
+        AssignNPCMesh(NPCDefine.MeshType.Shoe, npcLooks.ShoeType);
     }
 
     public void AssignAllMeshes()

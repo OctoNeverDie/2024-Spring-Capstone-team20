@@ -42,6 +42,7 @@ public class NPC : MonoBehaviour
     {
         //agent.speed = speed;
         looks.AssignAllMeshes();
+        //looks.AssignMuhanDayMeshes(NpcID);
     }
 
     void Update()
