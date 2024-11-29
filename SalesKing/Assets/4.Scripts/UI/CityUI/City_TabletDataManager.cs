@@ -36,7 +36,7 @@ public class City_TabletDataManager : MonoBehaviour
                     .FirstOrDefault(); // 첫 번째 항목 반환, 없으면 null
 
             npcInfoUI.InitNpc(npc, colorPersuasion, npcProfile);
-            summaryUI.InitNpc(npc, colorPersuasion, npcProfile);
+            summaryUI.InitNpc(npc, npcProfile, today);
         }
     }
 
@@ -91,7 +91,6 @@ public class City_TabletDataManager : MonoBehaviour
 
     public void UpdateItemData(ItemInfo randItem, int thisNpcID)
     { 
-        summaryUI.UpdateItemData(randItem.ObjName, thisNpcID);
         npcInfoUI.UpdateItemData(randItem.ObjName, thisNpcID);
     }
 

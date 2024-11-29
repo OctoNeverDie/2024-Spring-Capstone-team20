@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using TMPro;
 
 /// <summary>
 /// initiate the npc summary
@@ -8,31 +8,35 @@ using UnityEngine;
 public class City_SummaryUI : MonoBehaviour
 {
     [SerializeField] NpcEvalRectrans[] npcs;
+    [SerializeField] GameObject Empty;
+    [SerializeField] TextMeshProUGUI goodCnt;
+    [SerializeField] TextMeshProUGUI badCnt;
     [SerializeField] Sprite Success;
     [SerializeField] Sprite Failed;
 
     int npcsCount = 0;
+    int successCnt = 0;
+    int failCnt = 0;
     Dictionary<int, int> NpcIDToUIIdx = new Dictionary<int, int>();
 
-    public void InitNpc(NpcInfo npc, string coloredMbti, Sprite sprite = null)
+    public void InitNpc(NpcInfo npc, Sprite sprite = null, int today = 0)
     {
         int i = npcsCount++;
         NpcIDToUIIdx.Add(npc.NpcID, i);//npc ui object와 npc id를 매칭한 걸 기록한 dictionary
 
         npcs[i].SuccessImg.gameObject.SetActive(false);
         npcs[i].Name.text = npc.NpcName;
-        npcs[i].Persuasion.text = coloredMbti;
+        npcs[i].Day.text = "Day "+ (today+1);
+
+
         if (sprite != null)
             Util.ChangeSprite(npcs[i].ProfileImg, sprite);
 
-        npcs[i].Item.text = "???";
         npcs[i].Evaluation.text = "";
-    }
-
-    public void UpdateItemData(string randItem, int thisNpcID)
-    {
-        int idx = NpcIDToUIIdx[thisNpcID];
-        npcs[idx].Item.text = randItem;
+        goodCnt.text = "0";
+        badCnt.text = "0";
+        npcs[i].gameObject.SetActive(false);
+        Empty.gameObject.SetActive(true);
     }
 
     public void UpdateEvaluationData(string summary, int thisNpcID, bool isBuy)
@@ -44,13 +48,19 @@ public class City_SummaryUI : MonoBehaviour
         {
             npcs[idx].SuccessImg.color = Color.green;
             Util.ChangeSprite(npcs[idx].SuccessImg, Success);
+
+            goodCnt.text = (++successCnt) +"";
         }
         else
         {
             npcs[idx].SuccessImg.color = Color.red;
             Util.ChangeSprite(npcs[idx].SuccessImg, Failed);
+
+            badCnt.text = (++failCnt) + "";
         }
 
         npcs[idx].SuccessImg.gameObject.SetActive(true);
+        npcs[idx].gameObject.SetActive(true);
+        Empty.gameObject.SetActive(false);
     }
 }
