@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 /// <summary>
 /// tab 누르면 나왔다 사라졌다 함
 /// </summary>
@@ -13,24 +14,32 @@ public class City_TabletMovement : MonoBehaviour
         isTablet = false;
         InitTablet();
     }
+
     void Update()
     {
         if (!UserInputManager.Instance.isKeyInputLocked && Input.GetButtonDown("Tab"))
         {
-            if (isTablet)
-            {
-                OnClickHideTablet();
-                isTablet = false;
-                if (!ChatManager.Instance.isConvo)
-                    PlayerManager.Instance.player.FreezeAndUnFreezePlayer(false);
-            }
-            else
-            {
-                OnClickShowTablet();
-                isTablet = true;
-                if(!ChatManager.Instance.isConvo)
-                    PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
-            }
+            OnClickShoworHideTablet();
+        }
+    }
+    /// <summary>
+    /// Tablet Button도 여기 구독
+    /// </summary>
+    public void OnClickShoworHideTablet()
+    {
+        if (isTablet)
+        {
+            OnClickHideTablet();
+            isTablet = false;
+            if (!ChatManager.Instance.isConvo)
+                PlayerManager.Instance.player.FreezeAndUnFreezePlayer(false);
+        }
+        else
+        {
+            OnClickShowTablet();
+            isTablet = true;
+            if (!ChatManager.Instance.isConvo)
+                PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
         }
     }
 

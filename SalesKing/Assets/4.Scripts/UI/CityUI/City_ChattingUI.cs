@@ -15,6 +15,7 @@ public class City_ChattingUI : MonoBehaviour
     [SerializeField] GameObject TxtPopUpUI;
     [SerializeField] GameObject TipPopUpUI;
     [SerializeField] GameObject RandItemPanel;
+    [SerializeField] GameObject TabletAlert;
 
     [Header("Scripts")]
     [SerializeField] City_TabletDataManager Tablet;
@@ -41,7 +42,7 @@ public class City_ChattingUI : MonoBehaviour
 
     private void Awake()
     {
-        ServerManager.OnSendReplyUpdate += SetTipsPop;
+        ServerManager.OnSendReplyUpdate += SetUIafterReply;
         ServerManager.OnSendReplyUpdate += SubWaitReply;
         STTConnect.OnSendClovaUpdate += SubWaitReply;
 
@@ -57,7 +58,7 @@ public class City_ChattingUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        ServerManager.OnSendReplyUpdate -= SetTipsPop;
+        ServerManager.OnSendReplyUpdate -= SetUIafterReply;
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
         STTConnect.OnSendClovaUpdate -= SubWaitReply;
     }
@@ -119,9 +120,15 @@ public class City_ChattingUI : MonoBehaviour
     {
         if (sendChatType == Define.SendChatType.ChatInit)
         {
+            //태블릿 경고
+            if(npcInfo.NpcID !=0)
+                TabletAlert.SetActive(true);
+
+            //전체 패널
             SetNpcName(npcInfo.NpcName);
             ConvoPanel.SetActive(true);// show convo: npc name, 
 
+            //랜덤 아이템 패널
             npcItem.text = $"상대가 원했던 물품 : " + npcInfo.WantItem;
             RandItemPanel.SetActive(true);
         }
@@ -221,7 +228,7 @@ public class City_ChattingUI : MonoBehaviour
         TxtPopUpUI.SetActive(true);
     }
 
-    private void SetTipsPop(bool isDeactive)
+    private void SetUIafterReply(bool isDeactive)
     {
         if(!isDeactive)
             TipPopUpUI.SetActive(true);
