@@ -29,8 +29,8 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
         _pageStep = _scrollWidth+ _spacing;
         _dragThreshold = Screen.width / 10;
 
-        _npcPagesRect.localPosition += _pageStep;
-        _targetPos = _npcPagesRect.localPosition;
+        _npcPagesRect.localPosition += _pageStep;//1번 페이지로 보내기
+        _targetPos = _npcPagesRect.localPosition;//target 현재와 맞추기, move할 때 업데이트 됨
 
         Prev.onClick.AddListener(Front);
         Next.onClick.AddListener(Back);
@@ -83,6 +83,15 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
     }
     #endregion
 
+    public void OnClickMatchPage(int npcOrder)//npcOrder : 0, 1, 2, currentPage : 1, 2, 3  1,2,3
+    {
+        _currentPage = npcOrder; ;
+
+        Vector3 pagesStep = _pageStep * _currentPage;
+        _npcPagesRect.localPosition = _firstVacantPageLocation + pagesStep;
+        _targetPos = _npcPagesRect.localPosition;
+    }
+
     private void Start()
     {
         _maxPage = _npcPagesRect.childCount - 2;
@@ -107,14 +116,5 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
                 MovePage(Ease.InCubic, 0, _tweenTime / 1.7f);
             }
         });
-    }
-
-    public void UpdateChapter(int currentChapter)
-    {
-        _currentPage = Mathf.Min(currentChapter, _maxPage);
-
-        Vector3 pagesStep = _pageStep * (_currentPage - 1);
-        _npcPagesRect.localPosition += pagesStep;
-        _targetPos += pagesStep;
     }
 }

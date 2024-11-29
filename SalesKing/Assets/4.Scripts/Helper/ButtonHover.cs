@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 
 public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    [SerializeField] float sizeUp =1.2f;
     private Vector3 originalScale;
     void Start()
     {
@@ -10,7 +11,7 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        transform.localScale =new Vector3(1.2f, 1.2f, 1.2f);
+        transform.localScale =new Vector3(sizeUp, sizeUp, sizeUp);
     }
 
     public void OnPointerExit(PointerEventData eventData)
