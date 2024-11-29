@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b89bf49e4e61044ba700021611ce423, type: 3}
+  m_Name: TipSO
+  m_EditorClassIdentifier: 
+  npcTips:
+  - npcId: 1
+    tips:
+    - "\uD765"
+    - "\uBB50"
+    - "\uC65C"
+  - npcId: 2
+    tips:
+    - "\uBFDC\uBE60\uBE60"
+    - "\uCC44\uC6CC\uC8FC\uC138\uC774"
+    - yeah
+  - npcId: 3
+    tips:
+    - "\uBFDC\uBE60\uBE60"
+    - "\uCC44\uC6CC\uC8FC\uC138\uC774"
+    - yeah

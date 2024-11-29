@@ -7,19 +7,24 @@ using UnityEngine.UI;
 
 public class City_ChattingUI : MonoBehaviour
 {
+    [Header("GameObjects")]
     [SerializeField] GameObject WaitReplyPanel;//server waiting panel
     [SerializeField] GameObject NpcSpeechBubble;//user answer panel
     [SerializeField] GameObject EndPanel;
     [SerializeField] GameObject ConvoPanel;
     [SerializeField] GameObject TxtPopUpUI;
+    [SerializeField] GameObject TipPopUpUI;
     [SerializeField] GameObject RandItemPanel;
 
+    [Header("Scripts")]
     [SerializeField] City_TabletDataManager Tablet;
 
+    [Header("Buttons")]
     [SerializeField] Button UserEndBtn; //end conversation
     [SerializeField] Button DealBtn; //deal ended
     [SerializeField] Button ItemBtn;
 
+    [Header("Etc")]
     [SerializeField] TextMeshProUGUI npcItem;
     [SerializeField] Sprite Success;
     [SerializeField] Sprite Failed;
@@ -36,6 +41,7 @@ public class City_ChattingUI : MonoBehaviour
 
     private void Awake()
     {
+        ServerManager.OnSendReplyUpdate += SetTipsPop;
         ServerManager.OnSendReplyUpdate += SubWaitReply;
         STTConnect.OnSendClovaUpdate += SubWaitReply;
 
@@ -51,6 +57,7 @@ public class City_ChattingUI : MonoBehaviour
 
     private void OnDestroy()
     {
+        ServerManager.OnSendReplyUpdate -= SetTipsPop;
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
         STTConnect.OnSendClovaUpdate -= SubWaitReply;
     }
@@ -126,11 +133,11 @@ public class City_ChattingUI : MonoBehaviour
                 SetNpcAnswerText(gptResult.reaction);//reply 보여줌
                 NPCManager.Instance.curTalkingNPC.PlayNPCAnimByEmotion(gptResult.emotion);//애니메이션 보여줌
 
-                if (gptResult.Persuasion >= 2)
+                if (gptResult.Persuasion > 0)
                 {
                     TxtPopup(gptResult.reason, PersuasionLevel.Like);//++ 효과, 초록색, gptResult.reason 뒤에 따라옴.
                 }
-                else if (gptResult.Persuasion <= -2)
+                else if (gptResult.Persuasion < 0)
                 {
                     TxtPopup(gptResult.reason, PersuasionLevel.Dislike);//-- 효과, 빨간색, gptResult.reason 뒤에 따라옴.
                 }
@@ -143,6 +150,7 @@ public class City_ChattingUI : MonoBehaviour
 
         else if (sendChatType == Define.SendChatType.Endpoint)
         {
+            TipPopUpUI.SetActive(false);
             if (additionalData is bool isSuccess)
             {
                 if(CheckMark != null)ShowCheckMark(isSuccess);
@@ -211,5 +219,11 @@ public class City_ChattingUI : MonoBehaviour
 
         TxtPopUpUI.SetActive(false);
         TxtPopUpUI.SetActive(true);
+    }
+
+    private void SetTipsPop(bool isDeactive)
+    {
+        if(!isDeactive)
+            TipPopUpUI.SetActive(true);
     }
 }

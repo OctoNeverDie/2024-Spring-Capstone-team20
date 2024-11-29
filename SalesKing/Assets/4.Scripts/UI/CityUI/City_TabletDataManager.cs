@@ -102,7 +102,6 @@ public class City_TabletDataManager : MonoBehaviour
 
     public void ShowSummary()
     {
-        Debug.Log("?????????");
         npcInfoUI.gameObject.SetActive(false);
         summaryUI.gameObject.SetActive(true);
         tabletMovement.OnClickShowTablet();
