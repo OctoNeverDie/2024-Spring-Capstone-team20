@@ -71,7 +71,7 @@ public class NPCDefine : MonoBehaviour
     }
 
     [JsonConverter(typeof(SafeEnumConverter<MustacheType>), MustacheType.None)]
-    public enum MustacheType { None, Common, Thin, Beard, White }
+    public enum MustacheType { None, Common, Thin, Curly, Guru, White }
 
     [JsonConverter(typeof(SafeEnumConverter<OuterwearType>), OuterwearType.None)]
     public enum OuterwearType { None, Hoodie, TankTop, Dress, Shirt, Jacket, Suit, TShirt }
