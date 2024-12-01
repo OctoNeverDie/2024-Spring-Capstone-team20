@@ -77,7 +77,7 @@ public class NPCDefine : MonoBehaviour
     public enum OuterwearType { None, Hoodie, TankTop, Dress, LongSleeve, Jacket, Suit, TShirt }
 
     [JsonConverter(typeof(SafeEnumConverter<PantsType>), PantsType.None)]
-    public enum PantsType { None, Pants, Shorts, Skirt }
+    public enum PantsType { None, Pants, Shorts, Skirt, Underpants }
 
     [JsonConverter(typeof(SafeEnumConverter<ShoeType>), ShoeType.None)]
     public enum ShoeType { None, Sneakers, Boots, Skate, Slippers }
