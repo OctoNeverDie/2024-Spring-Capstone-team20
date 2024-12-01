@@ -48,7 +48,7 @@ public class NPCDefine : MonoBehaviour
     public enum BodyType { None, Common, Alien }
 
     [JsonConverter(typeof(SafeEnumConverter<EyebrowType>), EyebrowType.None)]
-    public enum EyebrowType { None, Aggressive, Common, Timid }
+    public enum EyebrowType { None, Aggressive, Common, Timid, Old, Thick }
     
     [JsonConverter(typeof(SafeEnumConverter<FullBodyType>), FullBodyType.None)]
     public enum FullBodyType { None, OuterSpace, Soldier, Halloween, Food, Party }
