@@ -9,7 +9,7 @@ public class LightManager : MonoBehaviour
     /// 자식들이 각각 조명을 담당,
     /// directional light는 따로 넣어주기
     /// </summary>
-    
+    [SerializeField]Define.Emotion currentEmotion; 
     [Header("Light Settings")]
     [SerializeField] LightSO lightSO;
 
@@ -21,7 +21,6 @@ public class LightManager : MonoBehaviour
     Light DirectionalLight;
 
     private List<LightSO.LightSet> lightSet = new List<LightSO.LightSet>();
-    Define.Emotion currentEmotion;
 
     private Dictionary<Define.LightType, Light> lightDictionary;
 
@@ -46,6 +45,11 @@ public class LightManager : MonoBehaviour
         };
     }
 
+    //private void OnEnable()
+    //{
+    //    SetLight(currentEmotion);
+    //}
+
     private void OnDestroy()
     {
         City_ChattingUI.OnEmotionSetup -= SetLight;
@@ -57,8 +61,6 @@ public class LightManager : MonoBehaviour
     /// <param name="thisEmotion">설정할 감정</param>
     public void SetLight(Define.Emotion thisEmotion)
     {
-        currentEmotion = thisEmotion;
-
         Vector3 directionalRotation = DirectionalLight.transform.eulerAngles;
         directionalRotation.x = (thisEmotion == Define.Emotion.worst) ? -50f : 50f;
         DirectionalLight.transform.eulerAngles = directionalRotation;
