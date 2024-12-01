@@ -74,10 +74,10 @@ public class NPCDefine : MonoBehaviour
     public enum MustacheType { None, Common, Thin, Curly, Guru, White }
 
     [JsonConverter(typeof(SafeEnumConverter<OuterwearType>), OuterwearType.None)]
-    public enum OuterwearType { None, Hoodie, TankTop, Dress, Shirt, Jacket, Suit, TShirt }
+    public enum OuterwearType { None, Hoodie, TankTop, Dress, LongSleeve, Jacket, Suit, TShirt }
 
     [JsonConverter(typeof(SafeEnumConverter<PantsType>), PantsType.None)]
-    public enum PantsType { None, Shorts, Pants, Skirt }
+    public enum PantsType { None, Pants, Shorts, Skirt }
 
     [JsonConverter(typeof(SafeEnumConverter<ShoeType>), ShoeType.None)]
     public enum ShoeType { None, Sneakers, Boots, Skate, Slippers }
