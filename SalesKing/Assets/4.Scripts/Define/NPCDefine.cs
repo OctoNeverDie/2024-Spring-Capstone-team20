@@ -80,7 +80,7 @@ public class NPCDefine : MonoBehaviour
     public enum PantsType { None, Pants, Shorts, Skirt, Underpants }
 
     [JsonConverter(typeof(SafeEnumConverter<ShoeType>), ShoeType.None)]
-    public enum ShoeType { None, Sneakers, Boots, Skate, Slippers }
+    public enum ShoeType { None, Sneakers, Boots, Skate, Slippers, FormalShoes }
 
     // 까지
 }
