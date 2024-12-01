@@ -65,9 +65,10 @@ public class NPCDefine : MonoBehaviour
     [JsonConverter(typeof(SafeEnumConverter<HatType>), HatType.None)]
     public enum HatType
     {
-        None, Common, Cap, Headphones, Beret, Theif, Police, Farmer, Chef, Maid, Firefighter, Goggles, Graduate,
+        None, Common, Headphones, Beret, Theif, Police, Farmer, Chef, Maid, Firefighter, Goggles, Graduate,
         ConstructionWorker, Pilot, SerialKiller, Clown, CuteCostume, Pancho, PowderedWig, Elf, Kid, Santa, Gentleman,
-        Helmet, Cleopatra, Snorkling, Lady, Crown, HeroMask, WinterHat, Yoda, GasMask, JackSparrow, PaperBag, Alien, PlagueMask
+        Helmet, MedievalHelmet, Cleopatra, Snorkling, Lady, Crown, HeroMask, WinterHat, Yoda, GasMask, JackSparrow, 
+        PaperBag, Alien, PlagueMask
     }
 
     [JsonConverter(typeof(SafeEnumConverter<MustacheType>), MustacheType.None)]
