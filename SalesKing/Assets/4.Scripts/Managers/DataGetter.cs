@@ -52,7 +52,6 @@ public class DataGetter : Singleton<DataGetter>, ISingletonSettings
     Loader LoadJson<Loader, DataFormat>(string path) where Loader : ILoader<DataFormat>
     {
         TextAsset textAsset = Resources.Load<TextAsset>($"Data/JsonFile/{path}");
-        Debug.Log($"{textAsset.text}");
         return JsonConvert.DeserializeObject<Loader>(textAsset.text);
     }
 

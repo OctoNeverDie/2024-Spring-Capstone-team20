@@ -14,9 +14,15 @@ public class TipsPopup : MonoBehaviour
 
     private GameObject[] children;
     private string[] tips;
-    void Start()
+
+    private void OnEnable()
     {
-        if(npcID == 0) npcID = ChatManager.Instance.ThisNpc.NpcID;
+        PopupTips();
+    }
+    void PopupTips()
+    {
+        npcID = ChatManager.Instance.ThisNpc.NpcID;
+        if (npcID == 0) return;
         tips = thisNpcTips(npcID);
 
         children = GetDirectChildObjects();
@@ -24,7 +30,7 @@ public class TipsPopup : MonoBehaviour
         StartCoroutine(PopEachChild(children));
     }
 
-    private string[]? thisNpcTips(int npcID)
+    private string[] thisNpcTips(int npcID)
     {
         return tipso.npcTips
                     .Where(n => n.npcId == npcID)
