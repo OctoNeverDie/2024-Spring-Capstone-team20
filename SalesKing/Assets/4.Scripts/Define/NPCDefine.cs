@@ -57,7 +57,7 @@ public class NPCDefine : MonoBehaviour
     public enum GlassesType { None, Common, Sunglasses, Special }
 
     [JsonConverter(typeof(SafeEnumConverter<GloveType>), GloveType.None)]
-    public enum GloveType { None, Common, Boxing, Ski, LadyGloves, WorkGloves }
+    public enum GloveType { None, Common, Boxing, FingerGloves, LadyGloves, Mitten }
 
     [JsonConverter(typeof(SafeEnumConverter<HairType>), HairType.None)]
     public enum HairType { None, MaleCommon, FemaleCommon, Oriental, Workout, Punk, HotGirl, CuteGirl }
