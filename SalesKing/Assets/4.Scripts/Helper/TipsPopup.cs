@@ -24,7 +24,7 @@ public class TipsPopup : MonoBehaviour
         StartCoroutine(PopEachChild(children));
     }
 
-    private string[]? thisNpcTips(int npcID)
+    private string[] thisNpcTips(int npcID)
     {
         return tipso.npcTips
                     .Where(n => n.npcId == npcID)

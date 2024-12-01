@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -32,6 +33,8 @@ public class City_ChattingUI : MonoBehaviour
 
     TextMeshProUGUI NpcSpeechText;
     Image CheckMark;
+
+    public static event Action<Define.Emotion> OnEmotionSetup;
 
     private enum PersuasionLevel
     {
@@ -138,7 +141,9 @@ public class City_ChattingUI : MonoBehaviour
             if (additionalData is ChattingState.GptResult gptResult)
             {
                 SetNpcAnswerText(gptResult.reaction);//reply 보여줌
+                Debug.Log($"emotion : {gptResult.emotion}");
                 NPCManager.Instance.curTalkingNPC.PlayNPCAnimByEmotion(gptResult.emotion);//애니메이션 보여줌
+                OnEmotionSetup?.Invoke(gptResult.emotion);
 
                 if (gptResult.Persuasion > 0)
                 {
@@ -158,6 +163,7 @@ public class City_ChattingUI : MonoBehaviour
         else if (sendChatType == Define.SendChatType.Endpoint)
         {
             TipPopUpUI.SetActive(false);
+            OnEmotionSetup?.Invoke(Define.Emotion.normal);
             if (additionalData is bool isSuccess)
             {
                 if(CheckMark != null)ShowCheckMark(isSuccess);
@@ -219,8 +225,8 @@ public class City_ChattingUI : MonoBehaviour
 
         TxtPopUpUI.GetComponentInChildren<TextMeshProUGUI>().text = reason;
 
-        float vecX = Random.Range(-350f, 350f);
-        float vecY = Random.Range(-150, 205);
+        float vecX = UnityEngine.Random.Range(-350f, 350f);
+        float vecY = UnityEngine.Random.Range(-150, 205);
         RectTransform rectTransform = TxtPopUpUI.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = new Vector2(vecX, vecY);
 
