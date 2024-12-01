@@ -1,14 +1,11 @@
 import json
 import os
-import asyncio
 from openai import OpenAI
-from openai import AsyncOpenAI
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 
 client = OpenAI(api_key=os.environ.get('OPENAI_API_KEY'), )
-asyncClient = AsyncOpenAI(api_key=os.environ.get('OPENAI_API_KEY'), )
 cleanSystem = ""
 
 
@@ -83,47 +80,22 @@ def get_completion(input):
     response = query.choices[0].message.content
     return response
 
-async def muhan(user_input) -> str:
-    timeMessage(f"User Input: {user_input}")
-    try:
-        response = await asyncClient.chat.completions.create(
-            model="gpt-4",
-            messages=[
-                {"role": "system", "content": muhan_system_message_content},
-                {"role": "user", "content": user_input}
-            ],
-            max_tokens=500,
-            n=1,
-            stop=None,
-            temperature=0.5
-            )
-        content = response.choices[0].message.content
-        timeMessage(f"API Response: {content}")
-        return content
-    except Exception as e:
-        timeMessage(f"An error occurred during API call: {e}")
-        return ""
-
-async def get_three_npcs_async(userSend: str) -> list:
-    npc_requests = [s.strip() for s in userSend.split(',')[:3]]
-    tasks = [muhan(request) for request in npc_requests]
-    responses = await asyncio.gather(*tasks, return_exceptions=True)
-    
-    # 예외 처리 및 빈 문자열 채우기
-    final_responses = []
-    for resp in responses:
-        if isinstance(resp, Exception):
-            timeMessage(f"Error during NPC request: {resp}")
-            final_responses.append("")
-        else:
-            final_responses.append(resp)
-            
-    # 응답이 3개 미만이면 빈 문자열로 채웁니다.
-    while len(final_responses) < 3:
-        final_responses.append("")
-    
-    timeMessage("다 나왔다!")
-    return final_responses
+def get_completion_muhan(input):
+    timeMessage(input)
+    query = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {"role": "system", "content": muhan_system_message_content},
+            {"role": "user", "content": input}
+        ],
+        max_tokens=3000,
+        n=1,
+        stop=None,
+        temperature=0.5
+    )
+    response = query.choices[0].message.content
+    timeMessage(response)
+    return response
 
 #region Prompt
 def init_prompt(npcInit, request):
@@ -173,9 +145,9 @@ def query_view(request):
 
             elif sendType == "MuhanInit":
                 timeMessage(userSend)
-                responses = asyncio.run(get_three_npcs_async(userSend))
-                timeMessage("이제 집 보냄!" + responses[0])
-                return JsonResponse({'npc1' : responses[0], 'npc2' : responses[1], 'npc3' : responses[2]})
+                response = get_completion_muhan(userSend)
+                timeMessage("이제 집 보냄!" + response)
+                return JsonResponse({'reply' : response})
 
             else:
                 return JsonResponse({'reply' : 'Please Select Proper SendType'})

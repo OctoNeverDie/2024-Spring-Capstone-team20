@@ -77,24 +77,12 @@ public class ServerManager : ServerBase
 
         Action<ResultInfo> bringGPTReply = (result) =>
         {
-            if (_gameMode == GameMode.Story)
-            {
-                string resultData = JObject.Parse(result.Json)["reply"].ToString();
-                Debug.Log($"Gpt 답+++++++++++++++ {resultData}, {_sendChatType}");
+            string resultData = JObject.Parse(result.Json)["reply"].ToString();
+            Debug.Log($"Gpt 답+++++++++++++++ {resultData}, {_sendChatType}");
 
-                OnSendReplyUpdate?.Invoke(false);
-                templateReceive.GetGptAnswer(resultData, _sendChatType);
-            }
-            else if (_gameMode == GameMode.Infinity)
-            {
-                string[] resultData = new string[3];
-                resultData[0] = JObject.Parse(result.Json)["npc1"].ToString();
-                resultData[1] = JObject.Parse(result.Json)["npc2"].ToString();
-                resultData[2] = JObject.Parse(result.Json)["npc3"].ToString();
-
-                OnSendReplyUpdate?.Invoke(false);
-                templateReceive.GetGptAnswer(resultData, _sendChatType);
-            }
+            OnSendReplyUpdate?.Invoke(false);
+            templateReceive.GetGptAnswer(resultData, _sendChatType);
+            
         };
 
         Action<ResultInfo> failTest = (result) =>
