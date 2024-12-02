@@ -4681,7 +4681,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: BackpackType
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: FullBodyType
@@ -10331,13 +10331,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1986779912}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.23479587, y: -0.0032123323, z: 0.00077560544, w: 0.97203904}
-  m_LocalPosition: {x: 4.477, y: 0.077, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -6.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1991472967
 GameObject:
   m_ObjectHideFlags: 0
