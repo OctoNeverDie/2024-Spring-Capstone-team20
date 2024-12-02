@@ -9,6 +9,8 @@ public class AudioManager : MonoBehaviour
 
     private List<Sound> musicSounds = new List<Sound>();
     private List<Sound> sfxSounds = new List<Sound>();
+    private bool isMusicMuted = false;
+
 
     public AudioSource musicSource, sfxSource;
 
@@ -64,11 +66,7 @@ public class AudioManager : MonoBehaviour
         }
         else if (sceneName == "CityMap")
         {
-            PlayMusic("City");
-        }
-        else
-        {
-            PlayMusic("City");
+            StopMusic();
         }
     }
 
@@ -86,7 +84,10 @@ public class AudioManager : MonoBehaviour
             musicSource.Play();
         }
     }
-
+    public void StopMusic()
+    {
+        musicSource.Stop(); // 음악 재생 중단
+    }
     public void PlaySFX(string name)
     {
         Sound s = sfxSounds.Find(x => x.name == name);
@@ -108,5 +109,10 @@ public class AudioManager : MonoBehaviour
     public void SFXVolume(float volume)
     {
         sfxSource.volume = volume;
+    }
+    public void ToggleMusicMute()
+    {
+        isMusicMuted = !isMusicMuted; // 뮤트 상태 변경
+        musicSource.mute = isMusicMuted;
     }
 }
