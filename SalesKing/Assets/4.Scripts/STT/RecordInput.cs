@@ -82,9 +82,9 @@ public class RecordInput : MonoBehaviour
     public void SetSTTtxt(string playerSTT)//STT Connect에서 주입
     {
         if (playerSTT != null)
-            ResultInputfield.GetComponent<TextMeshProUGUI>().text = playerSTT;
+            ResultInputfield.GetComponent<TMP_InputField>().text = playerSTT;
         else
-            ResultInputfield.GetComponent<TextMeshProUGUI>().text = "";
+            ResultInputfield.GetComponent<TMP_InputField>().text = "";
     }
 
     public void NoMic()
