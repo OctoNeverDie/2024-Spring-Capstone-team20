@@ -98,8 +98,7 @@ public class City_ChattingUI : MonoBehaviour
     }
 
     public void OnClickItem()
-    {
-        AudioManager.Instance.PlaySFX("SlotEnd");
+    { 
         ChatManager.Instance.TransitionToState(Define.SendChatType.Chatting);
     }
 

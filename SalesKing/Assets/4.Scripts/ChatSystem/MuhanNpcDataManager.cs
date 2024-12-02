@@ -83,7 +83,6 @@ public class MuhanNpcDataManager : MonoBehaviour
     private void Start()
     {
         TestInit();
-        Init();
     }
 
     #region

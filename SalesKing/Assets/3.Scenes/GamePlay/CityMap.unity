@@ -7795,10 +7795,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ConversationPanel
       objectReference: {fileID: 0}
-    - target: {fileID: 1706473581870085988, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2075008036}
     - target: {fileID: 5100732250719050403, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
       propertyPath: cityTabletData
       value: 
@@ -72521,7 +72517,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2000650345}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c6604c508c8be94fb9fdf7e12c16568, type: 3}
   m_Name: 
@@ -76195,17 +76191,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9adc3bed8d519894395a5de0392891e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2075008036 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8092872907927218603, guid: 0573610284f68a443b6dcce9e446a99d, type: 3}
-  m_PrefabInstance: {fileID: 1198869809}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 271923347}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2d46e0df55644f46a9db4e890cd1fb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2075502099

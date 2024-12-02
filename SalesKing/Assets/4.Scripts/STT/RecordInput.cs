@@ -110,7 +110,7 @@ public class RecordInput : MonoBehaviour
     {
         while (_isRecording)
         {
-            _currentRecordingTime += Time.fixedDeltaTime;  // 시간이 지남에 따라 증가
+            _currentRecordingTime += Time.deltaTime;  // 시간이 지남에 따라 증가
             recordSlider.value = STTconnect._recordingLengthSec - _currentRecordingTime; // 슬라이더 값 감소
 
             // 녹음 시간이 다 되면 녹음 중지

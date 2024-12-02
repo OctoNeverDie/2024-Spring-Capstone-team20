@@ -26,7 +26,7 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
     {
         if(isStory)
         {
-            int today = DataController.Instance.playData.cur_day_ID;
+            today = DataController.Instance.playData.cur_day_ID;
             npcIDs = storyNpcSO.storyNpcs[today].npc_IDs;
         }
         else
