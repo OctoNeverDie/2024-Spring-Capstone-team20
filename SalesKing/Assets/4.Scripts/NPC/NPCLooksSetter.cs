@@ -76,7 +76,7 @@ public class NPCLooksSetter : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"No NpcLooks found for NpcID {muhanNpcID}");
+            //Debug.LogWarning($"No NpcLooks found for NpcID {muhanNpcID}");
         }
 
         AssignNPCMesh(NPCDefine.MeshType.Backpack, npcLooks.BackpackType);
@@ -134,7 +134,7 @@ public class NPCLooksSetter : MonoBehaviour
         List<Mesh> meshes = NPCManager.Mesh.GetMeshes(meshType, key);
         if (meshes == null || meshes.Count == 0)
         {
-            Debug.LogWarning($"No meshes found for MeshType: {meshType}, Key: {key}");
+            //Debug.LogWarning($"No meshes found for MeshType: {meshType}, Key: {key}");
             return;
         }
 
@@ -146,7 +146,7 @@ public class NPCLooksSetter : MonoBehaviour
         int randomIndex = UnityEngine.Random.Range(0, meshes.Count);
         meshRenderer.sharedMesh = meshes[randomIndex];
 
-        Debug.Log($"Mesh assigned for MeshType: {meshType}, Key: {key}");
+        //Debug.Log($"Mesh assigned for MeshType: {meshType}, Key: {key}");
     }
 
 
