@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7919,6 +7919,14 @@ PrefabInstance:
       propertyPath: Tablet
       value: 
       objectReference: {fileID: 2075008035}
+    - target: {fileID: 7697430966222364382, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
+      propertyPath: tablet
+      value: 
+      objectReference: {fileID: 1726030562}
+    - target: {fileID: 7697430966222364382, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
+      propertyPath: PhonePanel
+      value: 
+      objectReference: {fileID: 271923347}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9949,6 +9957,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3625079000661121788, guid: 13e28e5ee98fd73499e49c904555cefe, type: 3}
   m_PrefabInstance: {fileID: 271798531}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &271923347 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1046054712752609851, guid: 0573610284f68a443b6dcce9e446a99d, type: 3}
+  m_PrefabInstance: {fileID: 1198869809}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &275783123
 PrefabInstance:
@@ -61327,6 +61340,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 607659808432565602, guid: 8c1bd643baddbfc47b678c1fb6dbd26e, type: 3}
   m_PrefabInstance: {fileID: 1722756396}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1726030562 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6904810425936595288, guid: 0573610284f68a443b6dcce9e446a99d, type: 3}
+  m_PrefabInstance: {fileID: 1198869809}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1726553190
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76138,7 +76156,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3741813964216108763, guid: 0573610284f68a443b6dcce9e446a99d, type: 3}
   m_PrefabInstance: {fileID: 1198869809}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 271923347}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9adc3bed8d519894395a5de0392891e3, type: 3}
@@ -76149,7 +76167,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8092872907927218603, guid: 0573610284f68a443b6dcce9e446a99d, type: 3}
   m_PrefabInstance: {fileID: 1198869809}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 271923347}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2d46e0df55644f46a9db4e890cd1fb3, type: 3}
