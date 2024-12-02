@@ -75,7 +75,7 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
         switch (mbti)
         {
             case 0:
-                mbtiType = "감성";
+                mbtiType = "구걸";
                 break;
             case 1:
                 mbtiType = "논리";
@@ -84,7 +84,7 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
                 mbtiType = "아부";
                 break;
             case 3:
-                mbtiType = "유혹";
+                mbtiType = "관계형성";
                 break;
             default: break;
         }
