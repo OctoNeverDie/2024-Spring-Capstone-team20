@@ -80,7 +80,7 @@ public class NpcInitState : ChatBaseState
     private string MakeMbtiSend(int[] mbtiPrefers)
     {
         //        기본좋아, 구걸좋아, 관계형성좋아, 아부좋아
-        string[] strMbtis = new string[] { "구걸", "기본", "아부", "관계형성" };
+        string[] strMbtis = new string[] { "#구걸", "#기본", "#아부", "#관계형성" };
         string result = "";
         for (int i = 0; i < mbtiPrefers.Length; i++)
         {
@@ -90,13 +90,13 @@ public class NpcInitState : ChatBaseState
             switch (mbtiPrefers[i])
             {
                 case -1:
-                    preference = " 싫어, persuasion: -1";
+                    preference = " 싫어(persuasion: -1) ";
                     break;
                 case 0:
-                    preference = " 보통, persuasion: -1 to +1";
+                    preference = " 보통(persuasion: -1to+1)";
                     break;
                 case 1:
-                    preference = " 좋아, persuasion: +1";
+                    preference = " 좋아(persuasion: +1)";
                     break;
             }
 
