@@ -67,7 +67,7 @@ def get_completion(input):
     system_message_content = read_system_message(path)
 
     query = client.chat.completions.create(
-        model="gpt-4",
+        model="gpt-4o",
         messages=[
             {"role": "system", "content": system_message_content},
             {"role": "user", "content": input}
