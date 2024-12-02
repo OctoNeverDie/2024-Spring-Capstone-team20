@@ -1,7 +1,8 @@
-using System;
+using System.Linq;
 using System.Collections;
 using UnityEngine;
 using static Define;
+using System;
 
 /// <summary>
 /// Scene load하면 사라짐.
@@ -33,7 +34,11 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
     {
         cityChattingUI.GetComponent<City_ChattingUI>();
         isConvo = true;
-        ThisNpc = cityTabletData.todaysIDdict[NpcID];
+
+        if(MuhanNpcDataManager.Instance!=null)
+            ThisNpc = MuhanNpcDataManager.Instance.npcs.Where(n=>n.NpcID == NpcID).Select(n=>n).SingleOrDefault();
+        else
+            ThisNpc = cityTabletData.todaysIDdict[NpcID];
 
         if (_chatStateMachine == null)
             _chatStateMachine = new ChatStateMachine();

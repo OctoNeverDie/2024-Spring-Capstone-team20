@@ -33,6 +33,7 @@ public class City_ChattingUI : MonoBehaviour
 
     TextMeshProUGUI NpcSpeechText;
     Image CheckMark;
+    Define.GameMode thisGame;
 
     public static event Action<Define.Emotion> OnEmotionSetup;
 
@@ -57,6 +58,10 @@ public class City_ChattingUI : MonoBehaviour
         ConvoPanel.SetActive(false);
 
         NpcSpeechText = NpcSpeechBubble.GetComponentInChildren<TextMeshProUGUI>();
+        if (MuhanNpcDataManager.Instance == null)
+            thisGame = Define.GameMode.Story;
+        else
+            thisGame = Define.GameMode.Infinity;
     }
 
     private void OnDestroy()
@@ -162,7 +167,8 @@ public class City_ChattingUI : MonoBehaviour
 
         else if (sendChatType == Define.SendChatType.Endpoint)
         {
-            TipPopUpUI.SetActive(false);
+            if(thisGame == Define.GameMode.Story)
+                TipPopUpUI.SetActive(false);
             OnEmotionSetup?.Invoke(Define.Emotion.normal);
             if (additionalData is bool isSuccess)
             {
@@ -236,7 +242,7 @@ public class City_ChattingUI : MonoBehaviour
 
     private void SetUIafterReply(bool isDeactive)
     {
-        if(!isDeactive)
+        if(!isDeactive && (thisGame == Define.GameMode.Story))
             TipPopUpUI.SetActive(true);
     }
 }

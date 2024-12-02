@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-public class City_TabletDataManager : MonoBehaviour
+public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingletonSettings
 {
     [SerializeField] City_TabletMovement tabletMovement;
     [SerializeField] City_NpcInfoUI npcInfoUI;
@@ -10,16 +10,30 @@ public class City_TabletDataManager : MonoBehaviour
     [SerializeField] StoryNpcSO storyNpcSO;
     [SerializeField] NpcLookSO npcLookSO;
 
+    private int today = -1;
     public Dictionary<int, NpcInfo> todaysIDdict = new Dictionary<int, NpcInfo>();
+
+    public bool ShouldNotDestroyOnLoad => false;
+
     private void Start()
     {
-        InitNpc();
+        if(MuhanNpcDataManager.Instance==null)
+            InitNpc(true);
     }
 
-    private void InitNpc()
+    public void InitNpc(bool isStory)
     {
-        int today = DataController.Instance.playData.cur_day_ID;
-        List<int> npcIDs = storyNpcSO.storyNpcs[today].npc_IDs;
+        List<int> npcIDs = new List<int>();
+
+        if(isStory)
+        {
+            int today = DataController.Instance.playData.cur_day_ID;
+            npcIDs = storyNpcSO.storyNpcs[today].npc_IDs;
+        }
+        else
+        {
+            npcIDs = MuhanNpcDataManager.Instance.npc_IDs;
+        }
 
         for (int i = 0; i < npcIDs.Count; i++)
         {
@@ -27,6 +41,7 @@ public class City_TabletDataManager : MonoBehaviour
                     .Where(n => n.NpcID == npcIDs[i])
                     .FirstOrDefault(); // 해당 요소 반환 또는 null
             todaysIDdict.Add(npcIDs[i], npc);
+            Debug.Log($"todaysIDdict.Add(npcIDs[i], npc);, {npcIDs[i]}, {npc.NpcName}");
 
             string colorPersuasion = ColorPersuasion(npc.Mbtis);
             Sprite npcProfile = npcLookSO.npcLooks

@@ -19,14 +19,14 @@ public class City_SummaryUI : MonoBehaviour
     int failCnt = 0;
     Dictionary<int, int> NpcIDToUIIdx = new Dictionary<int, int>();
 
-    public void InitNpc(NpcInfo npc, Sprite sprite = null, int today = 0)
+    public void InitNpc(NpcInfo npc, Sprite sprite = null, int today = -1)
     {
         int i = npcsCount++;
         NpcIDToUIIdx.Add(npc.NpcID, i);//npc ui object와 npc id를 매칭한 걸 기록한 dictionary
 
         npcs[i].SuccessImg.gameObject.SetActive(false);
         npcs[i].Name.text = npc.NpcName;
-        npcs[i].Day.text = "Day "+ (today+1);
+        npcs[i].Day.text = "Day "+ ((today)==-1? "무한" : today+1);
 
 
         if (sprite != null)

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ChattingState : ChatBaseState, IVariableChat
 {
-    const int persuMaxLimit = 8;
-    const int persuMinLimit = -5;
+    const int persuMaxLimit = 3;
+    const int persuMinLimit = -3;
+    const int persuLimit = 6;
     public enum Decision
     {
         wait,
@@ -54,8 +55,9 @@ public class ChattingState : ChatBaseState, IVariableChat
     }
     GptResult gptResult;
     private int totalPersuasion = 0;
+    private int totalTurn = 0;
     private string playerReply = "";
-    private int turn = 0;
+    
     public override void Enter()
     {
         SubScribeAction();
@@ -74,14 +76,6 @@ public class ChattingState : ChatBaseState, IVariableChat
     {
         if (type != nameof(ChatManager.Instance.Reply.UserAnswer))
             return;
-
-        if (turn >= 8)
-        {
-            if (totalPersuasion > 0)
-                turn = persuMaxLimit;
-            else
-                turn = persuMinLimit;
-        }
         
         if (totalPersuasion >= persuMaxLimit)
         {
@@ -91,11 +85,15 @@ public class ChattingState : ChatBaseState, IVariableChat
         {
             user_input += "isBuy = False";
         }
+        else if (++totalTurn >= persuLimit)
+        {
+            user_input += "isBuy = you decide now";
+        }
 
         playerReply = user_input;
 
         Debug.Log($"ChatBargainState에서 보냄 {user_input}");
-        ServerManager.Instance.GetGPTReply(Define.GameMode.Story, user_input, _sendChatType);
+        ServerManager.Instance.GetGPTReply(user_input, _sendChatType);
     }
 
     public void GptOutput(string type, string gpt_output)
@@ -103,7 +101,6 @@ public class ChattingState : ChatBaseState, IVariableChat
         if (type != nameof(ChatManager.Instance.Reply.GptAnswer))
             return;
 
-        turn++;
         UpdateReplyVariables(gpt_output);
         ShowFront();
         UpdateEvaluation();
@@ -137,7 +134,7 @@ public class ChattingState : ChatBaseState, IVariableChat
         catch (JsonReaderException)
         {
             playerReply += "SystemPrompt를 잘 읽고, Json 형식에 맞춰 대답해.";
-            ServerManager.Instance.GetGPTReply(Define.GameMode.Story, playerReply, _sendChatType);
+            ServerManager.Instance.GetGPTReply(playerReply, _sendChatType);
         }
 
 

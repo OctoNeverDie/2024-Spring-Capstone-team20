@@ -34,10 +34,9 @@ public class ServerManager : ServerBase
     private string _userInput = "";
     private string _initData = "";
     private SendChatType _sendChatType;
-    private GameMode _gameMode;
-    public void GetGPTReply(GameMode gameMode, string userInput, SendChatType sendChatTypeFrom, string initData = "")
+
+    public void GetGPTReply(string userInput, SendChatType sendChatTypeFrom, string initData = "")
     {
-        _gameMode = gameMode;
         _sendChatType = sendChatTypeFrom;
         _userInput = userInput;
         if (sendChatTypeFrom == SendChatType.ChatInit)
@@ -70,7 +69,7 @@ public class ServerManager : ServerBase
                                 Action<ResultInfo> onFailed = null,
                                 Action<ResultInfo> onNetworkFailed = null)
     {
-        string url = "https://salesking-final.azurewebsites.net/";//"http://127.0.0.1:8000/"; //"https://salesking-jbr.azurewebsites.net/"; //"https://salesai-ljy.azurewebsites.net/"//"https://salesai-jsy333.azurewebsites.net/";//"https://salesai-jsy2.azurewebsites.net/";//
+        string url = "http://127.0.0.1:8000/"; //"https://salesking-final.azurewebsites.net/";//"https://salesking-jbr.azurewebsites.net/"; //"https://salesai-ljy.azurewebsites.net/"//"https://salesai-jsy333.azurewebsites.net/";//"https://salesai-jsy2.azurewebsites.net/";//
 
         JObject jobj = new JObject();
         jobj = AddJobjBySendType(jobj, _sendChatType);

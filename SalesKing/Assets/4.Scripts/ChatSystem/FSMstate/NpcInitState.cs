@@ -45,7 +45,7 @@ public class NpcInitState : ChatBaseState
         string _userSend = MakeUserSend(npc) + "\n" + MakeMbtiSend(npc.Mbtis);
 
         Debug.Log($"NpcInitState에서 보냄 {_sendChatType}. {_userSend}");
-        ServerManager.Instance.GetGPTReply(GameMode.Story, "$start", _sendChatType, _userSend);
+        ServerManager.Instance.GetGPTReply("$start", _sendChatType, _userSend);
     }
 
     private ItemInfo GetRandItem()

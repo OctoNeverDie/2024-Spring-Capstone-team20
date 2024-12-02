@@ -1,12 +1,9 @@
-using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using System.Text.RegularExpressions;
 using UnityEngine;
-using TMPro;
+
 using static Define;
 using static NPCDefine;
-using static StoryNpcSO;
 
 /// <summary>
 /// MuhanInfo[] npcs 안에
@@ -24,7 +21,7 @@ public class MuhanNpcDataManager : Singleton<MuhanNpcDataManager>, ISingletonSet
     //----------------------------//----------------------------
     [Header("Just For Test")]
     [SerializeField] GameObject[] lookSetters;
-    [SerializeField] TextMeshProUGUI[] testtexts;
+    //[SerializeField] TextMeshProUGUI[] testtexts;
     List<NPCLooksSetter> npcLooksSetters = new List<NPCLooksSetter>();
     //----------------------------//----------------------------
 
@@ -103,83 +100,59 @@ public class MuhanNpcDataManager : Singleton<MuhanNpcDataManager>, ISingletonSet
             gameSend += $" {npcOptionA[randIdx]} {npcOptionB[randIdx2]} Npc 하나 만들어줘.\n";
         }
         gameSend += "총 npc 3개 프로필을 만들어줘. system prompt의 example 형식처럼 말이야.";
-        ServerManager.Instance.GetGPTReply(Define.GameMode.Infinity, gameSend, SendChatType.MuhanInit);
+        ServerManager.Instance.GetGPTReply(gameSend, SendChatType.MuhanInit);
     }
 
     public void NpcsReceive(string npcsStr)
     {
         npcsStr = npcsStr.Trim();
-        npcsStr = npcsStr.Replace("json", "").Replace("`", "").Replace("[","").Replace("]", "");
+        npcsStr = npcsStr.Replace("json", "").Replace("`", "");
+
         Debug.Log($"잘왔어요 원본, {npcsStr}");
 
-        string pattern = @"},?\n\{";
-
-        // 정규식을 사용하여 문자열을 분할
-        string[] npcArray = Regex.Split(npcsStr, pattern);
-
-        for (int i = 0; i < npcArray.Length; i++)
+        List<MuhanInfo> npcList = JsonConvert.DeserializeObject<List<MuhanInfo>>(npcsStr);
+        int idx = 0;
+        // 각각 개별 처리
+        foreach (var npc in npcList)
         {
-            // 첫 번째 요소가 '{'로 시작하지 않으면 추가, 첫번째 애 제외
-            if (i != 0 && !npcArray[i].StartsWith("{"))
-            {
-                npcArray[i] = "{" + npcArray[i];
-            }
-            // 마지막 요소가 '}'로 끝나지 않으면 추가, 마지막 애 제외
-            if (i!=(npcArray.Length -1) && !npcArray[i].EndsWith("}"))
-            {
-                npcArray[i] = npcArray[i] + "}";
-            }
-
-            ConcatInfo(npcArray[i]);
-            AddDataToJsonNpcDict(npcs[npcs.Count - 1], testtexts[i]);//막 추가한, 마지막 요소
-            NpcLookSetting(npcs[npcs.Count - 1].NpcLooks, i);
+            ConcatInfo(npc);
+            AddDataToJsonNpcDict(npc);
+            NpcLookSetting(npc.NpcLooks, idx++);
         }
-        
-        InjectIDtoStorySO();
+
+        City_TabletDataManager.Instance.InitNpc(false);
+        //InjectIDtoStorySO();
     }
 
-    private void ConcatInfo(string npcStr)
+    private void ConcatInfo(MuhanInfo npc)
     {
-        Debug.Log($"잘 왔어요~${_npdIDStart}, {npcStr}");
-        npcStr = npcStr.Replace("json", "").Replace("`", "");
-        MuhanInfo npcMuhanProfile = JsonConvert.DeserializeObject<MuhanInfo>(npcStr);
-        npcMuhanProfile.NpcID = _npdIDStart++;
-        npcMuhanProfile.ItemCategory = ItemCategory.Random;
+        npc.NpcID = _npdIDStart++;
+        npc.ItemCategory = ItemCategory.Random;
 
-        npcs.Add(npcMuhanProfile);
-        npc_IDs.Add(npcMuhanProfile.NpcID);
+        npcs.Add(npc);
+        npc_IDs.Add(npc.NpcID);
     }
 
-    private void InjectIDtoStorySO()
-    {
-        StoryNpcSet storyNpcSet = new StoryNpcSet();
-        storyNpcSet.npc_IDs = npc_IDs;
-
-        storyNpcSO.storyNpcs.Add(storyNpcSet);
-        
-        npc_IDs.Clear();
-    }
-
-    private void AddDataToJsonNpcDict(MuhanInfo muhanInfo, TextMeshProUGUI texts)
+    private void AddDataToJsonNpcDict(MuhanInfo muhanInfo)
     {
         NpcInfo npc = muhanInfo;
         DataGetter.Instance.NpcList.Add(npc);
 
-        //string logMessage = $"NpcID: {npc.NpcID}, " +
-        //                        $"NpcAge: {npc.NpcAge}, " +
-        //                        $"Mbtis: [{string.Join(", ", npc.Mbtis)}], " +
-        //                        $"ItemCategory: {npc.ItemCategory}, " +
-        //                        $"NpcName: {npc.NpcName}, " +
-        //                        $"NpcSex: {npc.NpcSex}, " +
-        //                        $"KeyWord: {npc.KeyWord}, " +
-        //                        $"Concern: {npc.Concern}, " +
-        //                        $"WantItem: {npc.WantItem}, " +
-        //                        $"Personality: {npc.Personality}, " +
-        //                        $"DialogueStyle: {npc.DialogueStyle}, " +
-        //                        $"Example: {npc.Example}";
+        string logMessage = $"NpcID: {npc.NpcID}, " +
+                                $"NpcAge: {npc.NpcAge}, " +
+                                $"Mbtis: [{string.Join(", ", npc.Mbtis)}], " +
+                                $"ItemCategory: {npc.ItemCategory}, " +
+                                $"NpcName: {npc.NpcName}, " +
+                                $"NpcSex: {npc.NpcSex}, " +
+                                $"KeyWord: {npc.KeyWord}, " +
+                                $"Concern: {npc.Concern}, " +
+                                $"WantItem: {npc.WantItem}, " +
+                                $"Personality: {npc.Personality}, " +
+                                $"DialogueStyle: {npc.DialogueStyle}, " +
+                                $"Example: {npc.Example}";
 
-        //Debug.Log(logMessage);
-        texts.text = $"닉네임 : {npc.NpcName}\n 키워드 : {npc.KeyWord} \n거래 물품 : {npc.WantItem} \n";
-        Debug.Log($"DataGetter.Instance.NpcList[_npdIDStart].NpcName; {DataGetter.Instance.NpcList[_npdIDStart - 1].NpcName}");
+        Debug.Log(logMessage);
+        //texts.text = $"닉네임 : {npc.NpcName}\n 키워드 : {npc.KeyWord} \n거래 물품 : {npc.WantItem} \n";
+        Debug.Log($"DataGetter.Instance.NpcList[_npdIDStart].NpcName; {npc.NpcID}, {DataGetter.Instance.NpcList[_npdIDStart - 1].NpcName}");
     }
 }

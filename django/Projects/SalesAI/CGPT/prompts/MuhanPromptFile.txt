@@ -10,7 +10,7 @@ NPC는 당근마켓이라는 중고물품 거래사이트로 물품을 사러나
 1. **캐릭터 기본 정보**:
     NpcName (캐릭터닉네임)
     NpcSex
-    NpcAge
+    NpcAge (나이, 나이불명이면 -1)
     KeyWord (특징)
     Concern (최근고민)
     WantItem (원하는아이템)
@@ -146,7 +146,7 @@ ShoeType { None, Sneakers, Boots, Skate, Slippers }
 #**전체출력예시**
 
 json형식
-
+json[
 {
 "NpcName": "핫도그최고!!!",
 "NpcSex": "male",
@@ -204,7 +204,7 @@ json형식
 {
 "NpcName": "제로",
 "NpcSex": "female",
-"NpcAge": "???",
+"NpcAge": -1,
 "KeyWord": "#깐깐함 #???",
 "Concern": "인간에 대해 연구하고 싶음.",
 "WantItem": "심리학 저서",
@@ -228,6 +228,7 @@ json형식
 "ShoeType": "Boots"
 }
 }
+]
 
 ###**Important Notes**
 
