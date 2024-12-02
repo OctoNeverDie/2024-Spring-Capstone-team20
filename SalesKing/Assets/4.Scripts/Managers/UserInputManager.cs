@@ -49,10 +49,12 @@ public class UserInputManager : Singleton<UserInputManager>, ISingletonSettings
             if (OptionPanel.activeSelf)
             {
                 OptionPanel.SetActive(false);
+                Time.timeScale = 1f;
             }
             else
             {
                 OptionPanel.SetActive(true);
+                Time.timeScale = 0f;
             }
         }
     }
