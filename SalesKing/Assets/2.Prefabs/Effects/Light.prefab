@@ -48,13 +48,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d899fe6392cd642ad08fd59c70445b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testEmotion: 2
+  currentEmotion: 2
   lightSO: {fileID: 11400000, guid: b119eed115796cf4699d8614a2d2ba77, type: 2}
   LeftLight: {fileID: 2130118417520246602}
   RightLight: {fileID: 4189957922737933217}
   SideLight: {fileID: 3082547705037902468}
   DownLight: {fileID: 6875679594564865455}
-  DirectionalLight: {fileID: 0}
 --- !u!1 &3132032631724038134
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,13 +188,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4216291276055196155}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.93177325, y: -0.038480207, z: -0.34578308, w: -0.103691675}
-  m_LocalPosition: {x: 4.39, y: -0.37, z: 1.97}
+  m_LocalRotation: {x: 0.019265337, y: 0.97701263, z: 0.10070596, w: -0.18690531}
+  m_LocalPosition: {x: 0.68, y: 1.18, z: 1.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3677095920243621166}
-  m_LocalEulerAnglesHint: {x: 192.7, y: 40.72, z: 0}
+  m_LocalEulerAnglesHint: {x: -11.77, y: 201.66, z: 0}
 --- !u!108 &3082547705037902468
 Light:
   m_ObjectHideFlags: 0

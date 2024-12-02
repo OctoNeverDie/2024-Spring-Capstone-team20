@@ -45,10 +45,10 @@ public class LightManager : MonoBehaviour
         };
     }
 
-    //private void OnEnable()
-    //{
-    //    SetLight(currentEmotion);
-    //}
+    private void OnEnable()
+    {
+        SetLight(currentEmotion);
+    }
 
     private void OnDestroy()
     {
@@ -65,6 +65,7 @@ public class LightManager : MonoBehaviour
         directionalRotation.x = (thisEmotion == Define.Emotion.worst) ? -50f : 50f;
         DirectionalLight.transform.eulerAngles = directionalRotation;
 
+        currentEmotion = thisEmotion;
         lightSet = lightSO.GetLightSets(thisEmotion);
 
         foreach (var kvp in lightDictionary)
@@ -83,6 +84,11 @@ public class LightManager : MonoBehaviour
         {
             light.intensity = lightData.intensity;
             light.color = ColorParsing(lightData.Color);
+
+            if (currentEmotion == Define.Emotion.worst && lightType == Define.LightType.Side)
+            {
+                light.shadows = LightShadows.Hard;
+            }
         }
         else
         {

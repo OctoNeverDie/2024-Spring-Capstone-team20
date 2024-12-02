@@ -16,20 +16,6 @@ MonoBehaviour:
   - emotion: 0
     lightSets:
     - lightType: 1
-      intensity: 0
-      Color: 000000
-    - lightType: 2
-      intensity: 0
-      Color: 000000
-    - lightType: 3
-      intensity: 2.5
-      Color: FFFFFF
-    - lightType: 4
-      intensity: 0
-      Color: 000000
-  - emotion: 1
-    lightSets:
-    - lightType: 1
       intensity: 2
       Color: FF0000
     - lightType: 2
@@ -41,7 +27,7 @@ MonoBehaviour:
     - lightType: 4
       intensity: 12
       Color: 160000
-  - emotion: 2
+  - emotion: 1
     lightSets:
     - lightType: 1
       intensity: 2
@@ -52,6 +38,20 @@ MonoBehaviour:
     - lightType: 3
       intensity: 0
       Color: 000000
+    - lightType: 4
+      intensity: 0
+      Color: 505477
+  - emotion: 2
+    lightSets:
+    - lightType: 1
+      intensity: 0
+      Color: 000000
+    - lightType: 2
+      intensity: 0
+      Color: 000000
+    - lightType: 3
+      intensity: 0
+      Color: FFFFFF
     - lightType: 4
       intensity: 0
       Color: 000000
@@ -82,4 +82,4 @@ MonoBehaviour:
       Color: FFC2EF
     - lightType: 4
       intensity: 1.4
-      Color: FFFFFF
+      Color: FFBFFF

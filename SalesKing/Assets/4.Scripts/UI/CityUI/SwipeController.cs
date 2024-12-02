@@ -85,7 +85,7 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
 
     public void OnClickMatchPage(int npcOrder)//npcOrder : 0, 1, 2, currentPage : 1, 2, 3  1,2,3
     {
-        _currentPage = npcOrder; ;
+        _currentPage = npcOrder + 1;
 
         Vector3 pagesStep = _pageStep * _currentPage;
         _npcPagesRect.localPosition = _firstVacantPageLocation + pagesStep;
