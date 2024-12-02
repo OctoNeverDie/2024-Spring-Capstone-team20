@@ -8,10 +8,9 @@ public class NpcEvalRectrans : MonoBehaviour
 {
     [Header("Default")]
     public TextMeshProUGUI Name;
-    public TextMeshProUGUI Persuasion;
+    public TextMeshProUGUI Day;
     
     [Header("Deal")]
-    public TextMeshProUGUI Item;
     public TextMeshProUGUI Evaluation;
 
     [Header("Img")]

@@ -1,23 +1,40 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 using UnityEngine;
+using TMPro;
 using static Define;
 using static NPCDefine;
 using static StoryNpcSO;
 
+/// <summary>
+/// MuhanInfo[] npcs 안에
+/// 1. npcID, npclooks가 있어.
+/// 2. 언니는 npclooks만 필요한가?
+/// 
+/// Server에서 만들어와서
+/// 1. StoryNpcSO에 걔네 int npc ID 3개 1day로 넣어줘.
+/// 2. DataGetter의 Npclist에 걔네 
+/// </summary>
 public class MuhanNpcDataManager : Singleton<MuhanNpcDataManager>, ISingletonSettings
 {
-    public bool ShouldNotDestroyOnLoad => false;
+    public bool ShouldNotDestroyOnLoad => true;
+
+    //----------------------------//----------------------------
+    [Header("Just For Test")]
+    [SerializeField] GameObject[] lookSetters;
+    [SerializeField] TextMeshProUGUI[] testtexts;
+    List<NPCLooksSetter> npcLooksSetters = new List<NPCLooksSetter>();
+    //----------------------------//----------------------------
 
     [SerializeField] StoryNpcSO storyNpcSO;
+    
     [HideInInspector]
-    public NpcLooks[] todayNpcLooks = new NpcLooks[3];
-    public List<int> npc_IDs = new List<int>();
+    public List<MuhanInfo> npcs = new List<MuhanInfo>(); //n. n+1. n+2 각각의 npc info, npc looks
+    public List<int> npc_IDs = new List<int>(); //새로 더해질 3명 아이디 n, n+1, n+2
 
-    private MuhanInfo[] npcs = new MuhanInfo[3];
     private int _npdIDStart = 0;
-    private string _npcLooksStr;
     
     private string[] npcOptionA = { "권위적인", "소심한", "독특한", "쾌활한", "엉뚱한", "느끼한", "성격 나쁜", "야비한" };
     private string[] npcOptionB = { "미치광이", "괴짜", "개성있는" };
@@ -46,12 +63,34 @@ public class MuhanNpcDataManager : Singleton<MuhanNpcDataManager>, ISingletonSet
     //-----------------------------------------------------------
     private void Start()
     {
+        TestInit();
         Init();
     }
+
+    #region
+    private void TestInit()
+    {
+        //extract npclookssetter from every gameobject
+        foreach (var look in lookSetters)
+        { 
+            if(look.TryGetComponent<NPCLooksSetter>(out var lookSetterScript))
+            {
+                npcLooksSetters.Add(lookSetterScript);
+            }
+        }
+    }
+    private void NpcLookSetting(NpcLooks npcLooks, int idx)
+    {
+        if(idx < npcLooksSetters.Count)
+            npcLooksSetters[idx].AssignMuhanMeshes(npcLooks);
+    }
+    #endregion
+
+
     private void Init()
     {
         _npdIDStart = DataGetter.Instance.NpcList.Count;
-        Debug.Log($"뭐가 문제임 {_npdIDStart}");
+        
         int randIdx;
         int randIdx2;
         string gameSend = "";
@@ -61,32 +100,54 @@ public class MuhanNpcDataManager : Singleton<MuhanNpcDataManager>, ISingletonSet
             randIdx = UnityEngine.Random.Range(0, npcOptionA.Length);
             randIdx2 = UnityEngine.Random.Range(0, npcOptionB.Length);
 
-            gameSend += $" {npcOptionA[randIdx]} {npcOptionB[randIdx2]} Npc 하나 만들어줘. Npc 설정 전부 합해서 700 토큰을 넘기지 마.,";
+            gameSend += $" {npcOptionA[randIdx]} {npcOptionB[randIdx2]} Npc 하나 만들어줘.\n";
         }
-        Debug.Log("뭐여ㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ");
+        gameSend += "총 npc 3개 프로필을 만들어줘. system prompt의 example 형식처럼 말이야.";
         ServerManager.Instance.GetGPTReply(Define.GameMode.Infinity, gameSend, SendChatType.MuhanInit);
     }
 
-    public void NpcsReceive(String[] npcsStr)
+    public void NpcsReceive(string npcsStr)
     {
-        for (int i = 0; i < 3; i++)
-        {
-            npc_IDs.Add(++_npdIDStart);
-            ConcatInfo(npcsStr[i], i);
-            todayNpcLooks[i] = npcs[i].NpcLooks;
-        }
+        npcsStr = npcsStr.Trim();
+        npcsStr = npcsStr.Replace("json", "").Replace("`", "").Replace("[","").Replace("]", "");
+        Debug.Log($"잘왔어요 원본, {npcsStr}");
 
+        string pattern = @"},?\n\{";
+
+        // 정규식을 사용하여 문자열을 분할
+        string[] npcArray = Regex.Split(npcsStr, pattern);
+
+        for (int i = 0; i < npcArray.Length; i++)
+        {
+            // 첫 번째 요소가 '{'로 시작하지 않으면 추가, 첫번째 애 제외
+            if (i != 0 && !npcArray[i].StartsWith("{"))
+            {
+                npcArray[i] = "{" + npcArray[i];
+            }
+            // 마지막 요소가 '}'로 끝나지 않으면 추가, 마지막 애 제외
+            if (i!=(npcArray.Length -1) && !npcArray[i].EndsWith("}"))
+            {
+                npcArray[i] = npcArray[i] + "}";
+            }
+
+            ConcatInfo(npcArray[i]);
+            AddDataToJsonNpcDict(npcs[npcs.Count - 1], testtexts[i]);//막 추가한, 마지막 요소
+            NpcLookSetting(npcs[npcs.Count - 1].NpcLooks, i);
+        }
+        
         InjectIDtoStorySO();
     }
 
-    private void ConcatInfo(string npcStr, int idx)
+    private void ConcatInfo(string npcStr)
     {
-        Debug.Log($"잘 왔어요~ {npcStr}");
+        Debug.Log($"잘 왔어요~${_npdIDStart}, {npcStr}");
         npcStr = npcStr.Replace("json", "").Replace("`", "");
-        npcs[idx] = JsonConvert.DeserializeObject<MuhanInfo>(npcStr);
-        npcs[idx].NpcID = _npdIDStart;
-        npcs[idx].ItemCategory = ItemCategory.Random;
-        Debug.Log($"유후~ {npcs[idx].NpcLooks.HatType}");
+        MuhanInfo npcMuhanProfile = JsonConvert.DeserializeObject<MuhanInfo>(npcStr);
+        npcMuhanProfile.NpcID = _npdIDStart++;
+        npcMuhanProfile.ItemCategory = ItemCategory.Random;
+
+        npcs.Add(npcMuhanProfile);
+        npc_IDs.Add(npcMuhanProfile.NpcID);
     }
 
     private void InjectIDtoStorySO()
@@ -95,7 +156,30 @@ public class MuhanNpcDataManager : Singleton<MuhanNpcDataManager>, ISingletonSet
         storyNpcSet.npc_IDs = npc_IDs;
 
         storyNpcSO.storyNpcs.Add(storyNpcSet);
-        Debug.Log("냐냐냐냐냐냐" + storyNpcSO.storyNpcs[storyNpcSO.storyNpcs.Count -1]);
+        
         npc_IDs.Clear();
+    }
+
+    private void AddDataToJsonNpcDict(MuhanInfo muhanInfo, TextMeshProUGUI texts)
+    {
+        NpcInfo npc = muhanInfo;
+        DataGetter.Instance.NpcList.Add(npc);
+
+        //string logMessage = $"NpcID: {npc.NpcID}, " +
+        //                        $"NpcAge: {npc.NpcAge}, " +
+        //                        $"Mbtis: [{string.Join(", ", npc.Mbtis)}], " +
+        //                        $"ItemCategory: {npc.ItemCategory}, " +
+        //                        $"NpcName: {npc.NpcName}, " +
+        //                        $"NpcSex: {npc.NpcSex}, " +
+        //                        $"KeyWord: {npc.KeyWord}, " +
+        //                        $"Concern: {npc.Concern}, " +
+        //                        $"WantItem: {npc.WantItem}, " +
+        //                        $"Personality: {npc.Personality}, " +
+        //                        $"DialogueStyle: {npc.DialogueStyle}, " +
+        //                        $"Example: {npc.Example}";
+
+        //Debug.Log(logMessage);
+        texts.text = $"닉네임 : {npc.NpcName}\n 키워드 : {npc.KeyWord} \n거래 물품 : {npc.WantItem} \n";
+        Debug.Log($"DataGetter.Instance.NpcList[_npdIDStart].NpcName; {DataGetter.Instance.NpcList[_npdIDStart - 1].NpcName}");
     }
 }

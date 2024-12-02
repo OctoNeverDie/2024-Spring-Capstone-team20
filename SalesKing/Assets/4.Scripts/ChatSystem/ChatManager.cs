@@ -18,6 +18,7 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
     [SerializeField] City_TabletDataManager cityTabletData;
 
     public NpcInfo ThisNpc { get; private set; }
+
     public int npcNum { get; private set; } = 0;
     public bool isEndByUser { get; private set; } = false;
     public string playerItemName = "사탕"; 

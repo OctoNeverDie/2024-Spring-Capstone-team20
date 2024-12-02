@@ -5,74 +5,69 @@ using static NPCDefine;
 
 public class NPCMeshManager : MonoBehaviour
 {
-    //private static readonly string basePath = "Meshes/NPC_Parts/";
+    private static readonly string basePath = "Meshes/NPC_Parts/";
 
-    //public Dictionary<NPCDefine.MeshType, Dictionary<NPCDefine.MeshType, List<Mesh>>> NPCMeshDictionary = new Dictionary<NPCDefine.MeshType, List<Mesh>>();
-
-
-    public Dictionary<MeshType, Dictionary<Enum, List<Mesh>>> NPCMeshDictionary;
+    public Dictionary<NPCDefine.MeshType, Dictionary<Enum, List<Mesh>>> NPCMeshDictionary;
 
     void Awake()
     {
-        NPCMeshDictionary = new Dictionary<MeshType, Dictionary<Enum, List<Mesh>>>();
+        NPCMeshDictionary = new Dictionary<NPCDefine.MeshType, Dictionary<Enum, List<Mesh>>>();
         LoadMeshes();
     }
 
-
     private void LoadMeshes()
     {
-        /*
-        foreach (MeshType category in Enum.GetValues(typeof(MeshType)))
+        foreach (NPCDefine.MeshType category in Enum.GetValues(typeof(NPCDefine.MeshType)))
         {
             // 각 Category마다 Key에 해당하는 Mesh를 로드
             switch (category)
             {
-                case MeshType.Backpack:
-                    AddCategoryMeshes<MeshType, BackpackType>(basePath + "Backpack/");
+                case NPCDefine.MeshType.Backpack:
+                    AddCategoryMeshes<BackpackType>(category, basePath + "Backpack/");
                     break;
 
-                case MeshType.Body:
-                    AddCategoryMeshes<MeshType, BodyType>(basePath + "Body/");
+                case NPCDefine.MeshType.Body:
+                    AddCategoryMeshes<BodyType>(category, basePath + "Body/");
                     break;
 
-                case MeshType.Eyebrow:
-                    AddCategoryMeshes<MeshType, EyebrowType>(basePath + "Eyebrow/");
+                case NPCDefine.MeshType.Eyebrow:
+                    AddCategoryMeshes<EyebrowType>(category, basePath + "Eyebrow/");
                     break;
 
-                case MeshType.FullBody:
-                    AddCategoryMeshes<MeshType, FullBodyType>(basePath + "FullBody/");
+                case NPCDefine.MeshType.FullBody:
+                    AddCategoryMeshes<FullBodyType>(category, basePath + "FullBody/");
                     break;
 
-                case MeshType.Glasses:
-                    AddCategoryMeshes<MeshType, GlassesType>(basePath + "Glasses/");
+                case NPCDefine.MeshType.Glasses:
+                    AddCategoryMeshes<GlassesType>(category, basePath + "Glasses/");
                     break;
 
-                case MeshType.Glove:
-                    AddCategoryMeshes<MeshType, GloveType>(basePath + "Glove/");
+                case NPCDefine.MeshType.Glove:
+                    AddCategoryMeshes<GloveType>(category, basePath + "Glove/");
                     break;
 
-                case MeshType.Hair:
-                    AddCategoryMeshes<MeshType, HairType>(basePath + "Hair/");
+                case NPCDefine.MeshType.Hair:
+                    AddCategoryMeshes<HairType>(category, basePath + "Hair/");
                     break;
 
-                case MeshType.Hat:
-                    AddCategoryMeshes<MeshType, HatType>(basePath + "Hat/");
+                case NPCDefine.MeshType.Hat:
+                    AddCategoryMeshes<HatType>(category, basePath + "Hat/");
                     break;
 
-                case MeshType.Mustache:
-                    AddCategoryMeshes<MeshType, MustacheType>(basePath + "Mustache/");
+                case NPCDefine.MeshType.Mustache:
+                    AddCategoryMeshes<MustacheType>(category, basePath + "Mustache/");
                     break;
 
-                case MeshType.Outerwear:
-                    AddCategoryMeshes<MeshType, OuterwearType>(basePath + "Outerwear/");
+                case NPCDefine.MeshType.Outerwear:
+                    AddCategoryMeshes<OuterwearType>(category, basePath + "Outerwear/");
                     break;
 
-                case MeshType.Pants:
-                    AddCategoryMeshes<MeshType, PantsType>(basePath + "Pants/");
+                case NPCDefine.MeshType.Pants:
+                    AddCategoryMeshes<PantsType>(category, basePath + "Pants/");
                     break;
 
-                case MeshType.Shoe:
-                    AddCategoryMeshes<MeshType, ShoeType>(basePath + "Shoe/");
+                case NPCDefine.MeshType.Shoe:
+                    AddCategoryMeshes<ShoeType>(category, basePath + "Shoe/");
                     break;
 
                 default:
@@ -80,33 +75,43 @@ public class NPCMeshManager : MonoBehaviour
                     break;
             }
         }
-        */
 
     }
 
-    /*
-    private void AddCategoryMeshes<TCategory, TKey>(string categoryPath) where TKey : Enum
+    private void AddCategoryMeshes<TKey>(NPCDefine.MeshType category, string categoryPath) where TKey : Enum
     {
-        if (!NPCMeshDictionary.ContainsKey((MeshType)Enum.Parse(typeof(MeshType), typeof(TCategory).Name)))
+        if (!NPCMeshDictionary.ContainsKey(category))
         {
-            NPCMeshDictionary[(MeshType)Enum.Parse(typeof(MeshType), typeof(TCategory).Name)] =
-                new Dictionary<Enum, List<Mesh>>();
+            NPCMeshDictionary[category] = new Dictionary<Enum, List<Mesh>>();
         }
 
         foreach (TKey key in Enum.GetValues(typeof(TKey)))
         {
-            // Resources에서 Mesh 로드
-            Mesh[] meshes = Resources.LoadAll<Mesh>($"{categoryPath}/{key.ToString().ToLower()}");
+            // "None" 값은 건너뜀
+            if (key.ToString() == "None")
+            {
+                Debug.Log($"Skipping 'None' for Category: {category}");
+                continue;
+            }
 
+            string path = $"{categoryPath}{key.ToString()}";
+            Debug.Log($"Loading meshes for: {category} - Key: {key}, Path: {path}");
+            Mesh[] meshes = Resources.LoadAll<Mesh>(path);
             if (meshes.Length > 0)
             {
-                NPCMeshDictionary[(MeshType)Enum.Parse(typeof(MeshType), typeof(TCategory).Name)][key] =
-                    new List<Mesh>(meshes);
+                NPCMeshDictionary[category][key] = new List<Mesh>(meshes);
+                Debug.Log($"Loaded {meshes.Length} meshes from {path}");
+            }
+            else
+            {
+                Debug.LogWarning($"No meshes found at path: {path}");
             }
         }
+
     }
 
-    public List<Mesh> GetMeshes(MeshType category, Enum key)
+
+    public List<Mesh> GetMeshes(NPCDefine.MeshType category, Enum key)
     {
         if (NPCMeshDictionary.ContainsKey(category) && NPCMeshDictionary[category].ContainsKey(key))
         {
@@ -116,5 +121,5 @@ public class NPCMeshManager : MonoBehaviour
         Debug.LogWarning($"Meshes not found for Category: {category}, Key: {key}");
         return null;
     }
-    */
+    
 }

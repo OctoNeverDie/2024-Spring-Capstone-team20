@@ -46,6 +46,12 @@ public class UserInputMode : MonoBehaviour
 
         if (Input.GetButtonDown("STT") && inputMode == Define.UserInputMode.Voice && !isSending && ChatManager.Instance.isConvo)//Space bar
             recordInput.PressedRecord();
+
+        if (Input.GetButtonDown("Tab"))
+        {
+            ToggleInputField(userVoice);
+            ToggleInputField(userKeyboard);
+        }
     }
 
     private void UpdateInput()
@@ -64,7 +70,11 @@ public class UserInputMode : MonoBehaviour
     {
         if (type == nameof(ReplySubManager.GptAnswer))
         {
-            if(userInput!=null) userInput.text = "";
+            if (userInput != null)
+            {
+                userInput.text = "";
+                userInput.ActivateInputField();
+            } 
             recordInput.SwitchInputFieldToSlider(false);
             isSending = false;
         }
@@ -74,5 +84,15 @@ public class UserInputMode : MonoBehaviour
     {
         inputMode = isVoicetotxt ? Define.UserInputMode.Keyboard : Define.UserInputMode.Voice;
     }
+
+
+    private void ToggleInputField(TMP_InputField inputField)
+    {
+        if (inputField == null) return;
+
+        if (inputField.isFocused)
+            inputField.DeactivateInputField();
+    }
+
 }
 

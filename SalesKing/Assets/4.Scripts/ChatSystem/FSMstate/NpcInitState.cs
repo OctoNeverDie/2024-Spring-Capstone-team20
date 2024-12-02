@@ -77,94 +77,40 @@ public class NpcInitState : ChatBaseState
         return thisItem;
     }
 
-    //감정형 호소, 매력형 어필, 논리형 설득, 아부형 칭찬
     private string MakeMbtiSend(int[] mbtiPrefers)
     {
-        string likeType = "";
-        string likeType2 = "";
-        string disLikeType = "";
-        string disLikeType2 = "";
-
+        //        기본좋아, 구걸좋아, 관계형성좋아, 아부좋아
+        string[] strMbtis = new string[] { "구걸", "기본", "아부", "관계형성" };
+        string result = "";
         for (int i = 0; i < mbtiPrefers.Length; i++)
         {
-            if (mbtiPrefers[i] == 1)
+            string strMbti = strMbtis[i];
+            string preference = "";
+
+            switch (mbtiPrefers[i])
             {
-                switch (i)
-                {
-                    case 0:
-                        likeType += " \"감성형\",";
-                        likeType2 += " 감성적 호소,";
-                        break;
-                    case 1:
-                        likeType += " \"논리형\",";
-                        likeType2 += " 논리적 설득,";
-                        break;
-                    case 2:
-                        likeType += " \"아부형\",";
-                        likeType2 += " 아부섞인 칭찬,";
-                        break;
-                    case 3:
-                        likeType += " \"유혹형\",";
-                        likeType2 += " 매력적인 어필,";
-                        break;
-                }
+                case -1:
+                    preference = " 싫어, ";
+                    break;
+                case 0:
+                    preference = " 보통, ";
+                    break;
+                case 1:
+                    preference = " 좋아, ";
+                    break;
             }
 
-            else if (mbtiPrefers[i] == -1)
-            {
-                switch (i)
-                {
-                    case 0:
-                        disLikeType += "\"감성형\",";
-                        disLikeType2 += "감성적 호소,";
-                        break;
-                    case 1:
-                        disLikeType += "\"논리형\",";
-                        disLikeType2 += "논리적 설득,";
-                        break;
-                    case 2:
-                        disLikeType += "\"아부형\",";
-                        disLikeType2 += "아부섞인 칭찬,";
-                        break;
-                    case 3:
-                        disLikeType += "\"유혹형\",";
-                        disLikeType2 += "매력적인 어필,";
-                        break;
-                }
-            }
+            result += strMbti + preference;
         }
-        string introduceGood = "";
-        string GoodpointGood = "";
-        string GoodpointBad = "";
-
-        string introduceBad = "";
-        string BadpointBad = "";
-
-        if (likeType != "")
-        {
-            introduceGood = $" 너는 {likeType} 설득 유형을 좋아해. 넌 판매자의 {likeType2}에 특히 잘 설득 돼(=설득 수치가 높게 나온다). 이 경우 너한테 필요 없어도 물건을 사고 싶은 마음이 생길 수 있어.";
-            GoodpointGood = $" \n판매자의 {likeType2}에 대해 네가 호감을 느꼈다면, 그 정도에 따라 총합 +2에서 +3까지 Persuasion을 출력해줘.";
-            GoodpointBad = $" \n판매자의 {likeType2}에 대해 네가 불쾌감을 느꼈다면, 그 정도에 따라 -1에서 -2까지 persuasion을 출력해줘.";
-        }
-            
-        if (disLikeType != "")
-        {
-            introduceBad = $" 너는 {disLikeType} 설득 유형을 싫어해. 넌 판매자의 {disLikeType2}에 특히 잘 설득 안 돼(=설득 수치가 낮게 나온다). 이 경우 너한테 필요 없으면 물건을 딱히 사고 싶지 않아.";
-            BadpointBad = $" \n판매자의 {disLikeType2}에 대해 네가 불쾌감을 느껴 반응하거나 아무 반응 안 해. 정도에 따라 0에서 -3까지 persuasion을 출력해줘.";
-        }
-
-        string fixedSentence = "판매자가 다른 설득 유형에 해당하는 답을 한다면, -1 ~ + 정도의 시큰둥한 반응을 해줘.\r\n- 물론 네 성격과 키워드에 따라서, 호감이나 비호감을 유발하는 말이라면 유형을 무시하고 점수와 반응을 유동적으로 해도 좋아.";
-
-        string result = introduceGood + introduceBad + GoodpointGood + GoodpointBad + BadpointBad + fixedSentence;
 
         return result;
     }
 
     private string MakeUserSend(NpcInfo npc)
     {
-        string user_send = $"\n NpcName : {npc.NpcName}, NpcSex : {npc.NpcSex}, NpcAge : {npc.NpcAge} "
-            + $" KeyWord : {npc.KeyWord}, \nPersonailty : {npc.Personality}\nDialogue Style: {npc.DialogueStyle}\nExample: {npc.Example}"
-            + $"\n당근에 올린 글: {npc.Concern}\n원래 사려고 했던 물건(이게 아니어도 됨): {npc.WantItem}, 판매자가 가져온 물건: {playerItem.ObjName}\n";
+        string user_send = $"\"NpcName\" : \"{npc.NpcName}\", \"NpcSex\" : \"{npc.NpcSex}\", \"NpcAge\" : {npc.NpcAge} "
+            + $"\"KeyWord\" : \"{npc.KeyWord}\", \n\"Personailty\" : \"{npc.Personality}\"\nDialogue Style: {npc.DialogueStyle}\nExample: {npc.Example}\n"+"}"
+            + $"\n당근에올린글: {npc.Concern} \n 원래사려고했던물건: {npc.WantItem}\n 유저가가져온물건: {playerItem.ObjName}\n";
 
         return user_send;
     }

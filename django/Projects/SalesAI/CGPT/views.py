@@ -1,7 +1,7 @@
-from django.http import JsonResponse
-from openai import OpenAI
 import json
 import os
+from openai import OpenAI
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 
@@ -61,12 +61,13 @@ def update_history(prompt, request, role, sessionKey):
     return sessionLog
 # endregion
 
+
 def get_completion(input):
     path = 'CGPT/prompts/PromptFile.txt'
     system_message_content = read_system_message(path)
 
     query = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-4",
         messages=[
             {"role": "system", "content": system_message_content},
             {"role": "user", "content": input}
@@ -74,8 +75,8 @@ def get_completion(input):
         max_tokens=500,
         n=1,
         stop=None,
-        temperature=0.5
-    )
+        temperature=0.5,
+        tool_choice=None)
     response = query.choices[0].message.content
     return response
 
@@ -87,7 +88,7 @@ def get_completion_muhan(input):
             {"role": "system", "content": muhan_system_message_content},
             {"role": "user", "content": input}
         ],
-        max_tokens=700,
+        max_tokens=3000,
         n=1,
         stop=None,
         temperature=0.5
@@ -95,25 +96,6 @@ def get_completion_muhan(input):
     response = query.choices[0].message.content
     timeMessage(response)
     return response
-
-def get_three_npcs(userSend):
-    npc_requests = [s.strip() for s in userSend.split(',')]
-    
-     #최대 3개의 요청만 처리합니다.
-    npc_requests = npc_requests[:3]
-    
-    responses = []
-    # 각 요청을 처리합니다.
-    for request in npc_requests:
-        response = get_completion_muhan(request)
-        responses.append(response)
-    
-    # 응답이 3개 미만이면 빈 문자열로 채웁니다.
-    while len(responses) < 3:
-        responses.append("")
-    
-    timeMessage("다 나왔다!")
-    return responses
 
 #region Prompt
 def init_prompt(npcInit, request):
@@ -163,9 +145,9 @@ def query_view(request):
 
             elif sendType == "MuhanInit":
                 timeMessage(userSend)
-                responses = get_three_npcs(userSend)
-                timeMessage("이제 집 보냄!" + responses[0])
-                return JsonResponse({'npc1' : responses[0], 'npc2' : responses[1], 'npc3' : responses[2]})
+                response = get_completion_muhan(userSend)
+                timeMessage("이제 집 보냄!" + response)
+                return JsonResponse({'reply' : response})
 
             else:
                 return JsonResponse({'reply' : 'Please Select Proper SendType'})

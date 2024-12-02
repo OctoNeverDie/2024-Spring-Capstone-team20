@@ -11,4 +11,8 @@ public class StoryNpcSO : ScriptableObject
     }
 
     public List<StoryNpcSet> storyNpcs = new List<StoryNpcSet>();
+
+    private void OnEnable()
+    {
+    }
 }

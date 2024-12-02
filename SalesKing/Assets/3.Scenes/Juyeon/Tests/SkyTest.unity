@@ -48918,6 +48918,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: -751338181036104288, guid: 160e68004c85fe1439dc8d4ab4ad8a41, type: 3}
+    - target: {fileID: 1914376673954132660, guid: 27a277a46e45a3d41a34ca5992192d7e, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 3125850941031708665, guid: 64969b36ea60f6446a042697e2fae984, type: 3}
     - target: {fileID: 4877673884580605474, guid: 27a277a46e45a3d41a34ca5992192d7e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -48958,6 +48962,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5544419134455757601, guid: 27a277a46e45a3d41a34ca5992192d7e, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 3736482127881535990, guid: f2bc1057c422576458df537dfa3a2df6, type: 3}
+    - target: {fileID: 5731220252436775287, guid: 27a277a46e45a3d41a34ca5992192d7e, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -5935904238729875678, guid: 46bba0077de217843b8e846926592310, type: 3}
     - target: {fileID: 6204495428180669375, guid: 27a277a46e45a3d41a34ca5992192d7e, type: 3}
       propertyPath: m_Name
       value: 5_GPTObssesion
@@ -48965,7 +48977,7 @@ PrefabInstance:
     - target: {fileID: 6205580084999552334, guid: 27a277a46e45a3d41a34ca5992192d7e, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -7649434548065439790, guid: 1a2e0b4dda1b7e548b701158f71bf30b, type: 3}
+      objectReference: {fileID: -801423317283261692, guid: 2ad98f254271c7f44ab44c93202ea6a9, type: 3}
     - target: {fileID: 8353233262914407531, guid: 27a277a46e45a3d41a34ca5992192d7e, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -52056,7 +52068,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1330039496260108138, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1819154578405516752, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -66251,7 +66263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1855601674
 MonoBehaviour:
   m_ObjectHideFlags: 0

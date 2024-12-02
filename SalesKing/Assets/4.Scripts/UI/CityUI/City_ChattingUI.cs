@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -7,25 +8,33 @@ using UnityEngine.UI;
 
 public class City_ChattingUI : MonoBehaviour
 {
+    [Header("GameObjects")]
     [SerializeField] GameObject WaitReplyPanel;//server waiting panel
     [SerializeField] GameObject NpcSpeechBubble;//user answer panel
     [SerializeField] GameObject EndPanel;
     [SerializeField] GameObject ConvoPanel;
     [SerializeField] GameObject TxtPopUpUI;
+    [SerializeField] GameObject TipPopUpUI;
     [SerializeField] GameObject RandItemPanel;
+    [SerializeField] GameObject TabletAlert;
 
+    [Header("Scripts")]
     [SerializeField] City_TabletDataManager Tablet;
 
+    [Header("Buttons")]
     [SerializeField] Button UserEndBtn; //end conversation
     [SerializeField] Button DealBtn; //deal ended
     [SerializeField] Button ItemBtn;
 
+    [Header("Etc")]
     [SerializeField] TextMeshProUGUI npcItem;
     [SerializeField] Sprite Success;
     [SerializeField] Sprite Failed;
 
     TextMeshProUGUI NpcSpeechText;
     Image CheckMark;
+
+    public static event Action<Define.Emotion> OnEmotionSetup;
 
     private enum PersuasionLevel
     {
@@ -36,9 +45,8 @@ public class City_ChattingUI : MonoBehaviour
 
     private void Awake()
     {
-        ServerManager.OnSendReplyUpdate -= SubWaitReply;
+        ServerManager.OnSendReplyUpdate += SetUIafterReply;
         ServerManager.OnSendReplyUpdate += SubWaitReply;
-        STTConnect.OnSendClovaUpdate -= SubWaitReply;
         STTConnect.OnSendClovaUpdate += SubWaitReply;
 
         UserEndBtn.onClick.AddListener(OnClickLeaveFSM);
@@ -53,20 +61,7 @@ public class City_ChattingUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        ServerManager.OnSendReplyUpdate -= SubWaitReply;
-        STTConnect.OnSendClovaUpdate -= SubWaitReply;
-    }
-
-    private void OnEnable()
-    {
-        Debug.Log("City_ChattingUI OnEnable");
-        ServerManager.OnSendReplyUpdate += SubWaitReply;
-        STTConnect.OnSendClovaUpdate += SubWaitReply;
-    }
-
-    private void OnDisable()
-    {
-        Debug.Log("City_ChattingUI OnDisable");
+        ServerManager.OnSendReplyUpdate -= SetUIafterReply;
         ServerManager.OnSendReplyUpdate -= SubWaitReply;
         STTConnect.OnSendClovaUpdate -= SubWaitReply;
     }
@@ -84,14 +79,16 @@ public class City_ChattingUI : MonoBehaviour
     public void OnClickFinal()
     {
         SetNpcAnswerText("");
+
         TxtPopUpUI.SetActive(false);
+
         EndPanel.SetActive(false);
         ConvoPanel.SetActive(false);
         PlayerManager.Instance.player.PlayerExitConvo();
 
         if (ChatManager.Instance.npcNum >= 3)
         {
-            Tablet.ShowSummary();
+            TurnManager.Instance.EndDayShowSummary();
         }
     }
 
@@ -126,10 +123,16 @@ public class City_ChattingUI : MonoBehaviour
     {
         if (sendChatType == Define.SendChatType.ChatInit)
         {
+            //태블릿 경고
+            if(npcInfo.NpcID !=0)
+                TabletAlert.SetActive(true);
+
+            //전체 패널
             SetNpcName(npcInfo.NpcName);
             ConvoPanel.SetActive(true);// show convo: npc name, 
 
-            npcItem.text = npcInfo.WantItem;
+            //랜덤 아이템 패널
+            npcItem.text = $"상대가 원했던 물품 : " + npcInfo.WantItem;
             RandItemPanel.SetActive(true);
         }
 
@@ -138,13 +141,15 @@ public class City_ChattingUI : MonoBehaviour
             if (additionalData is ChattingState.GptResult gptResult)
             {
                 SetNpcAnswerText(gptResult.reaction);//reply 보여줌
+                Debug.Log($"emotion : {gptResult.emotion}");
                 NPCManager.Instance.curTalkingNPC.PlayNPCAnimByEmotion(gptResult.emotion);//애니메이션 보여줌
+                OnEmotionSetup?.Invoke(gptResult.emotion);
 
-                if (gptResult.Persuasion >= 2)
+                if (gptResult.Persuasion > 0)
                 {
                     TxtPopup(gptResult.reason, PersuasionLevel.Like);//++ 효과, 초록색, gptResult.reason 뒤에 따라옴.
                 }
-                else if (gptResult.Persuasion <= -2)
+                else if (gptResult.Persuasion < 0)
                 {
                     TxtPopup(gptResult.reason, PersuasionLevel.Dislike);//-- 효과, 빨간색, gptResult.reason 뒤에 따라옴.
                 }
@@ -157,6 +162,8 @@ public class City_ChattingUI : MonoBehaviour
 
         else if (sendChatType == Define.SendChatType.Endpoint)
         {
+            TipPopUpUI.SetActive(false);
+            OnEmotionSetup?.Invoke(Define.Emotion.normal);
             if (additionalData is bool isSuccess)
             {
                 if(CheckMark != null)ShowCheckMark(isSuccess);
@@ -208,19 +215,28 @@ public class City_ChattingUI : MonoBehaviour
         {
             reason = "<color=red>" + "-- " + reason + "</color>";
         }
-        else if(level == PersuasionLevel.Normal)
+        else if (level == PersuasionLevel.Normal)
         {
-            reason = "<color=grey>" + reason + "</color>";
+            if(reason == null || reason == "")
+                reason = "";
+            else
+                reason = "<color=grey>" + reason + "</color>";
         }
 
         TxtPopUpUI.GetComponentInChildren<TextMeshProUGUI>().text = reason;
 
-        float vecX = Random.Range(-350f, 350f);
-        float vecY = Random.Range(-150, 205);
+        float vecX = UnityEngine.Random.Range(-350f, 350f);
+        float vecY = UnityEngine.Random.Range(-150, 205);
         RectTransform rectTransform = TxtPopUpUI.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = new Vector2(vecX, vecY);
-        
+
         TxtPopUpUI.SetActive(false);
         TxtPopUpUI.SetActive(true);
+    }
+
+    private void SetUIafterReply(bool isDeactive)
+    {
+        if(!isDeactive)
+            TipPopUpUI.SetActive(true);
     }
 }

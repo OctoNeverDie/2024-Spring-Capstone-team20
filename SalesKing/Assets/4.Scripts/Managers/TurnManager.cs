@@ -10,11 +10,12 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
 {
     public bool ShouldNotDestroyOnLoad => true;
 
-    [SerializeField] private GameObject EndDayPanel;
+    [SerializeField] private GameObject[] EndDaypanels;
     [SerializeField] private Image FirstFadeInPanel;
     [SerializeField] private GameObject CustomerReviewPanel;
     [SerializeField] private Image FinalFadeOutPanel;
     [SerializeField] private GameObject DontDestroyOnCityMapReload;
+    [SerializeField] private City_TabletDataManager Tablet;
 
     [SerializeField] private GameObject StartDayPanel;
     [SerializeField] private Image StartFadeInPanel;
@@ -25,11 +26,15 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
     private bool isMouseInputChecking = false;
     private float duration = 1.0f;
 
-    private int stage_count = 1;
+    private int stage_count = 4;
 
     protected override void Awake()
     {
         base.Awake();
+        foreach (var endday in EndDaypanels)
+        {
+            endday.SetActive(false);
+        }
     }
 
     void Start()
@@ -70,10 +75,15 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
     public void EndDayShowSummary()
     {
         PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
-        EndDayPanel.SetActive(true);
+        foreach (var endday in EndDaypanels)
+        {
+            endday.SetActive(true);
+        }
+
         // 페이드 인
         FirstFadeInPanel.DOFade(1f, duration).OnComplete(() =>
         {
+            Tablet.ShowSummary();
             PlayScaleUp(CustomerReviewPanel.transform);
         });
     }
@@ -104,7 +114,7 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
     }
 
     // 띠용~ 이러면서 커지는거
-    public void PlayScaleUp(Transform targetObject, float duration = 0.5f, float overshoot = 1.2f)
+    public void PlayScaleUp(Transform targetObject, float duration = 1f, float overshoot = 1.2f)
     {
         // 초기 스케일 설정 (필요하면 생략 가능)
         targetObject.localScale = Vector3.one;

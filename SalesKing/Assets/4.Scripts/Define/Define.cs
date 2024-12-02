@@ -104,4 +104,13 @@ public class Define
         Story,
         Infinity
     }
+
+    public enum LightType
+    {
+        None,
+        Left,
+        Right,
+        Side,
+        Bottom
+    }
 }
