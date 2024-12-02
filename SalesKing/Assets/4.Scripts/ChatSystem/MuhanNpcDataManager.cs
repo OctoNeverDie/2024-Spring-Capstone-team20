@@ -106,7 +106,7 @@ public class MuhanNpcDataManager : MonoBehaviour
     #endregion
 
 
-    private void Init()
+    public void Init()
     {
         _npdIDStart = DataGetter.Instance.NpcList.Count;
         
@@ -134,6 +134,7 @@ public class MuhanNpcDataManager : MonoBehaviour
 
         List<MuhanInfo> npcList = JsonConvert.DeserializeObject<List<MuhanInfo>>(npcsStr);
         int idx = 0;
+        npc_IDs.Clear();
         // 각각 개별 처리
         foreach (var npc in npcList)
         {

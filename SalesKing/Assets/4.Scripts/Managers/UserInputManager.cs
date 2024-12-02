@@ -46,6 +46,9 @@ public class UserInputManager : Singleton<UserInputManager>, ISingletonSettings
 
         if (Input.GetButtonDown("ESC"))
         {
+            if (MuhanNpcDataManager.Instance != null)
+                return;
+
             if (OptionPanel.activeSelf)
             {
                 OptionPanel.SetActive(false);

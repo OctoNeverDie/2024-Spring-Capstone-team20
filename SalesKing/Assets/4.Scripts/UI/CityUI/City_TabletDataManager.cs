@@ -12,6 +12,7 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
 
     private int today = -1;
     public Dictionary<int, NpcInfo> todaysIDdict = new Dictionary<int, NpcInfo>();
+    public List<int> npcIDs = new List<int>();
 
     public bool ShouldNotDestroyOnLoad => false;
 
@@ -23,8 +24,6 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
 
     public void InitNpc(bool isStory)
     {
-        List<int> npcIDs = new List<int>();
-
         if(isStory)
         {
             int today = DataController.Instance.playData.cur_day_ID;

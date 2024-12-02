@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class TabletButton : MonoBehaviour
 {
@@ -19,7 +20,18 @@ public class TabletButton : MonoBehaviour
     private void TabletMatch()
     {
         int npcID = ChatManager.Instance.ThisNpc.NpcID;
-        swipeController.OnClickMatchPage(npcID);
+        int min;
+        if (MuhanNpcDataManager.Instance != null)
+        {
+            min = MuhanNpcDataManager.Instance.npc_IDs.Min();//최솟값 찾기
+        }
+        else 
+        {
+            min = City_TabletDataManager.Instance.npcIDs.Min();
+        }
+
+        int order = npcID - min;
+        swipeController.OnClickMatchPage(order);
         tabletMovement.OnClickShoworHideTablet();
     }
 }
