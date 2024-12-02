@@ -90,13 +90,13 @@ public class NpcInitState : ChatBaseState
             switch (mbtiPrefers[i])
             {
                 case -1:
-                    preference = " 싫어, ";
+                    preference = " 싫어, persuasion: -1";
                     break;
                 case 0:
-                    preference = " 보통, ";
+                    preference = " 보통, persuasion: -1 to +1";
                     break;
                 case 1:
-                    preference = " 좋아, ";
+                    preference = " 좋아, persuasion: +1";
                     break;
             }
 
