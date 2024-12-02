@@ -14,9 +14,31 @@ using static NPCDefine;
 /// 1. StoryNpcSO에 걔네 int npc ID 3개 1day로 넣어줘.
 /// 2. DataGetter의 Npclist에 걔네 
 /// </summary>
-public class MuhanNpcDataManager : Singleton<MuhanNpcDataManager>, ISingletonSettings
-{
-    public bool ShouldNotDestroyOnLoad => true;
+public class MuhanNpcDataManager : MonoBehaviour
+{ 
+
+    private static MuhanNpcDataManager instance;
+    public static MuhanNpcDataManager Instance
+    {
+        get
+        {
+            if(instance != null)
+                return instance;
+            return null;
+        }
+    }
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     //----------------------------//----------------------------
     [Header("Just For Test")]

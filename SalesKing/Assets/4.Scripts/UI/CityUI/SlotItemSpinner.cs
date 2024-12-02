@@ -106,6 +106,7 @@ public class SlotItem : MonoBehaviour
             (1.1f, 0.2f),
             (1f, 0.1f)
         };
+        AudioManager.Instance.PlaySFX("SlotEnd");
         Util.PopDotween(ItemSlot.transform, tweenFactors);
     }
 }
