@@ -142,7 +142,10 @@ public class NPCLooksSetter : MonoBehaviour
         SkinnedMeshRenderer meshRenderer = thisMesh[meshType].GetComponent<SkinnedMeshRenderer>();
 
         // 첫 번째 Mesh를 SkinnedMeshRenderer에 할당
-        meshRenderer.sharedMesh = meshes[0]; // 필요하면 임의로 선택 가능
+        // 랜덤으로 Mesh 선택
+        int randomIndex = UnityEngine.Random.Range(0, meshes.Count);
+        meshRenderer.sharedMesh = meshes[randomIndex];
+
         Debug.Log($"Mesh assigned for MeshType: {meshType}, Key: {key}");
     }
 

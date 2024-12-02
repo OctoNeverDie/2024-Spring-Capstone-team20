@@ -4649,7 +4649,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 5abe19802ea8f4643803f7341c6ada20, type: 2}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: HatType
-      value: 1
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: BodyType
@@ -4657,7 +4657,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: HairType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: ShoeType
@@ -4665,11 +4665,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: GloveType
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: PantsType
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: EyebrowType
@@ -4677,7 +4677,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: GlassesType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: BackpackType
@@ -4689,11 +4689,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: MustacheType
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6554585239081199916, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
       propertyPath: OuterwearType
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9066295910686082996, guid: 1352e261ddebf42439d91af323f6555c, type: 3}
