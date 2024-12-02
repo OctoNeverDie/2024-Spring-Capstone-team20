@@ -99,6 +99,7 @@ public class City_ChattingUI : MonoBehaviour
 
     public void OnClickItem()
     {
+        AudioManager.Instance.PlaySFX("SlotEnd");
         ChatManager.Instance.TransitionToState(Define.SendChatType.Chatting);
     }
 
@@ -150,11 +151,13 @@ public class City_ChattingUI : MonoBehaviour
 
                 if (gptResult.Persuasion > 0)
                 {
+                    AudioManager.Instance.PlaySFX("Good");
                     TxtPopup(gptResult.reason, PersuasionLevel.Like);//++ 효과, 초록색, gptResult.reason 뒤에 따라옴.
                     OnEmotionSetup?.Invoke(Define.Emotion.best);
                 }
                 else if (gptResult.Persuasion < 0)
                 {
+                    AudioManager.Instance.PlaySFX("Bad");
                     TxtPopup(gptResult.reason, PersuasionLevel.Dislike);//-- 효과, 빨간색, gptResult.reason 뒤에 따라옴.
                     OnEmotionSetup?.Invoke(Define.Emotion.worst);
                 }
@@ -187,11 +190,13 @@ public class City_ChattingUI : MonoBehaviour
     {
         if (isSuccess)
         {
+            AudioManager.Instance.PlaySFX("Clear");
             CheckMark.color = Color.green;
             Util.ChangeSprite(CheckMark, Success);
         }
         else 
         {
+            AudioManager.Instance.PlaySFX("Fail");
             CheckMark.color = Color.red;
             Util.ChangeSprite(CheckMark, Failed);
         }
