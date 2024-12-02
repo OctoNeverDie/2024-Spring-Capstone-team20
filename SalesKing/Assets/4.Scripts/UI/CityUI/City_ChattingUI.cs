@@ -146,21 +146,22 @@ public class City_ChattingUI : MonoBehaviour
             if (additionalData is ChattingState.GptResult gptResult)
             {
                 SetNpcAnswerText(gptResult.reaction);//reply 보여줌
-                Debug.Log($"emotion : {gptResult.emotion}");
                 NPCManager.Instance.curTalkingNPC.PlayNPCAnimByEmotion(gptResult.emotion);//애니메이션 보여줌
-                OnEmotionSetup?.Invoke(gptResult.emotion);
 
                 if (gptResult.Persuasion > 0)
                 {
                     TxtPopup(gptResult.reason, PersuasionLevel.Like);//++ 효과, 초록색, gptResult.reason 뒤에 따라옴.
+                    OnEmotionSetup?.Invoke(Define.Emotion.best);
                 }
                 else if (gptResult.Persuasion < 0)
                 {
                     TxtPopup(gptResult.reason, PersuasionLevel.Dislike);//-- 효과, 빨간색, gptResult.reason 뒤에 따라옴.
+                    OnEmotionSetup?.Invoke(Define.Emotion.worst);
                 }
                 else
                 {
                     TxtPopup(gptResult.reason, PersuasionLevel.Normal);
+                    OnEmotionSetup?.Invoke(Define.Emotion.normal);
                 }
             }
         }
@@ -172,7 +173,10 @@ public class City_ChattingUI : MonoBehaviour
             OnEmotionSetup?.Invoke(Define.Emotion.normal);
             if (additionalData is bool isSuccess)
             {
-                if(CheckMark != null)ShowCheckMark(isSuccess);
+                if (CheckMark != null)
+                {
+                    ShowCheckMark(isSuccess);
+                } 
             }
 
             StartCoroutine(ShowEndPanelAfterDelay());
