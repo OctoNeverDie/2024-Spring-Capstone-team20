@@ -36,6 +36,9 @@ public class NpcInitState : ChatBaseState
 
     private void SendBack()
     {
+        if(npc==null)
+            npc = Chat.ThisNpc;
+
         if (npc.NpcID == 0)
         {
             Chat.FirstNpc();
