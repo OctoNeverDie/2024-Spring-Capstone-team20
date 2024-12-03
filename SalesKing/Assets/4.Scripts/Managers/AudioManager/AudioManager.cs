@@ -64,7 +64,7 @@ public class AudioManager : MonoBehaviour
         {
             PlayMusic("Start");
         }
-        else if (sceneName == "CityMap")
+        else if (sceneName == "CityMap" || sceneName == "InfiniteNPCs")
         {
             StopMusic();
         }
