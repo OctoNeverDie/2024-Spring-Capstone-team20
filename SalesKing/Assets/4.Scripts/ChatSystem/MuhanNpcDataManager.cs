@@ -149,6 +149,7 @@ public class MuhanNpcDataManager : MonoBehaviour
         // 각각 개별 처리
         foreach (var npc in npcList)
         {
+            NpcLookEdit(npc);
             ConcatInfo(npc);
             AddDataToJsonNpcDict(npc);
             NpcLookSetting(npc.NpcLooks, idx++);
@@ -156,6 +157,23 @@ public class MuhanNpcDataManager : MonoBehaviour
 
         City_TabletDataManager.Instance.InitNpc(false);
         //InjectIDtoStorySO();
+    }
+
+    private void NpcLookEdit(MuhanInfo npc)
+    {
+        NpcLooks npcLooks = npc.NpcLooks;
+
+        if(npcLooks.FullbodyType != FullBodyType.None)
+        {
+            npcLooks.OuterwearType = OuterwearType.None;
+            npcLooks.PantsType = PantsType.None;
+        }
+
+        if(npcLooks.HatType != HatType.None)
+        {
+            npcLooks.HairType = HairType.None;
+        }
+
     }
 
     private void ConcatInfo(MuhanInfo npc)
