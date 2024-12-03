@@ -6,6 +6,8 @@ using static MuhanNpcDataManager;
 
 public class NPCLooksSetter : MonoBehaviour
 {
+    public bool isMuhan = false;
+
     public NPCDefine.BackpackType BackpackType;
     public NPCDefine.BodyType BodyType;
     public NPCDefine.EyebrowType EyebrowType;
@@ -22,14 +24,13 @@ public class NPCLooksSetter : MonoBehaviour
 
     public Dictionary<NPCDefine.MeshType, GameObject> thisMesh = new Dictionary<NPCDefine.MeshType, GameObject>(); // 새롭게 적용할 메쉬
 
-    void Awake()
+    void Start()
     {
-        SetNPCBody();
+        if (isMuhan) SetNPCBody();
     }
 
     private void SetNPCBody()
     {
-        
         GameObject meshTransform = transform.Find("Mesh").gameObject;
 
         foreach (NPCDefine.MeshType category in System.Enum.GetValues(typeof(NPCDefine.MeshType)))

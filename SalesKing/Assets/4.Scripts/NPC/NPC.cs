@@ -30,19 +30,15 @@ public class NPC : MonoBehaviour
 
     void Awake()
     {
-        //agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-        //myCanvas = transform.Find("Canvas").gameObject;
         Talkable = true;
         looks = GetComponent<NPCLooksSetter>();
     }
 
     void Start()
     {
-        //agent.speed = speed;
         looks.AssignAllMeshes();
-        //looks.AssignMuhanDayMeshes(NpcID);
     }
 
     void Update()
