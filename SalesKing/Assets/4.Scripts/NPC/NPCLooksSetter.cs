@@ -112,8 +112,6 @@ public class NPCLooksSetter : MonoBehaviour
         AssignNPCMesh(MeshType.Outerwear, npcLooks.OuterwearType);
         AssignNPCMesh(MeshType.Pants, npcLooks.PantsType);
         AssignNPCMesh(MeshType.Shoe, npcLooks.ShoeType);
-
-        //if(npcLooks.FullbodyType!=FullBodyType.None) 
     }
 
     public void AssignNPCMesh<TKey>(MeshType meshType, TKey key) where TKey : Enum
