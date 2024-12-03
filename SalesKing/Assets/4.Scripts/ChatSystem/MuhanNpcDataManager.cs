@@ -150,7 +150,18 @@ public class MuhanNpcDataManager : MonoBehaviour
     private void NpcLookEdit(MuhanInfo npc)
     {
         NpcLooks npcLooks = npc.NpcLooks;
-        
+
+        if(npcLooks.FullbodyType != FullBodyType.None)
+        {
+            npcLooks.OuterwearType = OuterwearType.None;
+            npcLooks.PantsType = PantsType.None;
+        }
+
+        if(npcLooks.HatType != HatType.None)
+        {
+            npcLooks.HairType = HairType.None;
+        }
+
     }
 
     private void ConcatInfo(MuhanInfo npc)
