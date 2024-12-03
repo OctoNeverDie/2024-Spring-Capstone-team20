@@ -17,7 +17,8 @@ public class StartSceneUI : MonoBehaviour
     public void LoadSaveFileScene_InfinityMode()
     {
         DataController.Instance.gameData.this_game_mode = Define.GameMode.Infinity;
-        SceneManager.LoadScene("SaveFile");
+        //SceneManager.LoadScene("SaveFile");
+        SceneManager.LoadScene("InfiniteNPCs");
     }
 
     public void GameExit()

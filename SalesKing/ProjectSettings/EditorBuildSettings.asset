@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/3.Scenes/GamePlay/SaveFile.unity
     guid: 688dc3501fd81154c9af57b6756c4124
   - enabled: 1
+    path: Assets/3.Scenes/GamePlay/InfiniteNPCs.unity
+    guid: 8f1f1b98e9d4c724890ef8fb1a4481c6
+  - enabled: 1
     path: Assets/3.Scenes/GamePlay/CityMap.unity
     guid: ae6646ad2126ae348a0b759b4f2f4d8d
   - enabled: 1
