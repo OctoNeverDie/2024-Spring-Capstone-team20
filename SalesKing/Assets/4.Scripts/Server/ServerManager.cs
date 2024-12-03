@@ -74,7 +74,7 @@ public class ServerManager : ServerBase
                                 Action<ResultInfo> onFailed = null,
                                 Action<ResultInfo> onNetworkFailed = null)
     {
-        string url = "http://127.0.0.1:8000/";//"https://salesking-final.azurewebsites.net/"; //"https://salesking-jbr.azurewebsites.net/"; //"https://salesai-ljy.azurewebsites.net/"//https://salesking-finalreal.azurewebsites.net/;
+        string url = "https://salesking-finalreal.azurewebsites.net/";//"http://127.0.0.1:8000/";//"https://salesking-final.azurewebsites.net/"; //"https://salesking-jbr.azurewebsites.net/"; //"https://salesai-ljy.azurewebsites.net/"//
 
         JObject jobj = new JObject();
         jobj = AddJobjBySendType(jobj, _sendChatType);
