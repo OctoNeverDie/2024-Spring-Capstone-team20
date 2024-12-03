@@ -72,8 +72,6 @@ public class SlotItem : MonoBehaviour
             onSpinning = false;
             bg.color = Color.green;
             PlayPopEffect();
-
-            okayBtn.gameObject.SetActive(true);
         });
 
         yield return slowDownSequence.WaitForCompletion();
@@ -107,6 +105,7 @@ public class SlotItem : MonoBehaviour
             (1f, 0.1f)
         };
         AudioManager.Instance.PlaySFX("SlotEnd");
+        okayBtn.gameObject.SetActive(true);
         Util.PopDotween(ItemSlot.transform, tweenFactors);
     }
 }

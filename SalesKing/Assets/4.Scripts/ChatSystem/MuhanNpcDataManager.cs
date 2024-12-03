@@ -54,6 +54,7 @@ public class MuhanNpcDataManager : MonoBehaviour
     public List<int> npc_IDs = new List<int>(); //새로 더해질 3명 아이디 n, n+1, n+2
 
     private int _npdIDStart = 0;
+    private int _replyTurn = 0;
     
     private string[] npcOptionA = { "권위적인", "소심한", "독특한", "쾌활한", "엉뚱한", "느끼한", "성격 나쁜", "야비한" };
     private string[] npcOptionB = { "미치광이", "괴짜", "개성있는" };
@@ -104,8 +105,16 @@ public class MuhanNpcDataManager : MonoBehaviour
     }
     #endregion
 
+    public void OnClickInit()
+    {
+        if (_replyTurn % 2 == 0)
+        {
+            cntupTurn();
+            Init();
+        }
+    }
 
-    public void Init()
+    private void Init()
     {
         _npdIDStart = DataGetter.Instance.NpcList.Count;
         
@@ -126,12 +135,15 @@ public class MuhanNpcDataManager : MonoBehaviour
 
     public void NpcsReceive(string npcsStr)
     {
+        cntupTurn();
+
         npcsStr = npcsStr.Trim();
         npcsStr = npcsStr.Replace("json", "").Replace("`", "");
 
         Debug.Log($"잘왔어요 원본, {npcsStr}");
 
         List<MuhanInfo> npcList = JsonConvert.DeserializeObject<List<MuhanInfo>>(npcsStr);
+        
         int idx = 0;
         npc_IDs.Clear();
         // 각각 개별 처리
@@ -194,5 +206,10 @@ public class MuhanNpcDataManager : MonoBehaviour
         Debug.Log(logMessage);
         //texts.text = $"닉네임 : {npc.NpcName}\n 키워드 : {npc.KeyWord} \n거래 물품 : {npc.WantItem} \n";
         Debug.Log($"DataGetter.Instance.NpcList[_npdIDStart].NpcName; {npc.NpcID}, {DataGetter.Instance.NpcList[_npdIDStart - 1].NpcName}");
+    }
+
+    private void cntupTurn()
+    {
+        _replyTurn++;
     }
 }
