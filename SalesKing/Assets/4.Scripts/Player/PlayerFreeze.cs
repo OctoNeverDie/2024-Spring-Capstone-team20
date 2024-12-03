@@ -6,7 +6,7 @@ public class PlayerFreeze : MonoBehaviour
 {
     void Start()
     {
-        PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
+        //PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
     }
 
 }
