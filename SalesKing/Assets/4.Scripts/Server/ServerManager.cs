@@ -50,6 +50,8 @@ public class ServerManager : ServerBase
         }
 
         Debug.Log($"User답++++++++++{_userInput}, {_sendChatType}, {_initData}");
+        ServerManager.Instance.SaveChat(_userInput);
+
         OnSendReplyUpdate?.Invoke(true);
         StartCoroutine(GetGPTCo());
     }

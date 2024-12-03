@@ -81,14 +81,6 @@ public class MuhanNpcDataManager : MonoBehaviour
         public NpcLooks NpcLooks;
     }
     //-----------------------------------------------------------
-    private void Start()
-    {
-
-        TestInit();
-
-        // 더미 데이터를 로드
-        InitDummyData();
-    }
 
 
     #region
@@ -123,8 +115,14 @@ public class MuhanNpcDataManager : MonoBehaviour
 
     private void Init()
     {
+
         _npdIDStart = DataGetter.Instance.NpcList.Count;
-        
+
+        TestInit();
+
+        // 더미 데이터를 로드
+        InitDummyData();
+        /*
         int randIdx;
         int randIdx2;
         string gameSend = "";
@@ -137,7 +135,7 @@ public class MuhanNpcDataManager : MonoBehaviour
             gameSend += $" {npcOptionA[randIdx]} {npcOptionB[randIdx2]} Npc 하나 만들어줘.\n";
         }
         gameSend += "총 npc 3개 프로필을 만들어줘. system prompt의 example 형식처럼 말이야.";
-        ServerManager.Instance.GetGPTReply(gameSend, SendChatType.MuhanInit);
+        ServerManager.Instance.GetGPTReply(gameSend, SendChatType.MuhanInit);*/
     }
 
 

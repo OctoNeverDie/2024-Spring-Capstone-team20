@@ -127,6 +127,7 @@ public class ChattingState : ChatBaseState, IVariableChat
         gptAnswer = "{"+ $"\n{gptAnswer}\n"+"}";
 
         Debug.Log($"이걸 담가야해! {gptAnswer}");
+        ServerManager.Instance.SaveChat(gptAnswer);
         string jsonPart = gptAnswer.Substring(0, gptAnswer.Length);
         try {
             gptResult = JsonConvert.DeserializeObject<GptResult>(jsonPart);
