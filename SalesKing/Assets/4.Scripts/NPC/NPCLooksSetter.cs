@@ -54,7 +54,7 @@ public class NPCLooksSetter : MonoBehaviour
     /// 다음날 npc가 story so의 id에 따라 mesh를 setting해야 할 때 MuhanNpcDataManager에서 자기 id를 매칭하여 mesh 조합 가져와서 입힘
     /// </summary>
     /// <param name="muhanNpcID"></param>
-    public void AssignMuhanDayMeshes(int muhanNpcID)
+    public void LoadMuhanMeshesFromSO(int muhanNpcID)
     {
         NpcLooks npcLooks = MuhanNpcDataManager.Instance.npcs
             .Where(n => n.NpcID == muhanNpcID)
@@ -112,22 +112,8 @@ public class NPCLooksSetter : MonoBehaviour
         AssignNPCMesh(MeshType.Outerwear, npcLooks.OuterwearType);
         AssignNPCMesh(MeshType.Pants, npcLooks.PantsType);
         AssignNPCMesh(MeshType.Shoe, npcLooks.ShoeType);
-    }
 
-    public void AssignAllMeshes()
-    {
-        AssignNPCMesh(MeshType.Backpack, BackpackType);
-        AssignNPCMesh(MeshType.Body, BodyType);
-        AssignNPCMesh(MeshType.Eyebrow, EyebrowType);
-        AssignNPCMesh(MeshType.FullBody, FullBodyType);
-        AssignNPCMesh(MeshType.Glasses, GlassesType);
-        AssignNPCMesh(MeshType.Glove, GloveType);
-        AssignNPCMesh(MeshType.Hair, HairType);
-        AssignNPCMesh(MeshType.Hat, HatType);
-        AssignNPCMesh(MeshType.Mustache, MustacheType);
-        AssignNPCMesh(MeshType.Outerwear, OuterwearType);
-        AssignNPCMesh(MeshType.Pants, PantsType);
-        AssignNPCMesh(MeshType.Shoe, ShoeType);
+        //if(npcLooks.FullbodyType!=FullBodyType.None) 
     }
 
     public void AssignNPCMesh<TKey>(MeshType meshType, TKey key) where TKey : Enum
@@ -136,7 +122,6 @@ public class NPCLooksSetter : MonoBehaviour
         List<Mesh> meshes = NPCManager.Mesh.GetMeshes(meshType, key);
         if (meshes == null || meshes.Count == 0)
         {
-            //Debug.LogWarning($"No meshes found for MeshType: {meshType}, Key: {key}");
             return;
         }
 
@@ -147,9 +132,9 @@ public class NPCLooksSetter : MonoBehaviour
         // 랜덤으로 Mesh 선택
         int randomIndex = UnityEngine.Random.Range(0, meshes.Count);
         meshRenderer.sharedMesh = meshes[randomIndex];
-
-        //Debug.Log($"Mesh assigned for MeshType: {meshType}, Key: {key}");
     }
+
+    public void 
 
 
 }

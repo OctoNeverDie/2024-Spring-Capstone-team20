@@ -36,11 +36,6 @@ public class NPC : MonoBehaviour
         looks = GetComponent<NPCLooksSetter>();
     }
 
-    void Start()
-    {
-        looks.AssignAllMeshes();
-    }
-
     void Update()
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
