@@ -136,7 +136,7 @@ public class MuhanNpcDataManager : MonoBehaviour
     public void NpcsReceive(string npcsStr)
     {
         cntupTurn();
-        PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
+        PlayerManager.Instance.player.FreezeAndUnFreezePlayer(false);
 
         npcsStr = npcsStr.Trim();
         npcsStr = npcsStr.Replace("json", "").Replace("`", "");
