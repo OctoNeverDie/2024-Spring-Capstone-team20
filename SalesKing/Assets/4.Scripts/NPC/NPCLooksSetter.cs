@@ -134,7 +134,5 @@ public class NPCLooksSetter : MonoBehaviour
         meshRenderer.sharedMesh = meshes[randomIndex];
     }
 
-    public void 
-
 
 }
