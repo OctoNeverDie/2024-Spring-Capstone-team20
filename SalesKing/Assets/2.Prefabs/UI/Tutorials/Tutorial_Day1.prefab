@@ -1539,6 +1539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keycode_trigger: 9
   isOpenTablet: 0
+  isAnyKey: 0
   Tablet: {fileID: 7308258283375679949}
 --- !u!1 &8367512782781577974
 GameObject:
@@ -1661,6 +1662,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keycode_trigger: 119
   isOpenTablet: 0
+  isAnyKey: 1
   Tablet: {fileID: 0}
 --- !u!1 &8715134791740577791
 GameObject:
@@ -1909,4 +1911,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keycode_trigger: 9
   isOpenTablet: 1
+  isAnyKey: 0
   Tablet: {fileID: 7308258283375679949}

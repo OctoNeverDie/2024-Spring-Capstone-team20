@@ -9,6 +9,8 @@ public class TutorialKeyTrigger : TutorialBase
     [SerializeField]
     private bool isOpenTablet;
     [SerializeField]
+    private bool isAnyKey=false;
+    [SerializeField]
     private GameObject Tablet;
 
     public override void Enter()
@@ -18,6 +20,11 @@ public class TutorialKeyTrigger : TutorialBase
 
 	public override void Execute(TutorialController controller)
 	{
+        if(isAnyKey && (Input.anyKeyDown || Input.GetMouseButtonDown(0)))
+        {
+            isTrigger = true;
+        }
+
         if (Input.GetKeyDown(keycode_trigger))
         {
             if (Input.GetButtonDown("Tab"))
