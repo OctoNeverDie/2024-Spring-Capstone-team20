@@ -3,26 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using static MuhanNpcDataManager;
+using static NPCDefine;
 
 public class NPCLooksSetter : MonoBehaviour
 {
     public bool isMuhan = false;
 
-    public NPCDefine.BackpackType BackpackType;
-    public NPCDefine.BodyType BodyType;
-    public NPCDefine.EyebrowType EyebrowType;
-    public NPCDefine.FullBodyType FullBodyType;
-    public NPCDefine.GlassesType GlassesType;
-    public NPCDefine.GloveType GloveType;
-    public NPCDefine.HairType HairType;
-    public NPCDefine.HatType HatType;
-    public NPCDefine.MustacheType MustacheType;
-    public NPCDefine.OuterwearType OuterwearType;
-    public NPCDefine.PantsType PantsType;
-    public NPCDefine.ShoeType ShoeType;
+    public BackpackType BackpackType;
+    public BodyType BodyType;
+    public EyebrowType EyebrowType;
+    public FullBodyType FullBodyType;
+    public GlassesType GlassesType;
+    public GloveType GloveType;
+    public HairType HairType;
+    public HatType HatType;
+    public MustacheType MustacheType;
+    public OuterwearType OuterwearType;
+    public PantsType PantsType;
+    public ShoeType ShoeType;
 
 
-    public Dictionary<NPCDefine.MeshType, GameObject> thisMesh = new Dictionary<NPCDefine.MeshType, GameObject>(); // 새롭게 적용할 메쉬
+    public Dictionary<MeshType, GameObject> thisMesh = new Dictionary<NPCDefine.MeshType, GameObject>(); // 새롭게 적용할 메쉬
 
     void Start()
     {
@@ -80,17 +81,17 @@ public class NPCLooksSetter : MonoBehaviour
             //Debug.LogWarning($"No NpcLooks found for NpcID {muhanNpcID}");
         }
 
-        AssignNPCMesh(NPCDefine.MeshType.Backpack, npcLooks.BackpackType);
-        AssignNPCMesh(NPCDefine.MeshType.Eyebrow, npcLooks.EyebrowType);
-        AssignNPCMesh(NPCDefine.MeshType.FullBody, npcLooks.FullbodyType);
-        AssignNPCMesh(NPCDefine.MeshType.Glasses, npcLooks.GlassesType);
-        AssignNPCMesh(NPCDefine.MeshType.Glove, npcLooks.GloveType);
-        AssignNPCMesh(NPCDefine.MeshType.Hair, npcLooks.HairType);
-        AssignNPCMesh(NPCDefine.MeshType.Hat, npcLooks.HatType);
-        AssignNPCMesh(NPCDefine.MeshType.Mustache, npcLooks.MustacheType);
-        AssignNPCMesh(NPCDefine.MeshType.Outerwear, npcLooks.OuterwearType);
-        AssignNPCMesh(NPCDefine.MeshType.Pants, npcLooks.PantsType);
-        AssignNPCMesh(NPCDefine.MeshType.Shoe, npcLooks.ShoeType);
+        AssignNPCMesh(MeshType.Backpack, npcLooks.BackpackType);
+        AssignNPCMesh(MeshType.Eyebrow, npcLooks.EyebrowType);
+        AssignNPCMesh(MeshType.FullBody, npcLooks.FullbodyType);
+        AssignNPCMesh(MeshType.Glasses, npcLooks.GlassesType);
+        AssignNPCMesh(MeshType.Glove, npcLooks.GloveType);
+        AssignNPCMesh(MeshType.Hair, npcLooks.HairType);
+        AssignNPCMesh(MeshType.Hat, npcLooks.HatType);
+        AssignNPCMesh(MeshType.Mustache, npcLooks.MustacheType);
+        AssignNPCMesh(MeshType.Outerwear, npcLooks.OuterwearType);
+        AssignNPCMesh(MeshType.Pants, npcLooks.PantsType);
+        AssignNPCMesh(MeshType.Shoe, npcLooks.ShoeType);
     }
 
     /// <summary>
@@ -100,36 +101,36 @@ public class NPCLooksSetter : MonoBehaviour
     /// <param name="muhanNpcID"></param>
     public void AssignMuhanMeshes(NpcLooks npcLooks)
     {
-        AssignNPCMesh(NPCDefine.MeshType.Backpack, npcLooks.BackpackType);
-        AssignNPCMesh(NPCDefine.MeshType.Eyebrow, npcLooks.EyebrowType);
-        AssignNPCMesh(NPCDefine.MeshType.FullBody, npcLooks.FullbodyType);
-        AssignNPCMesh(NPCDefine.MeshType.Glasses, npcLooks.GlassesType);
-        AssignNPCMesh(NPCDefine.MeshType.Glove, npcLooks.GloveType);
-        AssignNPCMesh(NPCDefine.MeshType.Hair, npcLooks.HairType);
-        AssignNPCMesh(NPCDefine.MeshType.Hat, npcLooks.HatType);
-        AssignNPCMesh(NPCDefine.MeshType.Mustache, npcLooks.MustacheType);
-        AssignNPCMesh(NPCDefine.MeshType.Outerwear, npcLooks.OuterwearType);
-        AssignNPCMesh(NPCDefine.MeshType.Pants, npcLooks.PantsType);
-        AssignNPCMesh(NPCDefine.MeshType.Shoe, npcLooks.ShoeType);
+        AssignNPCMesh(MeshType.Backpack, npcLooks.BackpackType);
+        AssignNPCMesh(MeshType.Eyebrow, npcLooks.EyebrowType);
+        AssignNPCMesh(MeshType.FullBody, npcLooks.FullbodyType);
+        AssignNPCMesh(MeshType.Glasses, npcLooks.GlassesType);
+        AssignNPCMesh(MeshType.Glove, npcLooks.GloveType);
+        AssignNPCMesh(MeshType.Hair, npcLooks.HairType);
+        AssignNPCMesh(MeshType.Hat, npcLooks.HatType);
+        AssignNPCMesh(MeshType.Mustache, npcLooks.MustacheType);
+        AssignNPCMesh(MeshType.Outerwear, npcLooks.OuterwearType);
+        AssignNPCMesh(MeshType.Pants, npcLooks.PantsType);
+        AssignNPCMesh(MeshType.Shoe, npcLooks.ShoeType);
     }
 
     public void AssignAllMeshes()
     {
-        AssignNPCMesh(NPCDefine.MeshType.Backpack, BackpackType);
-        AssignNPCMesh(NPCDefine.MeshType.Body, BodyType);
-        AssignNPCMesh(NPCDefine.MeshType.Eyebrow, EyebrowType);
-        AssignNPCMesh(NPCDefine.MeshType.FullBody, FullBodyType);
-        AssignNPCMesh(NPCDefine.MeshType.Glasses, GlassesType);
-        AssignNPCMesh(NPCDefine.MeshType.Glove, GloveType);
-        AssignNPCMesh(NPCDefine.MeshType.Hair, HairType);
-        AssignNPCMesh(NPCDefine.MeshType.Hat, HatType);
-        AssignNPCMesh(NPCDefine.MeshType.Mustache, MustacheType);
-        AssignNPCMesh(NPCDefine.MeshType.Outerwear, OuterwearType);
-        AssignNPCMesh(NPCDefine.MeshType.Pants, PantsType);
-        AssignNPCMesh(NPCDefine.MeshType.Shoe, ShoeType);
+        AssignNPCMesh(MeshType.Backpack, BackpackType);
+        AssignNPCMesh(MeshType.Body, BodyType);
+        AssignNPCMesh(MeshType.Eyebrow, EyebrowType);
+        AssignNPCMesh(MeshType.FullBody, FullBodyType);
+        AssignNPCMesh(MeshType.Glasses, GlassesType);
+        AssignNPCMesh(MeshType.Glove, GloveType);
+        AssignNPCMesh(MeshType.Hair, HairType);
+        AssignNPCMesh(MeshType.Hat, HatType);
+        AssignNPCMesh(MeshType.Mustache, MustacheType);
+        AssignNPCMesh(MeshType.Outerwear, OuterwearType);
+        AssignNPCMesh(MeshType.Pants, PantsType);
+        AssignNPCMesh(MeshType.Shoe, ShoeType);
     }
 
-    public void AssignNPCMesh<TKey>(NPCDefine.MeshType meshType, TKey key) where TKey : Enum
+    public void AssignNPCMesh<TKey>(MeshType meshType, TKey key) where TKey : Enum
     {
         // Mesh 가져오기
         List<Mesh> meshes = NPCManager.Mesh.GetMeshes(meshType, key);
