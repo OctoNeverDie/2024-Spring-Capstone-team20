@@ -16,12 +16,13 @@ public class RecordInput : MonoBehaviour
     [SerializeField] GameObject RecordInputRect;//contains button, button image, slider
     [SerializeField] Sprite recordOn;
     [SerializeField] Sprite recordOff;
+    [SerializeField] Sprite muhanRecordOn;
     [SerializeField] GameObject noMicDetected;
 
     Image recordImg;
     Button recordBtn;
     Slider recordSlider;
-
+    Define.GameMode gameMode;
     STTConnect STTconnect;
 
     [HideInInspector]
@@ -38,6 +39,14 @@ public class RecordInput : MonoBehaviour
         recordSlider = RecordInputRect.GetComponentInChildren<Slider>();
 
         recordBtn.onClick.AddListener(PressedRecord);
+        if (MuhanNpcDataManager.Instance == null)
+        {
+            gameMode = Define.GameMode.Story;
+        }
+        else
+        {
+            gameMode = Define.GameMode.Infinity;
+        }
     }
 
     public void PressedRecord()
@@ -125,6 +134,13 @@ public class RecordInput : MonoBehaviour
 
     private void ChangeSprite()
     {
-        recordImg.sprite = _isRecording ? recordOn : recordOff;
+        if (gameMode == Define.GameMode.Story)
+            recordImg.sprite = _isRecording ? recordOn : recordOff;
+        else
+        {
+            recordImg.sprite = muhanRecordOn;
+            if(!_isRecording)
+                recordImg.color = Color.red;
+        }       
     }
 }
