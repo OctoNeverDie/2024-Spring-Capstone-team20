@@ -15,6 +15,7 @@ public class City_NpcInfoUI : MonoBehaviour
     public void InitNpc(NpcInfo npc, string coloredMbti, Sprite sprite = null)
     {
         int i = npcsCount++;
+        i %= 3;
         NpcIDToUIIdx.Add(npc.NpcID, i);
         age = npc.NpcAge == 0? "???" : npc.NpcAge.ToString();
 

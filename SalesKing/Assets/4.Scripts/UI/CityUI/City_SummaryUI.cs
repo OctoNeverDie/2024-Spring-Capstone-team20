@@ -22,6 +22,7 @@ public class City_SummaryUI : MonoBehaviour
     public void InitNpc(NpcInfo npc, Sprite sprite = null, int today = -1)
     {
         int i = npcsCount++;
+        i %= 3;
         NpcIDToUIIdx.Add(npc.NpcID, i);//npc ui object와 npc id를 매칭한 걸 기록한 dictionary
 
         npcs[i].SuccessImg.gameObject.SetActive(false);

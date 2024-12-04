@@ -118,19 +118,19 @@ public class NPCLooksSetter : MonoBehaviour
     {
         // Mesh 가져오기
         List<Mesh> meshes = NPCManager.Mesh.GetMeshes(meshType, key);
-        if (meshes == null || meshes.Count == 0)
-        {
-            return;
-        }
 
         // SkinnedMeshRenderer 설정
         SkinnedMeshRenderer meshRenderer = thisMesh[meshType].GetComponent<SkinnedMeshRenderer>();
+
+        if (meshes == null || meshes.Count == 0)
+        {
+            meshRenderer.sharedMesh = null;
+            return;
+        }
 
         // 첫 번째 Mesh를 SkinnedMeshRenderer에 할당
         // 랜덤으로 Mesh 선택
         int randomIndex = UnityEngine.Random.Range(0, meshes.Count);
         meshRenderer.sharedMesh = meshes[randomIndex];
     }
-
-
 }
