@@ -12,7 +12,7 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
 
     private int today = -1;
     public Dictionary<int, NpcInfo> todaysIDdict = new Dictionary<int, NpcInfo>();
-    public List<int> npcIDs = new List<int>();
+    public List<int> npcIDs = new List<int>();//오늘의 npcs, 순서대로 태블릿에 들어감
 
     public bool ShouldNotDestroyOnLoad => false;
 
@@ -112,10 +112,10 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
         summaryUI.UpdateEvaluationData(Evaluation, thisNpcID, isBuy);
     }
 
-    public void ShowSummary()
+    public void ShowSummaryOrInfo(bool isSummary)
     {
-        npcInfoUI.gameObject.SetActive(false);
-        summaryUI.gameObject.SetActive(true);
+        npcInfoUI.gameObject.SetActive(!isSummary);
+        summaryUI.gameObject.SetActive(isSummary);
         tabletMovement.OnClickShowTablet();
     }
 }

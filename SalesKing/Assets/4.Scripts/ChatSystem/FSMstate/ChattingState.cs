@@ -101,7 +101,10 @@ public class ChattingState : ChatBaseState, IVariableChat
         if (type != nameof(ChatManager.Instance.Reply.GptAnswer))
             return;
 
-        UpdateReplyVariables(gpt_output);
+        if (gpt_output != "test")
+        {
+            UpdateReplyVariables(gpt_output);
+        }
         ShowFront();
         UpdateEvaluation();
     }
@@ -137,8 +140,6 @@ public class ChattingState : ChatBaseState, IVariableChat
             playerReply += "SystemPrompt를 잘 읽고, Json 형식에 맞춰 대답해.";
             ServerManager.Instance.GetGPTReply(playerReply, _sendChatType);
         }
-
-
 
         AddPersuasion(gptResult.Persuasion);
         Debug.Log($"무사히 들어왔어요!\n{gptResult.reaction}, {totalPersuasion}");

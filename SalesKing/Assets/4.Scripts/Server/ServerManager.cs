@@ -5,6 +5,8 @@ using Newtonsoft.Json.Linq;
 using UnityEngine;
 using static Define;
 
+[RequireComponent(typeof(TemplateReceive))]
+
 public class ServerManager : ServerBase
 {
     #region singleton
@@ -32,6 +34,7 @@ public class ServerManager : ServerBase
 
     //loading panel
     public static event Action<bool> OnSendReplyUpdate;
+    public bool isTest = false;
 
     private TemplateReceive templateReceive;
     private string _userInput = "";
@@ -53,6 +56,14 @@ public class ServerManager : ServerBase
         }
 
         Debug.Log($"User답++++++++++{_userInput}, {_sendChatType}, {_initData}");
+
+        while (isTest)
+        {
+            TestinNoNW();
+            return;
+        }
+        
+
         ServerManager.Instance.SaveChat(_userInput);
 
         OnSendReplyUpdate?.Invoke(true);
@@ -91,7 +102,6 @@ public class ServerManager : ServerBase
 
             OnSendReplyUpdate?.Invoke(false);
             templateReceive.GetGptAnswer(resultData, _sendChatType);
-            
         };
 
         Action<ResultInfo> failTest = (result) =>
@@ -126,6 +136,10 @@ public class ServerManager : ServerBase
             Debug.LogError($"파일 저장 중 오류 발생: {ex.Message}");
         }
     }
-    
 
+    private void TestinNoNW()
+    {
+        string resultData = "test";
+        templateReceive.GetGptAnswer(resultData, _sendChatType);
+    }
 }

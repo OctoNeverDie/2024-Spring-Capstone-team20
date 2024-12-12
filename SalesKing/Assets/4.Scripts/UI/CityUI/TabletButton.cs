@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System.Collections.Generic;
 
 public class TabletButton : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class TabletButton : MonoBehaviour
     [SerializeField] GameObject PhonePanel;
     City_TabletMovement tabletMovement;
     SwipeController swipeController;
+    List<int> npcIDs = new List<int>();
 
     void Awake()
     {
@@ -20,18 +22,20 @@ public class TabletButton : MonoBehaviour
     private void TabletMatch()
     {
         int npcID = ChatManager.Instance.ThisNpc.NpcID;
-        int min;
+
         if (MuhanNpcDataManager.Instance != null)
         {
-            min = MuhanNpcDataManager.Instance.npc_IDs.Min();//최솟값 찾기
+            npcIDs = MuhanNpcDataManager.Instance.npc_IDs;//최솟값 찾기
         }
         else 
         {
-            min = City_TabletDataManager.Instance.npcIDs.Min();
+            npcIDs = City_TabletDataManager.Instance.npcIDs;
         }
 
-        int order = npcID - min;
+        int order = npcIDs.IndexOf(npcID);
+        
         swipeController.OnClickMatchPage(order);
+        City_TabletDataManager.Instance.ShowSummaryOrInfo(false);
         tabletMovement.OnClickShoworHideTablet();
     }
 }
