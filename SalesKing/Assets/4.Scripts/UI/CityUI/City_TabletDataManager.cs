@@ -7,6 +7,7 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
     [SerializeField] City_TabletMovement tabletMovement;
     [SerializeField] City_NpcInfoUI npcInfoUI;
     [SerializeField] City_SummaryUI summaryUI;
+    [SerializeField] GameObject customerScroll;
     [SerializeField] StoryNpcSO storyNpcSO;
     [SerializeField] NpcLookSO npcLookSO;
 
@@ -114,7 +115,8 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
 
     public void ShowSummaryOrInfo(bool isSummary)
     {
-        npcInfoUI.gameObject.SetActive(!isSummary);
+        npcInfoUI.gameObject.SetActive(false);
+        customerScroll.SetActive(!isSummary);
         summaryUI.gameObject.SetActive(isSummary);
         tabletMovement.OnClickShowTablet();
     }

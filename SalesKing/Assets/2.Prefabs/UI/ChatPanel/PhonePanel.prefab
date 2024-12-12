@@ -4055,7 +4055,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2541791799075927135, guid: a3fbb72946121b24687c56c34a47eaed, type: 3}
       propertyPath: m_Name
-      value: Inside
+      value: CustomerInfoScroll
       objectReference: {fileID: 0}
     - target: {fileID: 2541791799075927135, guid: a3fbb72946121b24687c56c34a47eaed, type: 3}
       propertyPath: m_IsActive
