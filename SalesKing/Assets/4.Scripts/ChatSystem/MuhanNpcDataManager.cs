@@ -83,6 +83,10 @@ public class MuhanNpcDataManager : MonoBehaviour
     }
     //-----------------------------------------------------------
 
+    void Start()
+    {
+        PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
+    }
 
     #region
     private void TestInit()
