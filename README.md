@@ -139,6 +139,12 @@ def update_history(prompt, request, role, sessionKey):
 ---
 ### 4️⃣ 프로젝트 빌드 방법
 : How to BUILD
+
+* STT 키 삽입
+![image](https://github.com/user-attachments/assets/9f7a6ab1-0fba-42b8-9ff2-ab5c294faffb)
+STT 기능을 위해 2개의 키가 필요하다. API KEY ID와 API KEY를 설정해주면 된다. Naver Clova Console에서 키를 발급받은 후, 두 개의 키를 삽입해주면 된다. 
+위치는 STT.cs파일의 이 부분이다. (환경 변수로 넣어 보안성을 유지하거나, 변수 안에 직접적으로 할당하여 곧바로 확인할 수 있다. 위는 환경 변수로 설정하는 방법이며, 보안을 위해 위의 방법을 권장한다.)
+
 ![](https://velog.velcdn.com/images/dubidubob/post/a279a8b2-b60b-4635-bdc1-1137f72fa357/image.png)Unity Editor에서 Edit - Build Setting에 들어가 Build를 클릭![](https://velog.velcdn.com/images/dubidubob/post/73e23a5c-d1a4-4e2f-ab7a-808a9249e156/image.png)폴더 선택 후에 빌드가 된다.![](https://velog.velcdn.com/images/dubidubob/post/6b8959e3-59a8-4412-8d11-aafc757c7975/image.png)만들어진 폴더에서 .exe 파일을 눌러 게임 실행
 
 ---
