@@ -93,6 +93,7 @@ var npcsArray = jsonObject["Npcs"].ToString();
 |Installs에서 Install Editor를 눌러|*Unity 2022.3.21f1*를 다운로드 받는다.| 
  | - | - |
  |![](https://velog.velcdn.com/images/dubidubob/post/4967ab37-2a03-4e83-a733-b109502e5f89/image.png)|![](https://velog.velcdn.com/images/dubidubob/post/4967ab37-2a03-4e83-a733-b109502e5f89/image.png)|![](https://velog.velcdn.com/images/dubidubob/post/a3d6d701-42b9-4136-b545-08c4efa1691a/image.png)|
+ 
 이후 Project에서 Add 버튼을 눌러 2024-spring-capstone-team20\SalesKing 파일 선택 후 Unity Editor에서 해당 파일을 클릭한다.
 
 ---
@@ -106,10 +107,12 @@ var npcsArray = jsonObject["Npcs"].ToString();
 시작 화면에서 스토리 모드 / 무한 모드를 클릭하여 시작.
 
 조작법 : 기본 이동키는 WASD, 상호작용키는 E, 태블릿 정보키는 Tab
+<br>
 스토리 모드 : 12명의 Npc간 관계가 있고, 완성된 스토리를 체험할 수 있는 모드.
+<br>
 무한 모드 : OpenAI가 생성한 Npc와 단적으로 물건을 판매하는 모드.
 
-세부 사항은 다음 링크를 참고
+세부 사항은 다음 링크를 참고<br>
 https://emerald-blender-41c.notion.site/15f360ae54ce8009b3d3ee1c583c3b11?pvs=4
 
 ---
