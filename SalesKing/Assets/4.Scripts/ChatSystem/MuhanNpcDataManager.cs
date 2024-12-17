@@ -110,6 +110,7 @@ public class MuhanNpcDataManager : MonoBehaviour
         if (_replyTurn % 2 == 0)
         {
             cntupTurn();
+            PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
             Init();
         }
     }
@@ -120,10 +121,8 @@ public class MuhanNpcDataManager : MonoBehaviour
         _npdIDStart = DataGetter.Instance.NpcList.Count;
 
         TestInit();
-        StartCoroutine(showPanel());
-        // 더미 데이터를 로드
+        //StartCoroutine(showPanel());// 더미 데이터를 로드
 
-        /*
         int randIdx;
         int randIdx2;
         string gameSend = "";
@@ -136,18 +135,8 @@ public class MuhanNpcDataManager : MonoBehaviour
             gameSend += $" {npcOptionA[randIdx]} {npcOptionB[randIdx2]} Npc 하나 만들어줘.\n";
         }
         gameSend += "총 npc 3개 프로필을 만들어줘. system prompt의 example 형식처럼 말이야.";
-        ServerManager.Instance.GetGPTReply(gameSend, SendChatType.MuhanInit);*/
+        ServerManager.Instance.GetGPTReply(gameSend, SendChatType.MuhanInit);
     }
-
-    private IEnumerator showPanel()
-    {
-        ServerManager.Instance.ShowPanel(true);
-        yield return new WaitForSeconds(4f);
-        ServerManager.Instance.ShowPanel(false);
-        InitDummyData();
-
-    }
-
 
 
     public void NpcsReceive(string npcsStr)
@@ -157,6 +146,8 @@ public class MuhanNpcDataManager : MonoBehaviour
 
         npcsStr = npcsStr.Trim();
         npcsStr = npcsStr.Replace("json", "").Replace("`", "");
+        //npcsStr = concatStrLetterbetIndex(npcsStr,10);
+        npcsStr = "{\n\"Npcs\" : " + npcsStr + "\n}";
 
         Debug.Log($"잘왔어요 원본, {npcsStr}");
 
@@ -181,6 +172,23 @@ public class MuhanNpcDataManager : MonoBehaviour
         City_TabletDataManager.Instance.InitNpc(false);
     }
 
+    private string concatStrLetterbetIndex(string stringLine, int concatRange)
+    {
+        string remainder = stringLine.Substring(concatRange);
+        string frontConcated = stringLine.Substring(0, concatRange).Replace("[", "");
+        Debug.Log($"frontConcated {frontConcated}\nremainder{remainder}");
+
+        stringLine = frontConcated + remainder;
+
+        int length = stringLine.Length;
+
+        remainder = stringLine.Substring(0, length - concatRange);
+        string backConcated = stringLine.Substring(length - concatRange).Replace("]", "");
+        Debug.Log($"remainder{remainder}\nbackConcated {backConcated}");
+        stringLine = remainder + backConcated;
+
+        return stringLine;
+    }
 
     private void NpcLookEdit(MuhanInfo npc)
     {
@@ -234,6 +242,14 @@ public class MuhanNpcDataManager : MonoBehaviour
     private void cntupTurn()
     {
         _replyTurn++;
+    }
+
+    private IEnumerator showPanel()
+    {
+        ServerManager.Instance.ShowPanel(true);
+        yield return new WaitForSeconds(4f);
+        ServerManager.Instance.ShowPanel(false);
+        InitDummyData();
     }
 
     int count = 0;
@@ -585,5 +601,4 @@ public class MuhanNpcDataManager : MonoBehaviour
         NpcsReceive(dummyData[count]);
         count++;
     }
-
 }
