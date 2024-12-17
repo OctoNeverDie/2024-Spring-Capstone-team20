@@ -42,7 +42,7 @@ Assets/Resources/Data/JsonFile에는 아이템, NPC 정보 json 파일이 담겨
 
 ---
 ### 2️⃣ 코드 설명
-
+#### Client
 ◾ UnityWebRequest 사용
 > Unity to 장고 서버 통신을 위해 UnityWebRequest 클래스를 사용한다. Coroutine을 이용해 Django 서버에서 반응이 오기까지 기다린다. ResultInfo 클래스를 이용한 네트워크 에러 체크 후 각각 반응을 처리한다. 
 Npc와의 채팅, 무한 Npc 모드 시 Npc 생성, 플레이어 음성 처리 시 사용한다.
@@ -83,6 +83,21 @@ Loader LoadJson<Loader, DataFormat>(string path) where Loader : ILoader<DataForm
 // JSON 객체에서 Npcs 배열 추출
 var jsonObject = JsonConvert.DeserializeObject<Dictionary<string, object>>(npcsStr);
 var npcsArray = jsonObject["Npcs"].ToString();
+```
+---
+#### Back
+◾ request.session 사용
+> Gpt가 전 대화를 기억하게 하기 위해 request.session을 사용한다. request.session의 고유 key를 이용해 유저별 대화 세션을 구분한다. 유저의 key가 request body의 key value로 들어오면, 해당하는 request.session을 탐색해 prompt, request.session, user input을 조합해 gpt api로 보낸다. user input과 gpt output을 해당 세션에 추가하여 업데이트한다.
+
+```
+def update_history(prompt, request, role, sessionKey):
+    if sessionKey not in request.session:
+        request.session[sessionKey] = []
+
+    sessionLog = request.session[sessionKey]
+    sessionLog.append({"role": role, "content": prompt})
+    request.session[sessionKey] = sessionLog
+    return sessionLog
 ```
 ---
 ### 3️⃣ 프로젝트 사전 설치
