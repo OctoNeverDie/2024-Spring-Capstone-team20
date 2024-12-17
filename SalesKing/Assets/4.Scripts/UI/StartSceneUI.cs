@@ -11,7 +11,8 @@ public class StartSceneUI : MonoBehaviour
     public void LoadSaveFileScene_StoryMode()
     {
         DataController.Instance.gameData.this_game_mode = Define.GameMode.Story;
-        SceneManager.LoadScene("SaveFile");
+        //SceneManager.LoadScene("SaveFile");
+        SceneManager.LoadScene("CityMap");
     }
 
     public void LoadSaveFileScene_InfinityMode()
