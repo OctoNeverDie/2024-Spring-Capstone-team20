@@ -85,6 +85,31 @@ var jsonObject = JsonConvert.DeserializeObject<Dictionary<string, object>>(npcsS
 var npcsArray = jsonObject["Npcs"].ToString();
 ```
 ---
+◾ getByteFromAudioClip 함수 작성
+> 프로젝트 실행 시 입력받을 마이크 ID를 설정해두고, 유저의 음성 input을 Unity에서 지원하는 AudioClip 형식으로 입력받는다. 그 후 getByteFromAudioClip 함수를 호출하여 헤더를 붙이고 바이트 형식으로 변환하여 Clova에 request를 보낸다.
+
+```
+private byte[] getByteFromAudioClip(AudioClip audioClip)
+{
+    MemoryStream stream = new MemoryStream();
+    const int headerSize = 44;
+    ushort bitDepth = 16;
+
+    int fileSize = audioClip.samples * BlockSize_16Bit + headerSize;
+
+    // audio clip의 정보들을 file stream에 추가(링크 참고 함수 선언)
+    WriteFileHeader(ref stream, fileSize);
+    WriteFileFormat(ref stream, audioClip.channels, audioClip.frequency, bitDepth);
+    WriteFileData(ref stream, audioClip, bitDepth);
+
+    // stream을 array형태로 바꿈
+    byte[] bytes = stream.ToArray();
+
+    return bytes;
+}
+```
+---
+
 #### Back
 ◾ request.session 사용
 > Gpt가 전 대화를 기억하게 하기 위해 request.session을 사용한다. request.session의 고유 key를 이용해 유저별 대화 세션을 구분한다. 유저의 key가 request body의 key value로 들어오면, 해당하는 request.session을 탐색해 prompt, request.session, user input을 조합해 gpt api로 보낸다. user input과 gpt output을 해당 세션에 추가하여 업데이트한다.
