@@ -140,6 +140,19 @@ def update_history(prompt, request, role, sessionKey):
 ### 4️⃣ 프로젝트 빌드 방법
 : How to BUILD
 
+#### 📡 Back
+* OpenAI 키 설정
+... \2024-Spring-Capstone-team20\django\Projects\SalesAI 에 .env 파일을 추가해야한다. 해당 폴더에 다음과 같이 기술한다.
+
+`SECRET_KEY`= your open ai secret key<br>
+`OPENAI_API_KEY` = your open ai key<br>
+`DEBUG` = False<br>
+
+이후 로컬 deploy한다. 혹은 appserivce deploy 한다.
+해당 링크 참고<br>
+https://learn.microsoft.com/ko-kr/azure/app-service/quickstart-python
+
+#### 📺 Client
 * STT 키 삽입
 ![image](https://github.com/user-attachments/assets/9f7a6ab1-0fba-42b8-9ff2-ab5c294faffb)
 STT 기능을 위해 2개의 키가 필요하다. API KEY ID와 API KEY를 설정해주면 된다. Naver Clova Console에서 키를 발급받은 후, 두 개의 키를 삽입해주면 된다. 
