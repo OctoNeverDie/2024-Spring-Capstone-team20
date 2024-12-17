@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -42592,6 +42592,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3741813964216108763, guid: 0573610284f68a443b6dcce9e446a99d, type: 3}
+      propertyPath: customerScroll
+      value: 
+      objectReference: {fileID: 1726030562}
     - target: {fileID: 3892009678411073464, guid: 0573610284f68a443b6dcce9e446a99d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -79122,7 +79126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b865be3dccf43c41bc23cd17e0c71e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTest: 1
+  isTest: 0
 --- !u!114 &7585107065712841609
 MonoBehaviour:
   m_ObjectHideFlags: 0
