@@ -7,7 +7,7 @@ REM activate
 
 REM ++++JSY notebook
 E:
-cd E:\gitThings\Wonder\2024-Spring-Capstone-team20\django\venvs\venvSales\Scripts
+cd E:\gitThings\2024-Spring-Capstone-team20\django\venvs\venvSales\Scripts
 
 REM ++++JSY desktop
 REM C:
