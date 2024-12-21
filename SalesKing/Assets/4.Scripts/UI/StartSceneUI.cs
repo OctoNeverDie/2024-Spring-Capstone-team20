@@ -15,13 +15,6 @@ public class StartSceneUI : MonoBehaviour
         SceneManager.LoadScene("CityMap");
     }
 
-    public void LoadSaveFileScene_InfinityMode()
-    {
-        DataController.Instance.gameData.this_game_mode = Define.GameMode.Infinity;
-        //SceneManager.LoadScene("SaveFile");
-        SceneManager.LoadScene("InfiniteNPCs");
-    }
-
     public void GameExit()
     {
 #if UNITY_EDITOR
@@ -50,7 +43,7 @@ public class StartSceneUI : MonoBehaviour
         foreach (Transform child in GetComponentsInChildren<Transform>())
         {
             // 모든 하위 자식을 탐색하여 버튼-텍스트 짝 생성
-            if (child.name == "Story" || child.name == "Infinity" || child.name == "Option" || child.name == "Exit")
+            if (child.name == "Story" || child.name == "Option" || child.name == "Exit")
             {
                 var text = child.GetComponentInChildren<TextMeshProUGUI>();
                 var button = child.GetComponent<Button>();

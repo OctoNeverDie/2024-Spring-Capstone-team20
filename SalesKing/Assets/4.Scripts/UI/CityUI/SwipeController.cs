@@ -33,8 +33,9 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
     {
         _currentPage = 1;//현재 page, 1부터 시작
         _firstVacantPageLocation = _npcPagesRect.localPosition;
+        Debug.Log($"{_npcPagesRect.localPosition} _npcPagesRect.localPosition");
         Debug.Log($"_firstVacantPageLocation = _npcPagesRect.localPosition;{_firstVacantPageLocation}");
-        _pageStep = _scrollWidth+ _spacing; //scroll 나오는 화면 + spacing
+        _pageStep = (_scrollWidth+ _spacing); //scroll 나오는 화면 + spacing
         _dragThreshold = Screen.width / 10;//드래그 인식 범위
 
         _npcPagesRect.localPosition += _pageStep;//1번 페이지로 보내기
@@ -73,7 +74,7 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
         {
             Debug.Log($"_currentPage {_currentPage}");
             _currentPage = 1;
-            _targetPos += _pageStep *_ratio;//반만 가다, 순간이동 한 다음 -_pageStep/2해야함
+            _targetPos += _pageStep * _ratio;//반만 가다, 순간이동 한 다음 -_pageStep/2해야함
             MovePage(Ease.InCubic, Move.gotoFrontAgain, _tweenTime / 2f);
         }
     }
@@ -90,8 +91,6 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
 
     public void OnClickMatchPage(int npcOrder)//1 ~ contentPageCnt 중 몇 번째?
     {
-        npcOrder++;
-
         if (npcOrder > 0 && npcOrder <= _contentPageCnt)
             _currentPage = npcOrder;
         else
@@ -125,8 +124,8 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
 
             else if (resetAfterMove == Move.gotoFrontAgain)
             {
-                _npcPagesRect.localPosition = _firstVacantPageLocation + _pageStep *_ratio;
-                _targetPos = _npcPagesRect.localPosition + _pageStep * (1 - _ratio);
+                _npcPagesRect.localPosition = _firstVacantPageLocation + _pageStep * (1 - _ratio);
+                _targetPos = _npcPagesRect.localPosition + _pageStep * _ratio;
                 MovePage(Ease.InCubic, 0, _tweenTime / 1.7f);
             }
         });
