@@ -12,14 +12,10 @@ public class UserInputMode : MonoBehaviour
     //도착 후 npc reply 나옴
     //1초 뒤 슬라이더로 바뀜
     [SerializeField] private TMP_InputField userKeyboard;
-    [SerializeField] private TMP_InputField userVoice;
     [SerializeField] private Button EnterBtn;
-    [SerializeField] private Button VoicetoTxtBtn;
-    [SerializeField] private Button TxttoVoiceBtn;
 
-    public Define.UserInputMode inputMode = Define.UserInputMode.Voice;
+    public Define.UserInputMode inputMode = Define.UserInputMode.Keyboard;
     private TMP_InputField userInput;
-    private RecordInput recordInput;
     private bool isSending = true;
 
     private void Awake()
@@ -28,36 +24,21 @@ public class UserInputMode : MonoBehaviour
         ReplySubManager.OnReplyUpdated += DeleteInput;
 
         EnterBtn.onClick.AddListener(UpdateInput);
-        VoicetoTxtBtn.onClick.AddListener(() => VoiceToTxt(true));
-        TxttoVoiceBtn.onClick.AddListener(() => VoiceToTxt(false));
-
-        recordInput = GetComponent<RecordInput>();
     }
 
     private void Update()
     {
         if (Input.GetButtonDown("Submit") && !isSending)//Enter
-        { 
-            if (inputMode == Define.UserInputMode.Voice && !recordInput._isRecording)
-                UpdateInput();
-            else if(inputMode == Define.UserInputMode.Keyboard)
-                UpdateInput();
-        }
-
-        if (Input.GetButtonDown("STT") && inputMode == Define.UserInputMode.Voice && !isSending && ChatManager.Instance.isConvo)//Space bar
-            recordInput.PressedRecord();
+            UpdateInput();
 
         if (Input.GetButtonDown("Tab"))
-        {
-            ToggleInputField(userVoice);
             ToggleInputField(userKeyboard);
-        }
     }
 
     private void UpdateInput()
     {
-        userInput = (inputMode == Define.UserInputMode.Voice) ? userVoice : userKeyboard;
-        
+        userInput = userKeyboard;
+        userInput.text = userInput.text.Trim();
         if (!string.IsNullOrEmpty(userInput.text))
         {
             string reply = userInput.text.Trim(); // Get and trim the input text
@@ -75,23 +56,21 @@ public class UserInputMode : MonoBehaviour
                 userInput.text = "";
                 userInput.ActivateInputField();
             } 
-            recordInput.SwitchInputFieldToSlider(false);
             isSending = false;
         }
     }
-
-    public void VoiceToTxt(bool isVoicetotxt)
-    {
-        inputMode = isVoicetotxt ? Define.UserInputMode.Keyboard : Define.UserInputMode.Voice;
-    }
-
 
     private void ToggleInputField(TMP_InputField inputField)
     {
         if (inputField == null) return;
 
+        if (inputField.text.Length > 0 && inputField.text[inputField.text.Length - 1] == '\t')
+            inputField.text = inputField.text.Substring(0, inputField.text.Length - 1);
+
         if (inputField.isFocused)
             inputField.DeactivateInputField();
+        else
+            inputField.ActivateInputField();
     }
 
 }
