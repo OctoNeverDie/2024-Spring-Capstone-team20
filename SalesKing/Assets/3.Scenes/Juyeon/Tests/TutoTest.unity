@@ -79476,6 +79476,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tutorial_Day1
       objectReference: {fileID: 0}
+    - target: {fileID: 4184735526582246607, guid: 41cc5af489cf3ea4ba890e1c506edccb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4679035320150786879, guid: 41cc5af489cf3ea4ba890e1c506edccb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
