@@ -45,7 +45,7 @@ public class StartSceneUI : MonoBehaviour
             // 모든 하위 자식을 탐색하여 버튼-텍스트 짝 생성
             if (child.name == "Story" || child.name == "Option" || child.name == "Exit")
             {
-                var text = child.GetComponentInChildren<TextMeshProUGUI>();
+                var texts = child.GetComponentsInChildren<TextMeshProUGUI>(); // 모든 TextMeshProUGUI 컴포넌트를 가져옴
                 var button = child.GetComponent<Button>();
 
                 // Button 컴포넌트가 없거나 interactable이 false인 경우 건너뜀
@@ -54,14 +54,25 @@ public class StartSceneUI : MonoBehaviour
                     continue;
                 }
 
-                if (text != null)
+                if (texts.Length > 0)
                 {
                     var eventTrigger = child.gameObject.AddComponent<EventTrigger>();
-                    AddEvent(eventTrigger, EventTriggerType.PointerEnter, () => OnHover(text, hoverColor));
-                    AddEvent(eventTrigger, EventTriggerType.PointerExit, () => OnHover(text, defaultColor));
+                    AddEvent(eventTrigger, EventTriggerType.PointerEnter, () => OnHover(texts, hoverColor));
+                    AddEvent(eventTrigger, EventTriggerType.PointerExit, () => OnHover(texts, defaultColor));
 
-                    buttonTextPairs.Add(new ButtonTextPair { button = child.gameObject, text = text });
+                    buttonTextPairs.Add(new ButtonTextPair { button = child.gameObject, text = texts[0] });
                 }
+            }
+        }
+    }
+
+    private void OnHover(TextMeshProUGUI[] texts, Color color)
+    {
+        foreach (var text in texts)
+        {
+            if (text != null)
+            {
+                text.color = color;
             }
         }
     }
@@ -71,14 +82,6 @@ public class StartSceneUI : MonoBehaviour
         EventTrigger.Entry entry = new EventTrigger.Entry { eventID = eventType };
         entry.callback.AddListener(_ => action());
         trigger.triggers.Add(entry);
-    }
-
-    private void OnHover(TextMeshProUGUI text, Color color)
-    {
-        if (text != null)
-        {
-            text.color = color;
-        }
     }
 }
 
