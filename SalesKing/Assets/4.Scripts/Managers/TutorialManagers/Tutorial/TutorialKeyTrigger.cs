@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
 public class TutorialKeyTrigger : TutorialBase
 {
@@ -12,10 +13,16 @@ public class TutorialKeyTrigger : TutorialBase
     private bool isAnyKey=false;
     [SerializeField]
     private GameObject Tablet;
+    [SerializeField]
+    private GameObject DoWhatText;
+    [SerializeField]
+    private string do_what_to_continue;
 
     public override void Enter()
 	{
+        DoWhatText.SetActive(true);
         //UserInputManager.Instance.isKeyInputLocked = false;
+        DoWhatText.GetComponent<TextMeshProUGUI>().text = do_what_to_continue;
     }
 
 	public override void Execute(TutorialController controller)
@@ -53,6 +60,7 @@ public class TutorialKeyTrigger : TutorialBase
 	{
         //PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
         //UserInputManager.Instance.isKeyInputLocked = true;
+        DoWhatText.SetActive(false);
     }
 
     public void OnClickShowTablet()

@@ -79472,17 +79472,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 339479723418905520, guid: 41cc5af489cf3ea4ba890e1c506edccb, type: 3}
-      propertyPath: MainPanel
-      value: 
-      objectReference: {fileID: 751301342}
     - target: {fileID: 4184735526582246607, guid: 41cc5af489cf3ea4ba890e1c506edccb, type: 3}
       propertyPath: m_Name
       value: Tutorial_Day1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4184735526582246607, guid: 41cc5af489cf3ea4ba890e1c506edccb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4679035320150786879, guid: 41cc5af489cf3ea4ba890e1c506edccb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -79523,6 +79515,10 @@ PrefabInstance:
     - target: {fileID: 4679035320150786879, guid: 41cc5af489cf3ea4ba890e1c506edccb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5833262397121430543, guid: 41cc5af489cf3ea4ba890e1c506edccb, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -79662,6 +79658,10 @@ PrefabInstance:
     - target: {fileID: 278467128448791585, guid: c7ea5ee875902b744ad2b0aa404276b0, type: 3}
       propertyPath: m_Name
       value: Tutorial_Day4
+      objectReference: {fileID: 0}
+    - target: {fileID: 278467128448791585, guid: c7ea5ee875902b744ad2b0aa404276b0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5231543758551304776, guid: c7ea5ee875902b744ad2b0aa404276b0, type: 3}
       propertyPath: m_LocalPosition.x
