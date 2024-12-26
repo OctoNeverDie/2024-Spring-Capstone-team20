@@ -27,6 +27,8 @@ public class NPC : MonoBehaviour
     [HideInInspector]
     public bool Talkable;
 
+    private bool isCheckDestination = false;
+
 
     void Awake()
     {
@@ -34,11 +36,44 @@ public class NPC : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         Talkable = true;
         looks = GetComponent<NPCLooksSetter>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     void Update()
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        if (isCheckDestination)
+        {
+            // 도착 여부 확인
+            if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+            {
+                if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
+                {
+                    isCheckDestination = false;
+                    SetNPCToTalkingState();
+                }
+            }
+            
+        }
+    }
+
+    public void SetNPCDestination()
+    {
+        agent.SetDestination(NPCManager.Instance.StandPoint.position);
+        PlayRandomNPCAnimByAnimType(AnimType.Moving);
+        isCheckDestination = true;
+    }
+
+    public void SetNPCToTalkingState()
+    {
+        PlayRandomNPCAnimByAnimType(AnimType.Standing);
+        Talkable = false;
+        ChatManager.Instance.Init(NpcID);
+
+        Player myPlayer = PlayerManager.Instance.MyPlayer.GetComponent<Player>();
+
+        myPlayer.PlayerEnterConvo(this.gameObject);
+        NPCEnterConvo(myPlayer.gameObject);
     }
 
     public void PlayNPCAnimByEmotion(Define.Emotion emotion)

@@ -33,7 +33,10 @@ public class NPCSpawner : MonoBehaviour
         Transform npc_spawn_point = NPCManager.Instance.SpawnPoint;
         GameObject spawned_npc = Instantiate(NPCManager.Instance.NPCPrefab, npc_spawn_point.position, npc_spawn_point.rotation);
         Instantiate(npc_body, spawned_npc.transform);
-        spawned_npc.GetComponent<NPC>().NpcID = npc_ID;
+
+        NPC npc = spawned_npc.GetComponent<NPC>();
+        npc.NpcID = npc_ID;
+        npc.SetNPCDestination();
 
 
         /*
