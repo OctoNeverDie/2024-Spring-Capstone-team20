@@ -73,14 +73,14 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
                 if (additionalData is ItemInfo randItem)
                 {
                     playerItemName = randItem.ObjName;
-                    cityChattingUI.ShowPanel(chatState, randItem, name, isEndByUser); // show convo: npc name, npc item 룰렛
                     cityTabletData.UpdateItemData(randItem.ObjName, ThisNpc.NpcID); // show tablet: npc name ~ npc want item
+                    cityChattingUI.ShowPanel(chatState, randItem, name, isEndByUser); // show convo: npc name, npc item 룰렛
                 }
                 else if (additionalData is string ItemName)
                 { 
                     playerItemName = ItemName;
-                    cityChattingUI.ShowPanel(chatState, ItemName, name, isEndByUser); // show convo: npc name, npc item 룰렛
                     cityTabletData.UpdateItemData(ItemName, ThisNpc.NpcID); // show tablet: npc name ~ npc want item
+                    cityChattingUI.ShowPanel(chatState, ItemName, name, isEndByUser); // show convo: npc name, npc item 룰렛
                 }
                 break;
 
@@ -95,8 +95,8 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
                 isConvo = false;
                 Debug.Log($"Endpoint isSuccess {ThisNpc.NpcID}");
                 bool isSuccess = Eval.NpcEvalDict[ThisNpc.NpcID].isSuccess;
-                cityChattingUI.ShowPanel(chatState, isSuccess); // convo가 끝나 카메라가 돌아가고, end Panel 하나만 띄우기
                 cityTabletData.UpdateEvaluationData(ThisNpc, Eval.NpcEvalDict[ThisNpc.NpcID].summary, isSuccess);
+                cityChattingUI.ShowPanel(chatState, isSuccess); // convo가 끝나 카메라가 돌아가고, end Panel 하나만 띄우기
                 break;
 
             default:

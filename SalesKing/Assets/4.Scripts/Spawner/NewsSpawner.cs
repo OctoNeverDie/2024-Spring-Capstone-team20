@@ -1,9 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 using System.Collections;
-using UnityEngine.Rendering;
 
 public class NewsSpawner : MonoBehaviour
 {
@@ -15,26 +11,26 @@ public class NewsSpawner : MonoBehaviour
     private PositionAdjuster adjuster = new PositionAdjuster();
     private int success = 0 ;
 
-    //-----------------------------------
-    [Header("Test-----------------------")]
-    [SerializeField] private List<string> testSentences;
-    [SerializeField] private int testDay = 1;
+    ////-----------------------------------
+    //[Header("Test-----------------------")]
+    //[SerializeField] private List<string> testSentences;
+    //[SerializeField] private int testDay = 1;
 
-    private void OnEnable() {
-        Test(testDay);
-    }
+    //private void OnEnable() {
+    //    Test(testDay);
+    //}
 
-    private void Test(int testDay) {
-        foreach (var npc in testSentences) {
-            success++;
-            injector.UpdateEvaluationData(npc);
-        }
+    //private void Test(int testDay) {
+    //    foreach (var npc in testSentences) {
+    //        injector.UpdateEvaluationData(npc);
+    //    }
 
-        ShowNews(testDay);
-    }
-    //-----------------------------------
+    //    ShowNews(testDay);
+    //}
+    ////-----------------------------------
 
-    public void UpdateEvaluationData(string Evaluation, NpcInfo thisNpc) { 
+    public void UpdateEvaluationData(string Evaluation, NpcInfo thisNpc) {
+        success++;
         injector.UpdateEvaluationData(Evaluation, thisNpc);
     }
 

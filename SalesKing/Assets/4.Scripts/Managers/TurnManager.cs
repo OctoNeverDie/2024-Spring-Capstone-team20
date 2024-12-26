@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -84,7 +82,7 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
         // 페이드 인
         FirstFadeInPanel.DOFade(1f, duration).OnComplete(() =>
         {
-            Tablet.ShowSummaryOrInfo(true);
+            Tablet.ShowSummaryOrInfo();
             PlayScaleUp(CustomerReviewPanel.transform);
         });
     }

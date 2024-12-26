@@ -112,11 +112,8 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
         newsSpawner.UpdateEvaluationData(Evaluation, thisNpc);
     }
 
-    public void ShowSummaryOrInfo(bool isSummary)
+    public void ShowSummaryOrInfo()
     {
-        npcInfoUI.gameObject.SetActive(false);
-        customerScroll.SetActive(!isSummary);
-        newsSpawner.gameObject.SetActive(isSummary);
-        tabletMovement.OnClickShowTablet();
+        newsSpawner.ShowNews(DataController.Instance.playData.cur_day_ID);
     }
 }
