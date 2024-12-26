@@ -43,7 +43,7 @@ public class StartSceneUI : MonoBehaviour
         foreach (Transform child in GetComponentsInChildren<Transform>())
         {
             // 모든 하위 자식을 탐색하여 버튼-텍스트 짝 생성
-            if (child.name == "Story" || child.name == "Option" || child.name == "Exit")
+            if (child.name == "StartNew" || child.name == "Continue" || child.name == "Option" || child.name == "Exit")
             {
                 var texts = child.GetComponentsInChildren<TextMeshProUGUI>(); // 모든 TextMeshProUGUI 컴포넌트를 가져옴
                 var button = child.GetComponent<Button>();
