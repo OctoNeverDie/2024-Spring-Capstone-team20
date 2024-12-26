@@ -47,8 +47,10 @@ public class NPC : MonoBehaviour
             // 도착 여부 확인
             if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
             {
+                Debug.Log("여기까지");
                 if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
                 {
+                    Debug.Log("또 여기까지");
                     isCheckDestination = false;
                     SetNPCToTalkingState();
                 }
@@ -66,14 +68,21 @@ public class NPC : MonoBehaviour
 
     public void SetNPCToTalkingState()
     {
-        PlayRandomNPCAnimByAnimType(AnimType.Standing);
-        Talkable = false;
-        ChatManager.Instance.Init(NpcID);
-
+        Debug.Log("enter npc talking state!!!!!!!!!");
+        // 플레이어 정의
         Player myPlayer = PlayerManager.Instance.MyPlayer.GetComponent<Player>();
 
+        // convo enter
         myPlayer.PlayerEnterConvo(this.gameObject);
         NPCEnterConvo(myPlayer.gameObject);
+        ChatManager.Instance.Init(NpcID);
+
+        // 회전
+        this.transform.rotation = NPCManager.Instance.StandPoint.rotation;
+
+        // 애니메이션 설정
+        PlayRandomNPCAnimByAnimType(AnimType.Standing);
+        Talkable = false;
     }
 
     public void PlayNPCAnimByEmotion(Define.Emotion emotion)
@@ -103,9 +112,9 @@ public class NPC : MonoBehaviour
 
     public void PlayRandomNPCAnimByAnimType(NPCDefine.AnimType type)
     {
-        animator.updateMode = AnimatorUpdateMode.UnscaledTime;
-        animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
-        animator.Rebind();
+        //animator.updateMode = AnimatorUpdateMode.UnscaledTime;
+        //animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+        //animator.Rebind();
 
         int anim_count = NPCManager.Anim.NPCAnimDictionary[type].Count;
         int rand_int = Random.Range(0, anim_count);
