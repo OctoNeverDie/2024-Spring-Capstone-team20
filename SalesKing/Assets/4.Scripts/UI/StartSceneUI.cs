@@ -35,6 +35,7 @@ public class StartSceneUI : MonoBehaviour
 
     [SerializeField] private Color hoverColor = Color.yellow; // 마우스 오버 시 색상
     [SerializeField] private Color defaultColor = Color.white; // 기본 색상
+    [SerializeField] private Color disabledColor = Color.grey; // 상호작용 꺼졌을 때 색상
 
     private List<ButtonTextPair> buttonTextPairs = new List<ButtonTextPair>();
 
@@ -51,6 +52,7 @@ public class StartSceneUI : MonoBehaviour
                 // Button 컴포넌트가 없거나 interactable이 false인 경우 건너뜀
                 if (button == null || !button.interactable)
                 {
+                    OnHover(texts, disabledColor);
                     continue;
                 }
 
