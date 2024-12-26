@@ -29,7 +29,7 @@ public class StartSceneUI : MonoBehaviour
 
     private struct ButtonTextPair
     {
-        public GameObject button;
+        public Button button;
         public TextMeshProUGUI text;
     }
 
@@ -49,6 +49,19 @@ public class StartSceneUI : MonoBehaviour
                 var texts = child.GetComponentsInChildren<TextMeshProUGUI>(); // 모든 TextMeshProUGUI 컴포넌트를 가져옴
                 var button = child.GetComponent<Button>();
 
+                if (child.name == "Continue")
+                {
+                    int cur_day = DataController.Instance.gameData.cur_day_ID;
+                    if (cur_day == 0)
+                    {
+                        button.interactable = false;
+                    }
+                    else
+                    {
+                        button.interactable = true;
+                    }
+                }
+
                 // Button 컴포넌트가 없거나 interactable이 false인 경우 건너뜀
                 if (button == null || !button.interactable)
                 {
@@ -62,7 +75,7 @@ public class StartSceneUI : MonoBehaviour
                     AddEvent(eventTrigger, EventTriggerType.PointerEnter, () => OnHover(texts, hoverColor));
                     AddEvent(eventTrigger, EventTriggerType.PointerExit, () => OnHover(texts, defaultColor));
 
-                    buttonTextPairs.Add(new ButtonTextPair { button = child.gameObject, text = texts[0] });
+                    buttonTextPairs.Add(new ButtonTextPair { button = child.gameObject.GetComponent<Button>(), text = texts[0] });
                 }
             }
         }

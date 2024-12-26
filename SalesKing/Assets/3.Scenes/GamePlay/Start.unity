@@ -68151,9 +68151,8 @@ MonoBehaviour:
   _gameData:
     bgm_volume: 0
     sfx_volume: 0
-    cur_save_file_ID: 
-    save_files_IDs: []
     this_game_mode: 0
+    cur_day_ID: 3
 --- !u!4 &1859662150
 Transform:
   m_ObjectHideFlags: 0
