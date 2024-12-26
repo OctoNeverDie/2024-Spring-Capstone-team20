@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class NPCSpawner : MonoBehaviour
 {
-    private int cur_NPC_index = 0;
+    public int cur_NPC_index = 0;
 
     void Awake()
     {
@@ -24,9 +24,7 @@ public class NPCSpawner : MonoBehaviour
         if(cur_NPC_index < 3)
         {
             SpawnStoryModeNPCs(cur_NPC_index);
-            UIManager.Instance.Main.NextNPCButton.SetActive(true);
         }
-
     }
 
     void SpawnStoryModeNPCs(int npc_index)

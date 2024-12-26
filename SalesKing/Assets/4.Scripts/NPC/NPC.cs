@@ -166,6 +166,12 @@ public class NPC : MonoBehaviour
     public void NPCExitConvo()
     {
         SetNPCDestination(NPCManager.Instance.SpawnPoint.position, false);
+        int npc_index = NPCManager.Spawner.cur_NPC_index;
+
+        if (npc_index < 3)
+        {
+            UIManager.Instance.Main.NextNPCButton.SetActive(true);
+        }
     }
 
 }
