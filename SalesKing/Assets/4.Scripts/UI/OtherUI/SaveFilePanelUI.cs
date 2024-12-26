@@ -6,6 +6,7 @@ using TMPro;
 
 public class SaveFilePanelUI : MonoBehaviour
 {
+    /*
     public string fileID;
     public bool isCreateFile = false;
     public bool isNullPanel = false;
@@ -67,4 +68,5 @@ public class SaveFilePanelUI : MonoBehaviour
         }
 
     }
+    */
 }

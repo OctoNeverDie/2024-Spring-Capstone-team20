@@ -56,7 +56,7 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
     {
         StartDayPanel.SetActive(true);
         PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
-        NextDayText.text = "DAY " + (DataController.Instance.playData.cur_day_ID + 1);
+        NextDayText.text = "DAY " + (DataController.Instance.gameData.cur_day_ID + 1);
         AudioManager.Instance.PlaySFX("DayStart");
 
         Sequence fadeSequence = DOTween.Sequence();
@@ -93,11 +93,11 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
     {
         FinalFadeOutPanel.DOFade(1f, duration).OnComplete(() =>
         {
-            DataController.Instance.playData.cur_day_ID++;
-            DataController.Instance.ToPlayJson(DataController.Instance.gameData.cur_save_file_ID);
+            DataController.Instance.gameData.cur_day_ID++;
+            DataController.Instance.ToGameJson();
 
             //DontDestroyOnLoad(DontDestroyOnCityMapReload);
-            if (DataController.Instance.playData.cur_day_ID == stage_count)
+            if (DataController.Instance.gameData.cur_day_ID == stage_count)
             {
                 SceneManager.LoadScene("Last");
             }

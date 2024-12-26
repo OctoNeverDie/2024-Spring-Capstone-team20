@@ -9,7 +9,7 @@ public class StartSceneUI_dayCount : MonoBehaviour
 
     void Start()
     {
-        day_text.text = (DataController.Instance.playData.cur_day_ID+1)+"일차부터";
+        day_text.text = (DataController.Instance.gameData.cur_day_ID+1)+"일차부터";
     }
 
     // Update is called once per frame

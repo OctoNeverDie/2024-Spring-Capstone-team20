@@ -65,6 +65,7 @@ public class DataController : MonoBehaviour
         }
     }
 
+    /*
     public PlayData _playData;
 
     public PlayData playData
@@ -79,6 +80,7 @@ public class DataController : MonoBehaviour
             return _playData;
         }
     }
+    */
 
     System.IO.StreamWriter SW = null;
 
@@ -87,11 +89,14 @@ public class DataController : MonoBehaviour
         return Application.persistentDataPath + $"/GameData.json";
         //return Application.dataPath + "/4.Scripts/JSON/GameData.json";
     }
+
+    /*
     private string GetPlayDataFilePath(string playDataId)
     {
         return Application.persistentDataPath + $"/{playDataId}.json";
         //return Application.dataPath + "/4.Scripts/JSON/"+ playDataId+".json";
     }
+    */
 
     public void LoadGameData()
     {
@@ -120,7 +125,7 @@ public class DataController : MonoBehaviour
         File.WriteAllText(GetGameDataFilePath(), JsonUtility.ToJson(gameData, true));
     }
 
-
+    /*
     public void LoadPlayData(string playDataID)
     {
         string filePath = GetPlayDataFilePath(playDataID);
@@ -173,12 +178,12 @@ public class DataController : MonoBehaviour
     {
         File.WriteAllText(GetPlayDataFilePath(playDataID), JsonUtility.ToJson(playData, true));
     }
-
+    */
 
     void OnApplicationQuit()
     {
         ToGameJson();
-        ToPlayJson(gameData.cur_save_file_ID);//종료할때 있어야함
+        //ToPlayJson(gameData.cur_save_file_ID);//종료할때 있어야함
     }
 
     public IEnumerator SaveGameData()
@@ -209,6 +214,7 @@ public class DataController : MonoBehaviour
 
     }
 
+    /*
     public IEnumerator SavePlayData(string playDataID)
     {
         while (true)
@@ -236,5 +242,6 @@ public class DataController : MonoBehaviour
         }
 
     }
+    */
 
 }

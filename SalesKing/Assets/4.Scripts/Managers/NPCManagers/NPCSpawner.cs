@@ -29,7 +29,7 @@ public class NPCSpawner : MonoBehaviour
 
     void SpawnStoryModeNPCs(int npc_index)
     {
-        int stage_num = DataController.Instance.playData.cur_day_ID;
+        int stage_num = DataController.Instance.gameData.cur_day_ID;
         StoryNpcSO story_so = NPCManager.Instance.storyNpcSO;
         NpcLookSO looks_so = NPCManager.Instance.npcLookSO;
 

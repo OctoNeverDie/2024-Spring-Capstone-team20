@@ -8,6 +8,7 @@ using DG.Tweening;
 
 public class SaveFileManager : MonoBehaviour
 {
+    /*
     private static SaveFileManager instance;
     public static SaveFileManager Instance
     {
@@ -103,4 +104,5 @@ public class SaveFileManager : MonoBehaviour
         DataController.Instance.LoadPlayData("playData" + "_" + DateTime.Now.ToString("yyyy-MM-dd-HH_mm_ss"));
         UpdateSaveFilePanels();
     }
+    */
 }
