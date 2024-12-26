@@ -90,6 +90,7 @@ public class City_ChattingUI : MonoBehaviour
         EndPanel.SetActive(false);
         ConvoPanel.SetActive(false);
         PlayerManager.Instance.player.PlayerExitConvo();
+        NPCManager.Instance.curTalkingNPC.NPCExitConvo();
 
         if (ChatManager.Instance.npcNum >= 3)
         {

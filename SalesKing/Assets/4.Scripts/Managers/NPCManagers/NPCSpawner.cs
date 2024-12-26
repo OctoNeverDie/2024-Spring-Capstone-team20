@@ -42,7 +42,7 @@ public class NPCSpawner : MonoBehaviour
 
         NPC npc = spawned_npc.GetComponent<NPC>();
         npc.NpcID = npc_ID;
-        npc.SetNPCDestination();
+        npc.SetNPCDestination(NPCManager.Instance.StandPoint.position, true);
 
 
         /*

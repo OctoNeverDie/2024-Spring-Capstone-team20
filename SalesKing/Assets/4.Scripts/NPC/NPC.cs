@@ -44,14 +44,11 @@ public class NPC : MonoBehaviour
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         if (isCheckDestination)
         {
-            Debug.Log("여기까지는?");
             // 도착 여부 확인
             if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
             {
-                Debug.Log("여기까지");
                 if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
                 {
-                    Debug.Log("또 여기까지");
                     isCheckDestination = false;
                     SetNPCToTalkingState();
                 }
@@ -60,18 +57,26 @@ public class NPC : MonoBehaviour
         }
     }
 
-    public void SetNPCDestination()
+    public void SetNPCDestination(Vector3 position, bool isWalkIn)
     {
-        Debug.Log("왜 안될까....ㅠㅠㅠㅠ");
-        agent.SetDestination(NPCManager.Instance.StandPoint.position);
+        agent.SetDestination(position);
         PlayRandomNPCAnimByAnimType(AnimType.Moving);
-        isCheckDestination = true;
+
+        // 걸어들어오는 경우
+        if (isWalkIn)
+        {
+            isCheckDestination = true;
+        }
+        // 걸어나가는 경우
+        else
+        {
+
+        }
         
     }
 
     public void SetNPCToTalkingState()
     {
-        Debug.Log("enter npc talking state!!!!!!!!!");
         // 플레이어 정의
         Player myPlayer = PlayerManager.Instance.MyPlayer.GetComponent<Player>();
 
@@ -115,6 +120,7 @@ public class NPC : MonoBehaviour
 
     public void PlayRandomNPCAnimByAnimType(NPCDefine.AnimType type)
     {
+        /*
         if (animator == null)
         {
             Debug.LogError("Animator가 null입니다. Animator를 설정해주세요.");
@@ -129,16 +135,17 @@ public class NPC : MonoBehaviour
 
         if (!NPCManager.Anim.NPCAnimDictionary.ContainsKey(type))
         {
-            Debug.LogError($"NPCAnimDictionary에 {type} 키가 없습니다.");
+            //Debug.LogError($"NPCAnimDictionary에 {type} 키가 없습니다.");
             return;
         }
 
-        var animations = NPCManager.Anim.NPCAnimDictionary[type];
         if (animations.Count == 0)
         {
-            Debug.LogError($"NPCAnimDictionary[{type}]가 비어있습니다.");
+            //Debug.LogError($"NPCAnimDictionary[{type}]가 비어있습니다.");
             return;
         }
+        */
+        var animations = NPCManager.Anim.NPCAnimDictionary[type];
 
         animator.updateMode = AnimatorUpdateMode.UnscaledTime;
         animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
@@ -158,7 +165,8 @@ public class NPC : MonoBehaviour
 
     public void NPCExitConvo()
     {
-        PlayRandomNPCAnimByAnimType(NPCDefine.AnimType.Standing);
+        SetNPCDestination(NPCManager.Instance.SpawnPoint.position, false);
+
     }
 
 }
