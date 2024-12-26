@@ -18,6 +18,6 @@ public class GameData
 
     public Define.GameMode this_game_mode;
     public int cur_day_ID;
-
+    public int cleared_npc_count;
 }
 
