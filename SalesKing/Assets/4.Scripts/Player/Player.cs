@@ -34,6 +34,8 @@ public class Player : MonoBehaviour
 
         playerSpeed = 5f;
         cameraSpeed = 5f;
+
+        FreezeAndUnFreezePlayer(true);
     }
 
     void Update()
@@ -103,12 +105,19 @@ public class Player : MonoBehaviour
 
     public void FreezeAndUnFreezePlayer(bool isFreeze)
     {
+        /*
         move.isMovementLocked = isFreeze;
         cam.isCameraLocked = isFreeze;
         isRaycast = !isFreeze;
         canvas.SetActive(!isFreeze);
         if(isFreeze) ui.CrosshairTriggersButton(false);
         //ui.CrosshairTriggersButton(!isFreeze);
+        */
+        move.isMovementLocked = true;
+        cam.isCameraLocked = true;
+        isRaycast = false;
+        canvas.SetActive(false);
+        ui.CrosshairTriggersButton(false);
     }
 
     public void PlayerEnterConvo(GameObject npc)

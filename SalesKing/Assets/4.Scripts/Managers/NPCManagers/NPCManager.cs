@@ -21,6 +21,9 @@ public class NPCManager : Singleton<NPCManager>, ISingletonSettings
 
     public GameObject NPCPrefab;
 
+    public Transform SpawnPoint;
+    public Transform StandPoint;
+
     protected override void Awake()
     {
         base.Awake();
