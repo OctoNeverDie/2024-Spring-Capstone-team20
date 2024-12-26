@@ -21,17 +21,11 @@ public class NpcInitState : ChatBaseState
     public override void Exit()
     {
         SendBack();
-        UpdateEvaluation();
-    }
-    private void UpdateEvaluation()
-    {
-        Debug.Log($"여기에 evaldict가 추가됨 {npc.NpcID}");
-        Chat.Eval.InitEvalDictNpc(npc.NpcID, playerItem.ObjID);
     }
 
     private void ShowFront()
     {
-        Chat.ActivatePanel(_sendChatType, playerItem, npc);
+        Chat.ActivatePanel(_sendChatType, npc.RealItem);
     }
 
     private void SendBack()
@@ -113,7 +107,7 @@ public class NpcInitState : ChatBaseState
     {
         string user_send = $"\"NpcName\" : \"{npc.NpcName}\", \"NpcSex\" : \"{npc.NpcSex}\", \"NpcAge\" : {npc.NpcAge} "
             + $"\"KeyWord\" : \"{npc.KeyWord}\", \n\"Personailty\" : \"{npc.Personality}\"\nDialogue Style: {npc.DialogueStyle}\nExample: {npc.Example}\n"+"}"
-            + $"\n당근에올린글: {npc.Concern} \n 원래사려고했던물건: {npc.WantItem}\n 유저가가져온물건: {playerItem.ObjName}\n";
+            + $"\n당근에올린글: {npc.Concern} \n 원래사려고했던물건: {npc.WantItem}\n 유저가가져온물건: {npc.RealItem}\n";
 
         return user_send;
     }

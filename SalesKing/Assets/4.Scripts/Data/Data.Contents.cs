@@ -31,6 +31,7 @@ public class NpcInfo
     public string KeyWord;
     public string Concern;
     public string WantItem;
+    public string RealItem;
     public Define.ItemCategory ItemCategory;
     public int [] Mbtis;// 1 = like, 0 = norm, -1 = dislike
 

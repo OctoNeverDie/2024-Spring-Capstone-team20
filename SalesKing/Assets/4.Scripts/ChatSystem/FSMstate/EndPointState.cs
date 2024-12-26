@@ -10,21 +10,12 @@ public class EndPointState : ChatBaseState
     {
         _sendChatType = SendChatType.Endpoint;
         Chat.NpcCountUp();
-
-        if (Chat.npcNum >= 3)
-        {
-            SaveData();
-        }
         
         ShowFront();
     }
 
     public override void Exit(){}
 
-    private void SaveData()
-    {
-        Chat.Eval.SaveEvaluation();
-    }
 
     private void ShowFront()
     {

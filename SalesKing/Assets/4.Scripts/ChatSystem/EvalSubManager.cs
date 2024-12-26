@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,10 +39,5 @@ public class EvalSubManager
     {
         NpcEvalDict[currentNpcId].summary = summary;
         NpcEvalDict[currentNpcId].isSuccess = isBuy;
-    }
-
-    public void SaveEvaluation()
-    { 
-        //DataController로 지금 npc 평가 save 하기
     }
 }
