@@ -12,7 +12,7 @@ public class StartSceneUI : MonoBehaviour
     {
         DataController.Instance.gameData.this_game_mode = Define.GameMode.Story;
         //SceneManager.LoadScene("SaveFile");
-        SceneManager.LoadScene("CityMap");
+        SceneManager.LoadScene("OfficeMap");
     }
 
     public void GameExit()

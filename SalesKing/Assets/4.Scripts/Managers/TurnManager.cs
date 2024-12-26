@@ -103,7 +103,7 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
             }
             else
             {
-                SceneManager.LoadScene("CityMap");
+                SceneManager.LoadScene("OfficeMap");
             }
             
         });
