@@ -7,9 +7,15 @@ public class NPCSpawner : MonoBehaviour
 {
     void Awake()
     {
+        StartCoroutine(ExecuteAfterDelay(1f));
+    }
+
+    IEnumerator ExecuteAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         SpawnStoryModeNPCs(0);
     }
-        
+
     public void SpawnStoryModeNPCs(int npc_index)
     {
         int stage_num = DataController.Instance.playData.cur_day_ID;

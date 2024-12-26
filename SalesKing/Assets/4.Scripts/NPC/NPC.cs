@@ -44,6 +44,7 @@ public class NPC : MonoBehaviour
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         if (isCheckDestination)
         {
+            Debug.Log("여기까지는?");
             // 도착 여부 확인
             if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
             {
@@ -61,9 +62,11 @@ public class NPC : MonoBehaviour
 
     public void SetNPCDestination()
     {
+        Debug.Log("왜 안될까....ㅠㅠㅠㅠ");
         agent.SetDestination(NPCManager.Instance.StandPoint.position);
         PlayRandomNPCAnimByAnimType(AnimType.Moving);
         isCheckDestination = true;
+        
     }
 
     public void SetNPCToTalkingState()
@@ -112,14 +115,39 @@ public class NPC : MonoBehaviour
 
     public void PlayRandomNPCAnimByAnimType(NPCDefine.AnimType type)
     {
-        //animator.updateMode = AnimatorUpdateMode.UnscaledTime;
-        //animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
-        //animator.Rebind();
+        if (animator == null)
+        {
+            Debug.LogError("Animator가 null입니다. Animator를 설정해주세요.");
+            return;
+        }
 
-        int anim_count = NPCManager.Anim.NPCAnimDictionary[type].Count;
-        int rand_int = Random.Range(0, anim_count);
-        animator.Play(NPCManager.Anim.NPCAnimDictionary[type][rand_int].name);
+        if (NPCManager.Anim == null)
+        {
+            Debug.LogError("NPCManager.Anim이 null입니다. NPCManager를 확인하세요.");
+            return;
+        }
+
+        if (!NPCManager.Anim.NPCAnimDictionary.ContainsKey(type))
+        {
+            Debug.LogError($"NPCAnimDictionary에 {type} 키가 없습니다.");
+            return;
+        }
+
+        var animations = NPCManager.Anim.NPCAnimDictionary[type];
+        if (animations.Count == 0)
+        {
+            Debug.LogError($"NPCAnimDictionary[{type}]가 비어있습니다.");
+            return;
+        }
+
+        animator.updateMode = AnimatorUpdateMode.UnscaledTime;
+        animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+        animator.Rebind();
+
+        int rand_int = Random.Range(0, animations.Count);
+        animator.Play(animations[rand_int].name);
     }
+
 
     public void NPCEnterConvo(GameObject player)
     {
