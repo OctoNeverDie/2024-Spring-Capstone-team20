@@ -166,7 +166,6 @@ public class NPC : MonoBehaviour
     public void NPCExitConvo()
     {
         SetNPCDestination(NPCManager.Instance.SpawnPoint.position, false);
-
     }
 
 }

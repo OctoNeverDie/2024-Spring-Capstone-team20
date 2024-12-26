@@ -5,18 +5,31 @@ using UnityEngine;
 
 public class NPCSpawner : MonoBehaviour
 {
+    private int cur_NPC_index = 0;
+
     void Awake()
     {
+        cur_NPC_index = 0;
         StartCoroutine(ExecuteAfterDelay(1f));
     }
 
     IEnumerator ExecuteAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        SpawnStoryModeNPCs(0);
+        SpawnStoryModeNPCs(cur_NPC_index);
     }
 
-    public void SpawnStoryModeNPCs(int npc_index)
+    public void SpawnNextNPC()
+    {
+        if(cur_NPC_index < 3)
+        {
+            SpawnStoryModeNPCs(cur_NPC_index);
+            UIManager.Instance.Main.NextNPCButton.SetActive(true);
+        }
+
+    }
+
+    void SpawnStoryModeNPCs(int npc_index)
     {
         int stage_num = DataController.Instance.playData.cur_day_ID;
         StoryNpcSO story_so = NPCManager.Instance.storyNpcSO;
@@ -43,7 +56,7 @@ public class NPCSpawner : MonoBehaviour
         NPC npc = spawned_npc.GetComponent<NPC>();
         npc.NpcID = npc_ID;
         npc.SetNPCDestination(NPCManager.Instance.StandPoint.position, true);
-
+        cur_NPC_index++;
 
         /*
         // 이 스테이지의 npc 3개

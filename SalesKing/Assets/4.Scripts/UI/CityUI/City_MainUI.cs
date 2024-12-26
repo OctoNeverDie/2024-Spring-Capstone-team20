@@ -8,7 +8,7 @@ using DG.Tweening;
 public class City_MainUI : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI time_text;
-    [SerializeField] GameObject NextNPCButton;
+    [SerializeField] public GameObject NextNPCButton;
     [SerializeField] GameObject info_panel;
     [SerializeField] GameObject info_button;
 
@@ -35,6 +35,7 @@ public class City_MainUI : MonoBehaviour
 
     public void onClickNextNPC()
     {
-
+        NextNPCButton.SetActive(false);
+        NPCManager.Spawner.SpawnNextNPC();
     }
 }

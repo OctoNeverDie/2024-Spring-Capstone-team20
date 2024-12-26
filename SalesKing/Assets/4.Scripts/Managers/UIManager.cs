@@ -1,12 +1,13 @@
-/// <summary>
-/// 혹시 모르니 UI들의 action과 ui를 이어주는 ui helper
-/// </summary>
-public class UIActionBinder : Singleton<UIActionBinder>, ISingletonSettings
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class UIManager : Singleton<UIManager>, ISingletonSettings
 {
     public bool ShouldNotDestroyOnLoad => true;
 
-    public City_SummaryUI ui_summary;
-    public City_TabletMovement ui_tablet;
+    public City_MainUI Main;
+
 
     protected override void Awake()
     {
@@ -17,6 +18,5 @@ public class UIActionBinder : Singleton<UIActionBinder>, ISingletonSettings
     void Init()
     {
 
-        Util.GetOrAddComponent<City_TabletMovement>(ui_tablet.gameObject);
     }
 }
