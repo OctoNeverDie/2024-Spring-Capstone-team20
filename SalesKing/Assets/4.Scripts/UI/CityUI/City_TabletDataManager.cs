@@ -10,6 +10,7 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
     [SerializeField] GameObject customerScroll;
     [SerializeField] StoryNpcSO storyNpcSO;
     [SerializeField] NpcLookSO npcLookSO;
+    [SerializeField] SaveEvaluation saveEval;
 
     private int today = -1;
     public Dictionary<int, NpcInfo> todaysIDdict = new Dictionary<int, NpcInfo>();
@@ -111,6 +112,7 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
     public void UpdateEvaluationData(string Evaluation, int thisNpcID, bool isBuy)
     {
         summaryUI.UpdateEvaluationData(Evaluation, thisNpcID, isBuy);
+        saveEval.UpdateEvaluationList(Evaluation, thisNpcID, isBuy);
     }
 
     public void ShowSummaryOrInfo(bool isSummary)

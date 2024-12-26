@@ -54,5 +54,4 @@ public class City_NpcInfoUI : MonoBehaviour
         if (sprite != null)
             Util.ChangeSprite(npcSum[i].ProfileImg, sprite);
     }
-
 }
