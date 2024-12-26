@@ -109,11 +109,13 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
 
     public void UpdateEvaluationData(NpcInfo thisNpc, string Evaluation, bool isBuy)
     {
-        newsSpawner.UpdateEvaluationData(Evaluation, thisNpc);
+        if(isBuy)
+            newsSpawner.UpdateEvaluationData(Evaluation, thisNpc);
     }
 
-    public void ShowSummaryOrInfo()
+    public void ShowDaySummary()
     {
+        //DataController.Instance.gameData.cleared_npc_count += newsSpawner.success;
         newsSpawner.ShowNews(DataController.Instance.playData.cur_day_ID);
     }
 }

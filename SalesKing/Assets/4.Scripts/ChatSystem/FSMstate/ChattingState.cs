@@ -74,7 +74,7 @@ public class ChattingState : ChatBaseState, IVariableChat
 
     public void UserInput(string type, string user_input)
     {
-        if (type != nameof(ChatManager.Instance.Reply.UserAnswer))
+        if (type != nameof(Chat.Reply.UserAnswer))
             return;
         
         if (totalPersuasion >= persuMaxLimit)
@@ -98,7 +98,7 @@ public class ChattingState : ChatBaseState, IVariableChat
 
     public void GptOutput(string type, string gpt_output)
     {
-        if (type != nameof(ChatManager.Instance.Reply.GptAnswer))
+        if (type != nameof(Chat.Reply.GptAnswer))
             return;
 
         if (gpt_output != "test")
@@ -118,8 +118,8 @@ public class ChattingState : ChatBaseState, IVariableChat
     {
         if (gptResult.decision != Decision.wait)
         {
-            ChatManager.Instance.Eval.AddEvaluation(gptResult.summary, gptResult.decision == Decision.yes);
-            ChatManager.Instance.TransitionToState(Define.SendChatType.Endpoint);
+            Chat.updateThisSummary(gptResult.summary, gptResult.decision == Decision.yes? true : false);
+            Chat.TransitionToState(Define.SendChatType.Endpoint);
         }
     }
 

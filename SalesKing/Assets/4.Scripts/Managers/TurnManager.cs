@@ -82,7 +82,7 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
         // 페이드 인
         FirstFadeInPanel.DOFade(1f, duration).OnComplete(() =>
         {
-            Tablet.ShowSummaryOrInfo();
+            Tablet.ShowDaySummary();
             PlayScaleUp(CustomerReviewPanel.transform);
         });
     }

@@ -37,17 +37,17 @@ public class NewsInfoInjector
 
     public string GetDayEval(int curDay, int success, DayEvalSO dayEvalSO)
     {//1일차
-        var dayEval = dayEvalSO.daySentences[curDay - 1];//0번 인덱스
+        var dayEval = dayEvalSO.daySentences[curDay];//0번 인덱스
         string evalText = "";
 
         switch (success)
         {
+            case 0:
             case 1:
-            case 2:
                 evalText = dayEval.BadSentence;
                 break;
+            case 2:
             case 3:
-            case 4:
                 evalText = dayEval.GoodSentence;
                 break;
             default:

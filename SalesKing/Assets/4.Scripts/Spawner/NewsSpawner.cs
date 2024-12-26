@@ -9,7 +9,7 @@ public class NewsSpawner : MonoBehaviour
 
     private NewsInfoInjector injector = new NewsInfoInjector();
     private PositionAdjuster adjuster = new PositionAdjuster();
-    private int success = 0 ;
+    public int success { private set; get; } = 0;
 
     ////-----------------------------------
     //[Header("Test-----------------------")]
