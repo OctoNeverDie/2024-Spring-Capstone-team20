@@ -6,7 +6,7 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
 {
     [SerializeField] City_TabletMovement tabletMovement;
     [SerializeField] City_NpcInfoUI npcInfoUI;
-    [SerializeField] City_SummaryUI summaryUI;
+    [SerializeField] NewsSpawner newsSpawner;
     [SerializeField] GameObject customerScroll;
     [SerializeField] StoryNpcSO storyNpcSO;
     [SerializeField] NpcLookSO npcLookSO;
@@ -50,7 +50,6 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
                     .FirstOrDefault(); // 첫 번째 항목 반환, 없으면 null
 
             npcInfoUI.InitNpc(npc, colorPersuasion, npcProfile);
-            summaryUI.InitNpc(npc, npcProfile, today);
         }
     }
 
@@ -108,16 +107,16 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
         npcInfoUI.UpdateItemData(randItem.ObjName, thisNpcID);
     }
 
-    public void UpdateEvaluationData(string Evaluation, int thisNpcID, bool isBuy)
+    public void UpdateEvaluationData(NpcInfo thisNpc, string Evaluation, bool isBuy)
     {
-        summaryUI.UpdateEvaluationData(Evaluation, thisNpcID, isBuy);
+        newsSpawner.UpdateEvaluationData(Evaluation, thisNpc);
     }
 
     public void ShowSummaryOrInfo(bool isSummary)
     {
         npcInfoUI.gameObject.SetActive(false);
         customerScroll.SetActive(!isSummary);
-        summaryUI.gameObject.SetActive(isSummary);
+        newsSpawner.gameObject.SetActive(isSummary);
         tabletMovement.OnClickShowTablet();
     }
 }

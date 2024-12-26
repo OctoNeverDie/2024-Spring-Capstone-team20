@@ -93,7 +93,7 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
                 Debug.Log($"Endpoint isSuccess {ThisNpc.NpcID}");
                 bool isSuccess = Eval.NpcEvalDict[ThisNpc.NpcID].isSuccess;
                 cityChattingUI.ShowPanel(chatState, isSuccess); // convo가 끝나 카메라가 돌아가고, end Panel 하나만 띄우기
-                cityTabletData.UpdateEvaluationData(Eval.NpcEvalDict[ThisNpc.NpcID].summary, ThisNpc.NpcID, isSuccess);
+                cityTabletData.UpdateEvaluationData(ThisNpc, Eval.NpcEvalDict[ThisNpc.NpcID].summary, isSuccess);
                 break;
 
             default:
