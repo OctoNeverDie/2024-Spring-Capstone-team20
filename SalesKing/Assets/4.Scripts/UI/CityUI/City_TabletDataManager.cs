@@ -102,9 +102,9 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
         return result;
     }
 
-    public void UpdateItemData(ItemInfo randItem, int thisNpcID)
+    public void UpdateItemData(string ObjName, int thisNpcID)
     { 
-        npcInfoUI.UpdateItemData(randItem.ObjName, thisNpcID);
+        npcInfoUI.UpdateItemData(ObjName, thisNpcID);
     }
 
     public void UpdateEvaluationData(NpcInfo thisNpc, string Evaluation, bool isBuy)

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7783,6 +7783,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2942839623806460573}
     m_Modifications:
+    - target: {fileID: 487301493771389729, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 576307918713844583, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -7966,6 +7970,10 @@ PrefabInstance:
     - target: {fileID: 8453789442167103578, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8981621250644695359, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -43082,6 +43090,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3741813964216108763, guid: 0573610284f68a443b6dcce9e446a99d, type: 3}
+      propertyPath: newsSpawner
+      value: 
+      objectReference: {fileID: 2075008039}
+    - target: {fileID: 3741813964216108763, guid: 0573610284f68a443b6dcce9e446a99d, type: 3}
       propertyPath: customerScroll
       value: 
       objectReference: {fileID: 1726030562}
@@ -43640,7 +43652,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1046054712752609851, guid: 0573610284f68a443b6dcce9e446a99d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2075008039}
   m_SourcePrefab: {fileID: 100100000, guid: 0573610284f68a443b6dcce9e446a99d, type: 3}
 --- !u!224 &1198869810 stripped
 RectTransform:
@@ -76734,6 +76749,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9adc3bed8d519894395a5de0392891e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2075008039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271923347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 286028e0478b64748aa7e6854fb8301f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dayEvalSO: {fileID: 11400000, guid: 056c88c4bee8f3c46a3065219c1f5dc5, type: 2}
+  evalPanelSpawner: {fileID: 7200576064066428864, guid: 6ee7fa42d7847aa4c8b962d1c935e4b9, type: 3}
+  waitforNext: 1
+  testSentences: []
+  testDay: 1
 --- !u!1001 &2075502099
 PrefabInstance:
   m_ObjectHideFlags: 0

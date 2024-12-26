@@ -34,11 +34,8 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
     {
         cityChattingUI.GetComponent<City_ChattingUI>();
         isConvo = true;
-
-        if(MuhanNpcDataManager.Instance!=null)
-            ThisNpc = MuhanNpcDataManager.Instance.npcs.Where(n=>n.NpcID == NpcID).Select(n=>n).SingleOrDefault();
-        else
-            ThisNpc = cityTabletData.todaysIDdict[NpcID];
+        
+        ThisNpc = cityTabletData.todaysIDdict[NpcID];
 
         if (_chatStateMachine == null)
             _chatStateMachine = new ChatStateMachine();
@@ -77,7 +74,13 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
                 {
                     playerItemName = randItem.ObjName;
                     cityChattingUI.ShowPanel(chatState, randItem, name, isEndByUser); // show convo: npc name, npc item 룰렛
-                    cityTabletData.UpdateItemData(randItem, ThisNpc.NpcID); // show tablet: npc name ~ npc want item
+                    cityTabletData.UpdateItemData(randItem.ObjName, ThisNpc.NpcID); // show tablet: npc name ~ npc want item
+                }
+                else if (additionalData is string ItemName)
+                { 
+                    playerItemName = ItemName;
+                    cityChattingUI.ShowPanel(chatState, ItemName, name, isEndByUser); // show convo: npc name, npc item 룰렛
+                    cityTabletData.UpdateItemData(ItemName, ThisNpc.NpcID); // show tablet: npc name ~ npc want item
                 }
                 break;
 
