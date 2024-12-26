@@ -8,10 +8,10 @@ using UnityEngine.SceneManagement;
 
 public class StartSceneUI : MonoBehaviour
 {
-    public void LoadSaveFileScene_StoryMode()
+    public void LoadPlayScene(bool isNew)
     {
         DataController.Instance.gameData.this_game_mode = Define.GameMode.Story;
-        //SceneManager.LoadScene("SaveFile");
+        if (isNew) DataController.Instance.gameData.cur_day_ID = 0;
         SceneManager.LoadScene("OfficeMap");
     }
 
