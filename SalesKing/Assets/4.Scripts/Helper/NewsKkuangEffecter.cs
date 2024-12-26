@@ -4,21 +4,19 @@ using DG.Tweening;
 
 public class NewsKkuangEffecter : MonoBehaviour
 {
-    [SerializeField]
-    List<(float, float)> tweenFactors = new List<(float, float)>
+    [SerializeField] List<(float, float)> tweenFactors = new List<(float, float)>
     {
-        (2f, 0.01f),
-        (1f, 0.7f)
+        (3f, 0.001f),
+        (1f, 0.5f)
     };
-    [SerializeField] float scaleOut = 5f;
     [SerializeField] Ease ease = Ease.Linear;
 
-    private void OnEnable() {
+    private void Start()
+    {
         KkuangAction();
     }
 
     private void KkuangAction() {
-        Debug.Log("????????????????????");
         Util.PopDotween(transform, tweenFactors, ease);
     }
 }
