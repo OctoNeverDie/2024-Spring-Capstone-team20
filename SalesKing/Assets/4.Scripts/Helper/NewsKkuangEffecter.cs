@@ -1,28 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class NewsKkuangEffecter : MonoBehaviour
 {
-    [SerializeField] List<(float, float)> tweenFactors = new List<(float, float)>
+    [SerializeField]
+    List<(float, float)> tweenFactors = new List<(float, float)>
     {
-        (0.2f, 2f)
+        (2f, 0.01f),
+        (1f, 0.7f)
     };
     [SerializeField] float scaleOut = 5f;
-    private Vector3 originalPos;
-    private Vector3 originalScale;
-
-    private void Awake() {
-        originalPos = transform.position;
-        originalScale = transform.localScale;
-    }
+    [SerializeField] Ease ease = Ease.Linear;
 
     private void OnEnable() {
-        transform.position = originalPos;
-        transform.localScale = originalScale * scaleOut;
         KkuangAction();
     }
 
     private void KkuangAction() {
-        Util.PopDotween(transform, tweenFactors);
+        Debug.Log("????????????????????");
+        Util.PopDotween(transform, tweenFactors, ease);
     }
 }

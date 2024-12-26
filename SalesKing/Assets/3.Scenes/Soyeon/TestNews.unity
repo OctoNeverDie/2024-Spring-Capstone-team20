@@ -435,6 +435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   evalPanelSpawner: {fileID: 7200576064066428864, guid: 6ee7fa42d7847aa4c8b962d1c935e4b9, type: 3}
   dayEvalSO: {fileID: 11400000, guid: 056c88c4bee8f3c46a3065219c1f5dc5, type: 2}
+  waitforNext: 1
   testSentences:
   - "\uB2C8 \uBA3C\uB370"
   - 23

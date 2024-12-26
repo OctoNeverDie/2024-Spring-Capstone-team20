@@ -8,48 +8,37 @@ public class NewsSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject evalPanelSpawner;
     [SerializeField] private DayEvalSO dayEvalSO;
-    [SerializeField] private float waitforNext;
+    [SerializeField] private float waitforNext = 1;
     [Header("Test-----------------------")]
     [SerializeField] private List<string> testSentences;
     [SerializeField] private int testDay = 1;
-
-    private List<NpcEval> NpcNews = new List<NpcEval>();
-    private Transform poolingChild;
-
-    [System.Serializable]
-    private class NpcEval {
-        public NpcInfo Npc { get; private set; }
-        public string News { get; private set; }
-
-        public NpcEval(NpcInfo _npcID, string _news) {
-            this.Npc = _npcID;
-            this.News = _news;
-        }
-    }
-
-    private void Awake() {
-        poolingChild = transform.parent.Find("@pooling");
-        if (poolingChild == null) {
-            GameObject poolingObj = new GameObject("@pooling");
-            poolingObj.transform.SetParent(transform.parent, true);
-
-            poolingChild = poolingObj.transform;
-        }
-    }
 
     private void OnEnable() {
         Test(testDay);
     }
 
     private void Test(int testDay) {
-        OnClickNextDay();
-
         foreach (var npc in testSentences) {
             UpdateEvaluationData(npc);
         }
 
         ShowNews(testDay);
     }
+
+    [System.Serializable]
+    private class NpcEval
+    {
+        public NpcInfo Npc { get; private set; }
+        public string News { get; private set; }
+
+        public NpcEval(NpcInfo _npcID, string _news)
+        {
+            this.Npc = _npcID;
+            this.News = _news;
+        }
+    }
+
+    private List<NpcEval> NpcNews = new List<NpcEval>();
 
     public void UpdateEvaluationData(string summary, NpcInfo thisNpc = null) {
         NpcNews.Add(new NpcEval(thisNpc, summary));
@@ -61,27 +50,10 @@ public class NewsSpawner : MonoBehaviour
         StartCoroutine(ShowInOrder());
     }
 
-    public void OnClickNextDay() {
-        Init();
-        NpcNews = new List<NpcEval>();
-    }
-
     private IEnumerator ShowInOrder() {
         for(int i =0; i<this.transform.childCount; i++) {
             transform.GetChild(i).gameObject.SetActive(true);
             yield return new WaitForSecondsRealtime(waitforNext);
-        }
-    }
-
-    private void Init()
-    {
-        if (poolingChild == null) return;
-
-        for (int i = transform.childCount - 1; i >= 0; i--)
-        {
-            var child = transform.GetChild(i);
-            child.SetParent(poolingChild, true);
-            child.gameObject.SetActive(false);
         }
     }
 
@@ -112,18 +84,8 @@ public class NewsSpawner : MonoBehaviour
     }
 
     private Transform InitItem(int i) {
-        Debug.Log($"{i}, {NpcNews.Count}");
-        Transform evalItem;
-
-        if (poolingChild != null && poolingChild.childCount > 0)
-        {
-            evalItem = poolingChild.GetChild(0);
-            evalItem.SetParent(this.transform);
-        }
-        else {
-            evalItem = Instantiate(evalPanelSpawner, this.transform).transform;
-            evalItem.gameObject.SetActive(false);
-        }
+        Transform evalItem = Instantiate(evalPanelSpawner, this.transform).transform;
+        evalItem.gameObject.SetActive(false);
         
         return evalItem.GetChild(0);
     }
@@ -136,17 +98,15 @@ public class NewsSpawner : MonoBehaviour
     private void AdjustPos(int alignmentKey, Transform item) {
         int index = (alignmentKey % 2 == 0) ? 0 : 1;
 
-        Debug.Log($"index {index}");
-
         //position
         item.position = new Vector3(
-            item.position.x + positionData[index].PositionX,
+            item.position.x + positionData[index].PositionX + Random.Range(-5.0f, 5.0f),
             item.position.y,
             item.position.z
         );
 
         //rotation
-        float adjustRotation = positionData[index].Rotation + Random.Range( -1.0f, 1.0f );
+        float adjustRotation = positionData[index].Rotation + Random.Range( -2.0f, 2.0f );
         item.rotation = Quaternion.Euler(0, 0, adjustRotation);
     }
 
