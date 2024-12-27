@@ -59,7 +59,8 @@ def get_completion(request, input):
         max_tokens=500,
         n=1,
         stop=None,
-        temperature=1,
+        temperature=1.1,
+        top_p=0.9,
         tool_choice=None)
     response = query.choices[0].message.content
     return response
