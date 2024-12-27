@@ -79,7 +79,7 @@ public class ChattingState : ChatBaseState, IVariableChat
         
         if (totalPersuasion >= persuMaxLimit)
         {
-            user_input += "isBuy = True";
+            user_input += "isBuy = True, 물건을 살 마음이 들었으니 yes 출력하기.";
         }
         else if (totalPersuasion <= persuMinLimit)
         {
