@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Collections;
 using UnityEngine;
 using static Define;
@@ -25,7 +24,6 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
     public string playerItemName = "사탕"; 
 
     public ReplySubManager Reply = new ReplySubManager();
-    public EvalSubManager Eval = new EvalSubManager();
 
     private ChatStateMachine _chatStateMachine;
     public bool isConvo { get; private set; } = false;
@@ -34,11 +32,8 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
     {
         cityChattingUI.GetComponent<City_ChattingUI>();
         isConvo = true;
-
-        if(MuhanNpcDataManager.Instance!=null)
-            ThisNpc = MuhanNpcDataManager.Instance.npcs.Where(n=>n.NpcID == NpcID).Select(n=>n).SingleOrDefault();
-        else
-            ThisNpc = cityTabletData.todaysIDdict[NpcID];
+        
+        ThisNpc = cityTabletData.todaysIDdict[NpcID];
 
         if (_chatStateMachine == null)
             _chatStateMachine = new ChatStateMachine();
@@ -68,17 +63,25 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
         Reply.GptAnswer = forFirstReply;
     }
 
-    public void ActivatePanel(SendChatType chatState, object additionalData = null, NpcInfo name =null)
+    private string _thisNpcSummary = "";
+    private bool _isBuy;
+    public void updateThisSummary(string summary, bool isBuy) {
+        _thisNpcSummary = summary;
+        _isBuy = isBuy;
+    }
+
+    public void ActivatePanel(SendChatType chatState, object additionalData = null)
     {
         switch (chatState)
         {
             case SendChatType.ChatInit:
-                if (additionalData is ItemInfo randItem)
-                {
-                    playerItemName = randItem.ObjName;
-                    cityChattingUI.ShowPanel(chatState, randItem, name, isEndByUser); // show convo: npc name, npc item 룰렛
-                    cityTabletData.UpdateItemData(randItem, ThisNpc.NpcID); // show tablet: npc name ~ npc want item
+                if (additionalData is string ItemName)
+                { 
+                    playerItemName = ItemName;
                 }
+
+                cityTabletData.UpdateItemData(playerItemName, ThisNpc.NpcID); // show tablet: npc name ~ npc want item
+                cityChattingUI.ShowPanel(chatState, playerItemName, ThisNpc, isEndByUser); // show convo: npc name, npc item 룰렛
                 break;
 
             case SendChatType.Chatting:
@@ -91,9 +94,8 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
             case SendChatType.Endpoint:
                 isConvo = false;
                 Debug.Log($"Endpoint isSuccess {ThisNpc.NpcID}");
-                bool isSuccess = Eval.NpcEvalDict[ThisNpc.NpcID].isSuccess;
-                cityChattingUI.ShowPanel(chatState, isSuccess); // convo가 끝나 카메라가 돌아가고, end Panel 하나만 띄우기
-                cityTabletData.UpdateEvaluationData(Eval.NpcEvalDict[ThisNpc.NpcID].summary, ThisNpc.NpcID, isSuccess);
+                cityTabletData.UpdateEvaluationData(ThisNpc, _thisNpcSummary, _isBuy);
+                cityChattingUI.ShowPanel(chatState, _isBuy); // convo가 끝나 카메라가 돌아가고, end Panel 하나만 띄우기
                 break;
 
             default:

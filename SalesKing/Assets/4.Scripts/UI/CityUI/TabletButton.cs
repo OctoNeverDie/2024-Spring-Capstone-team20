@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
 using System.Collections.Generic;
 
 public class TabletButton : MonoBehaviour
@@ -35,7 +34,6 @@ public class TabletButton : MonoBehaviour
         int order = npcIDs.IndexOf(npcID);
         
         swipeController.OnClickMatchPage(order);
-        City_TabletDataManager.Instance.ShowSummaryOrInfo(false);
         tabletMovement.OnClickShoworHideTablet();
     }
 }
