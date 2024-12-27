@@ -15,5 +15,6 @@ def init_key_session(request, key):
     request.session[key] = []
 
 def update_history(request, role, input):
-    request.session['chat_history'].append({"role": role, "content": input})
-    return request.session['chat_history']
+    request.session['chat_history'].append("{ role :" + role + ", content: " + input + "}")
+    print("request.session['chat_history']", request.session['chat_history'])
+    return str(request.session['chat_history'])
