@@ -16,8 +16,8 @@ public class TutorialController : MonoBehaviour
 	{
 		canvas.SetActive(true);
 
-		PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
-		UserInputManager.Instance.isKeyInputLocked = true;
+        if (PlayerManager.Instance != null && PlayerManager.Instance.player != null) PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
+		if(UserInputManager.Instance != null) UserInputManager.Instance.isKeyInputLocked = true;
 		SetNextTutorial();
 	}
 
@@ -57,9 +57,8 @@ public class TutorialController : MonoBehaviour
 	{
 		currentTutorial = null;
 		Debug.Log("Complete All");
-        PlayerManager.Instance.player.FreezeAndUnFreezePlayer(false);
-        UserInputManager.Instance.isKeyInputLocked = false;
-		//SceneManager.LoadScene("Start");
+        if (PlayerManager.Instance != null && PlayerManager.Instance.player != null) PlayerManager.Instance.player.FreezeAndUnFreezePlayer(false);
+        if (UserInputManager.Instance != null) UserInputManager.Instance.isKeyInputLocked = false;
     }
 }
 

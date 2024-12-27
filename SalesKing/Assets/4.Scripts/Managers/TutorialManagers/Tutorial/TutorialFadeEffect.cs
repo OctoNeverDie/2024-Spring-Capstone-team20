@@ -1,23 +1,33 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class TutorialFadeEffect : TutorialBase
 {
 	[SerializeField]
-	private	FadeEffect	fadeEffect;
+	private	Image	fade_image;
 	[SerializeField]
 	private	bool		isFadeIn = false;
 	private	bool		isCompleted = false;
+
+	private float		duration = 1f;
 
 	public override void Enter()
 	{
 		if ( isFadeIn == true )
 		{
-			fadeEffect.FadeIn(OnAfterFadeEffect);
-		}
+            fade_image.DOFade(0, duration).OnComplete(() =>
+            {
+				OnAfterFadeEffect();
+            });
+        }
 		else
 		{
-			fadeEffect.FadeOut(OnAfterFadeEffect);
-		}
+            fade_image.DOFade(1, duration).OnComplete(() =>
+            {
+                OnAfterFadeEffect();
+            });
+        }
 	}
 
 	private void OnAfterFadeEffect()
