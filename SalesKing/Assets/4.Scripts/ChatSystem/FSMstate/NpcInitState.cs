@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static Define;
 
@@ -8,13 +9,11 @@ using static Define;
 public class NpcInitState : ChatBaseState
 {
     private NpcInfo npc;
-    private ItemInfo playerItem;
 
     public override void Enter()
     {
         _sendChatType = SendChatType.ChatInit;
         npc = Chat.ThisNpc;
-        playerItem = GetRandItem();
 
         ShowFront();
     }
@@ -43,35 +42,6 @@ public class NpcInitState : ChatBaseState
 
         Debug.Log($"NpcInitState에서 보냄 {_sendChatType}. {_userSend}");
         ServerManager.Instance.GetGPTReply("$start", _sendChatType, _userSend);
-    }
-
-    private ItemInfo GetRandItem()
-    {
-        int randomIdx;
-        ItemInfo thisItem;
-
-        if (npc.ItemCategory == ItemCategory.Random)
-        {
-            var items = DataGetter.Instance.ItemList;
-            randomIdx = Random.Range(0, items.Count);
-
-            thisItem = items[randomIdx];
-        }
-        else 
-        {
-            List<ItemInfo> categorizedList = DataGetter.Instance.CategorizedItems[npc.ItemCategory];
-
-            if (categorizedList.Count > 0)
-            {
-                randomIdx = Random.Range(0, categorizedList.Count);
-                thisItem = categorizedList[randomIdx];
-            }
-            
-            else
-                thisItem = DataGetter.Instance.ItemList[0];
-        }
- 
-        return thisItem;
     }
 
     private string MakeMbtiSend(int[] mbtiPrefers)
@@ -107,8 +77,46 @@ public class NpcInitState : ChatBaseState
     {
         string user_send = $"\"NpcName\" : \"{npc.NpcName}\", \"NpcSex\" : \"{npc.NpcSex}\", \"NpcAge\" : {npc.NpcAge} "
             + $"\"KeyWord\" : \"{npc.KeyWord}\", \n\"Personailty\" : \"{npc.Personality}\"\nDialogue Style: {npc.DialogueStyle}\nExample: {npc.Example}\n"+"}"
-            + $"\n당근에올린글: {npc.Concern} \n 원래사려고했던물건: {npc.WantItem}\n 유저가가져온물건: {npc.RealItem}\n";
+            + $"\"Concern\": {npc.Concern} \n \"WantItem\": {npc.WantItem}\n \"RealItem\": {npc.RealItem}\n";
+
+        user_send += AddPrevNews(npc.NpcID);
 
         return user_send;
+    }
+
+    private string AddPrevNews(int npcID) {
+        if (npc.NpcID != 3)//제리체리제리가 아니라면
+            return "";
+        return Chat.FindEval(npc.NpcID);
+    }
+
+
+    private ItemInfo GetRandItem()
+    {
+        int randomIdx;
+        ItemInfo thisItem;
+
+        if (npc.ItemCategory == ItemCategory.Random)
+        {
+            var items = DataGetter.Instance.ItemList;
+            randomIdx = Random.Range(0, items.Count);
+
+            thisItem = items[randomIdx];
+        }
+        else
+        {
+            List<ItemInfo> categorizedList = DataGetter.Instance.CategorizedItems[npc.ItemCategory];
+
+            if (categorizedList.Count > 0)
+            {
+                randomIdx = Random.Range(0, categorizedList.Count);
+                thisItem = categorizedList[randomIdx];
+            }
+
+            else
+                thisItem = DataGetter.Instance.ItemList[0];
+        }
+
+        return thisItem;
     }
 }

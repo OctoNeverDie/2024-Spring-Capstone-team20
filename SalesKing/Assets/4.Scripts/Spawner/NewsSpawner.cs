@@ -1,17 +1,20 @@
 using UnityEngine;
 using System.Collections;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 
-public class NewsSpawner : MonoBehaviour
+public class NewsSpawner : Singleton<NewsSpawner>, ISingletonSettings
 {
     [SerializeField] public DayEvalSO dayEvalSO;
     [SerializeField] private GameObject evalPanelSpawner;
     [SerializeField] private float waitforNext = 1;
 
-    private NewsInfoInjector injector = new NewsInfoInjector();
+    public NewsInfoInjector injector = new NewsInfoInjector();
     private PositionAdjuster adjuster = new PositionAdjuster();
+    
     public int success { private set; get; } = 0;
     public int allEvent { private set; get; } = 0;
+
+    public bool ShouldNotDestroyOnLoad => false;
 
     ////-----------------------------------
     //[Header("Test-----------------------")]
