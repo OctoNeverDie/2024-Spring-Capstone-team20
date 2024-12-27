@@ -24,10 +24,14 @@ public class NewsInfoInjector
         NpcNews.Add(new NpcEval(thisNpc, summary));
     }
 
-    public void InjectInfo(int i, RectTransform item)
+    public bool InjectInfo(int i, RectTransform item)
     {
         TextMeshProUGUI news = item.GetComponentInChildren<TextMeshProUGUI>();
-        news.text = NpcNews[i].News;
+        if (NpcNews[i].News.Trim() != "") {
+            news.text = NpcNews[i].News;
+            return true;
+        }
+        return false;
     }
     public void InjectInfo(string eval, Transform item)
     {

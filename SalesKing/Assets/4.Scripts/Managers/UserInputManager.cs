@@ -23,6 +23,7 @@ public class UserInputManager : Singleton<UserInputManager>, ISingletonSettings
 
     void Update()
     {
+        /*
         if (!isKeyInputLocked && Input.GetButtonDown("Interaction"))
         {
             if(myPlayer == null)
@@ -43,7 +44,7 @@ public class UserInputManager : Singleton<UserInputManager>, ISingletonSettings
                 }
             }
         }
-
+        */
         if (Input.GetButtonDown("ESC"))
         {
             if (MuhanNpcDataManager.Instance != null)

@@ -90,21 +90,21 @@ public class NPCMeshManager : MonoBehaviour
             // "None" 값은 건너뜀
             if (key.ToString() == "None")
             {
-                Debug.Log($"Skipping 'None' for Category: {category}");
+                //Debug.Log($"Skipping 'None' for Category: {category}");
                 continue;
             }
 
             string path = $"{categoryPath}{key.ToString()}";
-            Debug.Log($"Loading meshes for: {category} - Key: {key}, Path: {path}");
+            //Debug.Log($"Loading meshes for: {category} - Key: {key}, Path: {path}");
             Mesh[] meshes = Resources.LoadAll<Mesh>(path);
             if (meshes.Length > 0)
             {
                 NPCMeshDictionary[category][key] = new List<Mesh>(meshes);
-                Debug.Log($"Loaded {meshes.Length} meshes from {path}");
+                //Debug.Log($"Loaded {meshes.Length} meshes from {path}");
             }
             else
             {
-                Debug.LogWarning($"No meshes found at path: {path}");
+                //Debug.LogWarning($"No meshes found at path: {path}");
             }
         }
 

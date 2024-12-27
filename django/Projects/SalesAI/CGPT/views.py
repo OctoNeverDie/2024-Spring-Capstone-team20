@@ -30,10 +30,9 @@ def query_view(request):
             
             elif sendType == "Chatting":
                 messages = update_history(request, "user", userSend)
+                print("message", messages)
+                response = get_completion(request, messages)
                 
-                json_messages = json.dumps(messages)
-                response = get_completion(request, json_messages)
-
                 update_history(request, "assistant", response)
 
                 timeMessage(request.session['chat_history'])
@@ -61,7 +60,7 @@ def get_completion(request, input):
         max_tokens=500,
         n=1,
         stop=None,
-        temperature=1.05,
+        temperature=1,
         tool_choice=None)
     response = query.choices[0].message.content
     return response

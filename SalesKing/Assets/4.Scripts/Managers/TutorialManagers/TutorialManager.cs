@@ -14,7 +14,7 @@ public class TutorialManager : Singleton<TutorialManager>, ISingletonSettings
 
     void Start()
     {
-        int day_index = DataController.Instance.playData.cur_day_ID;
+        int day_index = DataController.Instance.gameData.cur_day_ID;
         Instantiate(tutorial_list[day_index], transform);
     }
 

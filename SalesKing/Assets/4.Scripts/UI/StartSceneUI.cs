@@ -8,11 +8,11 @@ using UnityEngine.SceneManagement;
 
 public class StartSceneUI : MonoBehaviour
 {
-    public void LoadSaveFileScene_StoryMode()
+    public void LoadPlayScene(bool isNew)
     {
         DataController.Instance.gameData.this_game_mode = Define.GameMode.Story;
-        //SceneManager.LoadScene("SaveFile");
-        SceneManager.LoadScene("CityMap");
+        if (isNew) DataController.Instance.gameData.cur_day_ID = 0;
+        SceneManager.LoadScene("OfficeMap");
     }
 
     public void GameExit()
@@ -29,12 +29,13 @@ public class StartSceneUI : MonoBehaviour
 
     private struct ButtonTextPair
     {
-        public GameObject button;
+        public Button button;
         public TextMeshProUGUI text;
     }
 
     [SerializeField] private Color hoverColor = Color.yellow; // 마우스 오버 시 색상
     [SerializeField] private Color defaultColor = Color.white; // 기본 색상
+    [SerializeField] private Color disabledColor = Color.grey; // 상호작용 꺼졌을 때 색상
 
     private List<ButtonTextPair> buttonTextPairs = new List<ButtonTextPair>();
 
@@ -43,14 +44,28 @@ public class StartSceneUI : MonoBehaviour
         foreach (Transform child in GetComponentsInChildren<Transform>())
         {
             // 모든 하위 자식을 탐색하여 버튼-텍스트 짝 생성
-            if (child.name == "Story" || child.name == "Option" || child.name == "Exit")
+            if (child.name == "StartNew" || child.name == "Continue" || child.name == "Option" || child.name == "Exit")
             {
                 var texts = child.GetComponentsInChildren<TextMeshProUGUI>(); // 모든 TextMeshProUGUI 컴포넌트를 가져옴
                 var button = child.GetComponent<Button>();
 
+                if (child.name == "Continue")
+                {
+                    int cur_day = DataController.Instance.gameData.cur_day_ID;
+                    if (cur_day == 0)
+                    {
+                        button.interactable = false;
+                    }
+                    else
+                    {
+                        button.interactable = true;
+                    }
+                }
+
                 // Button 컴포넌트가 없거나 interactable이 false인 경우 건너뜀
                 if (button == null || !button.interactable)
                 {
+                    OnHover(texts, disabledColor);
                     continue;
                 }
 
@@ -60,7 +75,7 @@ public class StartSceneUI : MonoBehaviour
                     AddEvent(eventTrigger, EventTriggerType.PointerEnter, () => OnHover(texts, hoverColor));
                     AddEvent(eventTrigger, EventTriggerType.PointerExit, () => OnHover(texts, defaultColor));
 
-                    buttonTextPairs.Add(new ButtonTextPair { button = child.gameObject, text = texts[0] });
+                    buttonTextPairs.Add(new ButtonTextPair { button = child.gameObject.GetComponent<Button>(), text = texts[0] });
                 }
             }
         }
