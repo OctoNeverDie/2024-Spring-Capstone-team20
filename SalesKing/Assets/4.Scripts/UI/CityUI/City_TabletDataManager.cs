@@ -115,7 +115,7 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
 
     public void ShowDaySummary()
     {
-        //DataController.Instance.gameData.cleared_npc_count += newsSpawner.success;
+        DataController.Instance.gameData.cleared_npc_count += newsSpawner.success;
         newsSpawner.ShowNews(DataController.Instance.gameData.cur_day_ID);
     }
 }
