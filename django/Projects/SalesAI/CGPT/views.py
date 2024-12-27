@@ -23,17 +23,16 @@ def query_view(request):
 
                 response = get_completion(request, userSend)
 
-                update_history(request, "assistant", response)
+                update_history(request, "character(you, gpt!)", response)
 
                 timeMessage(request.session['prompt'])
                 return JsonResponse({'reply': response})
             
             elif sendType == "Chatting":
                 messages = update_history(request, "user", userSend)
-                print("message", messages)
                 response = get_completion(request, messages)
                 
-                update_history(request, "assistant", response)
+                update_history(request, "character(you, gpt!)", response)
 
                 timeMessage(request.session['chat_history'])
                 return JsonResponse({'reply': response})
