@@ -44,12 +44,6 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
         npcNum++;
     }
 
-    public void EndByUser()
-    {
-        isEndByUser = true;
-        TransitionToState(SendChatType.Endpoint);
-    }
-
     public void FirstNpc()
     {
         StartCoroutine(LateReply());
@@ -64,6 +58,12 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
 
     private string _thisNpcSummary = "";
     private bool _isBuy;
+
+    public void EndByUser()
+    {
+        _isBuy = false;
+        TransitionToState(SendChatType.Endpoint);
+    }
 
     public void updateThisSummary(string summary, bool isBuy) {
         _thisNpcSummary = summary;
