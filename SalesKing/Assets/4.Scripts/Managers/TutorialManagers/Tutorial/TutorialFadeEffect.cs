@@ -8,7 +8,9 @@ public class TutorialFadeEffect : TutorialBase
 	private	Image	fade_image;
 	[SerializeField]
 	private	bool		isFadeIn = false;
-	private	bool		isCompleted = false;
+    [SerializeField]
+    private bool		isGoneAfterEffect = false;
+    private	bool		isCompleted = false;
 
 	private float		duration = 1f;
 
@@ -45,6 +47,8 @@ public class TutorialFadeEffect : TutorialBase
 
 	public override void Exit()
 	{
-	}
+		if (isGoneAfterEffect) fade_image.gameObject.SetActive(false);
+
+    }
 }
 
