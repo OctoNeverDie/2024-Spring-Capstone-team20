@@ -109,8 +109,7 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
 
     public void UpdateEvaluationData(NpcInfo thisNpc, string Evaluation, bool isBuy)
     {
-        if(isBuy)
-            newsSpawner.UpdateEvaluationData(Evaluation, thisNpc);
+        newsSpawner.UpdateEvaluationData(Evaluation, thisNpc, isBuy);
     }
 
     public void ShowDaySummary()

@@ -125,7 +125,7 @@ public class City_ChattingUI : MonoBehaviour
         NpcSpeechBubble.transform.DOScale(1f, 0.5f).SetEase(Ease.InOutBounce).SetUpdate(true);
     }
 
-    public void ShowPanel(Define.SendChatType sendChatType, object additionalData = null, NpcInfo npcInfo=null, bool isEndByUser =false)
+    public void ShowPanel(Define.SendChatType sendChatType, object additionalData = null, NpcInfo npcInfo=null)
     {
         if (sendChatType == Define.SendChatType.ChatInit)
         {

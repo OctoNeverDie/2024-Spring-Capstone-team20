@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class NewsSpawner : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class NewsSpawner : MonoBehaviour
     private NewsInfoInjector injector = new NewsInfoInjector();
     private PositionAdjuster adjuster = new PositionAdjuster();
     public int success { private set; get; } = 0;
+    public int allEvent { private set; get; } = 0;
 
     ////-----------------------------------
     //[Header("Test-----------------------")]
@@ -29,8 +31,10 @@ public class NewsSpawner : MonoBehaviour
     //}
     ////-----------------------------------
 
-    public void UpdateEvaluationData(string Evaluation, NpcInfo thisNpc) {
-        success++;
+    public void UpdateEvaluationData(string Evaluation, NpcInfo thisNpc, bool isBuy) {
+        if(isBuy)
+            success++;
+        allEvent++;
         injector.UpdateEvaluationData(Evaluation, thisNpc);
     }
 
@@ -47,21 +51,23 @@ public class NewsSpawner : MonoBehaviour
     }
 
     private void SpawnItem(int curDay) {
-        adjuster.InitSpacing(success, GetComponentInParent<RectTransform>());
+        adjuster.InitSpacing(allEvent, GetComponentInParent<RectTransform>());
 
         RectTransform evalItem; 
-        for (int i = 0; i <= success; i++) {
+        for (int i = 0; i <= allEvent; i++) {
             evalItem = InitItem(i);
 
             adjuster.AdjustPos(i, evalItem);
 
-            if (i == success) {
+            if (i == allEvent) {
                 string dayEval = injector.GetDayEval(curDay, success, dayEvalSO);
                 injector.InjectInfo(dayEval, evalItem);
                 break;
             }
 
-            injector.InjectInfo(i, evalItem);
+            if (!injector.InjectInfo(i, evalItem)) {
+                Destroy(evalItem);
+            }
         }
     }
 

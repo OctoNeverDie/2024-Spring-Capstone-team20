@@ -20,7 +20,6 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
     public NpcInfo ThisNpc { get; private set; }
 
     public int npcNum { get; private set; } = 0;
-    public bool isEndByUser { get; private set; } = false;
     public string playerItemName = "사탕"; 
 
     public ReplySubManager Reply = new ReplySubManager();
@@ -65,6 +64,7 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
 
     private string _thisNpcSummary = "";
     private bool _isBuy;
+
     public void updateThisSummary(string summary, bool isBuy) {
         _thisNpcSummary = summary;
         _isBuy = isBuy;
@@ -81,7 +81,7 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
                 }
 
                 cityTabletData.UpdateItemData(playerItemName, ThisNpc.NpcID); // show tablet: npc name ~ npc want item
-                cityChattingUI.ShowPanel(chatState, playerItemName, ThisNpc, isEndByUser); // show convo: npc name, npc item 룰렛
+                cityChattingUI.ShowPanel(chatState, playerItemName, ThisNpc); // show convo: npc name, npc item 룰렛
                 break;
 
             case SendChatType.Chatting:
