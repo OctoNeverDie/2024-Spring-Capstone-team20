@@ -12,6 +12,8 @@ public class TutorialController : MonoBehaviour
 	[SerializeField]
 	private GameObject canvas;
 
+	public bool isComplete = false;
+
     private void Start()
 	{
 		canvas.SetActive(true);
@@ -56,7 +58,8 @@ public class TutorialController : MonoBehaviour
 	public void CompletedAllTutorials()
 	{
 		currentTutorial = null;
-		Debug.Log("Complete All");
+        isComplete = true;
+        Debug.Log("Complete All");
         if (PlayerManager.Instance != null && PlayerManager.Instance.player != null) PlayerManager.Instance.player.FreezeAndUnFreezePlayer(false);
         if (UserInputManager.Instance != null) UserInputManager.Instance.isKeyInputLocked = false;
     }

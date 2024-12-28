@@ -58,11 +58,6 @@ public class TutorialNewsEffect : TutorialBase
 
     public override void Exit()
     {
-        /*
-        for (int i = 0; i < news_list.Count; i++)
-        {
-            news_list[i].transform.localScale = new Vector3(0, 0, 0);
-        }
-        */
+
     }
 }
