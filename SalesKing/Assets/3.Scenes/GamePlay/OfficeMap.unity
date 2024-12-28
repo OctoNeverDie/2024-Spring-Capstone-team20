@@ -2050,7 +2050,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 333334198}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c6604c508c8be94fb9fdf7e12c16568, type: 3}
   m_Name: 
@@ -2060,6 +2060,7 @@ MonoBehaviour:
   - {fileID: 2417586505370419793, guid: 4293ac0aa7843814f9e2af4fc54120c7, type: 3}
   - {fileID: 6623786817933319339, guid: 68ead1cfe3eb7a14f948dcef770a9695, type: 3}
   - {fileID: 278467128448791585, guid: c7ea5ee875902b744ad2b0aa404276b0, type: 3}
+  controller: {fileID: 0}
 --- !u!1001 &335224560
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9157,6 +9158,10 @@ PrefabInstance:
       propertyPath: PhonePanel
       value: 
       objectReference: {fileID: 3131941787046609866}
+    - target: {fileID: 6080955639156400389, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6230108384783075693, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

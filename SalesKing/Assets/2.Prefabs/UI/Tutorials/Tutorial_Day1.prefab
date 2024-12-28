@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9093439564722551019}
   - component: {fileID: 5127207741057631800}
   m_Layer: 0
-  m_Name: 08_PhoneCallDialog
+  m_Name: 06_PhoneCallDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,9 +60,9 @@ MonoBehaviour:
   cur_panel: {fileID: 3615709391020242096}
   dialogs:
   - dialogue: "\uC74C, \uC774\uC81C \uB9C8\uC2A4\uD130\uD55C \uAC83 \uAC19\uAD70."
-  - dialogue: "\uD55C\uBC88 \uB3CC\uC544\uB2E4\uB140 \uBCF4\uAC8C! \uCCAB\uB0A0\uC740
-      \uC5F0\uC2B5\uC774\uB77C \uC0DD\uAC01\uD558\uACE0."
-  - dialogue: "\uAC74\uD22C\uB97C \uBE44\uB124."
+  - dialogue: "\uCCAB\uB0A0\uC740 \uC5F0\uC2B5\uC774\uB77C \uC0DD\uAC01\uD558\uB294
+      \uAC83\uB3C4 \uB098\uC058\uC9C0 \uC54A\uB124."
+  - dialogue: "\uADF8\uB7FC \uAC74\uD22C\uB97C \uBE44\uB124."
   - dialogue: "\uBB34\uB108! \uBB34\uB108! \uBB34\uB108!"
   textDialogue: {fileID: 4838703733148530902}
   objectArrow: {fileID: 3889320559061129961}
@@ -202,73 +202,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &886580606239944768
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3543131165218269947}
-  - component: {fileID: 6772919489292183851}
-  - component: {fileID: 8578172907057533543}
-  m_Layer: 0
-  m_Name: 04_PhoneCallDialog
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3543131165218269947
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 886580606239944768}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2365972375587555869}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6772919489292183851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 886580606239944768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb1dc7d26c3e35b48afcd8bdbbe030c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8578172907057533543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 886580606239944768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6697379f67b52fb46b1dff0126b3ab81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cur_panel: {fileID: 3615709391020242096}
-  dialogs:
-  - dialogue: "\uC544\uC544\uC544 \uC7A0\uAE50\uC7A0\uAE50."
-  - dialogue: "\uC54C\uB824\uC8FC\uB294 \uAC78 \uC78A\uC5C8\uB124."
-  - dialogue: "\uACE0\uAC1D \uC815\uBCF4\uB97C \uCD5C\uC2E0\uAE30\uC220\uB85C \uC785\uC218\uD588\uAC70\uB4E0."
-  - dialogue: "Tab\uD0A4\uB97C \uB20C\uB7EC \uD655\uC778\uD574\uBCF4\uAC8C."
-  textDialogue: {fileID: 4838703733148530902}
-  objectArrow: {fileID: 3889320559061129961}
-  typingSpeed: 0.01
-  keyCodeSkip: 32
 --- !u!1 &1458437346085560184
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,8 +270,10 @@ MonoBehaviour:
   - dialogue: "\uC751? \uB2F9\uADFC \uAE30\uC5C5\uC774 \uBB50\uB0D0\uACE0? \uB2F9\uC5F0\uD788
       \uC6B0\uB9AC \uB77C\uC774\uBC8C \uD68C\uC0AC\uC9C0! \uADF8\uB188\uB4E4 \uB54C\uBB38\uC5D0
       \uC694\uC998 \uBB3C\uAC74\uC774 \uC548 \uD314\uB824! "
-  - dialogue: "\uC7A1\uB2F4\uC740 \uADF8\uB9CC\uD558\uACE0 \uC5BC\uB978 \uC8FC\uBCC0\uC744
-      \uC0B4\uD3B4\uBCF4\uAC8C!"
+  - dialogue: "\uC7A1\uB2F4\uC740 \uADF8\uB9CC\uD558\uACE0..."
+  - dialogue: "\uC54C\uB824\uC904 \uAC8C \uC788\uB124."
+  - dialogue: "\uACE0\uAC1D \uC815\uBCF4\uB97C \uCD5C\uC2E0\uAE30\uC220\uB85C \uC785\uC218\uD588\uB2E4\uB124."
+  - dialogue: "Tab\uD0A4\uB97C \uB20C\uB7EC \uD655\uC778\uD574\uBCF4\uAC8C."
   textDialogue: {fileID: 4838703733148530902}
   objectArrow: {fileID: 3889320559061129961}
   typingSpeed: 0.01
@@ -974,7 +909,7 @@ GameObject:
   - component: {fileID: 183810006879367662}
   - component: {fileID: 2239277057039846492}
   m_Layer: 0
-  m_Name: 06_PhoneCallDialog
+  m_Name: 04_PhoneCallDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1505,7 +1440,7 @@ GameObject:
   - component: {fileID: 8859402107951657065}
   - component: {fileID: 2533522111501117238}
   m_Layer: 0
-  m_Name: 07_KeyCodeTrigger
+  m_Name: 05_KeyCodeTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1620,56 +1555,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &8501137511149159201
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1944364548006957485}
-  - component: {fileID: 1176102208821318106}
-  m_Layer: 0
-  m_Name: 03_KeyCodeTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1944364548006957485
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8501137511149159201}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2365972375587555869}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1176102208821318106
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8501137511149159201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 861d1a2e4bb28014492cac0b3bc1a5e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keycode_trigger: 119
-  isOpenTablet: 0
-  isAnyKey: 1
-  Tablet: {fileID: 0}
-  DoWhatText: {fileID: 1965577393821337407}
-  do_what_to_continue: "\uC544\uBB34 \uACF3\uC774\uB098 \uD074\uB9AD\uD574 \uC9C4\uD589\uD558\uC138\uC694."
 --- !u!1 &8715134791740577791
 GameObject:
   m_ObjectHideFlags: 0
@@ -1766,8 +1651,6 @@ Transform:
   m_Children:
   - {fileID: 9164402653865646776}
   - {fileID: 7470303061691260989}
-  - {fileID: 1944364548006957485}
-  - {fileID: 3543131165218269947}
   - {fileID: 7547363473306181645}
   - {fileID: 942540182107394553}
   - {fileID: 8859402107951657065}
@@ -1789,13 +1672,12 @@ MonoBehaviour:
   tutorials:
   - {fileID: 6336137145505924715}
   - {fileID: 6599084750047203464}
-  - {fileID: 1176102208821318106}
-  - {fileID: 6772919489292183851}
   - {fileID: 5507962816448021698}
   - {fileID: 183810006879367662}
   - {fileID: 2533522111501117238}
   - {fileID: 9093439564722551019}
   canvas: {fileID: 7385397804269706760}
+  isComplete: 0
 --- !u!1 &8999158545973719577
 GameObject:
   m_ObjectHideFlags: 0
@@ -1882,7 +1764,7 @@ GameObject:
   - component: {fileID: 7547363473306181645}
   - component: {fileID: 5507962816448021698}
   m_Layer: 0
-  m_Name: 05_KeyCodeTrigger
+  m_Name: 03_KeyCodeTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

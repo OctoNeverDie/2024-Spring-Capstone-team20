@@ -12,7 +12,7 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
     [SerializeField] private Image FirstFadeInPanel;
     [SerializeField] private GameObject CustomerReviewPanel;
     [SerializeField] private Image FinalFadeOutPanel;
-    [SerializeField] private GameObject DontDestroyOnCityMapReload;
+    //[SerializeField] private GameObject DontDestroyOnCityMapReload;
     [SerializeField] private City_TabletDataManager Tablet;
 
     [SerializeField] private GameObject StartDayPanel;
@@ -68,6 +68,7 @@ public class TurnManager : Singleton<TurnManager>, ISingletonSettings
             StartDayPanel.SetActive(false);
             PlayerManager.Instance.player.FreezeAndUnFreezePlayer(false);
             myTutoManager.SetActive(true);
+            NPCManager.Spawner.check_for_tuto_end = true;
         });
     }
 

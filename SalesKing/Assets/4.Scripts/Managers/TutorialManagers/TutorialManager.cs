@@ -6,6 +6,7 @@ public class TutorialManager : Singleton<TutorialManager>, ISingletonSettings
 {
     [SerializeField] private List<GameObject> tutorial_list = new List<GameObject>();
     public bool ShouldNotDestroyOnLoad => true;
+    public TutorialController controller;
 
     protected override void Awake()
     {
@@ -16,6 +17,7 @@ public class TutorialManager : Singleton<TutorialManager>, ISingletonSettings
     {
         int day_index = DataController.Instance.gameData.cur_day_ID;
         Instantiate(tutorial_list[day_index], transform);
+        controller = GetComponentInChildren<TutorialController>();
     }
 
 }
