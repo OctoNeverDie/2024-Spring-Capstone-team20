@@ -87,7 +87,7 @@ public class NpcInitState : ChatBaseState
     private string AddPrevNews(int npcID) {
         if (npc.NpcID != 3)//제리체리제리가 아니라면
             return "";
-        return Chat.FindEval(npc.NpcID);
+        return "{기사내용} " + DataController.Instance.gameData.jerryCherry_1_3;
     }
 
 

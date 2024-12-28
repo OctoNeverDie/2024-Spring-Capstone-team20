@@ -38,6 +38,11 @@ public class NewsSpawner : Singleton<NewsSpawner>, ISingletonSettings
         if(isBuy)
             success++;
         allEvent++;
+
+        if (thisNpc.NpcID == 1) { //제리체리제리
+            DataController.Instance.gameData.jerryCherry_1_3 = Evaluation;
+        }
+
         injector.UpdateEvaluationData(Evaluation, thisNpc);
     }
 

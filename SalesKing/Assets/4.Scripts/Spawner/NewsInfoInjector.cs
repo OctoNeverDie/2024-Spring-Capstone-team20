@@ -17,17 +17,11 @@ public class NewsInfoInjector
         }
     }
     //임시. 원래는 json 형태로 넣어놓고, dictionary로 변환해야함. 만약 새로하기 한다면 삭제하고.
-    public readonly static Dictionary<int, string> allNews = new Dictionary<int, string>();
     private List<NpcEval> TodayNpcNews = new List<NpcEval>();
 
     public void UpdateEvaluationData(string summary, NpcInfo thisNpc = null)
     {
         TodayNpcNews.Add(new NpcEval(thisNpc, summary));
-
-        if(allNews.ContainsKey(thisNpc.NpcID))
-            allNews[thisNpc.NpcID] = summary;
-        else
-            allNews.Add(thisNpc.NpcID, summary);
     }
 
     public bool InjectInfo(int i, RectTransform item)
