@@ -45,6 +45,17 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
         Next.onClick.AddListener(Back);
     }
 
+    private void Update()
+    {
+        // 왼쪽 화살표 입력 시
+        if (Input.GetKey(KeyCode.LeftArrow))
+            Front();
+
+        // 오른쪽 화살표 입력 시
+        if (Input.GetKey(KeyCode.RightArrow))
+            Back();
+    }
+
     #region Scroll Input
     public void Front()
     {
@@ -91,6 +102,7 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
 
     public void OnClickMatchPage(int npcOrder)//1 ~ contentPageCnt 중 몇 번째?
     {
+        npcOrder++;
         if (npcOrder > 0 && npcOrder <= _contentPageCnt)
             _currentPage = npcOrder;
         else

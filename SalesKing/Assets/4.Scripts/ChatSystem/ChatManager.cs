@@ -49,9 +49,6 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
         StartCoroutine(LateReply());
     }
 
-    public string FindEval(int npcID) {
-        return  newsSpawner.injector.allNews[npcID];
-    }
     private IEnumerator LateReply()
     {
         yield return new WaitForSecondsRealtime(1f);

@@ -28,11 +28,14 @@ public class UserInputMode : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Submit") && !isSending)//Enter
+        if (Input.GetButtonDown("Submit") && !isSending) {
+            DeleteLastLetter(userKeyboard, '\n');
             UpdateInput();
+        }//Enter
 
-        if (Input.GetButtonDown("Tab"))
-            ToggleInputField(userKeyboard);
+        if (Input.GetButtonDown("Tab")) {
+            DeleteLastLetter(userKeyboard, '\t');
+        }
     }
 
     private void UpdateInput()
@@ -60,17 +63,12 @@ public class UserInputMode : MonoBehaviour
         }
     }
 
-    private void ToggleInputField(TMP_InputField inputField)
+    private void DeleteLastLetter (TMP_InputField inputField, char letter)
     {
         if (inputField == null) return;
 
-        if (inputField.text.Length > 0 && inputField.text[inputField.text.Length - 1] == '\t')
+        if (inputField.text.Length > 0 && inputField.text[inputField.text.Length - 1] == letter)
             inputField.text = inputField.text.Substring(0, inputField.text.Length - 1);
-
-        if (inputField.isFocused)
-            inputField.DeactivateInputField();
-        else
-            inputField.ActivateInputField();
     }
 
 }

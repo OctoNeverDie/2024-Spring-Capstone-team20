@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
@@ -6,10 +7,18 @@ using UnityEngine.UI;
 /// </summary>
 public class City_TabletMovement : MonoBehaviour
 {
-    public GameObject Tablet;
-    
+    [SerializeField] private GameObject Tablet;
+    [SerializeField] private Button tabletBtn;
+    SwipeController swipeController;
+   
     public bool isTablet = false;
-    void Start()
+
+    private void Awake()
+    {
+        tabletBtn.onClick.AddListener(TabletMatch);
+        swipeController = Tablet.GetComponent<SwipeController>();
+    }
+    private void Start()
     {
         isTablet = false;
         InitTablet();
@@ -19,12 +28,22 @@ public class City_TabletMovement : MonoBehaviour
     {
         if (!UserInputManager.Instance.isKeyInputLocked && Input.GetButtonDown("Tab"))
         {
+            TabletMatch();
             OnClickShoworHideTablet();
         }
     }
     /// <summary>
     /// Tablet Button도 여기 구독
     /// </summary>
+    public void TabletMatch()
+    {
+        int npcID = ChatManager.Instance.ThisNpc.NpcID;
+        List<int> npcIDs = City_TabletDataManager.Instance.npcIDs;
+
+        int order = npcIDs.IndexOf(npcID);
+        swipeController.OnClickMatchPage(order);
+    }
+
     public void OnClickShoworHideTablet()
     {
         if (isTablet)
