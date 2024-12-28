@@ -17,7 +17,8 @@ public class UserInputManager : Singleton<UserInputManager>, ISingletonSettings
 
     void Start()
     {
-        myPlayer = PlayerManager.Instance.MyPlayer.GetComponent<Player>();
+        if(PlayerManager.Instance.MyPlayer != null)
+            myPlayer = PlayerManager.Instance.MyPlayer.GetComponent<Player>();
         CurInputMode = DefaultMode;
     }
 
