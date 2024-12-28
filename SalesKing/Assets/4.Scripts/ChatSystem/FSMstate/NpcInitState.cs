@@ -77,7 +77,7 @@ public class NpcInitState : ChatBaseState
     {
         string user_send = $"\"NpcName\" : \"{npc.NpcName}\", \"NpcSex\" : \"{npc.NpcSex}\", \"NpcAge\" : {npc.NpcAge} "
             + $"\"KeyWord\" : \"{npc.KeyWord}\", \n\"Personailty\" : \"{npc.Personality}\"\nDialogue Style: {npc.DialogueStyle}\nExample: {npc.Example}\n"+"}"
-            + $"\"Concern\": {npc.Concern} \n \"WantItem\": {npc.WantItem}\n \"RealItem\": {npc.RealItem}\n";
+            + $"\nConcern: {npc.Concern} \n wantItem= {npc.WantItem}\n RealItem(user의 말에 따라 인식이 바뀔 수 있음)= {npc.RealItem}\n";
 
         user_send += AddPrevNews(npc.NpcID);
 

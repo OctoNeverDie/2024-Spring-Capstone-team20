@@ -12,12 +12,14 @@ public class TutorialController : MonoBehaviour
 	[SerializeField]
 	private GameObject canvas;
 
+	public bool isComplete = false;
+
     private void Start()
 	{
 		canvas.SetActive(true);
 
-		PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
-		UserInputManager.Instance.isKeyInputLocked = true;
+        if (PlayerManager.Instance != null && PlayerManager.Instance.player != null) PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
+		if(UserInputManager.Instance != null) UserInputManager.Instance.isKeyInputLocked = true;
 		SetNextTutorial();
 	}
 
@@ -56,10 +58,10 @@ public class TutorialController : MonoBehaviour
 	public void CompletedAllTutorials()
 	{
 		currentTutorial = null;
-		Debug.Log("Complete All");
-        PlayerManager.Instance.player.FreezeAndUnFreezePlayer(false);
-        UserInputManager.Instance.isKeyInputLocked = false;
-		//SceneManager.LoadScene("Start");
+        isComplete = true;
+        Debug.Log("Complete All");
+        if (PlayerManager.Instance != null && PlayerManager.Instance.player != null) PlayerManager.Instance.player.FreezeAndUnFreezePlayer(false);
+        if (UserInputManager.Instance != null) UserInputManager.Instance.isKeyInputLocked = false;
     }
 }
 
