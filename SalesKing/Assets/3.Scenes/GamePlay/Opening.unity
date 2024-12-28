@@ -436,6 +436,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 226216212}
+  - component: {fileID: 226216213}
   m_Layer: 0
   m_Name: News
   m_TagString: Untagged
@@ -466,6 +467,102 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!82 &226216213
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226216211}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 0d0601a8ccddd3a4fabe95f7faea231b, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &347215359
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -800,7 +897,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1200, y: 120}
+  m_SizeDelta: {x: 1300, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &417183151
 MonoBehaviour:
@@ -822,8 +919,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBB34\uB108\uAE30\uC5C5, \uC7A6\uC740 \uD1F4\uC0AC\uB85C \uD718\uCCAD\u2026
-    \uACF5\uC7A5 \uD30C\uC5C5 \uC5EC\uD30C '\uC2EC\uAC01'"
+  m_text: "\uBB34\uB108\uAE30\uC5C5 CEO, \uB300\uADDC\uBAA8 \uD0C8\uC138 \uC758\uD639\uC73C\uB85C
+    \uC870\uC0AC \uCC29\uC218\u2026 \uC218\uC2ED\uC5B5 \uC6D0 \uADDC\uBAA8 \uC138\uAE08
+    \uD3EC\uD0C8 \uC758\uC2EC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cf4289bd6ee43824797e93dd792189a3, type: 2}
   m_sharedMaterial: {fileID: 1478231744071295158, guid: cf4289bd6ee43824797e93dd792189a3, type: 2}
@@ -1046,6 +1144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fade_image: {fileID: 919392354}
   isFadeIn: 1
+  isGoneAfterEffect: 0
 --- !u!1 &540950634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1073,7 +1172,7 @@ RectTransform:
   m_GameObject: {fileID: 540950634}
   m_LocalRotation: {x: 0, y: 0, z: -0.08715578, w: 0.9961947}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1261541355}
@@ -1506,6 +1605,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fade_image: {fileID: 569063228}
   isFadeIn: 0
+  isGoneAfterEffect: 1
 --- !u!1 &648544428
 GameObject:
   m_ObjectHideFlags: 0
@@ -1533,7 +1633,7 @@ RectTransform:
   m_GameObject: {fileID: 648544428}
   m_LocalRotation: {x: 0, y: 0, z: -0.026176924, w: 0.99965733}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 728862318}
@@ -1928,6 +2028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2c5e0762a5ff2343a5215857d0bbdf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  news_object: {fileID: 226216211}
   news_list:
   - {fileID: 1603596187}
   - {fileID: 540950634}
@@ -2261,7 +2362,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1200, y: 70}
+  m_SizeDelta: {x: 1300, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1138873635
 MonoBehaviour:
@@ -2672,8 +2773,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBB34\uB108\uAE30\uC5C5. \uC7A6\uC740 \uD1F4\uC0AC \uC787\uB530\uB77C.
-    \uACF5\uC7A5 \uD30C\uC5C5\uC758 \uC5EC\uD30C\uC778\uAC00"
+  m_text: "\uBB34\uB108\uAE30\uC5C5, \uC7A6\uC740 \uD1F4\uC0AC\uB85C \uD718\uCCAD\u2026
+    \uACF5\uC7A5 \uD30C\uC5C5 \uC5EC\uD30C '\uC2EC\uAC01'"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cf4289bd6ee43824797e93dd792189a3, type: 2}
   m_sharedMaterial: {fileID: 1478231744071295158, guid: cf4289bd6ee43824797e93dd792189a3, type: 2}
@@ -2931,6 +3032,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fade_image: {fileID: 919392354}
   isFadeIn: 0
+  isGoneAfterEffect: 0
 --- !u!1 &1505122908
 GameObject:
   m_ObjectHideFlags: 0
@@ -3183,7 +3285,7 @@ RectTransform:
   m_GameObject: {fileID: 1603596187}
   m_LocalRotation: {x: 0, y: 0, z: 0.043619405, w: 0.9990483}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 417183150}
@@ -3487,7 +3589,7 @@ RectTransform:
   m_GameObject: {fileID: 2115216865}
   m_LocalRotation: {x: 0, y: 0, z: 0.008726558, w: 0.999962}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1505122909}
