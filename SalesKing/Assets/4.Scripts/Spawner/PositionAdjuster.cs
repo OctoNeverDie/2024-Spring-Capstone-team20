@@ -12,10 +12,10 @@ public class PositionAdjuster
     private float spacing;
 
     public void InitSpacing(int elementCount, RectTransform rt) {
-        spacing = rt.rect.height / (elementCount + 2);
+        spacing = rt.rect.height / elementCount;
 
         heightOfElement = 0.0f;
-        heightOfElement += spacing * (elementCount / 2) ;
+        heightOfElement += spacing * (elementCount / 2 - 0.5f) ;
     }
 
     public void AdjustPos(int alignmentKey, RectTransform item) {

@@ -46,7 +46,7 @@ public class TipsPopup : MonoBehaviour
         for (int i = 0; i < childCount; i++)
         {
             GameObject child = transform.GetChild(i).gameObject;
-            if (tips[i] != null)
+            if (i < tips.Length && tips[i] != null)
                 child.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = tips[i];
             child.SetActive(false);
             childObjects[i] = child;
