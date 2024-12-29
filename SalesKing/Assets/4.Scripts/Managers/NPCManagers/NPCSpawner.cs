@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class NPCSpawner : MonoBehaviour
@@ -18,7 +15,7 @@ public class NPCSpawner : MonoBehaviour
     {
         if (check_for_tuto_end)
         {
-            if (TutorialManager.Instance!=null && TutorialManager.Instance.controller.isComplete)
+            if (TutorialManager.Instance != null && TutorialManager.Instance.controller.isComplete)
             {
                 SpawnNextNPC();
                 check_for_tuto_end = false;

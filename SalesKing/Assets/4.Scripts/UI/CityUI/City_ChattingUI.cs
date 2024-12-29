@@ -211,7 +211,8 @@ public class City_ChattingUI : MonoBehaviour
             (12f, 0.75f),
             (10f, 0.75f),
         };
-        Util.PopDotween(CheckMark.transform, tweenFactors);
+        Sequence seq = Util.PopDotween(CheckMark.transform, tweenFactors);
+        seq.Play();
     }
 
     private IEnumerator ShowEndPanelAfterDelay()

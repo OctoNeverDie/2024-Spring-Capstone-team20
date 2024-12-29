@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class ButtonDdoing : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class ButtonDdoing : MonoBehaviour
 
     private void DdoingAction()
     {
-        Util.PopDotween(transform, tweenFactors);
+        Sequence seq = Util.PopDotween(transform, tweenFactors);
+        seq.Play();
     }
 }

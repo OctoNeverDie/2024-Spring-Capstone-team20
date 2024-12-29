@@ -9,13 +9,14 @@ public class TutorialController : MonoBehaviour
 	private	int					currentIndex = -1;
 
 	[SerializeField]
-	private GameObject endingCanvas;
+	private GameObject endingCanvas = null;
 
 	public bool isComplete = false;
 
     private void Start()
 	{
-        endingCanvas.SetActive(true);
+		if(endingCanvas != null)
+			endingCanvas.SetActive(true);
 
         if (PlayerManager.Instance != null && PlayerManager.Instance.player != null) PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
 		if(UserInputManager.Instance != null) UserInputManager.Instance.isKeyInputLocked = true;

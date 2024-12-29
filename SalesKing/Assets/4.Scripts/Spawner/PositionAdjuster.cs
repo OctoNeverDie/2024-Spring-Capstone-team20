@@ -15,7 +15,7 @@ public class PositionAdjuster
         spacing = rt.rect.height / (elementCount + 2);
 
         heightOfElement = 0.0f;
-        heightOfElement += spacing * (elementCount / 2 +1) ;
+        heightOfElement += spacing * (elementCount / 2) ;
     }
 
     public void AdjustPos(int alignmentKey, RectTransform item) {

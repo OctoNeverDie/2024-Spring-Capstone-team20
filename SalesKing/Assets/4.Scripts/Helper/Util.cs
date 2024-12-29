@@ -57,7 +57,7 @@ public class Util
         return string.Empty;
     }
 
-    public static void PopDotween(Transform target, List<(float, float)> tweenFactors, Ease ease = Ease.OutBounce)
+    public static Sequence PopDotween(Transform target, List<(float, float)> tweenFactors, Ease ease = Ease.OutBounce)
     {
         Vector3 originalScale = target.localScale;
         Sequence popSequence = DOTween.Sequence();
@@ -69,6 +69,7 @@ public class Util
 
         popSequence.SetEase(ease)
                 .SetUpdate(true);
-        popSequence.Play();
+        
+        return popSequence;
     }
 }

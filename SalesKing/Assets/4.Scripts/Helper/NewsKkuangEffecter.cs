@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+[RequireComponent(typeof(AudioSource))]
 public class NewsKkuangEffecter : MonoBehaviour
 {
     [SerializeField] List<(float, float)> tweenFactors = new List<(float, float)>
@@ -13,10 +14,13 @@ public class NewsKkuangEffecter : MonoBehaviour
 
     private void Start()
     {
+        this.GetComponent<AudioSource>().Play();
         KkuangAction();
     }
 
     private void KkuangAction() {
-        Util.PopDotween(transform, tweenFactors, ease);
+
+        Sequence seq = Util.PopDotween(transform, tweenFactors, ease);
+        seq.Play();
     }
 }
