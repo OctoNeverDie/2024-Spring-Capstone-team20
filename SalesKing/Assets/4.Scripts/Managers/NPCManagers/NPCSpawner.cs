@@ -6,17 +6,24 @@ using UnityEngine;
 public class NPCSpawner : MonoBehaviour
 {
     public int cur_NPC_index = 0;
+    public bool check_for_tuto_end = false;
 
     void Awake()
     {
         cur_NPC_index = 0;
-        StartCoroutine(ExecuteAfterDelay(1f));
+        check_for_tuto_end = false;
     }
 
-    IEnumerator ExecuteAfterDelay(float delay)
+    void Update()
     {
-        yield return new WaitForSeconds(delay);
-        SpawnStoryModeNPCs(cur_NPC_index);
+        if (check_for_tuto_end)
+        {
+            if (TutorialManager.Instance!=null && TutorialManager.Instance.controller.isComplete)
+            {
+                SpawnNextNPC();
+                check_for_tuto_end = false;
+            }
+        }
     }
 
     public void SpawnNextNPC()

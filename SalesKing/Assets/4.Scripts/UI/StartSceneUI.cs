@@ -11,8 +11,15 @@ public class StartSceneUI : MonoBehaviour
     public void LoadPlayScene(bool isNew)
     {
         DataController.Instance.gameData.this_game_mode = Define.GameMode.Story;
-        if (isNew) DataController.Instance.gameData.cur_day_ID = 0;
-        SceneManager.LoadScene("OfficeMap");
+        if (isNew)
+        {
+            DataController.Instance.gameData.cur_day_ID = 0;
+            SceneManager.LoadScene("Opening");
+        }
+        else
+        {
+            SceneManager.LoadScene("OfficeMap");
+        }
     }
 
     public void GameExit()
