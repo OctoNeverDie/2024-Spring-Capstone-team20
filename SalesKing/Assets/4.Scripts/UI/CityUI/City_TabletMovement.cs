@@ -14,7 +14,7 @@ public class City_TabletMovement : MonoBehaviour
 
     private void Awake()
     {
-        swipeController = Tablet.GetComponent<SwipeController>();
+        swipeController = Tablet.GetComponentInChildren<SwipeController>();
     }
     private void Start()
     {
@@ -26,23 +26,30 @@ public class City_TabletMovement : MonoBehaviour
     {
         if (!UserInputManager.Instance.isKeyInputLocked && Input.GetButtonDown("Tab"))
         {
-            TabletMatch();
-            OnClickShoworHideTablet();
+            ShowTablet();
         }
     }
     /// <summary>
     /// Tablet Button도 여기 구독
     /// </summary>
-    public void TabletMatch()
+    public void ShowTablet() {
+        TabletMatch();
+        OnClickShoworHideTablet();
+    }
+
+    private void TabletMatch()
     {
-        int npcID = ChatManager.Instance.ThisNpc.NpcID;
+        if (ChatManager.Instance.ThisNpc == null)
+            return;
+        
+        int npcID= ChatManager.Instance.ThisNpc.NpcID;
         List<int> npcIDs = City_TabletDataManager.Instance.npcIDs;
 
         int order = npcIDs.IndexOf(npcID);
         swipeController.OnClickMatchPage(order);
     }
 
-    public void OnClickShoworHideTablet()
+    private void OnClickShoworHideTablet()
     {
         if (isTablet)
         {
@@ -60,19 +67,18 @@ public class City_TabletMovement : MonoBehaviour
         }
     }
 
-    public void InitTablet()
+    private void InitTablet()
     {
         Tablet.transform.localPosition = new Vector3(-2000, 0, 0);
     }
-
-    public void OnClickShowTablet()
+    private void OnClickShowTablet()
     {
         // Tablet을 -2000,0,0에서 0,0,0으로 이동
         Tablet.transform.localPosition = new Vector3(-2000, 0, 0);
         Tablet.transform.DOLocalMove(Vector3.zero, 1f); // 1초 동안 이동
     }
 
-    public void OnClickHideTablet()
+    private void OnClickHideTablet()
     {
         // Tablet을 0,0,0에서 -2000,0,0으로 이동
         Tablet.transform.localPosition = new Vector3(0, 0, 0);

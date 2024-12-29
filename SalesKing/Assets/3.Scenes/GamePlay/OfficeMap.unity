@@ -8636,6 +8636,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: ConversationPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 2326489548275086481, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018157027251534556, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018157027251534556, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018157027251534556, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3131941787046609872}
+    - target: {fileID: 3018157027251534556, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018157027251534556, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ShowTablet
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018157027251534556, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: City_TabletMovement, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018157027251534556, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4615117834128547565, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -8749,10 +8781,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3131941787046609867}
     - target: {fileID: 7502339977101193466, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
+      propertyPath: newsSpawner
+      value: 
+      objectReference: {fileID: 1925804291}
+    - target: {fileID: 7502339977101193466, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
       propertyPath: cityTabletData
       value: 
       objectReference: {fileID: 3131941787046609867}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5162957545131289466, guid: 442fe274fde826a4fa7133684799b3b8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -9839,6 +9876,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9adc3bed8d519894395a5de0392891e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3131941787046609872 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7778226297131338338, guid: 0573610284f68a443b6dcce9e446a99d, type: 3}
+  m_PrefabInstance: {fileID: 3131941787046609863}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3131941787046609866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2d46e0df55644f46a9db4e890cd1fb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
