@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class TutorialFadeEffect : TutorialBase
 {
@@ -10,6 +11,8 @@ public class TutorialFadeEffect : TutorialBase
 	private	bool		isFadeIn = false;
     [SerializeField]
     private bool		isGoneAfterEffect = false;
+	[SerializeField]
+    private bool		isChangeScene = false;
     private	bool		isCompleted = false;
 
 	private float		duration = 1f;
@@ -47,8 +50,11 @@ public class TutorialFadeEffect : TutorialBase
 
 	public override void Exit()
 	{
-		if (isGoneAfterEffect) fade_image.gameObject.SetActive(false);
-
+		if (isChangeScene) {
+            SceneManager.LoadScene("Start");
+        }
+		
+        if (isGoneAfterEffect) fade_image.gameObject.SetActive(false);
     }
 }
 

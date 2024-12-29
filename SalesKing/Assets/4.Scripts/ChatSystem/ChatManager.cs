@@ -16,6 +16,7 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
 
     [SerializeField] City_ChattingUI cityChattingUI;
     [SerializeField] City_TabletDataManager cityTabletData;
+    [SerializeField] NewsSpawner newsSpawner;
 
     public NpcInfo ThisNpc { get; private set; }
 
@@ -29,7 +30,6 @@ public class ChatManager : Singleton<ChatManager> , ISingletonSettings
 
     public void Init(int NpcID=0)
     {
-        cityChattingUI.GetComponent<City_ChattingUI>();
         isConvo = true;
         
         ThisNpc = cityTabletData.todaysIDdict[NpcID];

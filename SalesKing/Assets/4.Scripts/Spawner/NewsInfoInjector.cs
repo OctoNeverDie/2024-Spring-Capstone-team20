@@ -16,19 +16,19 @@ public class NewsInfoInjector
             this.News = _news;
         }
     }
-
-    private List<NpcEval> NpcNews = new List<NpcEval>();
+    //임시. 원래는 json 형태로 넣어놓고, dictionary로 변환해야함. 만약 새로하기 한다면 삭제하고.
+    private List<NpcEval> TodayNpcNews = new List<NpcEval>();
 
     public void UpdateEvaluationData(string summary, NpcInfo thisNpc = null)
     {
-        NpcNews.Add(new NpcEval(thisNpc, summary));
+        TodayNpcNews.Add(new NpcEval(thisNpc, summary));
     }
 
     public bool InjectInfo(int i, RectTransform item)
     {
         TextMeshProUGUI news = item.GetComponentInChildren<TextMeshProUGUI>();
-        if (NpcNews[i].News.Trim() != "") {
-            news.text = NpcNews[i].News;
+        if (TodayNpcNews[i].News.Trim() != "") {
+            news.text = TodayNpcNews[i].News;
             return true;
         }
         return false;

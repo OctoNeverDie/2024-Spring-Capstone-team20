@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,5 +18,4 @@ public class TutorialManager : Singleton<TutorialManager>, ISingletonSettings
         Instantiate(tutorial_list[day_index], transform);
         controller = GetComponentInChildren<TutorialController>();
     }
-
 }

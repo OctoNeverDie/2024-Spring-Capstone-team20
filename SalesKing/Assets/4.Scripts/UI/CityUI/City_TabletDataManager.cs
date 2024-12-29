@@ -30,10 +30,6 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
             today = DataController.Instance.gameData.cur_day_ID;
             npcIDs = storyNpcSO.storyNpcs[today].npc_IDs;
         }
-        else
-        {
-            npcIDs = MuhanNpcDataManager.Instance.npc_IDs;
-        }
 
         for (int i = 0; i < npcIDs.Count; i++)
         {
@@ -104,6 +100,7 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
 
     public void UpdateItemData(string ObjName, int thisNpcID)
     { 
+
         npcInfoUI.UpdateItemData(ObjName, thisNpcID);
     }
 

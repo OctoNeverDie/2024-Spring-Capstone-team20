@@ -1,17 +1,21 @@
 using UnityEngine;
 using System.Collections;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 
-public class NewsSpawner : MonoBehaviour
+public class NewsSpawner : Singleton<NewsSpawner>, ISingletonSettings
 {
+    [SerializeField] private GameObject backPanel;
     [SerializeField] public DayEvalSO dayEvalSO;
     [SerializeField] private GameObject evalPanelSpawner;
     [SerializeField] private float waitforNext = 1;
 
-    private NewsInfoInjector injector = new NewsInfoInjector();
+    public NewsInfoInjector injector = new NewsInfoInjector();
     private PositionAdjuster adjuster = new PositionAdjuster();
+    
     public int success { private set; get; } = 0;
     public int allEvent { private set; get; } = 0;
+
+    public bool ShouldNotDestroyOnLoad => false;
 
     ////-----------------------------------
     //[Header("Test-----------------------")]
@@ -35,10 +39,16 @@ public class NewsSpawner : MonoBehaviour
         if(isBuy)
             success++;
         allEvent++;
+
+        if (thisNpc.NpcID == 1) { //제리체리제리
+            DataController.Instance.gameData.jerryCherry_1_3 = Evaluation;
+        }
+
         injector.UpdateEvaluationData(Evaluation, thisNpc);
     }
 
     public void ShowNews(int curDay) {
+        backPanel.SetActive(true);
         SpawnItem(curDay);
         StartCoroutine(ShowInOrder());
     }
