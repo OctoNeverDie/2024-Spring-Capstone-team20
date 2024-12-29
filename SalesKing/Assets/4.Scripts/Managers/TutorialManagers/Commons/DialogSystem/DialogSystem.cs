@@ -36,7 +36,7 @@ public class DialogSystem : MonoBehaviour
 				// 타이핑 효과를 중지하고, 현재 대사 전체를 출력한다
 				StopCoroutine("TypingText");
 				isTypingEffect = false;
-                textDialogue.text = dialogs[currentIndex].dialogue;
+                textDialogue.text = dialogs[currentIndex].dialogue + "";
 				// 대사가 완료되었을 때 출력되는 커서 활성화
 				objectArrow.SetActive(true);
 
