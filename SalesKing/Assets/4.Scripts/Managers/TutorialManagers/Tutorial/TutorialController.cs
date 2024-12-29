@@ -35,7 +35,6 @@ public class TutorialController : MonoBehaviour
 		// 현재 튜토리얼의 Exit() 메소드 호출
 		if ( currentTutorial != null )
 		{
-            Debug.Log("안 들어와?");
             currentTutorial.Exit();
 		}
 

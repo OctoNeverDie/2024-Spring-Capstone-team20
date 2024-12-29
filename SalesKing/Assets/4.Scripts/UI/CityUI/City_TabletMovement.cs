@@ -8,14 +8,12 @@ using UnityEngine.UI;
 public class City_TabletMovement : MonoBehaviour
 {
     [SerializeField] private GameObject Tablet;
-    [SerializeField] private Button tabletBtn;
     SwipeController swipeController;
    
     public bool isTablet = false;
 
     private void Awake()
     {
-        tabletBtn.onClick.AddListener(TabletMatch);
         swipeController = Tablet.GetComponent<SwipeController>();
     }
     private void Start()

@@ -5209,7 +5209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTest: 0
-  isLocal: 1
+  isLocal: 0
 --- !u!1 &1000314207
 GameObject:
   m_ObjectHideFlags: 0
@@ -5523,6 +5523,7 @@ MonoBehaviour:
     this_game_mode: 0
     cur_day_ID: 0
     cleared_npc_count: 0
+    jerryCherry_1_3: 
 --- !u!4 &1048742778
 Transform:
   m_ObjectHideFlags: 0
