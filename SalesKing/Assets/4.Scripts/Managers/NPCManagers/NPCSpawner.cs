@@ -15,7 +15,7 @@ public class NPCSpawner : MonoBehaviour
     {
         if (check_for_tuto_end)
         {
-            if (TutorialManager.Instance != null && TutorialManager.Instance.controller.isComplete)
+            if (TutorialManager.Instance != null && TutorialManager.Instance.controller != null && TutorialManager.Instance.controller.isComplete)
             {
                 SpawnNextNPC();
                 check_for_tuto_end = false;

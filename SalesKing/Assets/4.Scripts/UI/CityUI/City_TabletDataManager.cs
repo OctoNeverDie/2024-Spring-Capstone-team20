@@ -12,15 +12,16 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
     [SerializeField] NpcLookSO npcLookSO;
 
     private int today = -1;
-    public Dictionary<int, NpcInfo> todaysIDdict = new Dictionary<int, NpcInfo>();
-    public List<int> npcIDs = new List<int>();//오늘의 npcs, 순서대로 태블릿에 들어감
+    public Dictionary<int, NpcInfo> todaysIDdict;
+    public List<int> npcIDs;//오늘의 npcs, 순서대로 태블릿에 들어감
 
-    public bool ShouldNotDestroyOnLoad => false;
+    public bool ShouldNotDestroyOnLoad => true;
 
     private void Start()
     {
-        if(MuhanNpcDataManager.Instance==null)
-            InitNpc(true);
+        todaysIDdict = new Dictionary<int, NpcInfo>();
+        npcIDs = new List<int>();
+        InitNpc(true);
     }
 
     public void InitNpc(bool isStory)
@@ -112,6 +113,7 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
     public void ShowDaySummary()
     {
         DataController.Instance.gameData.cleared_npc_count += newsSpawner.success;
-        newsSpawner.ShowNews(DataController.Instance.gameData.cur_day_ID);
+        int day = DataController.Instance.gameData.cur_day_ID;
+        newsSpawner.ShowNews(day);
     }
 }

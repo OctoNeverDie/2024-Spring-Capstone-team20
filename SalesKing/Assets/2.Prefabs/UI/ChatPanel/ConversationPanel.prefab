@@ -1790,7 +1790,6 @@ GameObject:
   - component: {fileID: 441049109306599079}
   - component: {fileID: 3018157027251534556}
   - component: {fileID: 4367428372080782364}
-  - component: {fileID: 5162957545131289466}
   - component: {fileID: 4503586965647644964}
   m_Layer: 5
   m_Name: TabletButton
@@ -1898,20 +1897,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sizeUp: 1.2
---- !u!114 &5162957545131289466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1602489706842183053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38b96ffd8c8a3b5478dfd3810905d78d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tablet: {fileID: 0}
-  PhonePanel: {fileID: 0}
 --- !u!114 &4503586965647644964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2387,6 +2372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cityChattingUI: {fileID: 7404982861178894064}
   cityTabletData: {fileID: 0}
+  newsSpawner: {fileID: 0}
   playerItemName: "\uC0AC\uD0D5"
 --- !u!114 &7404982861178894064
 MonoBehaviour:
