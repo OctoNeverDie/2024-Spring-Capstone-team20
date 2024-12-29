@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class TutorialController : MonoBehaviour
 {
@@ -10,13 +9,13 @@ public class TutorialController : MonoBehaviour
 	private	int					currentIndex = -1;
 
 	[SerializeField]
-	private GameObject canvas;
+	private GameObject endingCanvas;
 
 	public bool isComplete = false;
 
     private void Start()
 	{
-		canvas.SetActive(true);
+        endingCanvas.SetActive(true);
 
         if (PlayerManager.Instance != null && PlayerManager.Instance.player != null) PlayerManager.Instance.player.FreezeAndUnFreezePlayer(true);
 		if(UserInputManager.Instance != null) UserInputManager.Instance.isKeyInputLocked = true;
@@ -36,11 +35,12 @@ public class TutorialController : MonoBehaviour
 		// 현재 튜토리얼의 Exit() 메소드 호출
 		if ( currentTutorial != null )
 		{
-			currentTutorial.Exit();
+            Debug.Log("안 들어와?");
+            currentTutorial.Exit();
 		}
 
 		// 마지막 튜토리얼을 진행했다면 CompletedAllTutorials() 메소드 호출
-		if ( currentIndex >= tutorials.Count -1 )
+		if(currentIndex >= tutorials.Count -1)
 		{
 			Debug.Log("마지막 튜토리얼 끝");
 			CompletedAllTutorials();

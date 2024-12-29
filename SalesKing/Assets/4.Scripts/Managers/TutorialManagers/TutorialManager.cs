@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,5 +16,4 @@ public class TutorialManager : Singleton<TutorialManager>, ISingletonSettings
         int day_index = DataController.Instance.gameData.cur_day_ID;
         Instantiate(tutorial_list[day_index], transform);
     }
-
 }
