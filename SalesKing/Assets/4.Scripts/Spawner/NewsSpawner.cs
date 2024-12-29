@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class NewsSpawner : Singleton<NewsSpawner>, ISingletonSettings
 {
+    [SerializeField] private GameObject backPanel;
     [SerializeField] public DayEvalSO dayEvalSO;
     [SerializeField] private GameObject evalPanelSpawner;
     [SerializeField] private float waitforNext = 1;
@@ -47,6 +48,7 @@ public class NewsSpawner : Singleton<NewsSpawner>, ISingletonSettings
     }
 
     public void ShowNews(int curDay) {
+        backPanel.SetActive(true);
         SpawnItem(curDay);
         StartCoroutine(ShowInOrder());
     }
