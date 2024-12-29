@@ -5,6 +5,7 @@ public class TutorialManager : Singleton<TutorialManager>, ISingletonSettings
 {
     [SerializeField] private List<GameObject> tutorial_list = new List<GameObject>();
     public bool ShouldNotDestroyOnLoad => true;
+    [HideInInspector]
     public TutorialController controller;
 
     protected override void Awake()

@@ -790,7 +790,8 @@ MonoBehaviour:
   - {fileID: 4083661864250891112}
   - {fileID: 1089115842745063985}
   - {fileID: 1089115842745063985}
-  canvas: {fileID: 8280948817325167699}
+  endingCanvas: {fileID: 8280948817325167699}
+  isComplete: 0
 --- !u!1 &2305853566882394651
 GameObject:
   m_ObjectHideFlags: 0
