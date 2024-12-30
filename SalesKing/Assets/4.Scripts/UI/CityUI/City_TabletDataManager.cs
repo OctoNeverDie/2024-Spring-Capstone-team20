@@ -29,6 +29,7 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
         if(isStory)
         {
             today = DataController.Instance.gameData.cur_day_ID;
+            Debug.Log($"today : {today}");
             npcIDs = storyNpcSO.storyNpcs[today].npc_IDs;
         }
 
@@ -55,10 +56,17 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
         string persuasionStr = "";
         for (int i = 0; i < mbtis.Length; i++)
         {
-            persuasionStr += MakeColor(i, mbtis[i]) + " ";
+            string str = MakeColor(i, mbtis[i]);
+            if (str == "")
+                continue;
+
+            persuasionStr += str;
         }
 
-        return persuasionStr;
+        if (persuasionStr.Length > 10)
+            persuasionStr = persuasionStr.Substring(0, persuasionStr.Length - 10);//, <color> 뻬는 거임
+
+            return persuasionStr;
     }
     private string MakeColor(int mbti, int prefer)
     {
@@ -88,10 +96,10 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
         switch (prefer)
         {
             case -1:
-                result = "<color=red>" + "-" + mbtiType + "</color>";
+                result = "<color=red>" + "-" + mbtiType + ", </color>";
                 break;
             case 1:
-                result = "<color=green>" + "+" + mbtiType + "</color>";
+                result = "<color=green>" + "+" + mbtiType + ", </color>";
                 break;
             default: break;
         }

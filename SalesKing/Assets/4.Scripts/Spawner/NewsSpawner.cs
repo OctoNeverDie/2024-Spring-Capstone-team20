@@ -18,25 +18,25 @@ public class NewsSpawner : Singleton<NewsSpawner>, ISingletonSettings
     public bool ShouldNotDestroyOnLoad => false;
 
     ////-----------------------------------
-    [Header("Test-----------------------")]
-    [SerializeField] private List<string> testSentences;
-    [SerializeField] private int testDay = 1;
+    //[Header("Test-----------------------")]
+    //[SerializeField] private List<string> testSentences;
+    //[SerializeField] private int testDay = 1;
 
-    private void OnEnable()
-    {
-        Test(testDay);
-    }
+    //private void OnEnable()
+    //{
+    //    Test(testDay);
+    //}
 
-    private void Test(int testDay)
-    {
-        foreach (var npc in testSentences)
-        {
-            allEvent++;
-            injector.UpdateEvaluationData(npc);
-        }
+    //private void Test(int testDay)
+    //{
+    //    foreach (var npc in testSentences)
+    //    {
+    //        allEvent++;
+    //        injector.UpdateEvaluationData(npc);
+    //    }
 
-        ShowNews(testDay);
-    }
+    //    ShowNews(testDay);
+    //}
     ////-----------------------------------
 
     public void UpdateEvaluationData(string Evaluation, NpcInfo thisNpc, bool isBuy) {
