@@ -33,8 +33,8 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
     {
         _currentPage = 1;//현재 page, 1부터 시작
         _firstVacantPageLocation = _npcPagesRect.localPosition;
-        Debug.Log($"{_npcPagesRect.localPosition} _npcPagesRect.localPosition");
-        Debug.Log($"_firstVacantPageLocation = _npcPagesRect.localPosition;{_firstVacantPageLocation}");
+        //Debug.Log($"{_npcPagesRect.localPosition} _npcPagesRect.localPosition");
+        //Debug.Log($"_firstVacantPageLocation = _npcPagesRect.localPosition;{_firstVacantPageLocation}");
         _pageStep = (_scrollWidth+ _spacing); //scroll 나오는 화면 + spacing
         _dragThreshold = Screen.width / 10;//드래그 인식 범위
 

@@ -20,7 +20,7 @@ public class AudioManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // 씬 전환 시 오브젝트 유지
+            //DontDestroyOnLoad(gameObject); // 씬 전환 시 오브젝트 유지
             LoadSounds(); // 사운드 자동 로드
         }
         else

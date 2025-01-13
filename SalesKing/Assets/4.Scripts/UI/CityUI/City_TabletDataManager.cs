@@ -41,7 +41,7 @@ public class City_TabletDataManager : Singleton<City_TabletDataManager>, ISingle
                     .Where(n => n.NpcID == npcIDs[i])
                     .FirstOrDefault(); // 해당 요소 반환 또는 null
             todaysIDdict.Add(npcIDs[i], npc);
-            Debug.Log($"todaysIDdict.Add(npcIDs[i], npc);, {npcIDs[i]}, {npc.NpcName}");
+            //Debug.Log($"todaysIDdict.Add(npcIDs[i], npc);, {npcIDs[i]}, {npc.NpcName}");
 
             string colorPersuasion = ColorPersuasion(npc.Mbtis);
             Sprite npcProfile = npcLookSO.npcLooks

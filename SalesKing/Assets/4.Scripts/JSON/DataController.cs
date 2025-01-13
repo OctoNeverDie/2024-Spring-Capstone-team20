@@ -97,11 +97,11 @@ public class DataController : MonoBehaviour
     {
         string filePath = GetGameDataFilePath();
 
-        Debug.Log(filePath);
+        //Debug.Log(filePath);
 
         if (File.Exists(filePath))
         {
-            print(filePath);
+            //print(filePath);
             string FromJsonData = File.ReadAllText(filePath);
             _gameData = JsonUtility.FromJson<GameData>(FromJsonData);
         }
@@ -124,11 +124,11 @@ public class DataController : MonoBehaviour
     public void LoadPlayData(string playDataID)
     {
         string filePath = GetPlayDataFilePath(playDataID);
-        Debug.Log(filePath);
+        //Debug.Log(filePath);
 
         if (File.Exists(filePath))
         {
-            Debug.Log(filePath);
+            //Debug.Log(filePath);
             string FromJsonData = File.ReadAllText(filePath);
             _playData = JsonUtility.FromJson<PlayData>(FromJsonData);
         }
@@ -150,21 +150,21 @@ public class DataController : MonoBehaviour
         if (File.Exists(filePath))
         {
             File.Delete(filePath);
-            Debug.Log($"Deleted JSON file: {filePath}");
+            //Debug.Log($"Deleted JSON file: {filePath}");
         }
 
         // 메타 파일 삭제
         if (File.Exists(metaFilePath))
         {
             File.Delete(metaFilePath);
-            Debug.Log($"Deleted meta file: {metaFilePath}");
+            //Debug.Log($"Deleted meta file: {metaFilePath}");
         }
 
         // gameData에서 ID 제거
         if (gameData.save_files_IDs.Contains(playDataID))
         {
             gameData.save_files_IDs.Remove(playDataID);
-            Debug.Log($"Removed {playDataID} from save_files_IDs.");
+            //Debug.Log($"Removed {playDataID} from save_files_IDs.");
         }
     }
 
